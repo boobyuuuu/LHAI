@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'simfang';
+    src: url('../fonts/simfang.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'hgfs';
+    src: url('../fonts/HGFS_CNKI.TTF') format('truetype');
+}
+
+@font-face {
+    font-family: 'xiaokai';
+    src: url('../fonts/小楷.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'shuimo';
+    src: url('../fonts/77675eaae4d92cf0d1588258009 (1).ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'FZSTK';
+    src: url('../fonts/FZSTK.TTF') format('truetype');
+}
+
+@font-face {
+    font-family: 'times';
+    src: url('../fonts/TIMES.TTF') format('truetype');
+}
+
+body {
+    font-family: 'times','simfang',sans-serif;
+}
