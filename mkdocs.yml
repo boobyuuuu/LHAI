@@ -144,3 +144,4 @@ nav:
     - index: mains/codes/index.md
   - 其他技术文档:
     - index: mains/others/index.md
+    - 加入文档指导: mains/others/1.md
