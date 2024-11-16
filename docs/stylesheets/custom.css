@@ -1,0 +1,43 @@
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+  }
+  
+h1::before {
+content: "";
+display: block;
+border-bottom: 4px solid black;
+margin-bottom: 0.5em;
+background-color: white;
+height: 0.27em;
+}
+
+h1::after {
+content: "";
+display: block;
+border-bottom: 2px solid black;
+margin-top: 0.5em;
+background-color: white;
+height: 0.18em;
+}
+
+h2::after {
+content: "";
+display: block;
+border-bottom: 2px solid black;
+margin-top: 0em;
+background-color: white;
+height: 0.15em;
+}
+
+h3::after, h4::after, h5::after, h6::after {
+    content: "";
+    display: block;
+    border-bottom: 1px solid black;
+    margin-top: 0em;
+    background-color: white;
+    height: 0.1em;
+}
+  
+p r {
+  color: red;
+}

@@ -1,1 +1,146 @@
-site_name: My Docs
+site_name: LHAI
+site_description: >-
+  NJU AI programs for LHAASO
+
+# 主体设置
+theme:
+  name: material
+  logo: assets/favicon.png
+  icon: 
+    logo: material/notebook-outline
+  custom_dir: material/overrides
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    - content.tooltips
+    # - navigation.footer
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+  palette:
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: sunset glow
+      toggle:
+        icon: material/weather-night # 图标(可改)
+        name: Switch to dark mode
+  # font:
+  #   text: Roboto
+  #   code: Roboto Mono
+
+# 搜索用的插件
+plugins:
+  - blog
+  - search:
+      separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - minify:
+      minify_html: true
+  # - with-pdf
+
+# Markdown Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      auto_append:
+        - includes/mkdocs.md
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra_javascript:
+  # 渲染公式用的4个工具。注意：一定要联网，不然会乱码
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js
+  - https://cdn.tonycrane.cc/utils/katex.min.js
+  - js/katex.js
+
+# 拓展自定义css模板
+extra_css:
+  - stylesheets/extra.css # 字体
+  - stylesheets/custom.css # 格式排版
+  - css/tasklist.css
+  - css/custom.css
+  - css/card.css
+  - css/flink.css
+  - css/changelog_extra.css
+
+# 字体
+extra:
+  fonts:
+    - name: times
+      url: fonts/TIMES.TTF # 英文
+    - name: simfang
+      url: fonts/simfang.ttf # 中文字体
+    - name: hgfs
+      url: fonts/HGFS_CNKI.TTF
+
+# Page-Tree
+nav:
+  - Index: index.md
+  - 数据篇: 
+    - index: mains/data/index.md
+  - 技术篇:
+    - index: mains/tech/index.md
+  - 验证篇:
+    - index: mains/eval/index.md
+  - 代码结构详解:
+    - index: mains/codes/index.md
+  - 其他技术文档:
+    - index: mains/others/index.md
