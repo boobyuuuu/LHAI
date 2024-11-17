@@ -32,7 +32,7 @@ Available for Windows (10 and later), Mac (macOS 10.15 and later) & Linux thanks
 
 ### About LHAI
 
-- [The Second LHAASO Collaboration Conference in 2024](docs/resources/final_poster.pptx)
+- [Poster: The Second LHAASO Collaboration Conference in 2024](docs/resources/final_poster.pptx)
 
 - [Xingwei's PPT about LHAI](docs/resources/241019.pdf)
 
