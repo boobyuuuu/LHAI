@@ -8,9 +8,10 @@ FreeTube is an open source desktop YouTube player built with privacy in mind.
 Use YouTube without advertisements and prevent Google from tracking you with their cookies and JavaScript.
 Available for Windows (10 and later), Mac (macOS 10.15 and later) & Linux thanks to Electron.
 
+<p align="center"><a href="https://github.com/FreeTubeApp/FreeTube/releases">Download FreeTube</a></p>
 <p align="center">
-  <a href="https://github.com/boobyuuuu/LHAI/actions/workflows/build.yml">
-    <img alt='Build status' src="https://github.com/boobyuuuu/LHAI/actions/workflows/build.yml/badge.svg?branch=development" />
+  <a href="https://github.com/FreeTubeApp/FreeTube/actions/workflows/build.yml">
+    <img alt='Build status' src="https://github.com/FreeTubeApp/FreeTube/actions/workflows/build.yml/badge.svg?branch=development" />
   </a>
   <a href="https://hosted.weblate.org/engage/free-tube/">
     <img src="https://hosted.weblate.org/widgets/free-tube/-/svg-badge.svg" alt="Translation status" />
@@ -29,4 +30,14 @@ Available for Windows (10 and later), Mac (macOS 10.15 and later) & Linux thanks
 
 ## Resources
 
+### About LHAI
+
 - The Second LHAASO Collaboration Conference in 2024：[final poster](docs/resources/final_poster.pptx)
+
+- Xingwei's PPT about LHAI: [Xaingwei's PPT](docs/resources/241019.pdf)
+
+- Zihang's PPT on conference: [Zihang's PPT](docs/resources/POS_64.PPTX)
+
+### About LHAASO
+
+- Traditional Methods: [](docs/resources/利用LHAASO-KM2A...研究及ED-PMT批量测试_于艳红.pdf)
