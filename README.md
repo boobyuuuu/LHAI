@@ -9,8 +9,8 @@ Use YouTube without advertisements and prevent Google from tracking you with the
 Available for Windows (10 and later), Mac (macOS 10.15 and later) & Linux thanks to Electron.
 
 <p align="center">
-  <a href="https://github.com/FreeTubeApp/FreeTube/actions/workflows/build.yml">
-    <img alt='Build status' src="https://github.com/FreeTubeApp/FreeTube/actions/workflows/build.yml/badge.svg?branch=development" />
+  <a href="https://github.com/boobyuuuu/LHAI/actions/workflows/build.yml">
+    <img alt='Build status' src="https://github.com/boobyuuuu/LHAI/actions/workflows/build.yml/badge.svg?branch=development" />
   </a>
   <a href="https://hosted.weblate.org/engage/free-tube/">
     <img src="https://hosted.weblate.org/widgets/free-tube/-/svg-badge.svg" alt="Translation status" />
@@ -27,4 +27,6 @@ Available for Windows (10 and later), Mac (macOS 10.15 and later) & Linux thanks
 >
 > If you have an idea or if you found a bug, please submit a [GitHub issue](https://github.com/FreeTubeApp/FreeTube/issues/new/choose) so that we can track it.  Please search [the existing issues](https://github.com/FreeTubeApp/FreeTube/issues) before submitting to prevent duplicates!
 
-## Screenshots
+## Resources
+
+- The Second LHAASO Collaboration Conference in 2024：[final poster](docs/resources/final_poster.pptx)
