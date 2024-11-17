@@ -32,12 +32,12 @@ Available for Windows (10 and later), Mac (macOS 10.15 and later) & Linux thanks
 
 ### About LHAI
 
-- The Second LHAASO Collaboration Conference in 2024：[final poster](docs/resources/final_poster.pptx)
+- [The Second LHAASO Collaboration Conference in 2024](docs/resources/final_poster.pptx)
 
-- Xingwei's PPT about LHAI: [Xaingwei's PPT](docs/resources/241019.pdf)
+- [Xingwei's PPT about LHAI](docs/resources/241019.pdf)
 
-- Zihang's PPT on conference: [Zihang's PPT](docs/resources/POS_64.PPTX)
+- [Zihang's PPT on conference](docs/resources/POS_64.PPTX)
 
 ### About LHAASO
 
-- Traditional Methods: [](docs/resources/利用LHAASO-KM2A...研究及ED-PMT批量测试_于艳红.pdf)
+- [Traditional Methods](docs/resources/利用LHAASO-KM2A...研究及ED-PMT批量测试_于艳红.pdf)
