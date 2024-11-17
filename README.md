@@ -17,7 +17,7 @@
 </p>
 
 <hr>
-<p align="center"><a href="#README">README</a> &bull; <a href="#How-Does-This-Manual-Work">How Does This Manual Work</a> &bull; <a href="#Structure-of-This-Manual">Structure of This Manual</a> &bull; <a href="#Becoming-a-Collaborator">Becoming a Collaborator</a> &bull; <a href="#Resources">Resources</a></p>
+<p align="center"><a href="#1-README">README</a> &bull; <a href="#2-How-Does-This-Manual-Work">How Does This Manual Work</a> &bull; <a href="#3-Structure-of-This-Manual">Structure of This Manual</a> &bull; <a href="#4-Becoming-a-Collaborator">Becoming a Collaborator</a> &bull; <a href="#5-Resources">Resources</a></p>
 <hr>
 
 > [!NOTE]  
