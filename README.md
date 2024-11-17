@@ -18,36 +18,8 @@ Available for Windows (10 and later), Mac (macOS 10.15 and later) & Linux thanks
   </a>
 </p>
 
-<hr>
-<p align="center"><a href="#screenshots">Screenshots</a> &bull; <a href="#how-does-it-work">How does it work?</a> &bull; <a href="#features">Features</a> &bull; <a href="#download-links">Download Links</a> &bull; <a href="#contributing">Contributing</a> &bull; <a href="#localization">Localization</a> &bull; <a href="#contact">Contact</a> &bull; <a href="#donate">Donate</a> &bull; <a href="#license">License</a></p>
-<p align="center"><a href="https://freetubeapp.io/">Website</a> &bull; <a href="https://blog.freetubeapp.io/">Blog</a> &bull; <a href="https://docs.freetubeapp.io/">Documentation</a> &bull; <a href="https://docs.freetubeapp.io/faq/">FAQ</a> &bull; <a href="https://github.com/FreeTubeApp/FreeTube/discussions">Discussions</a></p>
-<hr>
+## README
 
-> [!NOTE] 
-> FreeTube is currently in Beta. While it should work well for most users, there are still bugs and missing features that need to be addressed.
->
-> If you have an idea or if you found a bug, please submit a [GitHub issue](https://github.com/FreeTubeApp/FreeTube/issues/new/choose) so that we can track it.  Please search [the existing issues](https://github.com/FreeTubeApp/FreeTube/issues) before submitting to prevent duplicates!
-
-## How does this mannual work?
-
-### Git
-
-### mkdocs
-
-## Structure of this mannual
-
-## Become the collaborator
-
-## Resources
-
-### About LHAI
-
-- [Poster: The Second LHAASO Collaboration Conference in 2024](docs/resources/final_poster.pptx)
-
-- [Xingwei's PPT about LHAI](docs/resources/241019.pdf)
-
-- [Zihang's PPT on conference](docs/resources/POS_64.PPTX)
-
-### About LHAASO
-
-- [Traditional Methods](docs/resources/利用LHAASO-KM2A...研究及ED-PMT批量测试_于艳红.pdf)
+- [中文](README_zh.md)
+ 
+- [English](README_en.md)
