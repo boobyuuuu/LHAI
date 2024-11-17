@@ -26,13 +26,13 @@
 > If you spot any issues or have suggestions for improvement, please submit a [GitHub issue](https://github.com/boobyuuuu/LHAI/issues/new/choose) to help us track and address it. Make sure to check [existing issues](https://github.com/boobyuuuu/LHAI/issues) first to avoid duplicates!
 
 
-## README
+## 1 README
 
 - [查看中文版](README_zh.md)
  
 - [English version](README_en.md)
 
-## How Does This Manual Work
+## 2 How Does This Manual Work
 
 This user manual is based on **MkDocs** for webpage construction, utilizes **Git** for version control and collaborative management, and is published online through **GitHub Pages**.
 
@@ -134,7 +134,7 @@ This user manual is based on **MkDocs** for webpage construction, utilizes **Git
           run: mkdocs gh-deploy --force
   ```
 
-## Structure of This Manual
+## 3 Structure of This Manual
 
 **Homepage**: Contains a directory and visual representation of results (Results Section).
 
@@ -145,7 +145,7 @@ This user manual is based on **MkDocs** for webpage construction, utilizes **Git
 - **Code Structure Explanation**
 - **Other Technical Documents** (Git, Markdown, MkDocs, Server)
 
-## Becoming a Collaborator
+## 4 Becoming a Collaborator
 
 ### **Prerequisites**:
 - Familiarity with Git, a VPN, and Python 3.10 or above.
@@ -200,7 +200,7 @@ This user manual is based on **MkDocs** for webpage construction, utilizes **Git
 
 **Follow this workflow strictly.**
 
-## Resources
+## 5 Resources
 
 ### **About LHAI**
 - [Poster: The Second LHAASO Collaboration Conference in 2024](docs/resources/final_poster.pptx)
