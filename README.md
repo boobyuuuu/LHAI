@@ -202,7 +202,7 @@ This user manual is based on **MkDocs** for webpage construction, utilizes **Git
 
 ## 5 未来的研究目标与问题
 
-### 1.在ihep老师完成程序开发之前
+### 在ihep老师完成程序开发之前
 
 a.模拟intensity map（内禀（intrinsic）图像）而非用一个更小的PSF卷积的图像
 
@@ -222,7 +222,7 @@ f.完善代码注释，适当重写，用户手册撰写 （gxw, lzh）
 
 g.改进模型的损失函数等 （种类、比例……）
 
-### 2.在拿到程序之后
+### 在拿到程序之后
 
 a.足够多的样本生成，前期阶段性成果
 
