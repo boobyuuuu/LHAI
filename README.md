@@ -17,7 +17,7 @@
 </p>
 
 <hr>
-<p align="center"><a href="#1-README">README</a> &bull; <a href="#2-How-Does-This-Manual-Work">How Does This Manual Work</a> &bull; <a href="#3-Structure-of-This-Manual">Structure of This Manual</a> &bull; <a href="#4-Becoming-a-Collaborator">Becoming a Collaborator</a> &bull; <a href="#5-Resources">Resources</a></p>
+<p align="center"><a href="#1-README">README</a> &bull; <a href="#2-How-Does-This-Manual-Work">How Does This Manual Work</a> &bull; <a href="#3-Structure-of-This-Manual">Structure of This Manual</a> &bull; <a href="#4-Becoming-a-Collaborator">Becoming a Collaborator</a> &bull; <a href="#5-未来的研究目标与问题">未来的研究目标与问题</a> &bull;<a href="#6-Resources">Resources</a></p>
 <hr>
 
 > [!NOTE]  
@@ -210,7 +210,7 @@ b.更多类型的源 （生成更不规则的源）
 
 c.gamma背景仍然使用Fermi LAT diffuse gamma； 宇宙线背景的分布调研。
 
-> [!TIPS]
+> [!TIP]
 >
 > 背景分为宇宙线背景（被错误分类为gamma射线的宇宙线），和伽马射线背景（弥散的辐射）。目前我们仅添加了弥散背景，使用Fermi LAT发布的伽马射线弥散背景模型。后续需要明确宇宙线背景的分布规律并添加到训练数据中。（宇宙线背景通常用多个背源窗口作平均得到，因此可能不服从Poisson分布。）
 
