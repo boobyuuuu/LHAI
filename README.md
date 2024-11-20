@@ -200,7 +200,34 @@ This user manual is based on **MkDocs** for webpage construction, utilizes **Git
 
 **Follow this workflow strictly.**
 
-## 5 Resources
+## 5 未来的研究目标与问题
+
+### 1.在ihep老师完成程序开发之前
+
+a.模拟intensity map（内禀（intrinsic）图像）而非用一个更小的PSF卷积的图像
+
+b.更多类型的源 （生成更不规则的源）
+
+c.gamma背景仍然使用Fermi LAT diffuse gamma； 宇宙线背景的分布调研。
+
+i.背景分为宇宙线背景（被错误分类为gamma射线的宇宙线），和伽马射线背景（弥散的辐射）。目前我们仅添加了弥散背景，使用Fermi LAT发布的伽马射线弥散背景模型。后续需要明确宇宙线背景的分布规律并添加到训练数据中。（宇宙线背景通常用多个背源窗口作平均得到，因此可能不服从Poisson分布。）
+
+d.不同机器学习模型, 尝试论文中的模型、前沿的超分辨技术 （cly）
+
+e.了解LHAASO的项目以及数据处理相关内容（hxy）
+
+f.完善代码注释，适当重写，用户手册撰写 （gxw, lzh）
+
+g.改进模型的损失函数等 （种类、比例……）
+
+### 2.在拿到程序之后
+
+a.足够多的样本生成，前期阶段性成果
+
+b.对不同PSF进行泛化（模态融合？ ）
+
+
+## 6 Resources
 
 ### **About LHAI**
 - [Poster: The Second LHAASO Collaboration Conference in 2024](docs/resources/final_poster.pptx)
