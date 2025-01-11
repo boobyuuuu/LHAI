@@ -123,7 +123,7 @@ nav:
   - Index: index.md
   - 数据篇: 
     - index: mains/data/index.md
-  - 技术篇:
+  - 训练篇:
     - index: mains/tech/index.md
   - 验证篇:
     - index: mains/eval/index.md
