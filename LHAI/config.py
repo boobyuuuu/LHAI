@@ -8,7 +8,7 @@ load_dotenv()
 PROJ_ROOT = Path(__file__).resolve().parents[1]
 logger.info(f"PROJ_ROOT path is: {PROJ_ROOT}")
 
-# Parameters
+# ---- Train Parameters ----
 EXP_NAME = "EXP_0_1"                                                                # 参数1：如果需要指定不同的实验，可以在这里修改
 MODEL_NAME = "CNN"                                                                  # 参数2：如果需要指定不同的模型，可以在这里修改
 MODEL_PATH = PROJ_ROOT / "LHAI" / "models" / f"{MODEL_NAME}_{EXP_NAME}.py"
@@ -24,6 +24,17 @@ LATENTDIM = 64                                                                  
 LR_MAX = 5e-4                                                                       # 参数11：如果需要指定不同的学习率上限，可以在这里修改
 LR_MIN = 5e-6                                                                       # 参数12：如果需要指定不同的学习率下限，可以在这里修改
 
+# ---- Test Parameters ----
+PRE_MODEL_PATH = PROJ_ROOT / "saves" / "MODEL"
+PRE_DATA_PATH = PROJ_ROOT / "data" / "POISSON"
+PRE_MODEL_NAME = "CNN_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth"
+RRE_MODEL = "CNN"
+PRE_DATA_NAME = "poisson_src_bkg.pkl.npy"
+PRE_SEED = 0
+PRE_TRAINTYPE = "poissonsrc+bkg_highresorig"
+PRE_FRAC_TRAIN = 0.8
+PRE_BATCH_SIZE = 32
+PRE_LATENT_DIM = 64
 
 try:
     from tqdm import tqdm
