@@ -82,7 +82,7 @@ def main(
     - DATA_PATH: {DATA_PATH}
     """)
     
-    MODEL_SAVE_NAME = f'{MODEL_NAME}_{EXP_NAME}_{EPOCHS}epo_{BATCH_SIZE}bth_{LATENTDIM}lat_{traintype}_{DATA_NAME}'
+    MODEL_SAVE_NAME = f'{MODEL_NAME}_{EXP_NAME}_{epochs}epo_{batch_size}bth_{latentdim}lat_{traintype}_{DATA_NAME}'
     
     # ---- 2-2 Load the data and model ----
     filetmp = np.load(DATA_PATH,allow_pickle=True)
