@@ -1,11 +1,10 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torchsummary import summary
 
-class UNet(nn.Module):
+class UNET(nn.Module):
     def __init__(self, in_channels, out_channels):
-        super(UNet, self).__init__()
+        super(UNET, self).__init__()
 
         # 下采样部分
         self.encoder1 = self.conv_block(in_channels, 64)

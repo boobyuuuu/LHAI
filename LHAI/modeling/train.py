@@ -32,9 +32,6 @@ app = typer.Typer()
 # ---- 02 Define the main function ----
 @app.command()
 def main(
-    # ---- REPLACE DEFAULT PATHS AS APPROPRIATE ----
-    # features_path: Path = PROCESSED_DATA_DIR / "features.csv",
-    # labels_path: Path = PROCESSED_DATA_DIR / "labels.csv",
     EXP_NAME: str = EXP_NAME, # para1: 实验名称
     MODEL_NAME: str = MODEL_NAME, # para2: 模型名称
     DATA_DIR: Path = DATA_DIR, # para3: 数据文件夹的路径
@@ -101,11 +98,18 @@ def main(
     testloader = DataLoader(testset,shuffle=True,batch_size=batch_size)
     
     # ---- 2-3 Initialize the model, loss function and optimizer ----
-    if MODEL_NAME == 'VAE':
+
+    if MODEL_NAME == 'CNN':
+        model = MODEL(0).to(device)
+    elif MODEL_NAME == 'VAE':
         model = MODEL(latentdim).to(device)
+    elif MODEL_NAME == 'GAN':
+        model = MODEL().to(device)
+    elif MODEL_NAME == 'UNET':
+        model = MODEL(0,0).to(device)
     else:
-        model = MODEL.to(device)
-    lossfunction = lossfunction()
+        model = MODEL(latentdim).to(device)
+
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr_max)
 
     logger.info("数据集的最大、最小值，以及一个样本")
