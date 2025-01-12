@@ -1,3 +1,5 @@
+site_url: https://boobyuuuu.github.io/LHAI/
+repo_url: https://github.com/boobyuuuu/LHAI
 site_name: LHAI
 site_description: >-
   NJU AI programs for LHAASO
@@ -161,8 +163,10 @@ nav:
     - index: Content/eval/index.md
   - Codes Section:
     - index: Content/codes/index.md
-    - data: Content/codes/data.md
-    - docs: Content/codes/docs.md
+    - DATA: Content/codes/data.md
+    - DOCS: Content/codes/docs.md
+    - LHAI: Content/codes/lhai.md
+    - SAVES: Content/codes/saves.md
   - Others Section:
     - ChangeLog: 
       - changelog/index.md
