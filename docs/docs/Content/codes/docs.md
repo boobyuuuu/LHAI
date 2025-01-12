@@ -1,10 +1,6 @@
 # LHAI Project Code: `docs` Folder
 
-This is the user manual for LHAI. The LHAI project aims to use AI technology for data processing of LHAASO (The Large High Altitude Air Shower Observatory).
-
-> This manual is actively maintained and updated by contributors. While we strive to keep the content accurate and comprehensive, there may still be areas for improvement or updates pending.  
-> 
-> If you spot any issues or have suggestions for improvement, please submit a [GitHub issue](https://github.com/boobyuuuu/LHAI/issues/new/choose) to help us track and address it. Make sure to check [existing issues](https://github.com/boobyuuuu/LHAI/issues) first to avoid duplicates!
+The 'docs' folder is used to store the user manual for LHAI, which is written in the 'mkdocs' format.
 
 ##  0 Folder Structure  
 
@@ -242,3 +238,5 @@ g.改进模型的损失函数等 （种类、比例……）
 a.足够多的样本生成，前期阶段性成果
 
 b.对不同PSF进行泛化（模态融合？ ）
+
+<p align='right'>by Zihang Liu</p>

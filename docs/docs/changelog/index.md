@@ -7,11 +7,15 @@
 > **Great updates**
 
 - Completed industrialization of the code and released on LHAI
-- Added content: Code Section/index
-- Added content: Code Section/data
-- Added content: Code Section/docs
+- Added content：Code Section/index
+- Added content：Code Section/DATA
+- Added content：Code Section/DOCS
+- Added content：Code Section/LHAI
+- Added content：Code Section/SAVES
+- Added content：Code Section/TRAIN
 - Added functionality: Chinese-English language switching
 - Added functionality `ChangeLog`: Others Section/ChangeLog
+- Fix bug: The content of language conversion on the homepage is missing
 
 ### 0.2.3 <small>January 1, 2025</small> { id="0.2.3" }
 

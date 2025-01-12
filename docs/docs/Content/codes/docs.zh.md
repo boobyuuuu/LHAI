@@ -1,6 +1,6 @@
 # LHAI项目代码：docs文件夹
 
-这是LHAI的用户手册。LHAI项目旨在运用AI技术进行LHAASO(The Large High Altitude Air Shower Observatory)的数据处理。
+`docs` 文件夹用于存放LHAI的用户手册，本用户手册以 `mkdocs` 格式书写。
 
 ## Folder Structure  
 
@@ -266,3 +266,5 @@ Git 是分布式版本控制系统，用于管理文档与代码版本，同时�
     （4）进行github-pages上传
 
     **请遵守这样的工作流程**
+
+<p align='right'>by Zihang Liu</p>

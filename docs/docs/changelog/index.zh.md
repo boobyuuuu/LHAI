@@ -4,13 +4,18 @@
 
 ### 1.0.0 <small>2025年1月12日</small> { id="1.0.0" }
 
-- 重大更新
+> 重大更新
+
 - 完成代码工业化，发布在LHAI
 - 添加内容：Code Section/index
-- 添加内容：Code Section/data
-- 添加内容：Code Section/docs
+- 添加内容：Code Section/DATA
+- 添加内容：Code Section/DOCS
+- 添加内容：Code Section/LHAI
+- 添加内容：Code Section/SAVES
+- 添加内容：Code Section/TRAIN
 - 添加功能 中英语言转换
 - 添加功能`ChangeLog`：Others Section/ChangeLog
+- 修改bug：首页语言转换内容丢失问题
 
 ### 0.2.3 <small>2025年1月1日</small> { id="0.2.3" }
 
