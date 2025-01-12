@@ -154,6 +154,7 @@ nav:
   - Index: index.md
   - Data Section: 
     - index: Content/data/index.md
+    - simulation: Content/data/simulation.md
   - Network Section:
     - index: Content/network/index.md
   - Eval Section:
