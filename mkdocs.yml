@@ -124,7 +124,7 @@ nav:
   - 数据篇: 
     - index: mains/data/index.md
   - 训练篇:
-    - index: mains/tech/index.md
+    - index: mains/train/index.md
   - 验证篇:
     - index: mains/eval/index.md
   - 代码结构详解:
