@@ -123,6 +123,7 @@ nav:
   - Index: index.md
   - 数据篇: 
     - index: mains/data/index.md
+    - Counts Map Simulation: mains/data/simulation.md
   - 训练篇:
     - index: mains/train/index.md
   - 验证篇:
