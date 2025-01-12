@@ -33,13 +33,44 @@ theme:
     #     name: Switch to dark mode
 
 # 搜索用的插件
+
 plugins:
-  - blog
-  - search:
-      separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
-  - minify:
-      minify_html: true
-  # - with-pdf
+  - search
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: en
+          name: English
+          build: true
+          default: true
+          site_name: "LHAI User Manual"
+        - locale: zh
+          name: 中文
+          build: true
+          site_name: "LHAI 用户手册"
+          nav_translations:
+            Index: 首页
+            Data Section: 数据部分
+            Network Section: 网络部分
+            Eval Section: 评估部分
+            Codes Section: 代码部分
+            Others Section: 其他部分
+# plugins:
+#   - i18n:
+#     languages:
+#         - locale: en
+#           name: English
+#           build: true
+#           default: true
+#   # - blog
+#   - search:
+#       separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+#   # - minify:
+#   #     minify_html: true
+#   # - with-pdf
 
 # Markdown Extensions
 markdown_extensions:
@@ -121,14 +152,16 @@ extra:
 # Page-Tree
 nav:
   - Index: index.md
-  - 数据篇: 
-    - index: mains/data/index.md
-  - 训练篇:
-    - index: mains/train/index.md
-  - 验证篇:
-    - index: mains/eval/index.md
-  - 代码结构详解:
-    - index: mains/codes/index.md
-  - 其他技术文档:
-    - index: mains/others/index.md
-    - 加入文档指导: mains/others/1.md
+  - Data Section: 
+    - index: Content/data/index.md
+  - Network Section:
+    - index: Content/network/index.md
+  - Eval Section:
+    - index: Content/eval/index.md
+  - Codes Section:
+    - index: Content/codes/index.md
+    - data: Content/codes/data.md
+    - docs: Content/codes/docs.md
+  - Others Section:
+    - index: Content/others/index.md
+    - 加入文档指导: Content/others/1.md
