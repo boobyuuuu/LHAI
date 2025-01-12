@@ -92,13 +92,6 @@
         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/Content/network/"/>
     </url>
     <url>
-        <loc>NoneContent/others/</loc>
-        <lastmod>2025-01-12</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="NoneContent/others/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/Content/others/"/>
-    </url>
-    <url>
         <loc>NoneContent/others/1/</loc>
         <lastmod>2025-01-12</lastmod>
         <changefreq>daily</changefreq>
@@ -216,13 +209,6 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/Content/network/"/>
         <xhtml:link rel="alternate" hreflang="en" href="NoneContent/network/"/>
-    </url>
-    <url>
-        <loc>Nonezh/Content/others/</loc>
-        <lastmod>2025-01-12</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="Nonezh/Content/others/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="NoneContent/others/"/>
     </url>
     <url>
         <loc>Nonezh/Content/others/1/</loc>
