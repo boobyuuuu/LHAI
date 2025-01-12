@@ -1,0 +1,1230 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="NJU AI programs for LHAASO">
+      
+      
+      
+      
+      
+        <link rel="next" href="Content/data/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>Material for MkDocs - LHAI 用户手册</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/custom.css">
+    
+      <link rel="stylesheet" href="../css/tasklist.css">
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+      <link rel="stylesheet" href="../css/card.css">
+    
+      <link rel="stylesheet" href="../css/flink.css">
+    
+      <link rel="stylesheet" href="../css/changelog_extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <link rel="stylesheet" href="../assets/stylesheets/custom.00c04c01.min.css">
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="./" title="LHAI 用户手册" class="md-header__button md-logo" aria-label="LHAI 用户手册" data-md-component="logo">
+      
+  <img src="../assets/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LHAI 用户手册
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Material for MkDocs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_2">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_3">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_4">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_5">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_6">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/zh/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+    
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="Content/data/" class="md-tabs__link">
+          
+  
+    
+  
+  数据部分
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="Content/network/" class="md-tabs__link">
+          
+  
+    
+  
+  网络部分
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="Content/eval/" class="md-tabs__link">
+          
+  
+    
+  
+  评估部分
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="Content/codes/" class="md-tabs__link">
+          
+  
+    
+  
+  代码部分
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="Content/others/" class="md-tabs__link">
+          
+  
+    
+  
+  其他部分
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+<!-- css样式 -->
+<style>
+@font-face {
+  font-family: 'FZSTK';
+  src: url('fonts/FZSTK.TTF') format('truetype');
+}
+@font-face {
+  font-family: 'TIMES';
+  src: url('fonts/TIMES.TTF') format('truetype');
+}
+/* 第一部分 */
+.hero-section {
+  padding: 50px 0;
+  text-align: center;
+  background: transparent; /* 背景透明 */
+}
+
+.hero-section img.logo {
+  width: 300px; /* 设定图片宽度 */
+  height: auto; /* 保持图片宽高比 */
+  margin-bottom: 20px;
+  background: transparent; /* 图片背景透明 */
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: inherit; /* 确保继承父容器的文字颜色 */
+}
+
+.hero-section .btn {
+  margin: 10px;
+  padding: 15px 30px;
+  font-size: 1rem;
+}
+/* 第二部分 */
+.blog-directory {
+  padding: 40px 0;
+}
+
+.section-title-container {
+  background-color: #efefef; /* 灰色背景 */
+  padding: 20px; /* 设置内边距使文字与背景之间有空隙 */
+  text-align: center; /* 使文字居中 */
+  margin-bottom: 20px;
+  margin-left: 10px;
+  border-radius: 8px; /* 可选，添加圆角效果 */
+}
+
+.section-title {
+  font-size: 2rem;
+  font-family: 'FZSTK', sans-serif;
+  margin: 0px; /* 移除默认的外边距 */
+  color: #333; /* 设置文字颜色 */
+}
+
+.card {
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ensure cards take up full width */
+  display: inline-block; /* Align cards horizontally */
+}
+
+.clickable-card {
+  border: 1px solid #ddd;
+  cursor: pointer;
+  margin-bottom: 10px; /* Space between cards */
+  height: 120px; /* Uniform height */
+}
+
+.clickable-card .card-body {
+  display: flex;
+  justify-content: center;
+  font-size: 0.8rem;
+  align-items: center;
+  height: 100%; /* Full height of the card */
+}
+
+.clickable-card .card-body a {
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.clickable-card .card-body a:hover {
+  color: white;
+}
+
+.explanation-card {
+  border: 1px solid #ddd;
+  background-color: #f8f9fa;
+  font-size: 0.6rem;
+  padding: 20px;
+  height: 180px; /* Explanation card is slightly larger */
+}
+
+.explanation-card .card-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Full height of the card */
+}
+
+.card-text {
+  font-weight: 600;
+  color: #666;
+  text-align: center; /* Center text horizontally */
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.col-md-4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px; /* Add bottom margin for spacing */
+}
+
+.card-body {
+  padding: 15px;
+}
+
+/* 第三部分 */
+.showcase .showcase-item {
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+}
+
+.showcase-text {
+  flex: 0 0 20%; /* 文字部分占 30% */
+  padding: 40px;
+}
+
+.showcase-img {
+  flex: 0 0 80%; /* 图片部分占 70% */
+  background-size: cover;
+  background-position: center;
+  /* width: 70%; */
+  height: 260px; /* 固定高度 */
+}
+/* 其他 */
+.smooth-black-bg {
+  background-color: #efefef;
+  color: black;
+}
+
+.smooth-white-bg {
+  background-color: #f8f9fa;
+  color: black;
+}
+
+.bottom-border {
+  border-bottom: 1px solid #ddd;
+}
+</style>
+    
+<!-- 第一部分 -->
+  <section class="hero-section">
+  <!-- 图片与文字 -->
+  <div class="container">
+    <img src="assets/images/logo1.png" alt="网站标志" class="logo" style="display: inline-block; vertical-align: middle;">
+    <span style="font-size: 4rem; font-family: 'FZSTK', sans-serif; font-weight: bold; margin-left: 10px; display: inline-block; vertical-align: middle;">
+      LHAI
+    </span>
+  </div>
+  <div class="container">
+    <span style="font-size: 1.2rem; font-family: 'FZSTK',sans-serif; margin-left: 10px; display: inline-block; vertical-align: middle;">
+      This is the user manual for LHAI. 
+    </span>
+
+    <br>
+
+    <span style="font-size: 1.2rem; font-family: 'FZSTK', sans-serif; margin-left: 10px; margin-top: 20px; display: inline-block; vertical-align: middle;">
+      The LHAI project aims to utilize AI technology for data processing at LHAASO.
+    </span>
+  <!-- 超链接 -->
+  <div>
+    <a href="/mains/data" class="btn btn-secondary" 
+       style="border: 2px solid #ccc; padding: 12px 24px; margin-bottom: 20px; display: inline-block; margin-top: 60px; 
+              border-radius: 25px; background-color: transparent; text-align: center; text-decoration: none; 
+              font-weight: 600; font-family: 'FZSTK', sans-serif;">
+       Get Started
+    </a>
+    <a href="http://english.ihep.cas.cn/lhaaso/" class="btn btn-primary" 
+       style="border: 2px solid #ccc; padding: 12px 24px; margin-bottom: 20px; display: inline-block; margin-top: 60px; 
+              border-radius: 25px; background-color: transparent; text-align: center; text-decoration: none; 
+              font-weight: 600; font-family: 'FZSTK', sans-serif;">
+      LHAASO
+    </a>
+    <a href="https://github.com/boobyuuuu/LHAI" class="btn btn-secondary" 
+       style="border: 2px solid #ccc; padding: 12px 24px; margin-bottom: 20px; display: inline-block; margin-top: 60px; 
+              border-radius: 25px; background-color: transparent; text-align: center; text-decoration: none; 
+              font-weight: 600; font-family: 'FZSTK', sans-serif;">
+       Git Address
+    </a>
+    <a href="/mains/data" class="btn btn-secondary" 
+       style="border: 2px solid #ccc; padding: 12px 24px; margin-bottom: 20px; display: inline-block; margin-top: 60px; 
+              border-radius: 25px; background-color: transparent; text-align: center; text-decoration: none; 
+              font-weight: 600; font-family: 'FZSTK', sans-serif;">
+       Results
+    </a>
+  </div>
+      </div>
+    </section>
+<!-- 第二部分 -->
+<!-- Second Section -->
+<section class="blog-directory">
+  <div class="container">
+    <div class="section-title-container">
+      <p class="section-title">User Manual Catalog</p>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <!-- Clickable Card Section -->
+        <div class="card clickable-card text-center">
+          <div class="card-body">
+            <a href="/mains/data/" class="card-title">Data Section</a>
+          </div>
+        </div>
+        <!-- Explanation Section -->
+        <div class="card explanation-card text-center">
+          <div class="card-body">
+            <p class="card-text">A detailed introduction to data-related technologies and processing methods.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <!-- Clickable Card Section -->
+        <div class="card clickable-card text-center">
+          <div class="card-body">
+            <a href="/mains/tech/" class="card-title">Technology Section</a>
+          </div>
+        </div>
+        <!-- Explanation Section -->
+        <div class="card explanation-card text-center">
+          <div class="card-body">
+            <p class="card-text">Covering the latest technological trends and practices.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <!-- Clickable Card Section -->
+        <div class="card clickable-card text-center">
+          <div class="card-body">
+            <a href="/mains/eval/" class="card-title">Evaluation Section</a>
+          </div>
+        </div>
+        <!-- Explanation Section -->
+        <div class="card explanation-card text-center">
+          <div class="card-body">
+            <p class="card-text">Exploring different verification methods and case studies.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <!-- Clickable Card Section -->
+        <div class="card clickable-card text-center">
+          <div class="card-body">
+            <a href="/mains/codes/" class="card-title">Code Section</a>
+          </div>
+        </div>
+        <!-- Explanation Section -->
+        <div class="card explanation-card text-center">
+          <div class="card-body">
+            <p class="card-text">A detailed explanation of the code structure and design ideas.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <!-- Clickable Card Section -->
+        <div class="card clickable-card text-center">
+          <div class="card-body">
+            <a href="/mains/others/" class="card-title">Others</a>
+          </div>
+        </div>
+        <!-- Explanation Section -->
+        <div class="card explanation-card text-center">
+          <div class="card-body">
+            <p class="card-text">Includes technologies such as GIT, Markdown, MkDocs, and servers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- 第三部分 -->
+<section class="showcase">
+  <div class="container">
+    <div class="section-title-container">
+      <p class="section-title">Result Representation</p>
+    </div>
+  <div class="container-fluid p-0">
+    <div class="row no-gutters bottom-border showcase-item smooth-black-bg">
+      <div class="col-lg-6 my-auto showcase-text">
+        <h2>Result A</h2>
+        <p class="lead mb-0">introduction to Result A</p>
+      </div>
+      <div class="showcase-img" style="background-image: url('assets/images/sucai1.png');"></div>
+    </div>
+
+    <div class="row no-gutters bottom-border showcase-item smooth-white-bg">
+      <div class="col-lg-6 my-auto showcase-text">
+        <h2>Result B</h2>
+        <p class="lead mb-0">introduction to Result B</p>
+      </div>
+      <div class="showcase-img" style="background-image: url('assets/images/sucai2.png');"></div>
+    </div>
+
+    <div class="row no-gutters bottom-border showcase-item smooth-black-bg">
+      <div class="col-lg-6 my-auto showcase-text">
+        <h2>Result C</h2>
+        <p class="lead mb-0">introduction to Result C</p>
+      </div>
+      <div class="showcase-img" style="background-image: url('assets/images/sucai3.png');"></div>
+    </div>
+
+    <div class="row no-gutters bottom-border showcase-item smooth-white-bg">
+      <div class="col-lg-6 my-auto showcase-text">
+        <h2>Result D</h2>
+        <p class="lead mb-0">introduction to Result D</p>
+      </div>
+      <div class="showcase-img" style="background-image: url('assets/images/sucai4.png');"></div>
+    </div>
+
+    <div class="row no-gutters bottom-border showcase-item smooth-black-bg">
+      <div class="col-lg-6 my-auto showcase-text">
+        <h2>Result E</h2>
+        <p class="lead mb-0">introduction to Result E</p>
+      </div>
+      <div class="showcase-img" style="background-image: url('assets/images/sucai5.png');"></div>
+    </div>
+  </div>
+</section>
+
+
+  
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./" title="LHAI 用户手册" class="md-nav__button md-logo" aria-label="LHAI 用户手册" data-md-component="logo">
+      
+  <img src="../assets/favicon.png" alt="logo">
+
+    </a>
+    LHAI 用户手册
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="Content/data/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    数据部分
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            数据部分
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Content/data/simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    simulation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="Content/network/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    网络部分
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            网络部分
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="Content/eval/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    评估部分
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            评估部分
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="Content/codes/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    代码部分
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            代码部分
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Content/codes/data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Content/codes/docs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    docs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="Content/others/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    其他部分
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            其他部分
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Content/others/1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    加入文档指导
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "navigation.tracking", "navigation.tabs", "navigation.indexes", "navigation.top"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      
+        <script src="https://cdn.tonycrane.cc/utils/katex.min.js"></script>
+      
+        <script src="../js/katex.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,15 +1,49 @@
 # Changelog
 
-## LHAI User Mannual
+## LHAI User Manual
 
-### 0.1.1 <small>February 11, 2016</small> { id="0.1.1" }
+### 1.0.0 <small>January 12, 2025</small> { id="1.0.0" }
 
-- Fixed #1: GitHub stars don't work if the repo_url ends with a `/`
-- Updated NPM and Bower dependencies to most recent versions
-- Changed footer/copyright link to Material theme to GitHub pages
-- Made MkDocs building/serving in build process optional
-- Set up continuous integration with Travis
+> **Great updates**
 
-### 0.1.0 <small>February 9, 2016</small> { id="0.1.0" }
+- Completed industrialization of the code and released on LHAI
+- Added content: Code Section/index
+- Added content: Code Section/data
+- Added content: Code Section/docs
+- Added functionality: Chinese-English language switching
+- Added functionality `ChangeLog`: Others Section/ChangeLog
 
-- Initial release
+### 0.2.3 <small>January 1, 2025</small> { id="0.2.3" }
+
+- Added content: Data Section/simulation
+- Added content: Others Section/HowtoBeCollaborator
+
+### 0.2.2 <small>December 20, 2024</small> { id="0.2.2" }
+
+- Added content: Homepage
+- Added content: Data Section/index
+- Added content: Network Section/index
+- Added content: Eval Section/index
+- Added content: Code Section/index
+- Added content: Others Section
+
+### 0.2.1 <small>December 20, 2024</small> { id="0.2.1" }
+
+- Completed homepage layout
+- Finalized overall style
+
+### 0.2.0 <small>December 10, 2024</small> { id="0.2.0" }
+
+- Selected MkDocs template
+- Decided on the user manual name: LHAI User Manual
+- Finalized the structure of the manual content
+
+### 0.1.0 <small>December 1, 2024</small> { id="0.1.0" }
+
+- First release
+
+### 0.0.0 <small>November 24, 2024</small> { id="0.0.0" }
+
+- Completed initial super-resolution using FERMI simulation data
+- Participated in the Second LHAASO Collaboration Conference in 2024
+- Decided to create a user manual

@@ -164,5 +164,6 @@ nav:
     - data: Content/codes/data.md
     - docs: Content/codes/docs.md
   - Others Section:
-    - index: Content/others/index.md
-    - 加入文档指导: Content/others/1.md
+    - ChangeLog: 
+      - changelog/index.md
+    - HowtoBeCollaborator: Content/others/1.md
