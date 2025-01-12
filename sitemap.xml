@@ -50,6 +50,13 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://boobyuuuu.github.io/LHAI/zh/Content/codes/saves/"/>
     </url>
     <url>
+        <loc>https://boobyuuuu.github.io/LHAI/Content/codes/train/</loc>
+        <lastmod>2025-01-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://boobyuuuu.github.io/LHAI/Content/codes/train/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://boobyuuuu.github.io/LHAI/zh/Content/codes/train/"/>
+    </url>
+    <url>
         <loc>https://boobyuuuu.github.io/LHAI/Content/data/</loc>
         <lastmod>2025-01-12</lastmod>
         <changefreq>daily</changefreq>
@@ -90,6 +97,34 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="en" href="https://boobyuuuu.github.io/LHAI/Content/network/"/>
         <xhtml:link rel="alternate" hreflang="zh" href="https://boobyuuuu.github.io/LHAI/zh/Content/network/"/>
+    </url>
+    <url>
+        <loc>https://boobyuuuu.github.io/LHAI/Content/network/cnn/</loc>
+        <lastmod>2025-01-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://boobyuuuu.github.io/LHAI/Content/network/cnn/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://boobyuuuu.github.io/LHAI/zh/Content/network/cnn/"/>
+    </url>
+    <url>
+        <loc>https://boobyuuuu.github.io/LHAI/Content/network/diffusion/</loc>
+        <lastmod>2025-01-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://boobyuuuu.github.io/LHAI/Content/network/diffusion/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://boobyuuuu.github.io/LHAI/zh/Content/network/diffusion/"/>
+    </url>
+    <url>
+        <loc>https://boobyuuuu.github.io/LHAI/Content/network/gan/</loc>
+        <lastmod>2025-01-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://boobyuuuu.github.io/LHAI/Content/network/gan/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://boobyuuuu.github.io/LHAI/zh/Content/network/gan/"/>
+    </url>
+    <url>
+        <loc>https://boobyuuuu.github.io/LHAI/Content/network/vae/</loc>
+        <lastmod>2025-01-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://boobyuuuu.github.io/LHAI/Content/network/vae/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://boobyuuuu.github.io/LHAI/zh/Content/network/vae/"/>
     </url>
     <url>
         <loc>https://boobyuuuu.github.io/LHAI/Content/others/1/</loc>
@@ -169,6 +204,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://boobyuuuu.github.io/LHAI/Content/codes/saves/"/>
     </url>
     <url>
+        <loc>https://boobyuuuu.github.io/LHAI/zh/Content/codes/train/</loc>
+        <lastmod>2025-01-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://boobyuuuu.github.io/LHAI/zh/Content/codes/train/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://boobyuuuu.github.io/LHAI/Content/codes/train/"/>
+    </url>
+    <url>
         <loc>https://boobyuuuu.github.io/LHAI/zh/Content/data/</loc>
         <lastmod>2025-01-12</lastmod>
         <changefreq>daily</changefreq>
@@ -209,6 +251,34 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://boobyuuuu.github.io/LHAI/zh/Content/network/"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://boobyuuuu.github.io/LHAI/Content/network/"/>
+    </url>
+    <url>
+        <loc>https://boobyuuuu.github.io/LHAI/zh/Content/network/cnn/</loc>
+        <lastmod>2025-01-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://boobyuuuu.github.io/LHAI/zh/Content/network/cnn/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://boobyuuuu.github.io/LHAI/Content/network/cnn/"/>
+    </url>
+    <url>
+        <loc>https://boobyuuuu.github.io/LHAI/zh/Content/network/diffusion/</loc>
+        <lastmod>2025-01-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://boobyuuuu.github.io/LHAI/zh/Content/network/diffusion/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://boobyuuuu.github.io/LHAI/Content/network/diffusion/"/>
+    </url>
+    <url>
+        <loc>https://boobyuuuu.github.io/LHAI/zh/Content/network/gan/</loc>
+        <lastmod>2025-01-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://boobyuuuu.github.io/LHAI/zh/Content/network/gan/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://boobyuuuu.github.io/LHAI/Content/network/gan/"/>
+    </url>
+    <url>
+        <loc>https://boobyuuuu.github.io/LHAI/zh/Content/network/vae/</loc>
+        <lastmod>2025-01-12</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://boobyuuuu.github.io/LHAI/zh/Content/network/vae/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://boobyuuuu.github.io/LHAI/Content/network/vae/"/>
     </url>
     <url>
         <loc>https://boobyuuuu.github.io/LHAI/zh/Content/others/1/</loc>

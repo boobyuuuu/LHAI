@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://boobyuuuu.github.io/LHAI/zh/Content/codes/data/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../train/">
       
       
         <link rel="next" href="../docs/">
@@ -558,6 +558,14 @@
           
         
       
+        
+      
+        
+      
+        
+      
+        
+      
     
     
       
@@ -583,6 +591,11 @@
 
             </a>
             
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
           </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
@@ -592,6 +605,90 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/cnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CNN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/gan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GAN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/vae/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VAE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/diffusion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DIFFUSION
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -680,6 +777,8 @@
       
         
       
+        
+      
     
     
       
@@ -722,6 +821,27 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../train/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TRAIN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -839,7 +959,7 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      最佳实践
+      训练、推理的文件格式要求
     </span>
   </a>
   
@@ -1142,7 +1262,7 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      最佳实践
+      训练、推理的文件格式要求
     </span>
   </a>
   
@@ -1179,7 +1299,6 @@
 <h3 id="fermi">FERMI<a class="headerlink" href="#fermi" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>描述</strong>：包含来自 Fermi Gamma 射线空间望远镜的观测数据或相关的模拟数据集。  </li>
-<li><strong>文件格式</strong>：常见格式包括 <code>.npy</code>、<code>.csv</code> 和 <code>.fits</code>。  </li>
 <li><strong>用途</strong>：用于伽马射线研究的预处理流程或训练模型。  </li>
 <li><strong>示例</strong>：  </li>
 <li><code>FERMI_2024_observations.npy</code>：2024 年观测期的预处理数据。  </li>
@@ -1187,8 +1306,7 @@
 </ul>
 <h3 id="poisson">POISSON<a class="headerlink" href="#poisson" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>描述</strong>：存储基于泊松分布的数据集，常用于事件模拟或误差建模。  </li>
-<li><strong>文件格式</strong>：<code>.npy</code>、<code>.txt</code>。  </li>
+<li><strong>描述</strong>：存储基于泊松分布的数据集，常用于事件模拟或误差建模。   </li>
 <li><strong>用途</strong>：统计建模、事件率预测或不确定性量化。  </li>
 <li><strong>示例</strong>：  </li>
 <li><code>Poisson_noise_samples.npy</code>：带有泊松噪声的合成样本。  </li>
@@ -1196,8 +1314,7 @@
 </ul>
 <h3 id="simu">SIMU<a class="headerlink" href="#simu" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>描述</strong>：保存用于特定场景或实验模拟的合成数据集。  </li>
-<li><strong>文件格式</strong>：<code>.npy</code>、<code>.mat</code>、<code>.json</code>。  </li>
+<li><strong>描述</strong>：保存用于特定场景或实验模拟的合成数据集。    </li>
 <li><strong>用途</strong>：模型验证、灵敏度分析或测试新算法。  </li>
 <li><strong>示例</strong>：  </li>
 <li><code>Simu_100k_events.npy</code>：包含 100,000 条事件记录的模拟数据集。  </li>
@@ -1206,34 +1323,14 @@
 <h3 id="raw">RAW<a class="headerlink" href="#raw" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>描述</strong>：该文件夹包含直接从仪器或合作者处获得的未处理原始数据集。  </li>
-<li><strong>文件格式</strong>：<code>.txt</code>、<code>.bin</code>、<code>.dat</code>。  </li>
 <li><strong>用途</strong>：预处理流程的起点或手动分析。  </li>
 <li><strong>示例</strong>：  </li>
 <li><code>Raw_experiment_2024.dat</code>：来自最新实验的数据转储。  </li>
 <li><code>Raw_sensor_readings.bin</code>：需要解码的传感器二进制文件。  </li>
 </ul>
-<h2 id="_3">最佳实践<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>文件命名</strong>：使用清晰、一致的命名方式，表明数据类型、来源和版本。  </li>
-<li>
-<p>示例：<code>FERMI_2023_v1.npy</code>、<code>SIMU_test_run_001.npy</code>。  </p>
-</li>
-<li>
-<p><strong>文件格式</strong>：优先使用 <code>.npy</code> 格式，以便兼容 Python 工具（如 NumPy）并提高加载效率。  </p>
-</li>
-<li>
-<p><strong>文档记录</strong>：在每个子文件夹中包含一个元数据文件（例如 <code>README.md</code>），记录数据集来源、格式和预处理步骤。  </p>
-</li>
-<li>
-<p><strong>数据完整性</strong>：使用校验和或哈希值验证数据完整性，尤其是在共享或归档文件时。  </p>
-</li>
-<li>
-<p><strong>版本管理</strong>：数据集更新时，应保持版本控制，以便追踪更改并确保可重复性。  </p>
-</li>
-<li>
-<p><strong>存储限制</strong>：对于大型数据集，建议使用云存储或外部仓库，并将其链接到项目中。  </p>
-</li>
-</ol>
+<h2 id="_3">训练、推理的文件格式要求<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>这部分很重要，文件存储规则待完善</p>
+<p align='right'>by Zihang Liu</p>
 
 
 
