@@ -1,0 +1,7 @@
+echo "# LHAI" >> README.md
+git init
+git add README.md
+git commit -m "cly commit"
+git branch -M main
+git remote add origin https://github.com/boobyuuuu/LHAI.git
+git push -u origin main

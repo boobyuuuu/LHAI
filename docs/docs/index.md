@@ -1,10 +1,9 @@
-# LHAI documentation!
+---
+template: home.html
+title: Material for MkDocs
+social:
+  cards_layout_options:
+    title: Documentation that simply works
+---
 
-## Description
-
-NJU AI for LHAASO
-
-## Commands
-
-The Makefile contains the central entry points for common tasks related to this project.
-
+Welcome to Material for MkDocs.

@@ -12,13 +12,17 @@ NJU AI for LHAASO
 ├── LICENSE            <- Open-source license if one is chosen
 ├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
 ├── README.md          <- The top-level README for developers using this project.
-├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
+├── data               <- Different types of data. (Recommended to upload with npy formation)
+│   ├── FERMI
+│   ├── POISSON
+│   ├── SIMU
+│   └── RAW
 │
-├── models             <- Trained and serialized models, model predictions, or model summaries
+├── saves             <- Figure/Loss saves, Trained and Serialized models, model Predictions, .
+│   ├── FIGURE        <- Figure saves in training.
+│   │── PRE_FIG       <- Figure saves in predicting.
+│   ├── LOSS          <- LOSS data(.npy) and LOSS Figure(.png) saves in training.
+│   └── MODEL         <- Trained and Serialized models.
 │
 ├── docs               <- A default mkdocs project; see www.mkdocs.org for details
 │
@@ -36,7 +40,7 @@ NJU AI for LHAASO
 │   └── figures        <- Generated graphics and figures to be used in reporting
 │
 ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
+│                         generated with `pip freeze > requirements.txt`      
 │
 ├── setup.cfg          <- Configuration file for flake8
 │

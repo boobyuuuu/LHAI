@@ -1,5 +1,7 @@
 # Data
 # /data/
+/docs(backup)/
+/docs/mains/
 
 # Mac OS-specific storage files
 .DS_Store

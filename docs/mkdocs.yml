@@ -1,4 +1,173 @@
+site_url: https://boobyuuuu.github.io/LHAI/
+repo_url: https://github.com/boobyuuuu/LHAI
 site_name: LHAI
-# 
-site_author: NJU_LHAI
-# 
+site_description: >-
+  NJU AI programs for LHAASO
+
+# 主体设置
+theme:
+  name: material
+  logo: assets/favicon.png
+  icon: 
+    logo: material/notebook-outline
+  custom_dir: material/overrides
+  features:
+    - content.code.annotate
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.top
+  font: false
+  palette: default
+    # # Palette toggle for dark mode
+    # - media: "(prefers-color-scheme: dark)"
+    #   scheme: slate
+    #   primary: black
+    #   accent: indigo
+    #   toggle:
+    #     icon: material/toggle-switch-off
+    #     name: Switch to light mode
+    # # Palette toggle for light mode
+    # - media: "(prefers-color-scheme: light)"
+    #   scheme: default
+    #   toggle:
+    #     icon: material/weather-night # 图标(可改)
+    #     name: Switch to dark mode
+
+# 搜索用的插件
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: en
+          name: English
+          build: true
+          default: true
+          site_name: "LHAI User Manual"
+        - locale: zh
+          name: 中文
+          build: true
+          site_name: "LHAI 用户手册"
+          nav_translations:
+            Index: 首页
+            Data Section: 数据部分
+            Network Section: 网络部分
+            Eval Section: 评估部分
+            Codes Section: 代码部分
+            Others Section: 其他部分
+# plugins:
+#   - i18n:
+#     languages:
+#         - locale: en
+#           name: English
+#           build: true
+#           default: true
+#   # - blog
+#   - search:
+#       separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+#   # - minify:
+#   #     minify_html: true
+#   # - with-pdf
+
+# Markdown Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      auto_append:
+        - includes/mkdocs.md
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra_javascript:
+  # 渲染公式用的4个工具。注意：一定要联网，不然会乱码
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js
+  - https://cdn.tonycrane.cc/utils/katex.min.js
+  - js/katex.js
+
+# 拓展自定义css模板
+extra_css:
+  - stylesheets/extra.css # 字体
+  - stylesheets/custom.css # 格式排版
+  - css/tasklist.css
+  - css/custom.css
+  - css/card.css
+  - css/flink.css
+  - css/changelog_extra.css
+
+# 字体
+extra:
+  fonts:
+    - name: times
+      url: fonts/TIMES.TTF # 英文
+    - name: simfang
+      url: fonts/simfang.ttf # 中文字体
+    - name: hgfs
+      url: fonts/HGFS_CNKI.TTF
+
+# Page-Tree
+nav:
+  - Index: index.md
+  - Data Section: 
+    - index: Content/data/index.md
+    - simulation: Content/data/simulation.md
+  - Network Section:
+    - index: Content/network/index.md
+  - Eval Section:
+    - index: Content/eval/index.md
+  - Codes Section:
+    - index: Content/codes/index.md
+    - DATA: Content/codes/data.md
+    - DOCS: Content/codes/docs.md
+    - LHAI: Content/codes/lhai.md
+    - SAVES: Content/codes/saves.md
+  - Others Section:
+    - ChangeLog: 
+      - changelog/index.md
+    - HowtoBeCollaborator: Content/others/1.md
