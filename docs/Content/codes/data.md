@@ -1,62 +1,49 @@
-# LHAI Project Code: `data` Folder
+# LHAI Project Code: `data` Folder  
 
-The `data` folder is the repository for datasets required for training, inference, and evaluation. It is structured to organize data by type and facilitate streamlined access and versioning.  
+The `data` folder is designated for storing datasets required for training, inference, and evaluation. It is organized by data types to ensure easy access and effective version management.  
 
 ## Folder Structure  
 
 ```plaintext
-├── data               <- Different types of data. (Recommended to upload in `.npy` format)
-    ├── FERMI          <- Datasets related to Fermi observations or simulations.
-    ├── POISSON        <- Poisson-distributed datasets for statistical analysis or modeling.
-    ├── SIMU           <- Synthetic data generated for simulation purposes.
-    └── RAW            <- Unprocessed raw data files as received from experiments or external sources.
+├── data               <- Different types of datasets (recommended in `.npy` format)
+    ├── FERMI          <- Datasets related to Fermi observations or simulations
+    ├── POISSON        <- Poisson-distributed datasets for statistical modeling
+    ├── SIMU           <- Synthetic datasets for simulation purposes
+    └── RAW            <- Unprocessed raw data obtained from experiments or external sources
 ```
 
-## Folder Details
+## Folder Details  
 
-### FERMI
-- **Description**: Contains data from the Fermi Gamma-ray Space Telescope or related simulation datasets.  
-- **File Formats**: Commonly in `.npy`, `.csv`, or `.fits` formats.  
-- **Usage**: Used in preprocessing pipelines for gamma-ray studies or training models.  
+### FERMI  
+- **Description**: Contains observational data or related simulation datasets from the Fermi Gamma-ray Space Telescope.  
+- **Usage**: For preprocessing workflows or training models in gamma-ray studies.  
 - **Examples**:  
   - `FERMI_2024_observations.npy`: Preprocessed data from the 2024 observation period.  
-  - `FERMI_training_split.npy`: Training subset for model input.
+  - `FERMI_training_split.npy`: Subset of data prepared for model input during training.  
 
 ### POISSON  
-- **Description**: Houses datasets based on Poisson distributions, often used in event-based simulations or error modeling.  
-- **File Formats**: `.npy`, `.txt`.  
-- **Usage**: Statistical models, event rate predictions, or uncertainty quantification.  
+- **Description**: Stores datasets based on Poisson distributions, commonly used for event simulations or error modeling.  
+- **Usage**: Statistical modeling, event rate prediction, or uncertainty quantification.  
 - **Examples**:  
   - `Poisson_noise_samples.npy`: Synthetic samples with Poisson noise.  
-  - `Poisson_event_counts.npy`: Event count distributions for analysis.  
+  - `Poisson_event_counts.npy`: Event count distribution for analysis.  
 
 ### SIMU  
-- **Description**: Stores simulated datasets that replicate specific scenarios or experiments.  
-- **File Formats**: `.npy`, `.mat`, `.json`.  
+- **Description**: Contains synthetic datasets created for specific scenarios or experimental simulations.  
 - **Usage**: Model validation, sensitivity analysis, or testing new algorithms.  
 - **Examples**:  
-  - `Simu_100k_events.npy`: Simulated dataset with 100,000 event records.  
-  - `Simu_input_parameters.json`: Configuration file for generating synthetic data.
+  - `Simu_100k_events.npy`: A simulated dataset with 100,000 event records.  
+  - `Simu_input_parameters.json`: Configuration file used to generate synthetic data.  
 
 ### RAW  
-- **Description**: This folder contains unprocessed raw datasets received directly from instruments or collaborators.  
-- **File Formats**: `.txt`, `.bin`, `.dat`.  
-- **Usage**: Starting point for preprocessing pipelines or manual analysis.  
+- **Description**: This folder contains unprocessed raw datasets directly obtained from instruments or collaborators.  
+- **Usage**: Starting point for preprocessing workflows or for manual analysis.  
 - **Examples**:  
   - `Raw_experiment_2024.dat`: Data dump from the latest experiment.  
-  - `Raw_sensor_readings.bin`: Binary file from sensors, requiring decoding.  
+  - `Raw_sensor_readings.bin`: Binary sensor readings requiring decoding.  
 
-## Best Practices  
+## File Format Requirements for Training and Inference  
 
-1. **File Naming**: Use clear, consistent names that indicate dataset type, source, and version.  
-   - Example: `FERMI_2023_v1.npy`, `SIMU_test_run_001.npy`.  
+This section is crucial and the file storage guidelines are under development.
 
-2. **File Formats**: Prefer `.npy` format for compatibility and efficient loading with Python tools like NumPy.  
-
-3. **Documentation**: Include a metadata file (e.g., `README.md`) in each subfolder to document dataset origins, formats, and preprocessing steps.  
-
-4. **Data Integrity**: Use checksums or hashes to verify data integrity when sharing or archiving files.  
-
-5. **Versioning**: If datasets are updated, maintain version control to track changes and ensure reproducibility.  
-
-6. **Storage Limits**: For large datasets, consider using cloud storage or external repositories and linking them to the project.  
+<p align='right'>by Zihang Liu</p>

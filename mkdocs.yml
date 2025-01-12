@@ -159,10 +159,15 @@ nav:
     - simulation: Content/data/simulation.md
   - Network Section:
     - index: Content/network/index.md
+    - CNN: Content/network/cnn.md
+    - GAN: Content/network/gan.md
+    - VAE: Content/network/vae.md
+    - DIFFUSION: Content/network/diffusion.md
   - Eval Section:
     - index: Content/eval/index.md
   - Codes Section:
     - index: Content/codes/index.md
+    - TRAIN: Content/codes/train.md
     - DATA: Content/codes/data.md
     - DOCS: Content/codes/docs.md
     - LHAI: Content/codes/lhai.md
