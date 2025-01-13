@@ -558,6 +558,14 @@
           
         
       
+        
+      
+        
+      
+        
+      
+        
+      
     
     
       
@@ -583,6 +591,11 @@
 
             </a>
             
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
           </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
@@ -592,6 +605,90 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/cnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CNN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/gan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GAN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/vae/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VAE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/diffusion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DIFFUSION
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -680,6 +777,8 @@
       
         
       
+        
+      
     
     
       
@@ -722,6 +821,27 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../train/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TRAIN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -991,6 +1111,19 @@
 
 
 <h1 id="lhaisaves">LHAI项目代码：saves文件夹<a class="headerlink" href="#lhaisaves" title="Permanent link">&para;</a></h1>
+<p><code>saves</code> 文件夹存放训练中产生的图像、损失数据；训练完成的模型；推理完成的结果图像</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>│── saves              &lt;- 保存训练中的图像、损失数据、训练后的模型和预测结果
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│   ├── FIGURE         &lt;- 训练结束后初步推理形成的图像 
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│                       (存储格式：./saves/FIGURE/EarlyPre_{MODEL_NAME}_{EXP_NAME}_{epochs}epo_{batch_size}bth_{latentdim}lat_{traintype}_{DATA_NAME}.png)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   │── PRE_FIG        &lt;- 推理时保存的图像
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│                       (存储格式：./saves/PRE_FIG/{savepath}/PRE_FIG/Pre_{PRE_MODEL_NAME}.png)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│   ├── LOSS           &lt;- 训练过程中保存的损失数据(.npy)和损失图像(.png) 
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│                       (存储格式：./saves/LOSS/{MODEL_NAME}_{EXP_NAME}_{epochs}epo_{batch_size}bth_{latentdim}lat_{traintype}_{DATA_NAME}.npy + png)
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│   └── MODEL          &lt;- 保存的已训练模型和序列化模型
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│                       （存储格式：./saves/MODEL/{MODEL_NAME}_{EXP_NAME}_{epochs}epo_{batch_size}bth_{latentdim}lat_{traintype}_{DATA_NAME}.pth）
+</span></code></pre></div>
+<p>这部分并没有什么好叙述的，训练/推理完成之后记得查看该文件夹获得结果。</p>
+<p align='right'>by Zihang Liu</p>
 
 
 

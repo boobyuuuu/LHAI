@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://boobyuuuu.github.io/LHAI/Content/codes/data/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../train/">
       
       
         <link rel="next" href="../docs/">
@@ -558,6 +558,14 @@
           
         
       
+        
+      
+        
+      
+        
+      
+        
+      
     
     
       
@@ -583,6 +591,11 @@
 
             </a>
             
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
           </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
@@ -592,6 +605,90 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/cnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CNN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/gan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GAN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/vae/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VAE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/diffusion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DIFFUSION
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -680,6 +777,8 @@
       
         
       
+        
+      
     
     
       
@@ -722,6 +821,27 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../train/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TRAIN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -837,9 +957,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
+  <a href="#file-format-requirements-for-training-and-inference" class="md-nav__link">
     <span class="md-ellipsis">
-      Best Practices
+      File Format Requirements for Training and Inference
     </span>
   </a>
   
@@ -1140,9 +1260,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
+  <a href="#file-format-requirements-for-training-and-inference" class="md-nav__link">
     <span class="md-ellipsis">
-      Best Practices
+      File Format Requirements for Training and Inference
     </span>
   </a>
   
@@ -1167,73 +1287,50 @@
 
 
 <h1 id="lhai-project-code-data-folder">LHAI Project Code: <code>data</code> Folder<a class="headerlink" href="#lhai-project-code-data-folder" title="Permanent link">&para;</a></h1>
-<p>The <code>data</code> folder is the repository for datasets required for training, inference, and evaluation. It is structured to organize data by type and facilitate streamlined access and versioning.  </p>
+<p>The <code>data</code> folder is designated for storing datasets required for training, inference, and evaluation. It is organized by data types to ensure easy access and effective version management.  </p>
 <h2 id="folder-structure">Folder Structure<a class="headerlink" href="#folder-structure" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>├── data               &lt;- Different types of data. (Recommended to upload in `.npy` format)
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    ├── FERMI          &lt;- Datasets related to Fermi observations or simulations.
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    ├── POISSON        &lt;- Poisson-distributed datasets for statistical analysis or modeling.
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    ├── SIMU           &lt;- Synthetic data generated for simulation purposes.
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    └── RAW            &lt;- Unprocessed raw data files as received from experiments or external sources.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>├── data               &lt;- Different types of datasets (recommended in `.npy` format)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    ├── FERMI          &lt;- Datasets related to Fermi observations or simulations
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    ├── POISSON        &lt;- Poisson-distributed datasets for statistical modeling
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    ├── SIMU           &lt;- Synthetic datasets for simulation purposes
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    └── RAW            &lt;- Unprocessed raw data obtained from experiments or external sources
 </span></code></pre></div>
 <h2 id="folder-details">Folder Details<a class="headerlink" href="#folder-details" title="Permanent link">&para;</a></h2>
 <h3 id="fermi">FERMI<a class="headerlink" href="#fermi" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Description</strong>: Contains data from the Fermi Gamma-ray Space Telescope or related simulation datasets.  </li>
-<li><strong>File Formats</strong>: Commonly in <code>.npy</code>, <code>.csv</code>, or <code>.fits</code> formats.  </li>
-<li><strong>Usage</strong>: Used in preprocessing pipelines for gamma-ray studies or training models.  </li>
+<li><strong>Description</strong>: Contains observational data or related simulation datasets from the Fermi Gamma-ray Space Telescope.  </li>
+<li><strong>Usage</strong>: For preprocessing workflows or training models in gamma-ray studies.  </li>
 <li><strong>Examples</strong>:  </li>
 <li><code>FERMI_2024_observations.npy</code>: Preprocessed data from the 2024 observation period.  </li>
-<li><code>FERMI_training_split.npy</code>: Training subset for model input.</li>
+<li><code>FERMI_training_split.npy</code>: Subset of data prepared for model input during training.  </li>
 </ul>
 <h3 id="poisson">POISSON<a class="headerlink" href="#poisson" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Description</strong>: Houses datasets based on Poisson distributions, often used in event-based simulations or error modeling.  </li>
-<li><strong>File Formats</strong>: <code>.npy</code>, <code>.txt</code>.  </li>
-<li><strong>Usage</strong>: Statistical models, event rate predictions, or uncertainty quantification.  </li>
+<li><strong>Description</strong>: Stores datasets based on Poisson distributions, commonly used for event simulations or error modeling.  </li>
+<li><strong>Usage</strong>: Statistical modeling, event rate prediction, or uncertainty quantification.  </li>
 <li><strong>Examples</strong>:  </li>
 <li><code>Poisson_noise_samples.npy</code>: Synthetic samples with Poisson noise.  </li>
-<li><code>Poisson_event_counts.npy</code>: Event count distributions for analysis.  </li>
+<li><code>Poisson_event_counts.npy</code>: Event count distribution for analysis.  </li>
 </ul>
 <h3 id="simu">SIMU<a class="headerlink" href="#simu" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Description</strong>: Stores simulated datasets that replicate specific scenarios or experiments.  </li>
-<li><strong>File Formats</strong>: <code>.npy</code>, <code>.mat</code>, <code>.json</code>.  </li>
+<li><strong>Description</strong>: Contains synthetic datasets created for specific scenarios or experimental simulations.  </li>
 <li><strong>Usage</strong>: Model validation, sensitivity analysis, or testing new algorithms.  </li>
 <li><strong>Examples</strong>:  </li>
-<li><code>Simu_100k_events.npy</code>: Simulated dataset with 100,000 event records.  </li>
-<li><code>Simu_input_parameters.json</code>: Configuration file for generating synthetic data.</li>
+<li><code>Simu_100k_events.npy</code>: A simulated dataset with 100,000 event records.  </li>
+<li><code>Simu_input_parameters.json</code>: Configuration file used to generate synthetic data.  </li>
 </ul>
 <h3 id="raw">RAW<a class="headerlink" href="#raw" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Description</strong>: This folder contains unprocessed raw datasets received directly from instruments or collaborators.  </li>
-<li><strong>File Formats</strong>: <code>.txt</code>, <code>.bin</code>, <code>.dat</code>.  </li>
-<li><strong>Usage</strong>: Starting point for preprocessing pipelines or manual analysis.  </li>
+<li><strong>Description</strong>: This folder contains unprocessed raw datasets directly obtained from instruments or collaborators.  </li>
+<li><strong>Usage</strong>: Starting point for preprocessing workflows or for manual analysis.  </li>
 <li><strong>Examples</strong>:  </li>
 <li><code>Raw_experiment_2024.dat</code>: Data dump from the latest experiment.  </li>
-<li><code>Raw_sensor_readings.bin</code>: Binary file from sensors, requiring decoding.  </li>
+<li><code>Raw_sensor_readings.bin</code>: Binary sensor readings requiring decoding.  </li>
 </ul>
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>File Naming</strong>: Use clear, consistent names that indicate dataset type, source, and version.  </li>
-<li>
-<p>Example: <code>FERMI_2023_v1.npy</code>, <code>SIMU_test_run_001.npy</code>.  </p>
-</li>
-<li>
-<p><strong>File Formats</strong>: Prefer <code>.npy</code> format for compatibility and efficient loading with Python tools like NumPy.  </p>
-</li>
-<li>
-<p><strong>Documentation</strong>: Include a metadata file (e.g., <code>README.md</code>) in each subfolder to document dataset origins, formats, and preprocessing steps.  </p>
-</li>
-<li>
-<p><strong>Data Integrity</strong>: Use checksums or hashes to verify data integrity when sharing or archiving files.  </p>
-</li>
-<li>
-<p><strong>Versioning</strong>: If datasets are updated, maintain version control to track changes and ensure reproducibility.  </p>
-</li>
-<li>
-<p><strong>Storage Limits</strong>: For large datasets, consider using cloud storage or external repositories and linking them to the project.  </p>
-</li>
-</ol>
+<h2 id="file-format-requirements-for-training-and-inference">File Format Requirements for Training and Inference<a class="headerlink" href="#file-format-requirements-for-training-and-inference" title="Permanent link">&para;</a></h2>
+<p>This section is crucial and the file storage guidelines are under development.</p>
+<p align='right'>by Zihang Liu</p>
 
 
 

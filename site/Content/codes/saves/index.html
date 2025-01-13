@@ -86,7 +86,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lhaisaves" class="md-skip">
+        <a href="#lhai-project-code-saves-folder" class="md-skip">
           Skip to content
         </a>
       
@@ -558,6 +558,14 @@
           
         
       
+        
+      
+        
+      
+        
+      
+        
+      
     
     
       
@@ -583,6 +591,11 @@
 
             </a>
             
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
           </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
@@ -592,6 +605,90 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/cnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CNN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/gan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GAN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/vae/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VAE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/diffusion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DIFFUSION
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -680,6 +777,8 @@
       
         
       
+        
+      
     
     
       
@@ -722,6 +821,27 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../train/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TRAIN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -990,7 +1110,20 @@
   
 
 
-<h1 id="lhaisaves">LHAI项目代码：saves文件夹<a class="headerlink" href="#lhaisaves" title="Permanent link">&para;</a></h1>
+<h1 id="lhai-project-code-saves-folder">LHAI Project Code: Saves Folder<a class="headerlink" href="#lhai-project-code-saves-folder" title="Permanent link">&para;</a></h1>
+<p>The <code>saves</code> folder stores outputs generated during training, including images, loss data, trained models, and results from inference.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>│── saves              &lt;- Stores images, loss data, trained models, and prediction results
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│   ├── FIGURE         &lt;- Images generated from preliminary inference after training 
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│   │                     (Format: ./saves/FIGURE/EarlyPre_{MODEL_NAME}_{EXP_NAME}_{epochs}epo_{batch_size}bth_{latentdim}lat_{traintype}_{DATA_NAME}.png)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   │── PRE_FIG        &lt;- Images saved during inference 
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   │                     (Format: ./saves/PRE_FIG/{savepath}/PRE_FIG/Pre_{PRE_MODEL_NAME}.png)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│   ├── LOSS           &lt;- Loss data (.npy) and loss plots (.png) saved during training
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│   │                     (Format: ./saves/LOSS/{MODEL_NAME}_{EXP_NAME}_{epochs}epo_{batch_size}bth_{latentdim}lat_{traintype}_{DATA_NAME}.npy + .png)
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│   └── MODEL          &lt;- Saved trained models and serialized files 
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│                         (Format: ./saves/MODEL/{MODEL_NAME}_{EXP_NAME}_{epochs}epo_{batch_size}bth_{latentdim}lat_{traintype}_{DATA_NAME}.pth)
+</span></code></pre></div>
+<p>This folder requires minimal explanation -- once training or inference is complete, check this folder to retrieve the results.</p>
+<p align='right'>by Zihang Liu</p>
 
 
 

@@ -2,34 +2,46 @@
 
 ## LHAI User Mannual
 
+### 1.0.2 <small>January 13, 2025</small> { id="1.0.0" }
+
+- LHAI 进展：评估板块，能够完整全面且直观对模型进行评估 `LHAI/evaluation.py`
+
+### 1.0.1 <small>January 13, 2025</small> { id="1.0.0" }
+
+- LHAI 进展：新增了以下模型，可以应用并且进行训练： `LHAI/LHAI/model`
+1. 基于CNN(残差+递归)：CARN,DRCN,DRRN,EDSR,ESPCN,FSRCNN,IDN,LapSRN,SRCNN,VDSR
+2. 基于GAN：CGAN,SRGAN
+3. 基于DenseNet：SRDenseNet
+4. 基于Diffusion：SR3(Super-Resolution via Repeated Refinement)
+
 ### 1.0.0 <small>2025年1月12日</small> { id="1.0.0" }
 
 > 重大更新
 
-- 完成代码工业化，发布在LHAI
-- 添加内容：Code Section/index
-- 添加内容：Code Section/DATA
-- 添加内容：Code Section/DOCS
-- 添加内容：Code Section/LHAI
-- 添加内容：Code Section/SAVES
-- 添加内容：Code Section/TRAIN
-- 添加功能 中英语言转换
-- 添加功能`ChangeLog`：Others Section/ChangeLog
+- LHAI 进展：完成代码工业化
+- 添加内容 `Code Section/index`
+- 添加内容 `Code Section/DATA`
+- 添加内容 `Code Section/DOCS`
+- 添加内容 `Code Section/LHAI`
+- 添加内容 `Code Section/SAVES`
+- 添加内容 `Code Section/TRAIN`
+- 添加功能：中英语言转换
+- 添加功能：log版本更新 `Others Section/ChangeLog`
 - 修改bug：首页语言转换内容丢失问题
 
 ### 0.2.3 <small>2025年1月1日</small> { id="0.2.3" }
 
-- 添加内容：Data Section/simulation
-- 添加内容：Others Section/HowtoBeCollaborator
+- 添加内容 `Data Section/simulation`
+- 添加内容 `Others Section/HowtoBeCollaborator`
 
 ### 0.2.2 <small>2024年12月20日</small> { id="0.2.2" }
 
-- 添加内容：首页
-- 添加内容：Data Section/index
-- 添加内容：Network Section/index
-- 添加内容：Eval Section/index
-- 添加内容：Code Section/index
-- 添加内容：Others Section
+- 添加内容：首页 `home page`
+- 添加内容 `Data Section/index`
+- 添加内容 `Network Section/index`
+- 添加内容 `Eval Section/index`
+- 添加内容 `Code Section/index`
+- 添加内容 `Others Section`
 
 ### 0.2.1 <small>2024年12月20日</small> { id="0.2.1" }
 
@@ -48,6 +60,6 @@
 
 ### 0.0.0 <small>2024年11月24日</small> { id="0.0.0" }
 
-- 使用FERMI模拟数据完成初步超分辨
+- LHAI 进展：使用FERMI模拟数据完成初步超分辨
 - 参加会议：The Second LHAASO Collaboration Conference in 2024
 - 确定制作用户手册
