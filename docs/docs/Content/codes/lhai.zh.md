@@ -11,8 +11,7 @@ LHAI                        <- 本项目使用的源代码
 │
 ├── config.py               <- 存储有用的变量和配置
 │
-├── features.py             <- 用于生成建模特征的代码（目前没用）
-│── plots.py                <- 用于生成可视化的代码（目前没用）
+├── evaluation.py           <- 3 different methods to evaluation trained models.
 │
 ├── modeling                <- 模型训练和推理代码
 │   ├── __init__.py 

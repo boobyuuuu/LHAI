@@ -11,8 +11,7 @@ LHAI                        <- Source code for the project
 │
 ├── config.py               <- Stores useful variables and configurations
 │
-├── features.py             <- Code for generating modeling features (currently unused)
-│── plots.py                <- Code for generating visualizations (currently unused)
+│── evaluation.py              <- 3 different methods to evaluation trained models.
 │
 ├── modeling                <- Code for model training and predict
 │   ├── __init__.py

@@ -36,6 +36,18 @@ PRE_FRAC_TRAIN = 0.8
 PRE_BATCH_SIZE = 32
 PRE_LATENT_DIM = 64
 
+# ---- Eval Parameters ----
+EVAL_EXP_NAME = "EXP_0_1"                                                                # 参数1：实验代号
+EVAL_MODEL_NAME = "CNN"                                                                  # 参数2：模型在神经网络代码py文件中的class名称
+EVAL_MODEL_PYPATH = PROJ_ROOT / "LHAI" / "models" / f"{EVAL_MODEL_NAME}_{EVAL_EXP_NAME}.py"
+EVAL_MODEL_PTHNAME = "CNN_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth"    # 参数3：需要评估的模型名称
+EVAL_MODEL_PTHPATH = PROJ_ROOT / "saves" / "MODEL" / EVAL_MODEL_PTHNAME                  # 参数4：需要评估的模型保存的路径
+
+EVAL_DATA_DIR = PROJ_ROOT / "data" / "POISSON"                                           # 参数3：如果需要指定不同的数据集的文件名
+EVAL_DATA_NAME = "poisson_src_bkg.pkl.npy"                                               # 参数4：如果需要指定不同的数据集
+EVAL_DATA_PATH = EVAL_DATA_DIR / EVAL_DATA_NAME
+EVAL_SEED = 0                                                                            # 参数5：如果需要指定不同的随机种子
+
 try:
     from tqdm import tqdm
 

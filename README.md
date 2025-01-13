@@ -50,9 +50,7 @@ NJU AI for LHAASO
     │
     ├── config.py               <- Store useful variables and configuration
     │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
+    ├── evaluation.py              <- 3 different methods to evaluation trained models.
     │
     ├── modeling                
     │   ├── __init__.py 
@@ -62,12 +60,12 @@ NJU AI for LHAASO
     ├── models                  <- Neural network model code.
     │   └── CNN_EXP_0_1.py      <- Modelname_Experimentnumber.py
     │
-    │── function             <- Functions used in training and predicting processes.
-    │  ├── Dataset.py        <- Function used in loading Dataset.
-    │  ├── Log.py            <- Function used in Logging.
-    │  └── Loss.py           <- Function used in Loss generating.
-    │
-    └── plots.py                <- Code to create visualizations
+    └── function             <- Functions used in training and predicting processes.
+       ├── Dataset.py        <- Function used in loading Dataset.
+       ├── Log.py            <- Function used in Logging.
+       └── Loss.py           <- Function used in Loss generating.
+     
+     
 ```
 
 ## Starting Model Training from Git Clone
