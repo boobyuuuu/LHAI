@@ -2,6 +2,13 @@
 
 ## LHAI User Manual
 
+### 1.0.3 <small>January 14, 2025</small> { id="1.0.3" }
+
+- Added content `Code Section/SERVER`
+- Added content `Code Section/TRAIN`
+- Added content `Code Section/PREDICT`
+- Added content `Code Section/EVALUATION`
+
 ### 1.0.2 <small>January 13, 2025</small> { id="1.0.2" }
 
 - LHAI Progress: Added an evaluation module for comprehensive and intuitive model assessment. (`LHAI/evaluation.py`)

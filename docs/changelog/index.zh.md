@@ -2,11 +2,18 @@
 
 ## LHAI User Mannual
 
-### 1.0.2 <small>January 13, 2025</small> { id="1.0.0" }
+### 1.0.3 <small>January 14, 2025</small> { id="1.0.3" }
+
+- 添加内容 `Code Section/SERVER`
+- 添加内容 `Code Section/TRAIN`
+- 添加内容 `Code Section/PREDICT`
+- 添加内容 `Code Section/EVALUATION`
+
+### 1.0.2 <small>January 13, 2025</small> { id="1.0.2" }
 
 - LHAI 进展：评估板块，能够完整全面且直观对模型进行评估 `LHAI/evaluation.py`
 
-### 1.0.1 <small>January 13, 2025</small> { id="1.0.0" }
+### 1.0.1 <small>January 13, 2025</small> { id="1.0.1" }
 
 - LHAI 进展：新增了以下模型，可以应用并且进行训练： `LHAI/LHAI/model`
 1. 基于CNN(残差+递归)：CARN,DRCN,DRRN,EDSR,ESPCN,FSRCNN,IDN,LapSRN,SRCNN,VDSR
