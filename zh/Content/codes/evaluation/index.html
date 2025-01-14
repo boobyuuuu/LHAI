@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     
       <meta charset="utf-8">
@@ -10,28 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://boobyuuuu.github.io/LHAI/Content/codes/train/">
+        <link rel="canonical" href="https://boobyuuuu.github.io/LHAI/zh/Content/codes/evaluation/">
       
       
-        <link rel="prev" href="../server/">
+        <link rel="prev" href="../predict/">
       
       
-        <link rel="next" href="../predict/">
+        <link rel="next" href="../data/">
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
     
     
       
-        <title>TRAIN - LHAI User Manual</title>
+        <title>EVALUATION - LHAI 用户手册</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6f8fc17f.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -44,28 +44,28 @@
       
     
     
-      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../../stylesheets/custom.css">
+      <link rel="stylesheet" href="../../../../stylesheets/custom.css">
     
-      <link rel="stylesheet" href="../../../css/tasklist.css">
+      <link rel="stylesheet" href="../../../../css/tasklist.css">
     
-      <link rel="stylesheet" href="../../../css/custom.css">
+      <link rel="stylesheet" href="../../../../css/custom.css">
     
-      <link rel="stylesheet" href="../../../css/card.css">
+      <link rel="stylesheet" href="../../../../css/card.css">
     
-      <link rel="stylesheet" href="../../../css/flink.css">
+      <link rel="stylesheet" href="../../../../css/flink.css">
     
-      <link rel="stylesheet" href="../../../css/changelog_extra.css">
+      <link rel="stylesheet" href="../../../../css/changelog_extra.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
     
-  <link rel="stylesheet" href="../../../assets/stylesheets/custom.00c04c01.min.css">
+  <link rel="stylesheet" href="../../../../assets/stylesheets/custom.00c04c01.min.css">
 
   </head>
   
@@ -86,8 +86,8 @@
     <div data-md-component="skip">
       
         
-        <a href="#starting-model-training-from-git-clone" class="md-skip">
-          Skip to content
+        <a href="#git-clone" class="md-skip">
+          跳转至
         </a>
       
     </div>
@@ -99,10 +99,10 @@
       
 
 <header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="LHAI User Manual" class="md-header__button md-logo" aria-label="LHAI User Manual" data-md-component="logo">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../" title="LHAI 用户手册" class="md-header__button md-logo" aria-label="LHAI 用户手册" data-md-component="logo">
       
-  <img src="../../../assets/favicon.png" alt="logo">
+  <img src="../../../../assets/favicon.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -113,13 +113,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            LHAI User Manual
+            LHAI 用户手册
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              TRAIN
+              EVALUATION
             
           </span>
         </div>
@@ -181,20 +181,20 @@
       <div class="md-header__option">
   <div class="md-select">
     
-    <button class="md-header__button md-icon" aria-label="Select language">
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
     </button>
     <div class="md-select__inner">
       <ul class="md-select__list">
         
           <li class="md-select__item">
-            <a href="./" hreflang="en" class="md-select__link">
+            <a href="../../../../Content/codes/evaluation/" hreflang="en" class="md-select__link">
               English
             </a>
           </li>
         
           <li class="md-select__item">
-            <a href="../../../zh/Content/codes/train/" hreflang="zh" class="md-select__link">
+            <a href="./" hreflang="zh" class="md-select__link">
               中文
             </a>
           </li>
@@ -213,16 +213,16 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="查找">
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
@@ -233,7 +233,7 @@
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            正在初始化搜索引擎
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -244,7 +244,7 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/boobyuuuu/LHAI" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/boobyuuuu/LHAI" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
@@ -265,7 +265,7 @@
         
           
             
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
       
@@ -274,12 +274,12 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../.." class="md-tabs__link">
+      <a href="../../../" class="md-tabs__link">
         
   
     
   
-  Index
+  首页
 
       </a>
     </li>
@@ -298,7 +298,7 @@
   
     
   
-  Data Section
+  数据部分
 
         </a>
       </li>
@@ -318,7 +318,7 @@
   
     
   
-  Network Section
+  网络部分
 
         </a>
       </li>
@@ -338,7 +338,7 @@
   
     
   
-  Eval Section
+  评估部分
 
         </a>
       </li>
@@ -360,7 +360,7 @@
   
     
   
-  Codes Section
+  代码部分
 
         </a>
       </li>
@@ -386,7 +386,7 @@
   
     
   
-  Others Section
+  其他部分
 
         </a>
       </li>
@@ -417,18 +417,18 @@
   
 
 
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="LHAI User Manual" class="md-nav__button md-logo" aria-label="LHAI User Manual" data-md-component="logo">
+    <a href="../../../" title="LHAI 用户手册" class="md-nav__button md-logo" aria-label="LHAI 用户手册" data-md-component="logo">
       
-  <img src="../../../assets/favicon.png" alt="logo">
+  <img src="../../../../assets/favicon.png" alt="logo">
 
     </a>
-    LHAI User Manual
+    LHAI 用户手册
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/boobyuuuu/LHAI" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/boobyuuuu/LHAI" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
@@ -448,11 +448,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Index
+    首页
   </span>
   
 
@@ -495,7 +495,7 @@
               
   
   <span class="md-ellipsis">
-    Data Section
+    数据部分
   </span>
   
 
@@ -511,7 +511,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            Data Section
+            数据部分
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -585,7 +585,7 @@
               
   
   <span class="md-ellipsis">
-    Network Section
+    网络部分
   </span>
   
 
@@ -601,7 +601,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            Network Section
+            网络部分
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -730,7 +730,7 @@
               
   
   <span class="md-ellipsis">
-    Eval Section
+    评估部分
   </span>
   
 
@@ -741,7 +741,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            Eval Section
+            评估部分
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -807,7 +807,7 @@
               
   
   <span class="md-ellipsis">
-    Codes Section
+    代码部分
   </span>
   
 
@@ -823,7 +823,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            Codes Section
+            代码部分
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -854,30 +854,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    TRAIN
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../train/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -886,89 +866,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-step-one-git-clone" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Step One: Git Clone
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-verify-the-project-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Verify the Project Structure
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-configure-python-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Configure Python Environment
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-prepare-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. Prepare Data
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-prepare-neural-network-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Prepare Neural Network Code
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-pre-train-for-debugging" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Pre-train for Debugging
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-start-training" class="md-nav__link">
-    <span class="md-ellipsis">
-      7. Start Training
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -999,10 +896,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../evaluation/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1011,6 +917,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -1137,7 +1044,7 @@
             
   
   <span class="md-ellipsis">
-    Others Section
+    其他部分
   </span>
   
 
@@ -1147,7 +1054,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
-            Others Section
+            其他部分
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1249,83 +1156,12 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
   
     
   
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-step-one-git-clone" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Step One: Git Clone
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-verify-the-project-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Verify the Project Structure
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-configure-python-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Configure Python Environment
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-prepare-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. Prepare Data
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-prepare-neural-network-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Prepare Neural Network Code
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-pre-train-for-debugging" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Pre-train for Debugging
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-start-training" class="md-nav__link">
-    <span class="md-ellipsis">
-      7. Start Training
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -1343,93 +1179,129 @@
   
 
 
-<h1 id="starting-model-training-from-git-clone">Starting Model Training from Git Clone<a class="headerlink" href="#starting-model-training-from-git-clone" title="Permanent link">&para;</a></h1>
-<p>The storage address of 'train.py' is:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>LHAI/LHAI/modeling/train.py
+<h1 id="git-clone">从git clone开始模型评估<a class="headerlink" href="#git-clone" title="Permanent link">&para;</a></h1>
+<p><code>evaluation.py</code>存放地址:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>LHAI/LHAI/evaluation.py
 </span></code></pre></div>
-<p>After understanding the basic functions of the LHAI source code structure (<code>data</code>, <code>docs</code>, <code>LHAI</code>, <code>saves</code> folders), you can begin training and inference.</p>
-<p>This page explains how to prepare and start training, beginning with <code>git clone</code>.</p>
-<hr />
-<h3 id="1-step-one-git-clone">1. Step One: Git Clone<a class="headerlink" href="#1-step-one-git-clone" title="Permanent link">&para;</a></h3>
-<p>Run the following command to clone the code from the <code>Code</code> branch:</p>
+<p>在了解了LHAI源代码结构：<code>data</code>,<code>docs</code>,<code>LHAI</code>,<code>saves</code> 文件夹的基本作用之后，就可以开始推理了。</p>
+<p>这一页将会从 <code>git clone</code> 开始，叙述我们该准备哪些东西，如何开始进行推理。</p>
+<ol>
+<li>
+<p>第一步：git clone</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>Code<span class="w"> </span>https://github.com/boobyuuuu/LHAI.git
 </span></code></pre></div>
-<p>Navigate to the cloned repository:</p>
+<p>这会下载Code branch下的所有代码于LHAI文件夹内。打开文件夹：</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>LHAI
 </span></code></pre></div>
-<hr />
-<h3 id="2-verify-the-project-structure">2. Verify the Project Structure<a class="headerlink" href="#2-verify-the-project-structure" title="Permanent link">&para;</a></h3>
-<p>Ensure the <code>LHAI</code> folder contains the following structure:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>├── LICENSE            &lt;- Open-source license (if applicable)
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── Makefile           &lt;- Utility commands, e.g., `make data` or `make train`
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── README.md          &lt;- Top-level README for developers
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>├── data               &lt;- Various types of data (recommended format: .npy)
+</li>
+<li>
+<p>检查LHAI文件夹的项目structure，是否包含完整：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>├── LICENSE            &lt;- Open-source license if one is chosen
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── Makefile           &lt;- Makefile with convenience commands like `make data` or `make train`
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── README.md          &lt;- The top-level README for developers using this project.
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>├── data               &lt;- Different types of data. (Recommended to upload with npy formation)
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>│   ├── FERMI
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>│   ├── POISSON
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│   ├── SIMU
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│   └── RAW
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>├── saves              &lt;- Stores images, loss data, trained models, and results
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>│   ├── FIGURE         &lt;- Training images
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>│   ├── PRE_FIG        &lt;- Inference images
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>│   ├── LOSS           &lt;- Loss data and plots (.npy/.png)
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>│   └── MODEL          &lt;- Saved trained models
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>├── docs               &lt;- MkDocs project files (see www.mkdocs.org for details)
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>├── notebooks          &lt;- Jupyter notebooks with standard naming conventions
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>├── pyproject.toml     &lt;- Project configuration (e.g., Black formatting)
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>├── references         &lt;- Data dictionaries, manuals, and other resources
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>├── reports            &lt;- Generated reports (HTML, PDF, LaTeX)
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>│   └── figures        &lt;- Figures and plots for reports
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>├── requirements.txt   &lt;- Dependencies file (e.g., via `pip freeze`)
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>├── setup.cfg          &lt;- flake8 configuration
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>└── LHAI               &lt;- Source code
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>    ├── config.py               &lt;- Configuration settings
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    ├── dataset.py              &lt;- Data generation/loading scripts
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    ├── features.py             &lt;- Feature generation
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>    ├── modeling                &lt;- Model training and inference
-</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>    │   ├── predict.py          &lt;- Inference code
-</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>    │   └── train.py            &lt;- Training code
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>    ├── models                  &lt;- Neural network models
-</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>    ├── function                &lt;- Utilities for training/inference
-</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>    │   ├── Dataset.py          &lt;- Dataset loader
-</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>    │   ├── Log.py              &lt;- Logging utilities
-</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>    │   └── Loss.py             &lt;- Loss functions
-</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>    └── plots.py                &lt;- Visualization code
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>│
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>├── saves             &lt;- Figure/Loss saves, Trained and Serialized models, model Predictions, .
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>│   ├── FIGURE        &lt;- Figure saves in training.
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>│   │── PRE_FIG       &lt;- Figure saves in predicting.
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>│   ├── LOSS          &lt;- LOSS data(.npy) and LOSS Figure(.png) saves in training.
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>│   └── MODEL         &lt;- Trained and Serialized models.
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>│
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>├── docs               &lt;- A default mkdocs project; see www.mkdocs.org for details
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>│
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>│
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>├── notebooks          &lt;- Jupyter notebooks. Naming convention is a number (for ordering),
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>│                         the creator&#39;s initials, and a short `-` delimited description, e.g.
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>│                         `1.0-jqp-initial-data-exploration`.
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>│
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>├── pyproject.toml     &lt;- Project configuration file with package metadata for 
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>│                         LHAI and configuration for tools like black
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>│
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>├── references         &lt;- Data dictionaries, manuals, and all other explanatory materials.
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>│
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>├── reports            &lt;- Generated analysis as HTML, PDF, LaTeX, etc.
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>│   └── figures        &lt;- Generated graphics and figures to be used in reporting
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>│
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>├── requirements.txt   &lt;- The requirements file for reproducing the analysis environment, e.g.
+</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>│                         generated with `pip freeze &gt; requirements.txt`      
+</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>│
+</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>├── setup.cfg          &lt;- Configuration file for flake8
+</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>│
+</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>└── LHAI   &lt;- Source code for use in this project.
+</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>    │
+</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>    ├── __init__.py             &lt;- Makes LHAI a Python module
+</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>    │
+</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>    ├── config.py               &lt;- Store useful variables and configuration
+</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>    │
+</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>    ├── evaluation.py              &lt;- 3 different methods to evaluation trained models.
+</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a>    │
+</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a>    ├── modeling                
+</span><span id="__span-3-45"><a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a>    │   ├── __init__.py 
+</span><span id="__span-3-46"><a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a>    │   ├── predict.py          &lt;- Code to run model inference with trained models          
+</span><span id="__span-3-47"><a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a>    │   └── train.py            &lt;- Code to train models
+</span><span id="__span-3-48"><a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a>    │
+</span><span id="__span-3-49"><a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a>    ├── models                  &lt;- Neural network model code.
+</span><span id="__span-3-50"><a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a>    │   └── CNN_EXP_0_1.py      &lt;- Modelname_Experimentnumber.py
+</span><span id="__span-3-51"><a id="__codelineno-3-51" name="__codelineno-3-51" href="#__codelineno-3-51"></a>    │
+</span><span id="__span-3-52"><a id="__codelineno-3-52" name="__codelineno-3-52" href="#__codelineno-3-52"></a>    └── function             &lt;- Functions used in training and predicting processes.
+</span><span id="__span-3-53"><a id="__codelineno-3-53" name="__codelineno-3-53" href="#__codelineno-3-53"></a>    ├── Dataset.py        &lt;- Function used in loading Dataset.
+</span><span id="__span-3-54"><a id="__codelineno-3-54" name="__codelineno-3-54" href="#__codelineno-3-54"></a>    ├── Log.py            &lt;- Function used in Logging.
+</span><span id="__span-3-55"><a id="__codelineno-3-55" name="__codelineno-3-55" href="#__codelineno-3-55"></a>    └── Loss.py           &lt;- Function used in Loss generating.
 </span></code></pre></div>
-<hr />
-<h3 id="3-configure-python-environment">3. Configure Python Environment<a class="headerlink" href="#3-configure-python-environment" title="Permanent link">&para;</a></h3>
-<p>Ensure your system meets the requirements for machine learning tasks. Recommended environment setup(not matter if close):</p>
-<ul>
-<li><strong>PyTorch</strong>: 2.1.0</li>
-<li><strong>Python</strong>: 3.10 (Ubuntu 22.04)</li>
-<li><strong>CUDA</strong>: 12.1</li>
-</ul>
-<p>Install dependencies using the provided file:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</li>
+<li>
+<p>配置 python 环境</p>
+<p>首先确定我们的机器的宏观环境能够用于机器学习任务，我一般喜欢选择服务器配置：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>PyTorch  2.1.0
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Python  3.10(ubuntu22.04)
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Cuda  12.1
 </span></code></pre></div>
-<hr />
-<h3 id="4-prepare-data">4. Prepare Data<a class="headerlink" href="#4-prepare-data" title="Permanent link">&para;</a></h3>
-<p>Place your data in the appropriate folder under <code>data</code>. Update <code>config.py</code> to point to your dataset.</p>
-<p>For example, if your Poisson data is named <code>poisson_src_bkg.pkl.npy</code>, its path in <code>config.py</code> should be:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="s2">&quot;data&quot;</span> <span class="o">/</span> <span class="s2">&quot;POISSON&quot;</span> <span class="o">/</span> <span class="s2">&quot;poisson_src_bkg.pkl.npy&quot;</span>
+<p>当然，更高的配置也没有问题，只是这个配置最经典和稳定；</p>
+<p>然后，需要创建python虚拟环境，安装python环境：</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span>requirements.txt
 </span></code></pre></div>
-<hr />
-<h3 id="5-prepare-neural-network-code">5. Prepare Neural Network Code<a class="headerlink" href="#5-prepare-neural-network-code" title="Permanent link">&para;</a></h3>
-<p>Place your neural network code in the <code>models</code> folder. Update <code>config.py</code> to reference your model.</p>
-<p>For example, if your CNN model file is <code>CNN_EXP_0_1.py</code>, its path in <code>config.py</code> should be:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="s2">&quot;LHAI&quot;</span> <span class="o">/</span> <span class="s2">&quot;models&quot;</span> <span class="o">/</span> <span class="s2">&quot;CNN_EXP_0_1.py&quot;</span>
+<p>这样环境方面就没有问题了。</p>
+</li>
+<li>
+<p>准备数据，并且放到数据文件夹 <code>data</code> 对应的类别文件夹内，修改 <code>config.py</code> 使之能够指向我们的数据</p>
+<p>比如根据 <code>config.py</code> 中的默认配置，我的泊松类型数据 <code>poisson_src_bkg.pkl.npy</code> 路径就是：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="s2">&quot;data&quot;</span> <span class="o">/</span> <span class="s2">&quot;POISSON&quot;</span> <span class="o">/</span> <span class="n">poisson_src_bkg</span><span class="o">.</span><span class="n">pkl</span><span class="o">.</span><span class="n">npy</span>
 </span></code></pre></div>
-<hr />
-<h3 id="6-pre-train-for-debugging">6. Pre-train for Debugging<a class="headerlink" href="#6-pre-train-for-debugging" title="Permanent link">&para;</a></h3>
-<p>Set a small number of <code>epochs</code> and a large <code>batch_size</code> to ensure the training process runs without issues.</p>
-<hr />
-<h3 id="7-start-training">7. Start Training<a class="headerlink" href="#7-start-training" title="Permanent link">&para;</a></h3>
-<p><strong>Method 1</strong>: Configure parameters in <code>config.py</code> and run:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>train.py
+<p>在evaluation中对评估用到的数据变量有三个：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">EVAL_DATA_DIR</span> <span class="o">=</span> <span class="n">PROJ_ROOT</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span> <span class="o">/</span> <span class="s2">&quot;POISSON&quot;</span>                                           <span class="c1"># 参数3：如果需要指定不同的数据集的地址名</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">EVAL_DATA_NAME</span> <span class="o">=</span> <span class="s2">&quot;poisson_src_bkg.pkl.npy&quot;</span>                                               <span class="c1"># 参数4：数据集名称</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">EVAL_DATA_PATH</span> <span class="o">=</span> <span class="n">EVAL_DATA_DIR</span> <span class="o">/</span> <span class="n">EVAL_DATA_NAME</span>
 </span></code></pre></div>
-<p><strong>Method 2</strong>: Use the <code>Typer</code> command-line interface for dynamic parameter setting:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python<span class="w"> </span>train.py<span class="w"> </span>--model-name<span class="w"> </span><span class="s2">&quot;GAN&quot;</span><span class="w"> </span>--exp-name<span class="w"> </span><span class="s2">&quot;MyExperiment&quot;</span><span class="w"> </span>--data-dir<span class="w"> </span><span class="s2">&quot;./data&quot;</span><span class="w"> </span>--data-name<span class="w"> </span><span class="s2">&quot;dataset.csv&quot;</span><span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span>--traintype<span class="w"> </span><span class="s2">&quot;supervised&quot;</span><span class="w"> </span>--frac-train<span class="w"> </span><span class="m">0</span>.8<span class="w"> </span>--epochs<span class="w"> </span><span class="m">10</span><span class="w"> </span>--batch-size<span class="w"> </span><span class="m">32</span><span class="w"> </span>--latentdim<span class="w"> </span><span class="m">128</span><span class="w"> </span>--lr-max<span class="w"> </span><span class="m">0</span>.01<span class="w"> </span>--lr-min<span class="w"> </span><span class="m">0</span>.001
+</li>
+<li>
+<p>准备神经网络代码，放到神经网络文件夹内，修改 <code>config.py</code> 使之能够引用我们的神经网络代码</p>
+<p>比如根据 <code>config.py</code> 中的默认配置，我的CNN类型神经网络代码 <code>CNN_EXP_0_1.py</code> 路径就是：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="s2">&quot;LHAI&quot;</span> <span class="o">/</span> <span class="s2">&quot;models&quot;</span> <span class="o">/</span> <span class="n">CNN_EXP_0_1</span><span class="o">.</span><span class="n">py</span>
 </span></code></pre></div>
-<p>For details, refer to the <strong>Code Section</strong> in the LHAI manual.</p>
+<p>在evaluation中对评估用到的模型变量有五个：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>EVAL_EXP_NAME = &quot;EXP_0_1&quot;                                                                # 参数1：实验代号
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>EVAL_MODEL_NAME = &quot;CNN&quot;                                                                  # 参数2：模型在神经网络代码py文件中的class名称
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>EVAL_MODEL_PYPATH = PROJ_ROOT / &quot;LHAI&quot; / &quot;models&quot; / f&quot;{EVAL_MODEL_NAME}_{EVAL_EXP_NAME}.py&quot;
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>EVAL_MODEL_PTHNAME = &quot;CNN_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth&quot;    # 参数3：需要评估的模型名称
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>EVAL_MODEL_PTHPATH = PROJ_ROOT / &quot;saves&quot; / &quot;MODEL&quot; / EVAL_MODEL_PTHNAME                  # 参数4：需要评估的模型保存的路径
+</span></code></pre></div>
+</li>
+<li>
+<p>确保训练好的模型已经保存在 <code>saves/MODEL</code> 文件夹内。</p>
+</li>
+<li>
+<p>开始评估。</p>
+<p>方法1：设置 <code>config.py</code> 中EVAL的参数，在 <code>LHAI</code> 文件夹中运行。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>python<span class="w"> </span>evaluation.py
+</span></code></pre></div>
+<p>方法2：高端一点的直接通过 <code>Typer</code> 接口设置命令行参数</p>
+<p>具体请看 Code Section 的 LHAI 手册页面。</p>
+</li>
+</ol>
 <p align='right'>by Zihang Liu</p>
 
 
@@ -1454,7 +1326,7 @@
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  Back to top
+  回到页面顶部
 </button>
         
       </main>
@@ -1483,10 +1355,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "navigation.tracking", "navigation.tabs", "navigation.indexes", "navigation.top"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["content.code.annotate", "navigation.tracking", "navigation.tabs", "navigation.indexes", "navigation.top"], "search": "../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
@@ -1494,7 +1366,7 @@
       
         <script src="https://cdn.tonycrane.cc/utils/katex.min.js"></script>
       
-        <script src="../../../js/katex.js"></script>
+        <script src="../../../../js/katex.js"></script>
       
     
   </body>
