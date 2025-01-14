@@ -167,7 +167,10 @@ nav:
     - index: Content/eval/index.md
   - Codes Section:
     - index: Content/codes/index.md
+    - SERVER: Content/codes/server.md
     - TRAIN: Content/codes/train.md
+    - PREDICT: Content/codes/predict.md
+    - EVALUATION: Content/codes/evaluation.md
     - DATA: Content/codes/data.md
     - DOCS: Content/codes/docs.md
     - LHAI: Content/codes/lhai.md

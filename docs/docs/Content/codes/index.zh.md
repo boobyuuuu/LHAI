@@ -5,62 +5,62 @@
 代码的总体结构如下：
 
 ```
-├── LICENSE            <- 开源许可证（如果选择使用）
-├── Makefile           <- 提供便利命令的Makefile，例如 `make data` 或 `make train`
-├── README.md          <- 面向开发者的顶级README文件
-├── data               <- 不同类型的数据（推荐使用npy格式上传）
+├── LICENSE            <- Open-source license if one is chosen
+├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
+├── README.md          <- The top-level README for developers using this project.
+├── data               <- Different types of data. (Recommended to upload with npy formation)
 │   ├── FERMI
 │   ├── POISSON
 │   ├── SIMU
 │   └── RAW
 │
-├── saves              <- 保存训练中的图像、损失数据、训练后的模型和预测结果
-│   ├── FIGURE         <- 训练过程中保存的图像
-│   │── PRE_FIG        <- 推理时保存的图像
-│   ├── LOSS           <- 训练过程中保存的损失数据(.npy)和损失图像(.png)
-│   └── MODEL          <- 保存的已训练模型和序列化模型
+├── saves             <- Figure/Loss saves, Trained and Serialized models, model Predictions, .
+│   ├── FIGURE        <- Figure saves in training.
+│   │── PRE_FIG       <- Figure saves in predicting.
+│   ├── LOSS          <- LOSS data(.npy) and LOSS Figure(.png) saves in training.
+│   └── MODEL         <- Trained and Serialized models.
 │
-├── docs               <- 默认的mkdocs项目文件；详细信息请参考 www.mkdocs.org
+├── docs               <- A default mkdocs project; see www.mkdocs.org for details
 │
-├── notebooks          <- Jupyter notebooks，命名规范包括编号、创建者缩写和描述，例如：
-│                         `1.0-jqp-initial-data-exploration`
 │
-├── pyproject.toml     <- 项目配置文件，包含LHAI的包元数据及工具（如black）的配置
+├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
+│                         the creator's initials, and a short `-` delimited description, e.g.
+│                         `1.0-jqp-initial-data-exploration`.
 │
-├── references         <- 数据字典、手册和其他说明性资料
+├── pyproject.toml     <- Project configuration file with package metadata for 
+│                         LHAI and configuration for tools like black
 │
-├── reports            <- 生成的分析报告（HTML、PDF、LaTeX等）
-│   └── figures        <- 报告中生成的图表和图形
+├── references         <- Data dictionaries, manuals, and all other explanatory materials.
 │
-├── requirements.txt   <- 用于再现分析环境的依赖文件，例如通过
-│                         `pip freeze > requirements.txt` 生成
+├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
+│   └── figures        <- Generated graphics and figures to be used in reporting
 │
-├── setup.cfg          <- flake8的配置文件
+├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
+│                         generated with `pip freeze > requirements.txt`      
 │
-└── LHAI               <- 本项目使用的源代码
+├── setup.cfg          <- Configuration file for flake8
+│
+└── LHAI   <- Source code for use in this project.
     │
-    ├── __init__.py             <- 使LHAI成为一个Python模块
+    ├── __init__.py             <- Makes LHAI a Python module
     │
-    ├── config.py               <- 存储有用的变量和配置
+    ├── config.py               <- Store useful variables and configuration
     │
-    ├── dataset.py              <- 下载或生成数据的脚本
+    ├── evaluation.py              <- 3 different methods to evaluation trained models.
     │
-    ├── features.py             <- 用于生成建模特征的代码
-    │
-    ├── modeling                <- 模型训练和推理代码
+    ├── modeling                
     │   ├── __init__.py 
-    │   ├── predict.py          <- 用于模型推理的代码          
-    │   └── train.py            <- 用于训练模型的代码
+    │   ├── predict.py          <- Code to run model inference with trained models          
+    │   └── train.py            <- Code to train models
     │
-    ├── models                  <- 神经网络模型代码
-    │   └── CNN_EXP_0_1.py      <- 模型名称_实验编号.py
+    ├── models                  <- Neural network model code.
+    │   └── CNN_EXP_0_1.py      <- Modelname_Experimentnumber.py
     │
-    │── function                <- 训练和推理过程中使用的功能代码
-    │  ├── Dataset.py           <- 数据集加载功能
-    │  ├── Log.py               <- 日志记录功能
-    │  └── Loss.py              <- 损失生成功能
-    │
-    └── plots.py                <- 用于生成可视化的代码
+    └── function             <- Functions used in training and predicting processes.
+       ├── Dataset.py        <- Function used in loading Dataset.
+       ├── Log.py            <- Function used in Logging.
+       └── Loss.py           <- Function used in Loss generating.
+
 ```
 
 我们将主要讨论以下部分：

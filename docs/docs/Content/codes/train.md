@@ -1,5 +1,11 @@
 # Starting Model Training from Git Clone
 
+The storage address of 'train.py' is:
+
+```
+LHAI/LHAI/modeling/train.py
+```
+
 After understanding the basic functions of the LHAI source code structure (`data`, `docs`, `LHAI`, `saves` folders), you can begin training and inference.
 
 This page explains how to prepare and start training, beginning with `git clone`.
