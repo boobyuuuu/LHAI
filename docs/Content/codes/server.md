@@ -52,10 +52,73 @@
 
 ### 3 团队数据管理
 
-此处待写。(1)
+我们使用阿里云盘作为团队数据管理中心。(1)
 { .annotate }
 
-1.  :man_raising_hand: 以前我们没有一个集中的数据存储中心，之后我们会采用阿里云盘作为数据存储中心进行上传和下载。
+1.  :man_raising_hand: aliyun的优点：
+    1. 多平台支持, 支持 Windows, macOS, linux(x86/x64/arm), android, iOS 等
+    2. 阿里云盘多用户支持
+    3. 支持文件网盘，相册网盘无缝切换
+    4. 下载网盘内文件, 支持多个文件或目录下载, 支持断点续传和单文件并行下载。支持软链接(符号链接)文件。
+    5. 上传本地文件, 支持多个文件或目录上传，支持排除指定文件夹/文件（正则表达式）功能。支持软链接(符号链接)文件。
+    6. 同步备份功能支持备份本地文件到云盘，备份云盘文件到本地，双向同步备份保持本地文件和网盘文件同步。常用于嵌入式或者NAS等设备，支持docker镜像部署。
+    7. 命令和文件路径输入支持Tab键自动补全
+    8. 支持阿里云ECS环境下使用内网链接上传/下载，速度更快(只支持阿里经典网络，最高可达100MB/s)，还可以节省公网带宽流量(配置transfer_url_type=2即可)
+    9. 支持webdav文件服务，可以将阿里云盘当做webdav文件网盘挂载到Windows, macOS, linux的磁盘中进行使用。webdav部署支持docker镜像，镜像只有不到10MB非常小巧。
+    10. 支持JavaScript插件，你可以按照自己的需要定制上传/下载中关键步骤的行为，最大程度满足自己的个性化需求
+    在linux中下载aliyunpan
+
+    原文链接：https://blog.csdn.net/qq_41174671/article/details/127310715
+
+[点击此处查看官方教程](github:https://github.com/tickstep/aliyunpan)
+
+
+1. 下载与安装
+
+    ```python
+    #先进入想将安装包安装在哪里的目录下，然后执行以下命令进行下载
+    wget https://github.com/tickstep/aliyunpan/releases/download/v0.2.2/aliyunpan-v0.2.2-linux-amd64.zip
+    # download后面接的就是版本号，然后再接发布页的安装包名
+    unzip aliyunpan-v0.2.2-linux-amd64.zip #解压安装包
+    cd aliyunpan-v0.2.2-linux-amd64  #进入安装包
+    ./aliyunpan #启动aliyunpan
+    login #登录账号
+    ```
+
+2. 登录
+
+    refresh token：b69841de9160458da59d7757887b56c0
+
+3. 查看命令
+
+    ```
+    # 获取程序的功能
+    help
+    # 获取账户文件
+    ls
+    ```
+
+    非常有用的命令：`help`
+
+3. 下载文件
+
+    通过 `config set -savedir <savedir>` 可以自定义下载文件保存的目录。
+
+    ```
+    download 文件名
+    ```
+
+4. 上传文件
+
+    ```
+    upload <本地文件/目录的路径1> <文件/目录2> <文件/目录3> ... <目标目录>
+    ```
+
+    例如，一个上传文件命令示例：
+
+    ```
+    upload /root/autodl-fs/poisson_src_bkg.pkl.npy /LHAI
+    ```
 
 ## 开始 - 基础操作
 
