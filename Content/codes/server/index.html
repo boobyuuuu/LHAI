@@ -1002,7 +1002,49 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      vpn(代理)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="vpn(代理)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本下载与使用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ipynb" class="md-nav__link">
+    <span class="md-ellipsis">
+      ipynb文件使用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      python文件使用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       数据
     </span>
@@ -1557,7 +1599,49 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      vpn(代理)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="vpn(代理)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本下载与使用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ipynb" class="md-nav__link">
+    <span class="md-ellipsis">
+      ipynb文件使用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      python文件使用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       数据
     </span>
@@ -1736,9 +1820,66 @@
 </li>
 </ol>
 <h3 id="3">3 团队数据管理<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
-<p class="annotate">此处待写。(1)</p>
+<p class="annotate">我们使用阿里云盘作为团队数据管理中心。(1)</p>
 <ol>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> 以前我们没有一个集中的数据存储中心，之后我们会采用阿里云盘作为数据存储中心进行上传和下载。</li>
+<li>
+<p><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> aliyun的优点：</p>
+<ol>
+<li>多平台支持, 支持 Windows, macOS, linux(x86/x64/arm), android, iOS 等</li>
+<li>阿里云盘多用户支持</li>
+<li>支持文件网盘，相册网盘无缝切换</li>
+<li>下载网盘内文件, 支持多个文件或目录下载, 支持断点续传和单文件并行下载。支持软链接(符号链接)文件。</li>
+<li>上传本地文件, 支持多个文件或目录上传，支持排除指定文件夹/文件（正则表达式）功能。支持软链接(符号链接)文件。</li>
+<li>同步备份功能支持备份本地文件到云盘，备份云盘文件到本地，双向同步备份保持本地文件和网盘文件同步。常用于嵌入式或者NAS等设备，支持docker镜像部署。</li>
+<li>命令和文件路径输入支持Tab键自动补全</li>
+<li>支持阿里云ECS环境下使用内网链接上传/下载，速度更快(只支持阿里经典网络，最高可达100MB/s)，还可以节省公网带宽流量(配置transfer_url_type=2即可)</li>
+<li>支持webdav文件服务，可以将阿里云盘当做webdav文件网盘挂载到Windows, macOS, linux的磁盘中进行使用。webdav部署支持docker镜像，镜像只有不到10MB非常小巧。</li>
+<li>支持JavaScript插件，你可以按照自己的需要定制上传/下载中关键步骤的行为，最大程度满足自己的个性化需求
+在linux中下载aliyunpan</li>
+</ol>
+<p>原文链接：<a href="https://blog.csdn.net/qq_41174671/article/details/127310715">https://blog.csdn.net/qq_41174671/article/details/127310715</a></p>
+</li>
+</ol>
+<p><a href="github:https://github.com/tickstep/aliyunpan">点击此处查看官方教程</a></p>
+<ol>
+<li>
+<p>下载与安装</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">#先进入想将安装包安装在哪里的目录下，然后执行以下命令进行下载</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">tickstep</span><span class="o">/</span><span class="n">aliyunpan</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">v0</span><span class="mf">.2.2</span><span class="o">/</span><span class="n">aliyunpan</span><span class="o">-</span><span class="n">v0</span><span class="mf">.2.2</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">zip</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># download后面接的就是版本号，然后再接发布页的安装包名</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">unzip</span> <span class="n">aliyunpan</span><span class="o">-</span><span class="n">v0</span><span class="mf">.2.2</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">amd64</span><span class="o">.</span><span class="n">zip</span> <span class="c1">#解压安装包</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">cd</span> <span class="n">aliyunpan</span><span class="o">-</span><span class="n">v0</span><span class="mf">.2.2</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">amd64</span>  <span class="c1">#进入安装包</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="o">./</span><span class="n">aliyunpan</span> <span class="c1">#启动aliyunpan</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">login</span> <span class="c1">#登录账号</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>登录</p>
+<p>refresh token：b69841de9160458da59d7757887b56c0</p>
+</li>
+<li>
+<p>查看命令</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># 获取程序的功能
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>help
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># 获取账户文件
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>ls
+</span></code></pre></div>
+<p>非常有用的命令：<code>help</code></p>
+</li>
+<li>
+<p>下载文件</p>
+<p>通过 <code>config set -savedir &lt;savedir&gt;</code> 可以自定义下载文件保存的目录。</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>download 文件名
+</span></code></pre></div>
+</li>
+<li>
+<p>上传文件</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>upload &lt;本地文件/目录的路径1&gt; &lt;文件/目录2&gt; &lt;文件/目录3&gt; ... &lt;目标目录&gt;
+</span></code></pre></div>
+<p>例如，一个上传文件命令示例：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>upload /root/autodl-fs/poisson_src_bkg.pkl.npy /LHAI
+</span></code></pre></div>
+</li>
 </ol>
 <h2 id="-">开始 - 基础操作<a class="headerlink" href="#-" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
@@ -1755,7 +1896,7 @@
 <li>
 <p>ssh连接服务器</p>
 <p>方法1：在终端输入（环境中已下载ssh）</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ssh -L 8889:localhost:8889 root@111.61.30.143
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ssh -L 8889:localhost:8889 root@111.61.30.143
 </span></code></pre></div>
 <p>方法2：使用vscode进行服务器编辑：<a href="https://blog.csdn.net/kiong_/article/details/135877723">https://blog.csdn.net/kiong_/article/details/135877723</a></p>
 <p>vscode连接服务器使用ipynb文件的小问题：<a href="https://blog.csdn.net/jyk19991222/article/details/131486776">vscode中 ssh连接服务器后 无法为jupyter文件选择内核kernel</a></p>
@@ -1778,8 +1919,8 @@
 </ul>
 <h3 id="1_1">1 账户文件、环境查看<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
 <p>用 <code>ls -a</code>查看所有文件：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>.   .bash_history  .bashrc  .config             .ipython  .local    .python_history  .sudo_as_admin_successful
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>..  .bash_logout   .cache   .ipynb_checkpoints  .jupyter  .profile  snap             .viminfo
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>.   .bash_history  .bashrc  .config             .ipython  .local    .python_history  .sudo_as_admin_successful
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>..  .bash_logout   .cache   .ipynb_checkpoints  .jupyter  .profile  snap             .viminfo
 </span></code></pre></div>
 <details class="tip">
 <summary>.</summary>
@@ -1843,68 +1984,68 @@
 </details>
 <h3 id="2-permission-denied">2 文件读写权限：Permission denied<a class="headerlink" href="#2-permission-denied" title="Permanent link">&para;</a></h3>
 <p>跨账户操作时常遇到。在一个账户时无法打开另一个账户的文件：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ylin1@zhliu-X10DRi:~$ cd /home/zhliu
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>-bash: cd: /home/zhliu: Permission denied
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ylin1@zhliu-X10DRi:~$ cd /home/zhliu
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>-bash: cd: /home/zhliu: Permission denied
 </span></code></pre></div>
 <p>解决方法 1 ：使用sudo 命令</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo + 命令
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>sudo + 命令
 </span></code></pre></div>
 <p>解决方法 2 ：使用root身份操作</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>#进入root管理员身份：
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>sudo -i
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>#退出root管理员身份：
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>exit
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>#进入root管理员身份：
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>sudo -i
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>#退出root管理员身份：
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>exit
 </span></code></pre></div>
 <p>复制文件夹时，常常会遇到权限问题，使用以下代码改变文件夹所有者</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sudo chown -R ylin1:ylin1 trained_models
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sudo chown -R ylin1:ylin1 trained_models
 </span></code></pre></div>
 <h3 id="3_1">3 账户相关命令<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a># 查看服务器有哪些账户
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>getent passwd
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a># 查看当前账户是否具有root权限
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>sudo -l
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a># 查看某用户的所有权限
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>groups username
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a># 创建账户
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>sudo adduser newuser
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a># 给某用户sudo权限
-</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>sudo adduser username sudo
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a># 查看服务器有哪些账户
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>getent passwd
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a># 查看当前账户是否具有root权限
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>sudo -l
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a># 查看某用户的所有权限
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>groups username
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a># 创建账户
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>sudo adduser newuser
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a># 给某用户sudo权限
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>sudo adduser username sudo
 </span></code></pre></div>
 <h3 id="4">4 后台运行管理<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
 <p>后台运行ipynb文件：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>nohup runipy ./codes/Train.ipynb 2&gt;&amp;1 &amp;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>nohup runipy ./codes/Train.ipynb 2&gt;&amp;1 &amp;
 </span></code></pre></div>
 <p>查看后台、查看指定后台、停止后台</p>
 <p>注：ps aux 中 Time 的单位是小时（ 7:23 表示 7h23min）</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a># 查看所有后台
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>ps aux 
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a># 查看指定用户后台
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>ps aux | grep username
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a># 查看 runipy 字符串后台
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>ps aux | grep runipy
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a># 停止某个后台
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>kill PID
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a># 查看所有后台
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>ps aux 
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a># 查看指定用户后台
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>ps aux | grep username
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a># 查看 runipy 字符串后台
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>ps aux | grep runipy
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a># 停止某个后台
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>kill PID
 </span></code></pre></div>
 <h3 id="5">5 系统环境变量<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
 <p>pip安装相关包时出现：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>WARNING: The script lit is installed in &#39;/home/zywang/.local/bin&#39; which is not on PATH.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>WARNING: The script lit is installed in &#39;/home/zywang/.local/bin&#39; which is not on PATH.
 </span></code></pre></div>
 <p>并且运行一些命令会找不到。如安装jupyter后运行<code>jupyter notebook</code> ，可能会报错：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Jupyter command `jupyter-notebook` not found.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Jupyter command `jupyter-notebook` not found.
 </span></code></pre></div>
 <p>解决方法：</p>
 <p>1.打开.bashrc，将需要的变量写入系统环境变量中：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>echo &#39;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&#39; &gt;&gt; ~/.bashrc
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>echo &#39;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&#39; &gt;&gt; ~/.bashrc
 </span></code></pre></div>
 <p>2.应用环境变量</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>source ~/.bashrc
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>source ~/.bashrc
 </span></code></pre></div>
 <h3 id="6">6 配置网络<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
 <ol>
@@ -1915,18 +2056,102 @@
 <p>访问教育网外网方法：</p>
 </li>
 </ol>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a># 进入root账户
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>sudo -i
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a># 切换到脚本目录
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>cd /home/jzhang/bin
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a># 以文本编辑器打开login文件（没有后缀名）
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>nano login
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a># 写入以下内容
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>curl -X POST https://p.nju.edu.cn/api/portal/v1/login -H &quot;Content-type: application/json&quot; -d &#39;{&quot;username&quot;:&quot;统一验证账号&quot;,&quot;password&quot;:&quot;统一验证密码&quot;}&#39;
-</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a># Ctrl+W写入Ctrl+X关闭，运行脚本
-</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>run ./login
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a># 进入root账户
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>sudo -i
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a># 切换到脚本目录
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>cd /home/jzhang/bin
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a># 以文本编辑器打开login文件（没有后缀名）
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>nano login
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a># 写入以下内容
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>curl -X POST https://p.nju.edu.cn/api/portal/v1/login -H &quot;Content-type: application/json&quot; -d &#39;{&quot;username&quot;:&quot;统一验证账号&quot;,&quot;password&quot;:&quot;统一验证密码&quot;}&#39;
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a># Ctrl+W写入Ctrl+X关闭，运行脚本
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>run ./login
 </span></code></pre></div>
-<h2 id="_1">数据<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="vpn">vpn(代理)<a class="headerlink" href="#vpn" title="Permanent link">&para;</a></h2>
+<h3 id="_1">基本下载与使用<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>使用 clash for linux 为云服务器提供代理</p>
+<p><a href="https://github.com/wnlen/clash-for-linux">clash for linux github address</a></p>
+<ol>
+<li>
+<p>下载 <code>clash for linux</code></p>
+<p>（1）从github上下载</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>git clone https://github.com/wanhebin/clash-for-linux.git
+</span></code></pre></div>
+<p>（2）从aliyunpan上下载</p>
+</li>
+<li>
+<p>修改订阅代理URL</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>cd clash-for-linux
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>vim .env
+</span></code></pre></div>
+<p>在自己订阅的代理网站上获取 subscription URL，粘贴到 <code>.env</code> 文件的 clash URL，secret一般不用管</p>
+</li>
+<li>
+<p>使用 <code>clash for linux</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>cd clash-for-linux
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>bash start.sh
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>source /etc/profile.d/clash.sh
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>proxy_on
+</span></code></pre></div>
+<p>正常弹窗为：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>正在检测订阅地址...
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>Clash订阅地址可访问！                                      [  OK  ]
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>正在下载Clash配置文件...
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>配置文件config.yaml下载成功！                              [  OK  ]
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>正在启动Clash服务...
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>服务启动成功！                                             [  OK  ]
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>Clash Dashboard 访问地址：http://&lt;ip&gt;:9090/ui
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>Secret：xxxxxxxxxxxxx
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>请执行以下命令加载环境变量: source /etc/profile.d/clash.sh
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>
+</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a>请执行以下命令开启系统代理: proxy_on
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a>
+</span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a>若要临时关闭系统代理，请执行: proxy_off
+</span></code></pre></div>
+</li>
+<li>
+<p>检验环境变量，以及是否开启代理</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>$ env | grep -E &#39;http_proxy|https_proxy&#39;
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>http_proxy=http://127.0.0.1:7890 # 下面两个是cmd输出
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>https_proxy=http://127.0.0.1:7890
+</span></code></pre></div>
+<p>检查是否代理顺利：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>wget www.youtube.com
+</span></code></pre></div>
+<p>如果不是一直在连接，就可以使用了。</p>
+</li>
+</ol>
+<h3 id="ipynb">ipynb文件使用<a class="headerlink" href="#ipynb" title="Permanent link">&para;</a></h3>
+<p>首先在cmd中打开代理 proxy_on，然后在第一个单元格加入：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a># 在 Jupyter Notebook 中设置代理
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>import os
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>os.environ[&quot;http_proxy&quot;] = &quot;http://127.0.0.1:7890&quot; # 这几个ip地址设置为上面 env | grep -E &#39;http_proxy|https_proxy&#39;输出的地址
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>os.environ[&quot;https_proxy&quot;] = &quot;http://127.0.0.1:7890&quot;
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>os.environ[&quot;all_proxy&quot;] = &quot;socks5://127.0.0.1:7890&quot; # 这个可以不要
+</span></code></pre></div>
+<h3 id="python">python文件使用<a class="headerlink" href="#python" title="Permanent link">&para;</a></h3>
+<p>首先在cmd中打开代理 proxy_on，然后在python代码中加入：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>import requests
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a># 配置代理
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>proxies = {
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>    &quot;http&quot;: &quot;http://127.0.0.1:7890&quot;,
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>    &quot;https&quot;: &quot;http://127.0.0.1:7890&quot;,
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>}
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a># 测试请求
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>try:
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>    response = requests.get(&quot;https://www.google.com&quot;, proxies=proxies)
+</span><span id="__span-28-12"><a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>    print(&quot;代理测试成功，状态码：&quot;, response.status_code)
+</span><span id="__span-28-13"><a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a>except Exception as e:
+</span><span id="__span-28-14"><a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>    print(&quot;代理测试失败：&quot;, e)
+</span></code></pre></div>
+<h2 id="_2">数据<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="1_2">1 上传数据<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
 <ol>
 <li>公网网盘，直接使用阿里云盘、百度网盘上传下载数据</li>
@@ -1950,43 +2175,43 @@
 </ul>
 <p><code>uname -a</code> 查看架构类型</p>
 <p>下载压缩包：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>wget https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>wget https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh
 </span></code></pre></div>
 <p>解压：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>bash Anaconda3-2021.11-Linux-x86_64.sh -b -p /fsa/home/ww_liuzh/anaconda
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>bash Anaconda3-2021.11-Linux-x86_64.sh -b -p /fsa/home/ww_liuzh/anaconda
 </span></code></pre></div>
 <ul>
 <li>aarch64架构（华为服务器）</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>wget -c https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-aarch64.sh
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>wget -c https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-aarch64.sh
 </span></code></pre></div>
 <h3 id="2_2">2 设置到系统环境变量<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h3>
 <p>打开.bashrc，并添加路径到环境变量</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>vim .bashrc
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a># 添加：
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>export PATH=&quot;/fsa/home/ww_liuzh/anaconda/bin:$PATH&quot;
-</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>
-</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a># 激活：（我老是忘记）
-</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>source ~/.bashrc
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>vim .bashrc
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a># 添加：
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>export PATH=&quot;/fsa/home/ww_liuzh/anaconda/bin:$PATH&quot;
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a># 激活：（我老是忘记）
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>source ~/.bashrc
 </span></code></pre></div>
 <h3 id="3_2">3 创建虚拟环境<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># 创建（自动继承base所有包）</span>
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>env_name<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10.14
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1"># 创建（不继承任何包）</span>
-</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>env_name<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6.8<span class="w"> </span>--no-default-packages
-</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="c1"># 激活</span>
-</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>conda<span class="w"> </span>activate<span class="w"> </span>env_name
-</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="c1"># 退出</span>
-</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>conda<span class="w"> </span>deactivate
-</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="c1"># 列出环境</span>
-</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>conda<span class="w"> </span>list
-</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="c1"># 删掉环境</span>
-</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>conda<span class="w"> </span>env<span class="w"> </span>remove<span class="w"> </span>-n<span class="w"> </span>env_name
-</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="c1"># 创建环境文件（conda版，pip同样使用。实际上，pip也一样）</span>
-</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>conda<span class="w"> </span>env<span class="w"> </span><span class="nb">export</span><span class="w"> </span>&gt;<span class="w"> </span>environment.yml
-</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a><span class="c1"># 还原环境</span>
-</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># 创建（自动继承base所有包）</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>env_name<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10.14
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="c1"># 创建（不继承任何包）</span>
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>env_name<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6.8<span class="w"> </span>--no-default-packages
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="c1"># 激活</span>
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>conda<span class="w"> </span>activate<span class="w"> </span>env_name
+</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="c1"># 退出</span>
+</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>conda<span class="w"> </span>deactivate
+</span><span id="__span-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a><span class="c1"># 列出环境</span>
+</span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a>conda<span class="w"> </span>list
+</span><span id="__span-33-11"><a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a><span class="c1"># 删掉环境</span>
+</span><span id="__span-33-12"><a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a>conda<span class="w"> </span>env<span class="w"> </span>remove<span class="w"> </span>-n<span class="w"> </span>env_name
+</span><span id="__span-33-13"><a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a><span class="c1"># 创建环境文件（conda版，pip同样使用。实际上，pip也一样）</span>
+</span><span id="__span-33-14"><a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a>conda<span class="w"> </span>env<span class="w"> </span><span class="nb">export</span><span class="w"> </span>&gt;<span class="w"> </span>environment.yml
+</span><span id="__span-33-15"><a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a><span class="c1"># 还原环境</span>
+</span><span id="__span-33-16"><a id="__codelineno-33-16" name="__codelineno-33-16" href="#__codelineno-33-16"></a>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
 </span></code></pre></div>
 <h3 id="4-jupyter-notebook">4 在jupyter notebook中引用虚拟环境<a class="headerlink" href="#4-jupyter-notebook" title="Permanent link">&para;</a></h3>
 <p>运行jupyter的时候，如果要引用某个conda创建的虚拟，需要添加某个虚拟环境到Kernel，见：</p>
@@ -1994,13 +2219,13 @@
 <ol>
 <li>进入虚拟环境（重要）</li>
 <li>安装ipykernel<br />
-<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>#conda安装
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>conda install -c anaconda ipykernel
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a># pip安装方法
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>pip install ipykernel
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>#conda安装
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>conda install -c anaconda ipykernel
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a># pip安装方法
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>pip install ipykernel
 </span></code></pre></div></li>
 <li>在ipykernel中添加虚拟环境名称，--name后面对应设置的环境名称<br />
-<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>python -m ipykernel install --user --name=my_env
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>python -m ipykernel install --user --name=my_env
 </span></code></pre></div><blockquote>
 <blockquote>
 <p>附：<strong>ipykernel相关操作</strong><br />
