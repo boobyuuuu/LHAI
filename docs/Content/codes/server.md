@@ -360,6 +360,116 @@ curl -X POST https://p.nju.edu.cn/api/portal/v1/login -H "Content-type: applicat
 # Ctrl+W写入Ctrl+X关闭，运行脚本
 run ./login
 ```
+
+## vpn(代理)
+
+### 基本下载与使用
+
+使用 clash for linux 为云服务器提供代理
+
+[clash for linux github address](https://github.com/wnlen/clash-for-linux)
+
+1. 下载 `clash for linux`
+
+    （1）从github上下载
+
+    ```
+    git clone https://github.com/wanhebin/clash-for-linux.git
+    ```
+
+    （2）从aliyunpan上下载
+
+2. 修改订阅代理URL
+
+    ```
+    cd clash-for-linux
+    vim .env
+    ```
+
+    在自己订阅的代理网站上获取 subscription URL，粘贴到 `.env` 文件的 clash URL，secret一般不用管
+
+3. 使用 `clash for linux`
+
+    ```
+    cd clash-for-linux
+    bash start.sh
+    source /etc/profile.d/clash.sh
+    proxy_on
+    ```
+
+    正常弹窗为：
+
+    ```
+    正在检测订阅地址...
+    Clash订阅地址可访问！                                      [  OK  ]
+
+    正在下载Clash配置文件...
+    配置文件config.yaml下载成功！                              [  OK  ]
+
+    正在启动Clash服务...
+    服务启动成功！                                             [  OK  ]
+
+    Clash Dashboard 访问地址：http://<ip>:9090/ui
+    Secret：xxxxxxxxxxxxx
+
+    请执行以下命令加载环境变量: source /etc/profile.d/clash.sh
+
+    请执行以下命令开启系统代理: proxy_on
+
+    若要临时关闭系统代理，请执行: proxy_off
+    ```
+
+4. 检验环境变量，以及是否开启代理
+
+    ```
+    $ env | grep -E 'http_proxy|https_proxy'
+    http_proxy=http://127.0.0.1:7890 # 下面两个是cmd输出
+    https_proxy=http://127.0.0.1:7890
+    ```
+
+    检查是否代理顺利：
+
+    ```
+    wget www.youtube.com
+    ```
+
+    如果不是一直在连接，就可以使用了。
+
+### ipynb文件使用
+
+首先在cmd中打开代理 proxy_on，然后在第一个单元格加入：
+
+```
+# 在 Jupyter Notebook 中设置代理
+import os
+
+os.environ["http_proxy"] = "http://127.0.0.1:7890" # 这几个ip地址设置为上面 env | grep -E 'http_proxy|https_proxy'输出的地址
+os.environ["https_proxy"] = "http://127.0.0.1:7890"
+os.environ["all_proxy"] = "socks5://127.0.0.1:7890" # 这个可以不要
+```
+
+### python文件使用
+
+首先在cmd中打开代理 proxy_on，然后在python代码中加入：
+
+```
+import requests
+
+# 配置代理
+proxies = {
+    "http": "http://127.0.0.1:7890",
+    "https": "http://127.0.0.1:7890",
+}
+
+# 测试请求
+try:
+    response = requests.get("https://www.google.com", proxies=proxies)
+    print("代理测试成功，状态码：", response.status_code)
+except Exception as e:
+    print("代理测试失败：", e)
+
+```
+
 ## 数据
 
 ### 1 上传数据
