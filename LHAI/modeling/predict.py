@@ -7,17 +7,15 @@ import typer
 from loguru import logger
 from tqdm import tqdm
 import sys
-PROJ_ROOT = Path(__file__).resolve().parents[2]
-logger.info(f"PROJ_ROOT path is: {PROJ_ROOT}")
-PROJ_CODE = Path(__file__).resolve().parents[1]
-sys.path.append(str(PROJ_ROOT))
-logger.info(f"PROJ_CODE path is: {PROJ_CODE}")
+# ---- 1-2 Reload configuration ----
+import importlib
+import LHAI.config
+importlib.reload(LHAI.config)
 # ---- 1-3 Libraries for Configuration ----
-from LHAI.config import PRE_MODEL_PATH, PRE_DATA_PATH, PRE_MODEL_NAME, PRE_MODEL, PRE_DATA_NAME, PRE_SEED, PRE_TRAINTYPE, PRE_FRAC_TRAIN, PRE_BATCH_SIZE, PRE_LATENT_DIM
+from LHAI.config import PRE_EXP_NAME, PRE_MODEL_NAME, PRE_MODEL_PYPATH, PRE_MODEL_PTHNAME, PRE_MODEL_PTHPATH, PRE_DATA_DIR, PRE_DATA_NAME, PRE_DATA_PATH, PRE_SEED, PRE_TRAINTYPE, PRE_FRAC_TRAIN, PRE_BATCH_SIZE, PRE_LATENT_DIM
 from LHAI.function.Dataset import ImageDataset
 from LHAI.function.Loss import lossfunction
 from LHAI.function.Log import log
-
 # ---- 1-4 Libraries for pytorch and others ----
 import torch
 import torch.nn as nn
@@ -27,16 +25,25 @@ import importlib
 import matplotlib.pyplot as plt
 import numpy as np
 
+PROJ_ROOT = Path(__file__).resolve().parents[2]
+logger.info(f"PROJ_ROOT path is: {PROJ_ROOT}")
+PROJ_CODE = Path(__file__).resolve().parents[1]
+sys.path.append(str(PROJ_ROOT))
+logger.info(f"PROJ_CODE path is: {PROJ_CODE}")
+
 app = typer.Typer()
 
 
 @app.command()
 def main(
-    PRE_MODEL_PATH: Path = PRE_MODEL_PATH,
-    PRE_DATA_PATH: Path = PRE_DATA_PATH,
+    PRE_EXP_NAME: str = PRE_EXP_NAME,
     PRE_MODEL_NAME: str = PRE_MODEL_NAME,
-    PRE_MODEL: str = PRE_MODEL,
+    PRE_MODEL_PYPATH: Path = PRE_MODEL_PYPATH,
+    PRE_MODEL_PTHNAME: str = PRE_MODEL_PTHNAME,
+    PRE_MODEL_PTHPATH: Path = PRE_MODEL_PTHPATH,
+    PRE_DATA_DIR: Path = PRE_DATA_DIR,
     PRE_DATA_NAME: str = PRE_DATA_NAME,
+    PRE_DATA_PATH: Path = PRE_DATA_PATH,    
     PRE_SEED: int = PRE_SEED,
     PRE_TRAINTYPE: str = PRE_TRAINTYPE,
     PRE_FRAC_TRAIN: float = PRE_FRAC_TRAIN,
@@ -46,43 +53,55 @@ def main(
 ):
     
     torch.manual_seed(PRE_SEED)
-    MODEL_PATH = PRE_MODEL_PATH / PRE_MODEL_NAME
-    DATA_PATH = PRE_DATA_PATH / PRE_DATA_NAME
-    model_file_path = MODEL_PATH
+    model_file_path = PRE_MODEL_PYPATH
     spec = importlib.util.spec_from_file_location("module.name", model_file_path)
     module = importlib.util.module_from_spec(spec)
     sys.modules["module.name"] = module
     spec.loader.exec_module(module)
-    MODEL = getattr(module, PRE_MODEL)
+    MODEL = getattr(module, PRE_MODEL_NAME)
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     logger.info(f"""
     Parameters:
-    - PRE_MODEL_PATH: {PRE_MODEL_PATH} (01)
-    - PRE_DATA_PATH: {PRE_DATA_PATH} (02)
-    - PRE_MODEL_NAME: {PRE_MODEL_NAME} (03)
-    - PRE_MODEL: {PRE_MODEL} (04)
-    - PRE_DATA_NAME: {PRE_DATA_NAME} (05)
-    - PRE_SEED: {PRE_SEED} (06)
-    - PRE_TRAINTYPE: {PRE_TRAINTYPE} (07)
-    - PRE_FRAC_TRAIN: {PRE_FRAC_TRAIN} (08)
+    - PRE_EXP_NAME: {PRE_EXP_NAME} (01)
+    - PRE_MODEL_NAME: {PRE_MODEL_NAME} (02)
+    - PRE_MODEL_PYPATH: {PRE_MODEL_PYPATH} (03)
+    - PRE_MODEL_PTHNAME: {PRE_MODEL_PTHNAME} (04)
+    - PRE_MODEL_PTHPATH: {PRE_MODEL_PTHPATH} (05)
+    - PRE_DATA_DIR: {PRE_DATA_DIR} (06)
+    - PRE_DATA_NAME: {PRE_DATA_NAME} (07)
+    - PRE_DATA_PATH: {PRE_DATA_PATH} (08)
+    - PRE_SEED: {PRE_SEED} (09)
+    - PRE_TRAINTYPE: {PRE_TRAINTYPE} (10)
+    - PRE_FRAC_TRAIN: {PRE_FRAC_TRAIN} (11)
     """)
-    filetmp = np.load(DATA_PATH,allow_pickle=True)
+
+    # -----------------------------------------
+    filetmp = np.load(PRE_DATA_PATH,allow_pickle=True)
     filelen = filetmp.shape[0]
     del filetmp
     NUM_TO_LEARN = int(filelen)
     NUM_TO_PRE = int(filelen*(1-PRE_FRAC_TRAIN))
-    dataset = ImageDataset(NUM_TO_PRE,DATA_PATH,inverse=True)
+    dataset = ImageDataset(NUM_TO_PRE,PRE_DATA_PATH,inverse=True)
     dataloader = DataLoader(dataset, batch_size=PRE_BATCH_SIZE, shuffle=True)
-    if PRE_MODEL == 'CNN':
+    if PRE_MODEL_NAME == 'CNN':
         model = MODEL(0).to(device)
-    elif PRE_MODEL == 'VAE':
+    elif PRE_MODEL_NAME == 'VAE':
         model = MODEL(PRE_LATENT_DIM).to(device)
-    elif PRE_MODEL == 'GAN':
+    elif PRE_MODEL_NAME == 'GAN':
         model = MODEL().to(device)
-    elif PRE_MODEL == 'UNET':
+    elif PRE_MODEL_NAME == 'UNET':
         model = MODEL(0,0).to(device)
+    elif PRE_MODEL_NAME == 'ESPCN':
+        model = MODEL().to(device)
     else:
         model = MODEL(PRE_LATENT_DIM).to(device)
+    logger.success(f"Data and Model.py loaded successfully.")
+
+    state_dict = torch.load(PRE_MODEL_PTHPATH, map_location=device, weights_only=True)
+    missing, unexpected = model.load_state_dict(state_dict, strict=False)
+    if missing: logger.warning(f"Missing keys: {missing}")
+    if unexpected: logger.warning(f"Unexpected keys: {unexpected}")
+    
     # ---- START PREDICTION ----
     savepath = f'{PROJ_ROOT}/saves'
     MODEL_SAVE_NAME = PRE_MODEL_NAME
@@ -133,9 +152,9 @@ def main(
 
     # 调整子图之间的间距
     plt.tight_layout()
+    plt.savefig(f'{savepath}/FIGURE/PRE_FIG/Pre_{MODEL_SAVE_NAME}.png', dpi = 300)
+    logger.info(f"Early prediction saved at {savepath}/FIGURE/PRE_FIG/Pre_{MODEL_SAVE_NAME}.png")
     plt.show()
-    plt.savefig(f'{savepath}/PRE_FIG/Pre_{MODEL_SAVE_NAME}.png', dpi = 300)
-    logger.info(f"Early prediction saved at {savepath}/PRE_FIG/Pre_{MODEL_SAVE_NAME}.png")
     # ---- REPLACE THIS WITH YOUR OWN CODE ----
     logger.success("Prediction complete.")
     # -----------------------------------------
