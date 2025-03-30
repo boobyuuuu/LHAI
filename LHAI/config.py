@@ -1,57 +1,164 @@
-# This py file function: Store useful variables and configuration
-# 要指定训练/推理的变量，有两种方式可以修改：1.在这个文件中修改；2.在 python train.py 后附加参数，例如 python train.py --MODEL_NAME=...
+# This py file function: Code to evaluate models simply
 
+# ---- 01 Improt Libraries ----
+# ---- 1-1 Libraries for Path and Logging ----
 from pathlib import Path
-from dotenv import load_dotenv
+import typer
 from loguru import logger
-load_dotenv()
-PROJ_ROOT = Path(__file__).resolve().parents[1]
+from tqdm import tqdm
+import sys
+# ---- 1-2 Reload configuration ----
+import importlib
+import LHAI.config
+importlib.reload(LHAI.config)
+# ---- 1-3 Libraries for Configuration ----
+from LHAI.config import PRE_EXP_NAME, PRE_MODEL_NAME, PRE_MODEL_PYPATH, PRE_MODEL_PTHNAME, PRE_MODEL_PTHPATH, PRE_DATA_DIR, PRE_DATA_NAME, PRE_DATA_PATH, PRE_SEED, PRE_TRAINTYPE, PRE_FRAC_TRAIN, PRE_BATCH_SIZE, PRE_LATENT_DIM
+from LHAI.function.Dataset import ImageDataset
+from LHAI.function.Loss import lossfunction
+from LHAI.function.Log import log
+# ---- 1-4 Libraries for pytorch and others ----
+import torch
+import torch.nn as nn
+from torch.utils.data import DataLoader,random_split, ConcatDataset
+import torch.nn.functional as F
+import importlib
+import matplotlib.pyplot as plt
+import numpy as np
+
+PROJ_ROOT = Path(__file__).resolve().parents[2]
 logger.info(f"PROJ_ROOT path is: {PROJ_ROOT}")
+PROJ_CODE = Path(__file__).resolve().parents[1]
+sys.path.append(str(PROJ_ROOT))
+logger.info(f"PROJ_CODE path is: {PROJ_CODE}")
 
-# ---- Train Parameters ----
-EXP_NAME = "EXP_0_1"                                                                # 参数1：如果需要指定不同的实验，可以在这里修改
-MODEL_NAME = "CNN"                                                                  # 参数2：如果需要指定不同的模型，可以在这里修改
-MODEL_PATH = PROJ_ROOT / "LHAI" / "models" / f"{MODEL_NAME}_{EXP_NAME}.py"
-DATA_DIR = PROJ_ROOT / "data" / "POISSON"                                           # 参数3：如果需要指定不同的数据集的文件名，可以在这里修改
-DATA_NAME = "poisson_src_bkg.pkl.npy"                                               # 参数4：如果需要指定不同的数据集，可以在这里修改
-DATA_PATH = DATA_DIR / DATA_NAME
-SEED = 0                                                                            # 参数5：如果需要指定不同的随机种子，可以在这里修改
-TRAINTYPE = "poissonsrc+bkg_highresorig"                                            # 参数6：如果需要指定不同的训练类型，可以在这里修改
-FRAC_TRAIN = 0.8                                                                    # 参数7：如果需要指定不同的训练集比例，可以在这里修改
-EPOCHS = 400                                                                        # 参数8：如果需要指定不同的训练轮数，可以在这里修改
-BATCH_SIZE = 32                                                                     # 参数9：如果需要指定不同的批次大小，可以在这里修改
-LATENTDIM = 64                                                                      # 参数10：如果需要指定不同的潜在维度，可以在这里修改(仅VAE模型)
-LR_MAX = 5e-4                                                                       # 参数11：如果需要指定不同的学习率上限，可以在这里修改
-LR_MIN = 5e-6                                                                       # 参数12：如果需要指定不同的学习率下限，可以在这里修改
+app = typer.Typer()
 
-# ---- Test Parameters ----
-PRE_MODEL_PATH = PROJ_ROOT / "saves" / "MODEL"
-PRE_DATA_PATH = PROJ_ROOT / "data" / "POISSON"
-PRE_MODEL_NAME = "CNN_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth"
-RRE_MODEL = "CNN"
-PRE_DATA_NAME = "poisson_src_bkg.pkl.npy"
-PRE_SEED = 0
-PRE_TRAINTYPE = "poissonsrc+bkg_highresorig"
-PRE_FRAC_TRAIN = 0.8
-PRE_BATCH_SIZE = 32
-PRE_LATENT_DIM = 64
 
-# ---- Eval Parameters ----
-EVAL_EXP_NAME = "EXP_0_1"                                                                # 参数1：实验代号
-EVAL_MODEL_NAME = "CNN"                                                                  # 参数2：模型在神经网络代码py文件中的class名称
-EVAL_MODEL_PYPATH = PROJ_ROOT / "LHAI" / "models" / f"{EVAL_MODEL_NAME}_{EVAL_EXP_NAME}.py"
-EVAL_MODEL_PTHNAME = "CNN_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth"    # 参数3：需要评估的模型名称
-EVAL_MODEL_PTHPATH = PROJ_ROOT / "saves" / "MODEL" / EVAL_MODEL_PTHNAME                  # 参数4：需要评估的模型保存的路径
+@app.command()
+def main(
+    PRE_EXP_NAME: str = PRE_EXP_NAME,
+    PRE_MODEL_NAME: str = PRE_MODEL_NAME,
+    PRE_MODEL_PYPATH: Path = PRE_MODEL_PYPATH,
+    PRE_MODEL_PTHNAME: str = PRE_MODEL_PTHNAME,
+    PRE_MODEL_PTHPATH: Path = PRE_MODEL_PTHPATH,
+    PRE_DATA_DIR: Path = PRE_DATA_DIR,
+    PRE_DATA_NAME: str = PRE_DATA_NAME,
+    PRE_DATA_PATH: Path = PRE_DATA_PATH,    
+    PRE_SEED: int = PRE_SEED,
+    PRE_TRAINTYPE: str = PRE_TRAINTYPE,
+    PRE_FRAC_TRAIN: float = PRE_FRAC_TRAIN,
+    PRE_BATCH_SIZE: int = PRE_BATCH_SIZE,
+    PRE_LATENT_DIM: int = PRE_LATENT_DIM,
+    # -----------------------------------------
+):
+    
+    torch.manual_seed(PRE_SEED)
+    model_file_path = PRE_MODEL_PYPATH
+    spec = importlib.util.spec_from_file_location("module.name", model_file_path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules["module.name"] = module
+    spec.loader.exec_module(module)
+    MODEL = getattr(module, PRE_MODEL_NAME)
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    logger.info(f"""
+    Parameters:
+    - PRE_EXP_NAME: {PRE_EXP_NAME} (01)
+    - PRE_MODEL_NAME: {PRE_MODEL_NAME} (02)
+    - PRE_MODEL_PYPATH: {PRE_MODEL_PYPATH} (03)
+    - PRE_MODEL_PTHNAME: {PRE_MODEL_PTHNAME} (04)
+    - PRE_MODEL_PTHPATH: {PRE_MODEL_PTHPATH} (05)
+    - PRE_DATA_DIR: {PRE_DATA_DIR} (06)
+    - PRE_DATA_NAME: {PRE_DATA_NAME} (07)
+    - PRE_DATA_PATH: {PRE_DATA_PATH} (08)
+    - PRE_SEED: {PRE_SEED} (09)
+    - PRE_TRAINTYPE: {PRE_TRAINTYPE} (10)
+    - PRE_FRAC_TRAIN: {PRE_FRAC_TRAIN} (11)
+    """)
 
-EVAL_DATA_DIR = PROJ_ROOT / "data" / "POISSON"                                           # 参数3：如果需要指定不同的数据集的文件名
-EVAL_DATA_NAME = "poisson_src_bkg.pkl.npy"                                               # 参数4：如果需要指定不同的数据集
-EVAL_DATA_PATH = EVAL_DATA_DIR / EVAL_DATA_NAME
-EVAL_SEED = 0                                                                            # 参数5：如果需要指定不同的随机种子
+    # -----------------------------------------
+    filetmp = np.load(PRE_DATA_PATH,allow_pickle=True)
+    filelen = filetmp.shape[0]
+    del filetmp
+    NUM_TO_LEARN = int(filelen)
+    NUM_TO_PRE = int(filelen*(1-PRE_FRAC_TRAIN))
+    dataset = ImageDataset(NUM_TO_PRE,PRE_DATA_PATH,inverse=True)
+    dataloader = DataLoader(dataset, batch_size=PRE_BATCH_SIZE, shuffle=True)
+    if PRE_MODEL_NAME == 'CNN':
+        model = MODEL(0).to(device)
+    elif PRE_MODEL_NAME == 'VAE':
+        model = MODEL(PRE_LATENT_DIM).to(device)
+    elif PRE_MODEL_NAME == 'GAN':
+        model = MODEL().to(device)
+    elif PRE_MODEL_NAME == 'UNET':
+        model = MODEL(0,0).to(device)
+    elif PRE_MODEL_NAME == 'ESPCN':
+        model = MODEL().to(device)
+    else:
+        model = MODEL(PRE_LATENT_DIM).to(device)
+    logger.success(f"Data and Model.py loaded successfully.")
 
-try:
-    from tqdm import tqdm
+    state_dict = torch.load(PRE_MODEL_PTHPATH, map_location=device, weights_only=True)
+    missing, unexpected = model.load_state_dict(state_dict, strict=False)
+    if missing: logger.warning(f"Missing keys: {missing}")
+    if unexpected: logger.warning(f"Unexpected keys: {unexpected}")
+    
+    # ---- START PREDICTION ----
+    savepath = f'{PROJ_ROOT}/saves'
+    MODEL_SAVE_NAME = PRE_MODEL_NAME
+    model.eval()
+    model.to(device)
+    for _, (img_LR, img_HR) in enumerate(dataloader):
+        #print(img_LR.shape)
+        img_SR, _, _ = model(img_LR.to(device))
+        img_SR = img_SR.cpu()
+        break
+    num_images_to_show = 8
+    fig, axes = plt.subplots(num_images_to_show,5 , figsize=(15, 3 * num_images_to_show))
+    for i in range(num_images_to_show):
+        blurry_img_numpy = img_LR[i].squeeze().detach().cpu().numpy()
+        sr_img_numpy = img_SR[i].squeeze().detach().cpu().numpy()
+        original_img_numpy = img_HR[i].squeeze().detach().cpu().numpy()
+        blurry_img_numpy =blurry_img_numpy/blurry_img_numpy.sum()
+        original_img_numpy=original_img_numpy/original_img_numpy.sum()
+        sr_img_numpy =sr_img_numpy/sr_img_numpy.sum() 
+        
+        im0=axes[i, 0].imshow(blurry_img_numpy)
+        axes[i, 0].set_title('Blurry Image')
+        axes[i, 0].axis('off')
 
-    logger.remove(0)
-    logger.add(lambda msg: tqdm.write(msg, end=""), colorize=True)
-except ModuleNotFoundError:
-    pass
+        im1=axes[i, 1].imshow(sr_img_numpy)
+        axes[i, 1].set_title('SR Image')
+        axes[i, 1].axis('off')
+        
+        im2=axes[i, 2].imshow(original_img_numpy)
+        axes[i, 2].set_title('Original Image')
+        axes[i, 2].axis('off')
+
+        res_blur = (blurry_img_numpy-original_img_numpy)
+        res_sr = (sr_img_numpy-original_img_numpy)
+        vmin = min(res_blur.min(),res_sr.min())
+        vmax = max(res_blur.max(),res_sr.max())
+
+        im3= axes[i, 3].imshow(res_blur,vmin =vmin,vmax=vmax)
+        axes[i, 3].set_title('Res Blur')
+        axes[i, 3].axis('off')
+
+        im4 = axes[i, 4].imshow(res_sr,vmin =vmin,vmax=vmax)
+        axes[i, 4].set_title('Res SR')
+        axes[i, 4].axis('off')
+        cbar2 = fig.colorbar(
+            im4, ax=axes[i,4],shrink = 0.5
+        )
+
+    # 调整子图之间的间距
+    plt.tight_layout()
+    plt.savefig(f'{savepath}/FIGURE/PRE_FIG/Pre_{MODEL_SAVE_NAME}.png', dpi = 300)
+    logger.info(f"Early prediction saved at {savepath}/FIGURE/PRE_FIG/Pre_{MODEL_SAVE_NAME}.png")
+    plt.show()
+    # ---- REPLACE THIS WITH YOUR OWN CODE ----
+    logger.success("Prediction complete.")
+    # -----------------------------------------
+
+
+if __name__ == "__main__":
+    app()
