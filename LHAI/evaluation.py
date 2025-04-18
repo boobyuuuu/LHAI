@@ -29,6 +29,10 @@ import scipy
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 from skimage.metrics import peak_signal_noise_ratio as psnr
 from skimage.metrics import structural_similarity as ssim
+from skimage.metrics import mean_squared_error as mse
+from skimage.metrics import normalized_root_mse as nrmse
+from skimage.metrics import mean_absolute_error as mae
+import pytorch_msssim  # for MS-SSIM
 
 app = typer.Typer()
 
@@ -213,12 +217,19 @@ def main(
     # ---- 2-5 evaluation 3: PSNR, SSIM ----
     psnr_list = []
     ssim_list = []
+    mae_list = []
+    mse_list = []
+    nrmse_list = []
+    ms_ssim_list = []
+    
     output_path = f"{PROJ_ROOT}/saves/LOSS"
     output_file = f"{output_path}/Eval_PSNR_SSIM_{EVAL_MODEL_NAME}_{EVAL_EXP_NAME}.txt"
+    
     model.eval()
     model.cpu()
+
     with open(output_file, "w") as f:
-        f.write("Image_Index\tPSNR\tSSIM\n")  # 文件表头
+        f.write("Image_Index\tPSNR\tSSIM\tMS-SSIM\tMAE\tMSE\tNRMSE\n")  # 文件表头
         for idx, (blurry_img, original_img) in enumerate(testloader):
             # 生成超分辨图像
             with torch.no_grad():
@@ -230,20 +241,49 @@ def main(
             # 计算 PSNR 和 SSIM
             psnr_val = psnr(original_img_np, img_sr_np, data_range=original_img_np.max() - original_img_np.min())
             ssim_val = ssim(original_img_np, img_sr_np, data_range=original_img_np.max() - original_img_np.min())
+            mae_val = mae(original_img_np, img_sr_np)
+            mse_val = mse(original_img_np, img_sr_np)
+            nrmse_val = nrmse(original_img_np, img_sr_np)
+            # MS-SSIM (requires torch tensors, float32)
+            img_sr_tensor = img_sr.float()
+            original_tensor = original_img.float()
+            ms_ssim_val = pytorch_msssim.ms_ssim(img_sr_tensor, original_tensor, data_range=1.0).item()
             # 保存结果到列表
             psnr_list.append(psnr_val)
             ssim_list.append(ssim_val)
+            ms_ssim_list.append(ms_ssim_val)
+            mae_list.append(mae_val)
+            mse_list.append(mse_val)
+            nrmse_list.append(nrmse_val)
             # 写入 txt 文件
-            f.write(f"{idx + 1}\t{psnr_val:.4f}\t{ssim_val:.4f}\n")
+            f.write(f"{idx + 1}\t{psnr_val:.4f}\t{ssim_val:.4f}\t{ms_ssim_val:.4f}\t{mae_val:.4f}\t{mse_val:.4f}\t{nrmse_val:.4f}\n")
+    
     avg_psnr = np.mean(psnr_list)
     avg_ssim = np.mean(ssim_list)
+    avg_ms_ssim = np.mean(ms_ssim_list)
+    avg_mae = np.mean(mae_list)
+    avg_mse = np.mean(mse_list)
+    avg_nrmse = np.mean(nrmse_list)
+
+    # 打印日志
     logger.info(f"Average PSNR: {avg_psnr:.4f}")
     logger.info(f"Average SSIM: {avg_ssim:.4f}")
+    logger.info(f"Average MS-SSIM: {avg_ms_ssim:.4f}")
+    logger.info(f"Average MAE: {avg_mae:.4f}")
+    logger.info(f"Average MSE: {avg_mse:.4f}")
+    logger.info(f"Average NRMSE: {avg_nrmse:.4f}")
+
+    # 写入文件
     with open(output_file, "a") as f:
-        f.write(f"\nAverage PSNR: {avg_psnr:.4f}\n")
+        f.write("\n")
+        f.write(f"Average PSNR: {avg_psnr:.4f}\n")
         f.write(f"Average SSIM: {avg_ssim:.4f}\n")
-    logger.success(f"PSNR and SSIM results saved at {output_file}")
-    # ---- 2 DONE ----
+        f.write(f"Average MS-SSIM: {avg_ms_ssim:.4f}\n")
+        f.write(f"Average MAE: {avg_mae:.4f}\n")
+        f.write(f"Average MSE: {avg_mse:.4f}\n")
+        f.write(f"Average NRMSE: {avg_nrmse:.4f}\n")
+
+    logger.success(f"All evaluation metrics saved at {output_file}")
     logger.success("Plot generation complete.")
     # -----------------------------------------
 
