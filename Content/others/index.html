@@ -84,7 +84,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#further-work" class="md-skip">
+        <a href="#_1" class="md-skip">
           Skip to content
         </a>
       
@@ -1214,6 +1214,32 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      组会三
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#624" class="md-nav__link">
+    <span class="md-ellipsis">
+      组会四 6月24日
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1230,7 +1256,36 @@
   
 
 
-<h1 id="further-work">Further Work<a class="headerlink" href="#further-work" title="Permanent link">&para;</a></h1>
+<h1 id="_1">组会与进展<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">组会三<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>可以从以下几个方面进行优化：</p>
+<ol>
+<li>
+<p>Model</p>
+<p>（1）尝试transformer</p>
+<p>（2）尝试resnet（残差网络）</p>
+</li>
+<li>
+<p>LOSS</p>
+<p>（1）应对高/低流强差的情况：加入log loss</p>
+<p>（2）每个格点都不要差过10%：加框方差</p>
+<p>（3）加入物理机制/约束：LOSS加物理机制限制（非常FURTHER）</p>
+</li>
+<li>
+<p>Data</p>
+</li>
+<li>
+<p>Evaluation</p>
+<p>（1）加个框再进行评估，验证LOSS-（2）的效果</p>
+<p>（2）根据人工打分标签，训练出 evaluation model（非常FURTHER）</p>
+</li>
+<li>
+<p>训练机制：半监督方法</p>
+<p>（1）自我循环迭代半监督</p>
+<p>（2）根据人工打分标签，训练出 evaluation model；根据eval model进行大量数据集生成；进行循环训练（input data足够多）</p>
+</li>
+</ol>
+<h2 id="624">组会四 6月24日<a class="headerlink" href="#624" title="Permanent link">&para;</a></h2>
 <p>可以从以下几个方面进行优化：</p>
 <ol>
 <li>
@@ -1258,6 +1313,10 @@
 <p>训练机制：半监督方法</p>
 <p>（1）自我循环迭代半监督</p>
 <p>（2）根据人工打分标签，训练出 evaluation model；根据eval model进行大量数据集生成；进行循环训练（input data足够多）</p>
+</li>
+<li>
+<p>Structure</p>
+<p>现在模型有点杂多，想个办法把不同的算法搞到同一个框架里去（非常重要且急迫）</p>
 </li>
 </ol>
 
