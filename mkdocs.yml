@@ -157,6 +157,8 @@ nav:
   - Data Section: 
     - index: Content/data/index.md
     - simulation: Content/data/simulation.md
+    - tangxiao: Content/data/tangxiao.md
+    - jiaoda: Content/data/jiaoda.md
   - Network Section:
     - index: Content/network/index.md
     - CNN: Content/network/cnn.md

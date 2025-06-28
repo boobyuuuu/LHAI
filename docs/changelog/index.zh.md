@@ -2,6 +2,14 @@
 
 ## LHAI User Mannual
 
+### 2.1.0 <small>2025年6月28日</small> { id="2.1.0" }
+
+> 重大更新；更新主题：完善任务整合后 LHAI User Manual 内容
+
+### 2.0.0 <small>2025年6月28日</small> { id="2.0.0" }
+
+> 重大更新；更新主题：整合LHAI代码任务
+
 ### 1.0.3 <small>January 14, 2025</small> { id="1.0.3" }
 
 - 添加内容 `Code Section/SERVER`
@@ -23,7 +31,7 @@
 
 ### 1.0.0 <small>2025年1月12日</small> { id="1.0.0" }
 
-> 重大更新
+> 重大更新；更新主题：完善LHAI代码功能
 
 - LHAI 进展：完成代码工业化
 - 添加内容 `Code Section/index`

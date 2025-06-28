@@ -15,6 +15,21 @@
   src: url('fonts/TIMES.TTF') format('truetype');
 }
 /* 第一部分 */
+
+.topnote {
+  padding: 40px 0;
+}
+
+.topnote-container {
+  max-width: 82%;         /* 黄金比例宽度 */
+  width: 100%;              /* 防止超出容器 */
+  margin: 20px auto;        /* 上下20px间距，auto 实现水平居中 */
+  background-color: #efefef; /* 灰色背景 */
+  padding: 20px; /* 设置内边距使文字与背景之间有空隙 */
+  text-align: center; /* 使文字居中 */
+  border-radius: 8px; /* 可选，添加圆角效果 */
+}
+
 .hero-section {
   padding: 50px 0;
   text-align: center;
@@ -39,18 +54,50 @@
   padding: 15px 30px;
   font-size: 1rem;
 }
+
 /* 第二部分 */
-.blog-directory {
+.noteforcode {
   padding: 40px 0;
 }
 
-.section-title-container {
-  background-color: #efefef; /* 灰色背景 */
-  padding: 20px; /* 设置内边距使文字与背景之间有空隙 */
-  text-align: center; /* 使文字居中 */
-  margin-bottom: 20px;
-  margin-left: 10px;
-  border-radius: 8px; /* 可选，添加圆角效果 */
+.code-note {
+  max-width: 61.8%;         /* 黄金比例宽度 */
+  width: 100%;              /* 防止超出容器 */
+  margin: 20px auto;        /* 上下20px间距，auto 实现水平居中 */
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: 'Fira Code', monospace;
+}
+
+.code-description {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  font-family: 'FZSTK', sans-serif;
+  color: #333;
+}
+
+pre {
+  margin: 0;
+  overflow-x: auto;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+pre code {
+  font-size: 0.85rem;
+  color: #2c3e50;
+  white-space: pre-wrap;
+}
+
+/* 第三部分 */
+
+.blog-directory {
+  padding: 40px 0;
 }
 
 .section-title {
@@ -58,6 +105,11 @@
   font-family: 'FZSTK', sans-serif;
   margin: 0px; /* 移除默认的外边距 */
   color: #333; /* 设置文字颜色 */
+}
+
+.catalog-wrapper {
+  max-width: 61.8%;
+  margin: 0 auto;
 }
 
 .card {
@@ -131,7 +183,7 @@
   padding: 15px;
 }
 
-/* 第三部分 */
+/* 第四部分 */
 .showcase .showcase-item {
   display: flex;
   align-items: center; /* 垂直居中对齐 */
@@ -165,7 +217,7 @@
 }
 </style>
     
-<!-- 第一部分 -->
+<!-- 第一部分 This is the user manual for LHAI-->
   <section class="hero-section">
   <!-- 图片与文字 -->
   <div class="container">
@@ -186,7 +238,7 @@
     </span>
   <!-- 超链接 -->
   <div>
-    <a href="/mains/data" class="btn btn-secondary" 
+    <a href="/LHAI/Content/data/" class="btn btn-secondary" 
        style="border: 2px solid #ccc; padding: 12px 24px; margin-bottom: 20px; display: inline-block; margin-top: 60px; 
               border-radius: 25px; background-color: transparent; text-align: center; text-decoration: none; 
               font-weight: 600; font-family: 'FZSTK', sans-serif;">
@@ -202,109 +254,144 @@
        style="border: 2px solid #ccc; padding: 12px 24px; margin-bottom: 20px; display: inline-block; margin-top: 60px; 
               border-radius: 25px; background-color: transparent; text-align: center; text-decoration: none; 
               font-weight: 600; font-family: 'FZSTK', sans-serif;">
-       Git Address
+       Github
     </a>
-    <a href="/mains/data" class="btn btn-secondary" 
+    <a href="/LHAI/Content/data/" class="btn btn-secondary" 
        style="border: 2px solid #ccc; padding: 12px 24px; margin-bottom: 20px; display: inline-block; margin-top: 60px; 
               border-radius: 25px; background-color: transparent; text-align: center; text-decoration: none; 
               font-weight: 600; font-family: 'FZSTK', sans-serif;">
-       Results
+       Achievement
     </a>
   </div>
       </div>
     </section>
-<!-- 第二部分 -->
-<!-- Second Section -->
-<section class="blog-directory">
-  <div class="container">
-    <div class="section-title-container">
-      <p class="section-title">User Manual Catalog</p>
+
+
+<!-- 第二部分 CodeNote for LHAI-->
+<section class="noteforcode">
+  <div class="topnote">
+    <div class="topnote-container">
+      <p class="section-title">CodeNote for LHAI</p>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-md-4">
-        <!-- Clickable Card Section -->
-        <div class="card clickable-card text-center">
-          <div class="card-body">
-            <a href="/mains/data/" class="card-title">Data Section</a>
-          </div>
-        </div>
-        <!-- Explanation Section -->
-        <div class="card explanation-card text-center">
-          <div class="card-body">
-            <p class="card-text">A detailed introduction to data-related technologies and processing methods.</p>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-md-4">
-        <!-- Clickable Card Section -->
-        <div class="card clickable-card text-center">
-          <div class="card-body">
-            <a href="/mains/tech/" class="card-title">Technology Section</a>
-          </div>
-        </div>
-        <!-- Explanation Section -->
-        <div class="card explanation-card text-center">
-          <div class="card-body">
-            <p class="card-text">Covering the latest technological trends and practices.</p>
-          </div>
-        </div>
-      </div>
+    <div class="code-note">
+      <p class="code-description">
+        Clone the code:
+      </p>
+      <pre><code class="language-bash">git clone --branch Code https://github.com/boobyuuuu/LHAI.git</code></pre>
+    </div>
 
-      <div class="col-md-4">
-        <!-- Clickable Card Section -->
-        <div class="card clickable-card text-center">
-          <div class="card-body">
-            <a href="/mains/eval/" class="card-title">Evaluation Section</a>
-          </div>
-        </div>
-        <!-- Explanation Section -->
-        <div class="card explanation-card text-center">
-          <div class="card-body">
-            <p class="card-text">Exploring different verification methods and case studies.</p>
-          </div>
-        </div>
-      </div>
+    <div class="code-note">
+      <p class="code-description">
+        Run Train:
+      </p>
+      <pre><code class="language-bash">git clone --branch Code https://github.com/boobyuuuu/LHAI.git</code></pre>
+    </div>
 
-      <div class="col-md-4">
-        <!-- Clickable Card Section -->
-        <div class="card clickable-card text-center">
-          <div class="card-body">
-            <a href="/mains/codes/" class="card-title">Code Section</a>
-          </div>
-        </div>
-        <!-- Explanation Section -->
-        <div class="card explanation-card text-center">
-          <div class="card-body">
-            <p class="card-text">A detailed explanation of the code structure and design ideas.</p>
-          </div>
-        </div>
-      </div>
+    <div class="code-note">
+      <p class="code-description">
+        Run Evaluation:
+      </p>
+      <pre><code class="language-bash">git clone --branch Code https://github.com/boobyuuuu/LHAI.git</code></pre>
+    </div>
 
-      <div class="col-md-4">
-        <!-- Clickable Card Section -->
-        <div class="card clickable-card text-center">
-          <div class="card-body">
-            <a href="/mains/others/" class="card-title">Others</a>
-          </div>
-        </div>
-        <!-- Explanation Section -->
-        <div class="card explanation-card text-center">
-          <div class="card-body">
-            <p class="card-text">Includes technologies such as GIT, Markdown, MkDocs, and servers.</p>
-          </div>
-        </div>
-      </div>
+    <div class="code-note">
+      <p class="code-description">
+        Run Predict:
+      </p>
+      <pre><code class="language-bash">git clone --branch Code https://github.com/boobyuuuu/LHAI.git</code></pre>
     </div>
   </div>
 </section>
 
+<!-- highlight.js 引入（浅色主题） -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 
 
-<!-- 第三部分 -->
+<!-- 第三部分 User Manual Contents-->
+
+<div class="topnote">
+  <div class="topnote-container">
+    <p class="section-title">User Manual Contents</p>
+  </div>
+
+<div class="catalog-wrapper">
+  <div class="row justify-content-center">
+    <!-- 1 -->
+    <div class="col-md-4">
+      <div class="card clickable-card text-center">
+        <div class="card-body">
+          <a href="/LHAI/Content/data/" class="card-title">Data Section</a>
+        </div>
+      </div>
+      <div class="card explanation-card text-center">
+        <div class="card-body">
+          <p class="card-text">A detailed introduction to data-related technologies and processing methods.</p>
+        </div>
+      </div>
+    </div>
+    <!-- 2 -->
+    <div class="col-md-4">
+      <div class="card clickable-card text-center">
+        <div class="card-body">
+          <a href="/LHAI/Content/network/" class="card-title">Network Section</a>
+        </div>
+      </div>
+      <div class="card explanation-card text-center">
+        <div class="card-body">
+          <p class="card-text">Covering the latest technological trends and practices.</p>
+        </div>
+      </div>
+    </div>
+    <!-- 3 -->
+    <div class="col-md-4">
+      <div class="card clickable-card text-center">
+        <div class="card-body">
+          <a href="/LHAI/Content/eval/" class="card-title">Evaluation Section</a>
+        </div>
+      </div>
+      <div class="card explanation-card text-center">
+        <div class="card-body">
+          <p class="card-text">Exploring different verification methods and case studies.</p>
+        </div>
+      </div>
+    </div>
+    <!-- 4 -->
+    <div class="col-md-4">
+      <div class="card clickable-card text-center">
+        <div class="card-body">
+          <a href="/LHAI/Content/codes/" class="card-title">Code Section</a>
+        </div>
+      </div>
+      <div class="card explanation-card text-center">
+        <div class="card-body">
+          <p class="card-text">A detailed explanation of the code structure and design ideas.</p>
+        </div>
+      </div>
+    </div>
+    <!-- 5 -->
+    <div class="col-md-4">
+      <div class="card clickable-card text-center">
+        <div class="card-body">
+          <a href="/LHAI/Content/others/" class="card-title">Others</a>
+        </div>
+      </div>
+      <div class="card explanation-card text-center">
+        <div class="card-body">
+          <p class="card-text">Includes technologies such as GIT, Markdown, MkDocs, and servers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 第四部分 Result Representation-->
 <section class="showcase">
-  <div class="container">
-    <div class="section-title-container">
+  <div class="topnote">
+    <div class="topnote-container">
       <p class="section-title">Result Representation</p>
     </div>
   <div class="container-fluid p-0">
