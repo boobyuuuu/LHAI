@@ -21,7 +21,7 @@ class TrainConfig:
     data_name: str = "xingwei_10000_64_train_v1.npy"
     seed: int = 0
     frac: float = 0.8
-    epochs: int = 400
+    epochs: int = 10
     batch_size: int = 32
     lr_max: float = 5e-4
     lr_min: float = 5e-6
@@ -69,7 +69,7 @@ class EvalConfig:
     seed: int = 0
     frac: float = 0.8
     batch_size: int = 32
-    epochs: int = 400
+    epochs: int = 10
     lr_max: float = 5e-4
     lr_min: float = 5e-6
 
