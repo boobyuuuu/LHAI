@@ -31,6 +31,7 @@ from skimage.metrics import peak_signal_noise_ratio as psnr
 from skimage.metrics import structural_similarity as ssim
 from skimage.metrics import mean_squared_error as mse
 from skimage.metrics import normalized_root_mse as nrmse
+from sklearn.metrics import mean_absolute_error as mae
 import pytorch_msssim
 
 app = typer.Typer()

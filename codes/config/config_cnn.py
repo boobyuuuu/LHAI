@@ -65,11 +65,11 @@ class EvalConfig:
     data_dir: Path = ADDR_ROOT / "data" / "Train"
     data_name: str = "xingwei_10000_64_train_v1.npy"
     model_weight_dir: Path = ADDR_ROOT / "saves" / "MODEL"
-    model_weight_name: str = "CNN_EXP01_400epo_32bth_xingwei.pth"
+    model_weight_name: str = "CNN_EXP01_10epo_32bth_xingwei.pth"
     seed: int = 0
     frac: float = 0.8
     batch_size: int = 32
-    epochs: int = 10
+    epochs: int = 400
     lr_max: float = 5e-4
     lr_min: float = 5e-6
 
