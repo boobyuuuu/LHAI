@@ -27,12 +27,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
-from skimage.metrics import peak_signal_noise_ratio as psnr
-from skimage.metrics import structural_similarity as ssim
-from skimage.metrics import mean_squared_error as mse
-from skimage.metrics import normalized_root_mse as nrmse
-from sklearn.metrics import mean_absolute_error as mae
-import pytorch_msssim
+
+import seaborn as sns
+from torchmetrics.image import MultiScaleStructuralSimilarityIndexMeasure as MS_SSIM
+from torchmetrics.image import StructuralSimilarityIndexMeasure as SSIM
+from torchmetrics.image import PeakSignalNoiseRatio as PSNR
+from torchmetrics.regression import MeanAbsoluteError as MAE
 
 app = typer.Typer()
 
@@ -55,7 +55,8 @@ def main(
     batch_size: int = eval_cfg.batch_size,                  # para13：批次大小 default: 32
     epochs: int = eval_cfg.epochs,                          # para14：训练轮数（如需评估多个 epoch） default: 400
     lr_max: float = eval_cfg.lr_max,                        # para15：最大学习率 default: 5e-4
-    lr_min: float = eval_cfg.lr_min                         # para16：最小学习率 default: 5e-6
+    lr_min: float = eval_cfg.lr_min,                        # para16：最小学习率 default: 5e-6
+    datarange: float = eval_cfg.datarange
 ):
     # ---- 2-1 Load the parameter ----
     logger.info("========== 当前训练参数 ==========")
@@ -114,10 +115,11 @@ def main(
     savepath = f'{ADDR_ROOT}/saves'
     savefigname = f"Eval_loss_{model_name}_{exp_name}"
     plt.savefig(f'{savepath}/EVAL/{savefigname}_jsdiv.png',dpi=300)
-    logger.success(f"Evaluation 1: Loss figure saved at {savepath}/EVAL/{savefigname}_jsdiv.png")
+    logger.info(f"Evaluation 1: Loss figure saved at {savepath}/EVAL/{savefigname}_jsdiv.png")
+    logger.success("✅ loss评估完成（Step 2-3-1）")
     
-    # ---- 2-4 evaluation 2: distribution ----
-    num_images_to_show = 10
+    # ---- 2-3 evaluation 2: lineprofiles and resmap----
+    num_images_to_show = 3
     def interp2d(x1,x2,y1,y2,arr):
         x = np.arange(arr.shape[0])
         y = np.arange(arr.shape[0])
@@ -133,7 +135,7 @@ def main(
     img_HR=[]
     img_SR=[]
 
-    showlist = [4,5]                    # ---- 2-4 更改1：选择要展示的图片编号 ----
+    showlist = [0,1,2]                    # ---- 2-4 更改1：选择要展示的图片编号 ----
     num_images_to_show = len(showlist)
     for i in showlist:
         item = trainset.__getitem__(i)
@@ -146,6 +148,7 @@ def main(
         xys[i] = [0,0,0,0]
     xys[0] = [30,50,20,10]              # ---- 2-4 更改2：调整图片的位置 ----
     xys[1]=[20,45,35,50]                # ---- 2-4 更改2：调整图片的位置 ----
+    xys[2]=[20,45,35,50]
     for i in range(num_images_to_show):
         color = 'white'
         x1,x2,y1,y2 = xys[i]
@@ -200,78 +203,142 @@ def main(
     savefig_path = f'{savepath}/EVAL/{savefigname}.png'
     plt.savefig(savefig_path, dpi=300)
     logger.success(f"Evaluation 1: Loss figure saved at {savefig_path}")
+    logger.success("✅ distribution评估完成（Step 2-3-2）")
     
-    # ---- 2-5 evaluation 3: PSNR, SSIM ----
-    psnr_list = []
-    ssim_list = []
-    mae_list = []
-    mse_list = []
-    nrmse_list = []
-    ms_ssim_list = []
+    # ---- 2-3 evaluation 3: NRMSE,MAE,MS-SSIM,SSIM,PSNR ----
+    def nrmse(x, y):
+        return torch.sqrt(torch.mean((x - y) ** 2)) / (y.max() - y.min())
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    ms_ssim_metric = MS_SSIM(
+        data_range=datarange, kernel_size=7, betas=(0.0448, 0.2856, 0.3001)
+    ).to(device)
+    ssim_metric = SSIM(data_range=1.0).to(device)
+    psnr_metric = PSNR(data_range=1.0).to(device)
+    mae_metric = MAE().to(device)
     
-    output_path = f"{ADDR_ROOT}/saves/LOSS"
+    psnr_list, ssim_list, ms_ssim_list, mae_list, mse_list, nrmse_list = [], [], [], [], [], []
+    psnr_input_list, ssim_input_list, ms_ssim_input_list, mae_input_list, mse_input_list, nrmse_input_list = [], [], [], [], [], []
+    
+    output_path = f"{ADDR_ROOT}/saves/EVAL"
     output_file = f"{output_path}/Eval_PSNR_SSIM_{model_name}_{exp_name}.txt"
     
     model.eval()
-    model.cpu()
+    model.to(device)
 
     with open(output_file, "w") as f:
-        f.write("Image_Index\tPSNR\tSSIM\tMS-SSIM\tMAE\tMSE\tNRMSE\n")  # 文件表头
+        f.write("Image_Index\tEval_Type\tPSNR\tSSIM\tMS-SSIM\tMAE\tMSE\tNRMSE\n")
+        
         for idx, (blurry_img, original_img) in enumerate(testloader):
-            # 生成超分辨图像
+            blurry_img = blurry_img.to(device)
+            original_img = original_img.to(device)
+            
             with torch.no_grad():
                 img_sr, _, _ = model(blurry_img)
-            # 转为 numpy 格式
-            blurry_img_np = blurry_img.squeeze().cpu().numpy()
-            original_img_np = original_img.squeeze().cpu().numpy()
-            img_sr_np = img_sr.squeeze().cpu().numpy()
-            # 计算 PSNR 和 SSIM
-            psnr_val = psnr(original_img_np, img_sr_np, data_range=original_img_np.max() - original_img_np.min())
-            ssim_val = ssim(original_img_np, img_sr_np, data_range=original_img_np.max() - original_img_np.min())
-            mae_val = mae(original_img_np, img_sr_np)
-            mse_val = mse(original_img_np, img_sr_np)
-            nrmse_val = nrmse(original_img_np, img_sr_np)
-            # MS-SSIM (requires torch tensors, float32)
-            img_sr_tensor = img_sr.float()
-            original_tensor = original_img.float()
-            ms_ssim_val = pytorch_msssim.ms_ssim(img_sr_tensor, original_tensor, data_range=1.0).item()
-            # 保存结果到列表
+    
+            # --- SR 图像指标 ---
+            psnr_val = psnr_metric(img_sr, original_img).item()
+            ssim_val = ssim_metric(img_sr, original_img).item()
+            ms_ssim_val = ms_ssim_metric(img_sr, original_img).item()
+            mae_val = mae_metric(img_sr, original_img).item()
+            mse_val = torch.mean((img_sr - original_img) ** 2).item()
+            nrmse_val = nrmse(img_sr, original_img).item()
+    
             psnr_list.append(psnr_val)
             ssim_list.append(ssim_val)
             ms_ssim_list.append(ms_ssim_val)
             mae_list.append(mae_val)
             mse_list.append(mse_val)
             nrmse_list.append(nrmse_val)
-            # 写入 txt 文件
-            f.write(f"{idx + 1}\t{psnr_val:.4f}\t{ssim_val:.4f}\t{ms_ssim_val:.4f}\t{mae_val:.4f}\t{mse_val:.4f}\t{nrmse_val:.4f}\n")
     
-    avg_psnr = np.mean(psnr_list)
-    avg_ssim = np.mean(ssim_list)
-    avg_ms_ssim = np.mean(ms_ssim_list)
-    avg_mae = np.mean(mae_list)
-    avg_mse = np.mean(mse_list)
-    avg_nrmse = np.mean(nrmse_list)
-
-    # 打印日志
-    logger.info(f"Average PSNR: {avg_psnr:.4f}")
-    logger.info(f"Average SSIM: {avg_ssim:.4f}")
-    logger.info(f"Average MS-SSIM: {avg_ms_ssim:.4f}")
-    logger.info(f"Average MAE: {avg_mae:.4f}")
-    logger.info(f"Average MSE: {avg_mse:.4f}")
-    logger.info(f"Average NRMSE: {avg_nrmse:.4f}")
-
-    # 写入文件
+            f.write(f"{idx + 1}\tSR\t{psnr_val:.4f}\t{ssim_val:.4f}\t{ms_ssim_val:.4f}\t{mae_val:.4f}\t{mse_val:.4f}\t{nrmse_val:.4f}\n")
+    
+            # --- 原始模糊图像指标 ---
+            psnr_in = psnr_metric(blurry_img, original_img).item()
+            ssim_in = ssim_metric(blurry_img, original_img).item()
+            ms_ssim_in = ms_ssim_metric(blurry_img, original_img).item()
+            mae_in = mae_metric(blurry_img, original_img).item()
+            mse_in = torch.mean((blurry_img - original_img) ** 2).item()
+            nrmse_in = nrmse(blurry_img, original_img).item()
+    
+            psnr_input_list.append(psnr_in)
+            ssim_input_list.append(ssim_in)
+            ms_ssim_input_list.append(ms_ssim_in)
+            mae_input_list.append(mae_in)
+            mse_input_list.append(mse_in)
+            nrmse_input_list.append(nrmse_in)
+    
+            f.write(f"{idx + 1}\tInput\t{psnr_in:.4f}\t{ssim_in:.4f}\t{ms_ssim_in:.4f}\t{mae_in:.4f}\t{mse_in:.4f}\t{nrmse_in:.4f}\n")
+    # 文字部分
+    avg = lambda x: np.mean(x)
+    logger.info("========== 平均评估参数 ==========")
+    logger.info(f"Average PSNR (SR): {avg(psnr_list):.4f} | Input: {avg(psnr_input_list):.4f}")
+    logger.info(f"Average SSIM (SR): {avg(ssim_list):.4f} | Input: {avg(ssim_input_list):.4f}")
+    logger.info(f"Average MS-SSIM (SR): {avg(ms_ssim_list):.4f} | Input: {avg(ms_ssim_input_list):.4f}")
+    logger.info(f"Average MAE (SR): {avg(mae_list):.4f} | Input: {avg(mae_input_list):.4f}")
+    logger.info(f"Average MSE (SR): {avg(mse_list):.4f} | Input: {avg(mse_input_list):.4f}")
+    logger.info(f"Average NRMSE (SR): {avg(nrmse_list):.4f} | Input: {avg(nrmse_input_list):.4f}")
+    
     with open(output_file, "a") as f:
         f.write("\n")
-        f.write(f"Average PSNR: {avg_psnr:.4f}\n")
-        f.write(f"Average SSIM: {avg_ssim:.4f}\n")
-        f.write(f"Average MS-SSIM: {avg_ms_ssim:.4f}\n")
-        f.write(f"Average MAE: {avg_mae:.4f}\n")
-        f.write(f"Average MSE: {avg_mse:.4f}\n")
-        f.write(f"Average NRMSE: {avg_nrmse:.4f}\n")
-
-    logger.success(f"All evaluation metrics saved at {output_file}")
-    logger.success("Plot generation complete.")
+        f.write(f"Average PSNR (SR): {avg(psnr_list):.4f}\n")
+        f.write(f"Average PSNR (Input): {avg(psnr_input_list):.4f}\n")
+        f.write(f"Average SSIM (SR): {avg(ssim_list):.4f}\n")
+        f.write(f"Average SSIM (Input): {avg(ssim_input_list):.4f}\n")
+        f.write(f"Average MS-SSIM (SR): {avg(ms_ssim_list):.4f}\n")
+        f.write(f"Average MS-SSIM (Input): {avg(ms_ssim_input_list):.4f}\n")
+        f.write(f"Average MAE (SR): {avg(mae_list):.4f}\n")
+        f.write(f"Average MAE (Input): {avg(mae_input_list):.4f}\n")
+        f.write(f"Average MSE (SR): {avg(mse_list):.4f}\n")
+        f.write(f"Average MSE (Input): {avg(mse_input_list):.4f}\n")
+        f.write(f"Average NRMSE (SR): {avg(nrmse_list):.4f}\n")
+        f.write(f"Average NRMSE (Input): {avg(nrmse_input_list):.4f}\n")
+    
+    logger.info(f"All evaluation metrics saved at {output_file}")
+    
+    # === 画图部分 ===
+    palette = sns.color_palette("Dark2")
+    image_ids = list(range(1, len(psnr_list) + 1))
+    
+    fig, axes = plt.subplots(1, 3, figsize=(19, 5))
+    
+    # 1. NRMSE & MAE
+    axes[0].plot(image_ids, mae_list, color=palette[0], marker='s', label="MAE_SR")
+    axes[0].plot(image_ids, nrmse_list, color=palette[1], marker='o', label="NRMSE_SR")
+    axes[0].plot(image_ids, mae_input_list, color=palette[2], marker='s', linestyle='--', label="MAE_Input")
+    axes[0].plot(image_ids, nrmse_input_list, color=palette[3], marker='o', linestyle='--', label="NRMSE_Input")
+    axes[0].set_xlabel("Image Index")
+    axes[0].set_ylabel("Value")
+    axes[0].set_title("NRMSE & MAE per Image")
+    axes[0].legend()
+    axes[0].grid(True)
+    
+    # 2. MS-SSIM & SSIM
+    axes[1].plot(image_ids, ms_ssim_list, color=palette[0], marker='s', label="MS-SSIM_SR")
+    axes[1].plot(image_ids, ssim_list, color=palette[1], marker='o', label="SSIM_SR")
+    axes[1].plot(image_ids, ms_ssim_input_list, color=palette[2], marker='s', linestyle='--', label="MS-SSIM_Input")
+    axes[1].plot(image_ids, ssim_input_list, color=palette[3], marker='o', linestyle='--', label="SSIM_Input")
+    axes[1].set_xlabel("Image Index")
+    axes[1].set_ylabel("Value")
+    axes[1].set_title("MS-SSIM & SSIM per Image")
+    axes[1].legend()
+    axes[1].grid(True)
+    
+    # 3. PSNR
+    axes[2].plot(image_ids, psnr_list, color=palette[4], marker='o', label="PSNR_SR")
+    axes[2].plot(image_ids, psnr_input_list, color=palette[5], marker='o', linestyle='--', label="PSNR_Input")
+    axes[2].set_xlabel("Image Index")
+    axes[2].set_ylabel("Value")
+    axes[2].set_title("PSNR per Image")
+    axes[2].legend()
+    axes[2].grid(True)
+    
+    plt.tight_layout()
+    
+    plot_save_path = f"{output_path}/evaluation_plots_{model_name}_{exp_name}.png"
+    plt.savefig(plot_save_path)
+    plt.close()
+    logger.info(f"Evaluation plots saved at {plot_save_path}")
+    logger.success("✅ NRMSE,MAE,MS-SSIM,SSIM,PSNR评估完成（Step 2-3-2）")
     # -----------------------------------------
 
 if __name__ == "__main__":

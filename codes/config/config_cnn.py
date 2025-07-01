@@ -72,6 +72,7 @@ class EvalConfig:
     epochs: int = 400
     lr_max: float = 5e-4
     lr_min: float = 5e-6
+    datarange: float = 1.0
 
     @property
     def model_path(self) -> Path:
