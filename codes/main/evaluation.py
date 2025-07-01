@@ -12,7 +12,7 @@ logger.info(f"PROJ_ROOT path is: {PROJ_ROOT}")
 PROJ_CODE = Path(__file__).resolve().parents[0]
 logger.info(f"PROJ_CODE path is: {PROJ_CODE}")
 # ---- 1-3 Libraries for Configuration ----
-from config import EVAL_EXP_NAME, EVAL_MODEL_NAME, EVAL_MODEL_PYPATH, EVAL_MODEL_PTHNAME, EVAL_MODEL_PTHPATH, EVAL_DATA_DIR, EVAL_DATA_NAME, EVAL_DATA_PATH, EVAL_SEED, FRAC_TRAIN, BATCH_SIZE, LATENTDIM
+from LHAI.config_cnn import EVAL_EXP_NAME, EVAL_MODEL_NAME, EVAL_MODEL_PYPATH, EVAL_MODEL_PTHNAME, EVAL_MODEL_PTHPATH, EVAL_DATA_DIR, EVAL_DATA_NAME, EVAL_DATA_PATH, EVAL_SEED, FRAC_TRAIN, BATCH_SIZE, LATENTDIM
 from function.Dataset import ImageDataset
 from function.Loss import jsdiv,jsdiv_single
 from function.Log import log

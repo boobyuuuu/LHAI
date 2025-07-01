@@ -7,17 +7,16 @@ import typer
 from loguru import logger
 from tqdm import tqdm
 import sys
-PROJ_ROOT = Path(__file__).resolve().parents[2]
-logger.info(f"PROJ_ROOT path is: {PROJ_ROOT}")
-PROJ_CODE = Path(__file__).resolve().parents[1]
-sys.path.append(str(PROJ_ROOT))
-logger.info(f"PROJ_CODE path is: {PROJ_CODE}")
-# ---- 1-3 Libraries for Configuration ----
-from LHAI.config import EXP_NAME, MODEL_NAME, DATA_DIR, DATA_NAME, SEED, TRAINTYPE, FRAC_TRAIN, EPOCHS, BATCH_SIZE, LATENTDIM, LR_MAX, LR_MIN
-from LHAI.function.Dataset import ImageDataset
-from LHAI.function.Loss import lossfunction
-from LHAI.function.Log import log
-
+ADDR_ROOT = Path(__file__).resolve().parents[2]
+logger.success(f"ADDR_ROOT path is: {ADDR_ROOT}")
+ADDR_CODE = Path(__file__).resolve().parents[1]
+sys.path.append(str(ADDR_ROOT))
+logger.success(f"ADDR_CODE path is: {ADDR_CODE}")
+# ---- 1-3 Libraries for Configuration and Modules ----
+import codes.config.config_cnn as config
+from codes.function.Dataset import ImageDataset
+from codes.function.Loss import lossfunction
+from codes.function.Log import log
 # ---- 1-4 Libraries for pytorch and others ----
 import torch
 import torch.nn as nn
@@ -27,90 +26,62 @@ import importlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-app = typer.Typer()
-
 # ---- 02 Define the main function ----
+app = typer.Typer()
 @app.command()
 def main(
-    EXP_NAME: str = EXP_NAME, # para1: 实验名称
-    MODEL_NAME: str = MODEL_NAME, # para2: 模型名称
-    DATA_DIR: Path = DATA_DIR, # para3: 数据文件夹的路径
-    DATA_NAME: str = DATA_NAME, # para4: 数据文件的名称
-    seed: int = SEED, # para5: 随机种子
-    traintype: str = TRAINTYPE, # para6: 训练类型
-    frac_train: float = FRAC_TRAIN, # para7: 训练集比例
-    epochs: int = EPOCHS, # para8: 训练轮数
-    batch_size: int = BATCH_SIZE, # para9: 批次大小
-    latentdim: int = LATENTDIM, # para10: 潜在维度
-    lr_max: float = LR_MAX, # para11: 学习率上限
-    lr_min: float = LR_MIN, # para12: 学习率下限
-    MODEL_PATH: Path = PROJ_ROOT / "LHAI" / "models" / f"{MODEL_NAME}_{EXP_NAME}.py",
-    DATA_PATH: Path = DATA_DIR / DATA_NAME,
-    # ---- ADD ADDITIONAL ARGUMENTS AS NECESSARY ----
+    TRAIN_EXP_NAME: str = config.TRAIN_EXP_NAME,        # para1：实验名称 default："EXP01"
+    TRAIN_MODEL_NAME: str = config.TRAIN_MODEL_NAME,    # para2：模型名称 default："CNN"
+    TRAIN_MODEL_PY: Path = config.TRAIN_MODEL_PY,       # para13：模型.py文件路径 default：ADDR_ROOT / "codes" / "models" / f"{TRAIN_MODEL_NAME}_{TRAIN_EXP_NAME}.py"
+    TRAIN_DATA_DIR: Path = config.TRAIN_DATA_DIR,       # para3：数据文件夹路径 default：ADDR_ROOT / "data" / "POISSON"
+    TRAIN_DATA_NAME: str = config.TRAIN_DATA_NAME,      # para4：数据文件名 default："poisson_src_bkg.pkl.npy"
+    TRAIN_DATA_PATH: Path = config.TRAIN_DATA_PATH,      # para14：完整数据路径 default：TRAIN_DATA_DIR / TRAIN_DATA_NAME
+    TRAIN_SEED: int = config.TRAIN_SEED,                # para5：随机种子 default：0
+    TRAIN_FRAC: float = config.TRAIN_FRAC,              # para7：训练集比例 default：0.8
+    TRAIN_EPOCHS: int = config.TRAIN_EPOCHS,            # para8：训练轮数 default：400
+    TRAIN_BATCH_SIZE: int = config.TRAIN_BATCH_SIZE,    # para9：批次大小 default：32
+    TRAIN_LR_MAX: float = config.TRAIN_LR_MAX,          # para11：学习率上限 default：5e-4
+    TRAIN_LR_MIN: float = config.TRAIN_LR_MIN          # para12：学习率下限 default：5e-6
 ):
     
     # ---- 2-1 Load the parameter ----
-    logger.info("Loading parameter, data and model...")
-    torch.manual_seed(seed)
-    MODEL_PATH = PROJ_ROOT / "LHAI" / "models" / f"{MODEL_NAME}_{EXP_NAME}.py"
-    model_file_path = MODEL_PATH
+    logger.info("========== 当前训练参数 ==========")
+    for idx, (key, value) in enumerate(locals().items(), start=1):
+        logger.info(f"{idx:02d}. {key:<20}: {value}")
+    torch.manual_seed(TRAIN_SEED)
+    model_file_path = TRAIN_MODEL_PY
     spec = importlib.util.spec_from_file_location("module.name", model_file_path)
     module = importlib.util.module_from_spec(spec)
     sys.modules["module.name"] = module
     spec.loader.exec_module(module)
-    MODEL = getattr(module, MODEL_NAME)
+    MODEL = getattr(module, TRAIN_MODEL_NAME)
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     LOSS_PLOT = []
     TESTLOSS_PLOT = []
     EPOCH_PLOT = []
-
-    logger.info(f"""
-    Parameters:
-    - EXP_NAME: {EXP_NAME} (01)
-    - MODEL_NAME: {MODEL_NAME} (02)
-    - DATA_DIR: {DATA_DIR} (03)
-    - DATA_NAME: {DATA_NAME} (04)
-    - seed: {seed} (05)
-    - traintype: {traintype} (06)
-    - frac_train: {frac_train} (07)
-    - epochs: {epochs} (08)
-    - batch_size: {batch_size} (09)
-    - latentdim: {latentdim} (10)
-    - lr_max: {lr_max} (11)
-    - lr_min: {lr_min} (12)
-    - MODEL_PATH: {MODEL_PATH}
-    - DATA_PATH: {DATA_PATH}
-    """)
+    DATA_SIM = TRAIN_DATA_NAME.split("_")[0]
     
-    MODEL_SAVE_NAME = f'{MODEL_NAME}_{EXP_NAME}_{epochs}epo_{batch_size}bth_{latentdim}lat_{traintype}_{DATA_NAME}'
+    MODEL_SAVE_NAME = f'{TRAIN_MODEL_NAME}_{TRAIN_EXP_NAME}_{TRAIN_EPOCHS}epo_{TRAIN_BATCH_SIZE}bth_{DATA_SIM}'
+    # print(MODEL_SAVE_NAME)
+    logger.success("2-1 Loading parameters")
     
-    # ---- 2-2 Load the data and model ----
-    filetmp = np.load(DATA_PATH,allow_pickle=True)
+    # ---- 2-2 Load data----
+    filetmp = np.load(TRAIN_DATA_PATH,allow_pickle=True)
     filelen = filetmp.shape[0]
     del filetmp
     NUM_TO_LEARN = int(filelen)
-    dataset = ImageDataset(NUM_TO_LEARN,DATA_PATH,inverse=False)
+    dataset = ImageDataset(NUM_TO_LEARN,TRAIN_DATA_PATH,inverse=False)
     trainset, testset = random_split(dataset,
-        lengths=[int(frac_train *len(dataset)),
-        len(dataset) - int(frac_train * len(dataset))],
+        lengths=[int(TRAIN_FRAC *len(dataset)),
+        len(dataset) - int(TRAIN_FRAC * len(dataset))],
         generator=torch.Generator().manual_seed(0))
-    dataloader = DataLoader(trainset,shuffle=True,batch_size=batch_size)
-    testloader = DataLoader(testset,shuffle=True,batch_size=batch_size)
+    dataloader = DataLoader(trainset,shuffle=True,batch_size=TRAIN_BATCH_SIZE)
+    testloader = DataLoader(testset,shuffle=True,batch_size=TRAIN_BATCH_SIZE)
+    logger.success("2-2 Loading data")
     
     # ---- 2-3 Initialize the model, loss function and optimizer ----
-
-    if MODEL_NAME == 'CNN':
-        model = MODEL(0).to(device)
-    elif MODEL_NAME == 'VAE':
-        model = MODEL(latentdim).to(device)
-    elif MODEL_NAME == 'GAN':
-        model = MODEL().to(device)
-    elif MODEL_NAME == 'UNET':
-        model = MODEL(0,0).to(device)
-    else:
-        model = MODEL(latentdim).to(device)
-
-    optimizer = torch.optim.AdamW(model.parameters(), lr=lr_max)
+    model = MODEL(0).to(device)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=TRAIN_LR_MAX)
 
     logger.info("数据集的最大、最小值，以及一个样本")
     for batch_idx, (blurry_img, original_img) in enumerate(dataloader):
@@ -132,16 +103,17 @@ def main(
       - Blurry image max value: {blurry_img_max}
       - Blurry image sample: {blurry_img_sample}
     """)
+    logger.success("2-3 Loading model")
 
     # ---- 2-4 Define the training function ----
     def train(dataloader, num_epochs):
         with open(f'training.log', 'w') as nothing: # 清空原log
             pass
-        log(f"Experiment name: {EXP_NAME}")
+        log(f"Experiment name: {TRAIN_EXP_NAME}")
         for epoch in range(num_epochs):
             model.train() # 切换成训练模式
             total_loss = 0.0
-            current_lr = LR_MIN + 0.5 * (LR_MAX - LR_MIN) * (1 + np.cos(np.pi * epoch / EPOCHS))
+            current_lr = TRAIN_LR_MIN + 0.5 * (TRAIN_LR_MAX - TRAIN_LR_MIN) * (1 + np.cos(np.pi * epoch / TRAIN_EPOCHS))
             optimizer = torch.optim.AdamW(model.parameters(), lr = current_lr)
 
             for _, (img_LR, img_HR) in enumerate(dataloader):
@@ -193,10 +165,10 @@ def main(
     logger.info(f"""
                 Training Start...
                 - DEVICE:{device}
-                - Model:{MODEL_NAME}
-                - Experiment Name:{EXP_NAME}
+                - Model:{TRAIN_MODEL_NAME}
+                - Experiment:{TRAIN_EXP_NAME}
                 """)
-    train(dataloader, epochs)
+    train(dataloader, TRAIN_EPOCHS)
     logger.success("Modeling training complete.")
     
     # ---- 2-5 Save the model and plot the loss ----
@@ -204,16 +176,16 @@ def main(
     ax.plot(EPOCH_PLOT,LOSS_PLOT)
     ax.plot(EPOCH_PLOT,TESTLOSS_PLOT)
     ax.set_yscale('log')
-    savepath = f'{PROJ_ROOT}/saves'
+    savepath = f'{ADDR_ROOT}/saves'
     fig.savefig(f'{savepath}/LOSS/{MODEL_SAVE_NAME}.png', dpi = 300)
-    logger.info(f"Loss plot saved at {savepath}/LOSS/{MODEL_SAVE_NAME}.png")
+    logger.success(f"Loss plot saved at {savepath}/LOSS/{MODEL_SAVE_NAME}.png")
     LOSS_DATA = np.stack((np.array(EPOCH_PLOT),np.array(LOSS_PLOT),np.array(TESTLOSS_PLOT)),axis=0)
     np.save(f'{savepath}/LOSS/{MODEL_SAVE_NAME}.npy',LOSS_DATA)
-    logger.info(f"Loss data saved at {savepath}/LOSS/{MODEL_SAVE_NAME}.npy")
+    logger.success(f"Loss data saved at {savepath}/LOSS/{MODEL_SAVE_NAME}.npy")
     torch.save(model.state_dict(), f'{savepath}/MODEL/{MODEL_SAVE_NAME}.pth')
-    logger.info(f"Model saved at {savepath}/MODEL/{MODEL_SAVE_NAME}.pth")
+    logger.success(f"Model saved at {savepath}/MODEL/{MODEL_SAVE_NAME}.pth")
     
-    # ---- 2-6 early prediction ----
+    # ---- 2-6 First prediction ----
     model.eval()
     model.to(device)
     for _, (img_LR, img_HR) in enumerate(testloader):
@@ -258,12 +230,10 @@ def main(
         cbar2 = fig.colorbar(
             im4, ax=axes[i,4],shrink = 0.5
         )
-
-    # 调整子图之间的间距
     plt.tight_layout()
     plt.show()
-    plt.savefig(f'{savepath}/FIGURE/EarlyPre_{MODEL_SAVE_NAME}.png', dpi = 300)
-    logger.info(f"Early prediction saved at {savepath}/FIGURE/EarlyPre_{MODEL_SAVE_NAME}.png")
+    plt.savefig(f'{savepath}/PREDICT/EarlyPre_{MODEL_SAVE_NAME}.png', dpi = 300)
+    logger.success(f"First prediction saved at {savepath}/PREDICT/FirstPred_{MODEL_SAVE_NAME}.png")
     # -----------------------------------------
 if __name__ == "__main__":
     app()

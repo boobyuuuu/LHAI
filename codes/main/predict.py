@@ -9,10 +9,10 @@ from tqdm import tqdm
 import sys
 # ---- 1-2 Reload configuration ----
 import importlib
-import LHAI.config
-importlib.reload(LHAI.config)
+import LHAI.config_cnn
+importlib.reload(LHAI.config_cnn)
 # ---- 1-3 Libraries for Configuration ----
-from LHAI.config import PRE_EXP_NAME, PRE_MODEL_NAME, PRE_MODEL_PYPATH, PRE_MODEL_PTHNAME, PRE_MODEL_PTHPATH, PRE_DATA_DIR, PRE_DATA_NAME, PRE_DATA_PATH, PRE_SEED, PRE_TRAINTYPE, PRE_FRAC_TRAIN, PRE_BATCH_SIZE, PRE_LATENT_DIM
+from LHAI.config_cnn import PRE_EXP_NAME, PRE_MODEL_NAME, PRE_MODEL_PYPATH, PRE_MODEL_PTHNAME, PRE_MODEL_PTHPATH, PRE_DATA_DIR, PRE_DATA_NAME, PRE_DATA_PATH, PRE_SEED, PRE_TRAINTYPE, PRE_FRAC_TRAIN, PRE_BATCH_SIZE, PRE_LATENT_DIM
 from LHAI.function.Dataset import ImageDataset
 from LHAI.function.Loss import lossfunction
 from LHAI.function.Log import log

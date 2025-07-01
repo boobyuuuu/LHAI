@@ -4,7 +4,7 @@ import typer
 from loguru import logger
 from tqdm import tqdm
 
-from LHAI.config import FIGURES_DIR, PROCESSED_DATA_DIR
+from LHAI.config_cnn import FIGURES_DIR, PROCESSED_DATA_DIR
 
 app = typer.Typer()
 
