@@ -56,7 +56,7 @@ plugins:
           nav_translations:
             Index: 首页
             Data Section: 数据部分
-            Network Section: 网络部分
+            Model Section: 模型部分
             Eval Section: 评估部分
             Codes Section: 代码部分
             Others Section: 其他部分
@@ -159,12 +159,12 @@ nav:
     - simulation: Content/data/simulation.md
     - tangxiao: Content/data/tangxiao.md
     - jiaoda: Content/data/jiaoda.md
-  - Network Section:
-    - index: Content/network/index.md
-    - CNN: Content/network/cnn.md
-    - GAN: Content/network/gan.md
-    - VAE: Content/network/vae.md
-    - DIFFUSION: Content/network/diffusion.md
+  - Model Section:
+    - index: Content/model/index.md
+    - CNN: Content/model/cnn.md
+    - GAN: Content/model/gan.md
+    - VAE: Content/model/vae.md
+    - DIFFUSION: Content/model/diffusion.md
   - Eval Section:
     - index: Content/eval/index.md
   - Codes Section:
