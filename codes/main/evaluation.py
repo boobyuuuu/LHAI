@@ -7,17 +7,17 @@ import typer
 from loguru import logger
 from tqdm import tqdm
 import sys
-PROJ_ROOT = Path(__file__).resolve().parents[1]
-logger.info(f"PROJ_ROOT path is: {PROJ_ROOT}")
-PROJ_CODE = Path(__file__).resolve().parents[0]
-logger.info(f"PROJ_CODE path is: {PROJ_CODE}")
-# ---- 1-3 Libraries for Configuration ----
-from LHAI.config_cnn import EVAL_EXP_NAME, EVAL_MODEL_NAME, EVAL_MODEL_PYPATH, EVAL_MODEL_PTHNAME, EVAL_MODEL_PTHPATH, EVAL_DATA_DIR, EVAL_DATA_NAME, EVAL_DATA_PATH, EVAL_SEED, FRAC_TRAIN, BATCH_SIZE, LATENTDIM
-from function.Dataset import ImageDataset
-from function.Loss import jsdiv,jsdiv_single
-from function.Log import log
-
-# ---- 1-4 Libraries for pytorch and others ----
+ADDR_ROOT = Path(__file__).resolve().parents[2]
+logger.success(f"ADDR_ROOT path is: {ADDR_ROOT}")
+ADDR_CODE = Path(__file__).resolve().parents[1]
+sys.path.append(str(ADDR_ROOT))
+logger.success(f"ADDR_CODE path is: {ADDR_CODE}")
+# ---- 1-2 Libraries for Configuration ----
+from codes.config.config_cnn import EvalConfig
+from codes.function.Dataset import ImageDataset
+from codes.function.Loss import jsdiv,jsdiv_single
+from codes.function.Log import log
+# ---- 1-3 Libraries for pytorch and others ----
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader,random_split, ConcatDataset
@@ -31,76 +31,62 @@ from skimage.metrics import peak_signal_noise_ratio as psnr
 from skimage.metrics import structural_similarity as ssim
 from skimage.metrics import mean_squared_error as mse
 from skimage.metrics import normalized_root_mse as nrmse
-from skimage.metrics import mean_absolute_error as mae
-import pytorch_msssim  # for MS-SSIM
+import pytorch_msssim
 
 app = typer.Typer()
 
 # ---- 02 Define the main function ----
+eval_cfg = EvalConfig()
 @app.command()
 def main(
-    # ---- REPLACE DEFAULT PATHS AS APPROPRIATE ----
-    EVAL_EXP_NAME: str = EVAL_EXP_NAME, # "EXP_0_1"
-    EVAL_MODEL_NAME: str = EVAL_MODEL_NAME, # "CNN"
-    EVAL_MODEL_PYPATH: Path = EVAL_MODEL_PYPATH, # "LHAI/LHAI/models/CNN_EXP_0_1.py"
-    EVAL_MODEL_PTHNAME: str = EVAL_MODEL_PTHNAME, # "CNN_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth"
-    EVAL_MODEL_PTHPATH: Path = EVAL_MODEL_PTHPATH, # LHAI/saves/MODEL/CNN_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth
-    EVAL_DATA_DIR: Path = EVAL_DATA_DIR, # "LHAI/data/POISSON"
-    EVAL_DATA_NAME: str = EVAL_DATA_NAME, # "poisson_src_bkg.pkl.npy"
-    EVAL_DATA_PATH: Path = EVAL_DATA_PATH, # "LHAI/data/POISSON/poisson_src_bkg.pkl.npy"
-    EVAL_SEED: int = EVAL_SEED, # 0
-    frac_train: float = FRAC_TRAIN, # 0.8
-    batch_size: int = BATCH_SIZE, # 32
-    latentdim: int = LATENTDIM, # 64
-    # -----------------------------------------
+    exp_name: str = eval_cfg.exp_name,                      # para01：实验名称 default: "EXP01"
+    model_name: str = eval_cfg.model_name,                  # para02：模型名称 default: "CNN"
+    model_dir: Path = eval_cfg.model_dir,                   # para03：模型目录 default: ADDR_ROOT / "codes" / "models"
+    model_path: Path = eval_cfg.model_path,                 # para04：模型定义路径（.py） default: model_dir / f"{model_name}_{exp_name}.py"
+    model_weight_dir: Path = eval_cfg.model_weight_dir,     # para05：模型权重目录 default: ADDR_ROOT / "saves" / "MODEL"
+    model_weight_name: str = eval_cfg.model_weight_name,    # para06：模型权重文件名 default: "CNN_EXP01_400epo_32bth_xingwei.pth"
+    model_weight_path: Path = eval_cfg.model_weight_path,   # para07：模型权重完整路径 default: model_weight_dir / model_weight_name
+    data_dir: Path = eval_cfg.data_dir,                     # para08：数据目录 default: ADDR_ROOT / "data" / "Train"
+    data_name: str = eval_cfg.data_name,                    # para09：数据文件名 default: "xingwei_10000_64_train_v1.npy"
+    data_path: Path = eval_cfg.data_path,                   # para10：数据完整路径 default: data_dir / data_name
+    seed: int = eval_cfg.seed,                              # para11：随机种子 default: 0
+    frac: float = eval_cfg.frac,                            # para12：训练集比例 default: 0.8
+    batch_size: int = eval_cfg.batch_size,                  # para13：批次大小 default: 32
+    epochs: int = eval_cfg.epochs,                          # para14：训练轮数（如需评估多个 epoch） default: 400
+    lr_max: float = eval_cfg.lr_max,                        # para15：最大学习率 default: 5e-4
+    lr_min: float = eval_cfg.lr_min                         # para16：最小学习率 default: 5e-6
 ):
     # ---- 2-1 Load the parameter ----
-    torch.manual_seed(EVAL_SEED)
-    model_file_path = EVAL_MODEL_PYPATH
-    spec = importlib.util.spec_from_file_location("module.name", model_file_path)
+    logger.info("========== 当前训练参数 ==========")
+    for idx, (key, value) in enumerate(locals().items(), start=1):
+        logger.info(f"{idx:02d}. {key:<20}: {value}")
+    torch.manual_seed(seed)
+    spec = importlib.util.spec_from_file_location("module.name", model_path)
     module = importlib.util.module_from_spec(spec)
     sys.modules["module.name"] = module
     spec.loader.exec_module(module)
-    MODEL = getattr(module, EVAL_MODEL_NAME)
+    MODEL = getattr(module, model_name)
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    logger.info(f"""
-    Parameters:
-    - EVAL_EXP_NAME: {EVAL_EXP_NAME}
-    - EVAL_MODEL_NAME: {EVAL_MODEL_NAME}
-    - EVAL_MODEL_PYPATH: {EVAL_MODEL_PYPATH}
-    - EVAL_MODEL_PTHNAME: {EVAL_MODEL_PTHNAME}
-    - EVAL_MODEL_PTHPATH: {EVAL_MODEL_PTHPATH}
-    - EVAL_DATA_DIR: {EVAL_DATA_DIR}
-    - EVAL_DATA_NAME: {EVAL_DATA_NAME}
-    - EVAL_DATA_PATH: {EVAL_DATA_PATH}
-    - EVAL_SEED: {EVAL_SEED}
-    - FRAC_TRAIN: {frac_train}
-    """)
+    logger.success("✅ 参数加载完成（Step 2-1）")
     
     # ---- 2-2 Load the data and model ----
-    filetmp = np.load(EVAL_DATA_PATH,allow_pickle=True)
+    filetmp = np.load(data_path,allow_pickle=True)
     filelen = filetmp.shape[0]
     del filetmp
     NUM_TO_LEARN = int(filelen)
-    dataset = ImageDataset(NUM_TO_LEARN,EVAL_DATA_PATH,inverse=False)
+
+    dataset = ImageDataset(NUM_TO_LEARN,data_path,inverse=False)
     trainset, testset = random_split(dataset,
-        lengths=[int(frac_train *len(dataset)),
-        len(dataset) - int(frac_train * len(dataset))],
-        generator=torch.Generator().manual_seed(0))
+        lengths=[int(frac *len(dataset)),
+        len(dataset) - int(frac * len(dataset))],
+        generator=torch.Generator().manual_seed(0)
+        )
+
     dataloader = DataLoader(trainset,shuffle=True,batch_size=batch_size)
     testloader = DataLoader(testset,shuffle=True,batch_size=batch_size)
-    if EVAL_MODEL_NAME == 'CNN':
-        model = MODEL(0).to(device)
-    elif EVAL_MODEL_NAME == 'VAE':
-        model = MODEL(latentdim).to(device)
-    elif EVAL_MODEL_NAME == 'GAN':
-        model = MODEL().to(device)
-    elif EVAL_MODEL_NAME == 'UNET':
-        model = MODEL(0,0).to(device)
-    else:
-        model = MODEL(latentdim).to(device)
-    logger.success(f"Data and Model.py loaded successfully.")
-    lossfunction = jsdiv
+
+    model = MODEL(0).to(device)
+    logger.success("✅ 数据与模型加载完成（Step 2-2）")
     
     # ---- 2-3 evaluation 1: loss ----
     model.eval()
@@ -124,10 +110,10 @@ def main(
     plt.figure()
     hist(LOSS_BLU,'red',label = 'blur')
     hist(LOSS_SR,'blue',label = 'SR')
-    savepath = f'{PROJ_ROOT}/saves'
-    savefigname = f"Eval_loss_{EVAL_MODEL_NAME}_{EVAL_EXP_NAME}"
-    plt.savefig(f'{savepath}/FIGURE/{savefigname}_jsdiv.png',dpi=300)
-    logger.success(f"Evaluation 1: Loss figure saved at {savepath}/FIGURE/{savefigname}_jsdiv.png")
+    savepath = f'{ADDR_ROOT}/saves'
+    savefigname = f"Eval_loss_{model_name}_{exp_name}"
+    plt.savefig(f'{savepath}/EVAL/{savefigname}_jsdiv.png',dpi=300)
+    logger.success(f"Evaluation 1: Loss figure saved at {savepath}/EVAL/{savefigname}_jsdiv.png")
     
     # ---- 2-4 evaluation 2: distribution ----
     num_images_to_show = 10
@@ -208,9 +194,9 @@ def main(
             im4, ax=axes[i,4],shrink = 0.5
         )
     plt.tight_layout()
-    savepath = f'{PROJ_ROOT}/saves'
-    savefigname = f"Eval_distribution_{EVAL_MODEL_NAME}_{EVAL_EXP_NAME}"
-    savefig_path = f'{savepath}/FIGURE/{savefigname}.png'
+    savepath = f'{ADDR_ROOT}/saves'
+    savefigname = f"Eval_distribution_{model_name}_{exp_name}"
+    savefig_path = f'{savepath}/EVAL/{savefigname}.png'
     plt.savefig(savefig_path, dpi=300)
     logger.success(f"Evaluation 1: Loss figure saved at {savefig_path}")
     
@@ -222,8 +208,8 @@ def main(
     nrmse_list = []
     ms_ssim_list = []
     
-    output_path = f"{PROJ_ROOT}/saves/LOSS"
-    output_file = f"{output_path}/Eval_PSNR_SSIM_{EVAL_MODEL_NAME}_{EVAL_EXP_NAME}.txt"
+    output_path = f"{ADDR_ROOT}/saves/LOSS"
+    output_file = f"{output_path}/Eval_PSNR_SSIM_{model_name}_{exp_name}.txt"
     
     model.eval()
     model.cpu()
