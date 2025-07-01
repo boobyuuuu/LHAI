@@ -1,6 +1,6 @@
 # 服务器操作笔记 - autodl
 
-## autodl
+## 一 autodl
 
 ### 1 基础常识
 
@@ -120,7 +120,7 @@
     upload /root/autodl-fs/poisson_src_bkg.pkl.npy /LHAI
     ```
 
-## 开始 - 基础操作
+## 二 开始 - 基础操作
 
 !!!note
     `free -h` : 查看磁盘使用情况  
@@ -361,9 +361,9 @@ curl -X POST https://p.nju.edu.cn/api/portal/v1/login -H "Content-type: applicat
 run ./login
 ```
 
-## vpn(代理)
+## 三 VPN(代理)
 
-### 基本下载与使用
+### 1 基本下载与使用
 
 使用 clash for linux 为云服务器提供代理
 
@@ -435,7 +435,7 @@ run ./login
 
     如果不是一直在连接，就可以使用了。
 
-### ipynb文件使用
+### 2 ipynb文件使用
 
 首先在cmd中打开代理 proxy_on，然后在第一个单元格加入：
 
@@ -448,7 +448,7 @@ os.environ["https_proxy"] = "http://127.0.0.1:7890"
 os.environ["all_proxy"] = "socks5://127.0.0.1:7890" # 这个可以不要
 ```
 
-### python文件使用
+### 3 python文件使用
 
 首先在cmd中打开代理 proxy_on，然后在python代码中加入：
 
@@ -470,7 +470,7 @@ except Exception as e:
 
 ```
 
-## 数据
+## 四 数据
 
 ### 1 上传数据
 
@@ -483,11 +483,25 @@ except Exception as e:
 ### 2 下载数据
 
 1. JupyterLab可以下载文件，但是不能下载文件夹，好处是简单易用
-- 公网网盘，直接使用阿里云盘、百度网盘上传下载数据
-- scp命令支持文件和文件夹，由于是命令行执行，上手难度稍高
-- FileZilla软件支持文件和文件夹，拖拉拽即可上传下载，推荐使用
 
-## 环境配置-anaconda
+2. 公网网盘，直接使用阿里云盘、百度网盘上传下载数据
+
+3. scp命令支持文件和文件夹
+
+    下载文件：
+
+    ```
+    scp -P 40233 root@connect.westb.seetacloud.com:/root/data/result.txt ./
+
+    ```
+
+    下载文件夹：
+
+    ```
+    scp -P 40233 -r root@connect.westb.seetacloud.com:/root/data ./data_local_copy
+    ```
+
+## 五 环境配置-anaconda
 
 ### 1 安装anaconda
 
@@ -572,7 +586,7 @@ python -m ipykernel install --user --name=my_env
 >> 1. 列出已安装的kernel:  `jupyter kernelspec list`，附带每个kernel所在路径  
 >> 2. 查看制定kernel路径: `jupyter kernelspec list | grep my_env`
 
-## DOCKER
+## 六 DOCKER
 
 ### 1 应用场景
 
