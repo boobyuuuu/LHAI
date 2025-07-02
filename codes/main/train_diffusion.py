@@ -38,6 +38,7 @@ from torchmetrics.image import MultiScaleStructuralSimilarityIndexMeasure as MS_
 from torchmetrics.image import StructuralSimilarityIndexMeasure as SSIM
 from torchmetrics.image import PeakSignalNoiseRatio as PSNR
 from torchmetrics.regression import MeanAbsoluteError as MAE
+import seaborn as sns
 
 # ---- 02 Define the main function ----
 train_cfg = TrainConfig()
@@ -224,75 +225,56 @@ def main(
     logger.success("✅ 模型训练完成（Step 2-4）")
 
     # ---- 2-5 Save the model and plot the loss ----
-    fig, ax = plt.subplots()
-    ax.plot(EPOCH_PLOT, LOSS_PLOT)
-    ax.plot(EPOCH_PLOT, TESTLOSS_PLOT)
-    ax.set_yscale('log')
-
     savepath = ADDR_ROOT / "saves"
-    loss_plot_path = savepath / "LOSS" / f"{model_save_name}.png"
-    loss_data_path = savepath / "LOSS" / f"{model_save_name}.npy"
-    model_save_path = savepath / "MODEL" / f"{model_save_name}.pth"
+    loss_plot_path = savepath / "TRAIN" / f"{model_save_name}.png"
+    loss_data_path = savepath / "TRAIN" / f"{model_save_name}.npy"
+    model_save_folder = savepath / "MODEL"
+    
+    torch.save(unet.state_dict(), f'{model_save_folder}/unetconfig_{model_save_name}.pth')
+    diffusion_config = {
+        'noise_steps': diffusion.noise_steps,
+        'beta_start': diffusion.beta_start,
+        'beta_end': diffusion.beta_end,
+        'img_size': diffusion.img_size,
+    }
+    torch.save(diffusion_config, f'{model_save_folder}/diffusionconfig_{model_save_name}.pth')
+    
+    # 训练过程图
+    plt.figure()
+    plt.plot(train_loss, "g-o", label="Training loss")
+    plt.xlabel("Epochs")
+    plt.ylabel("Loss")
+    plt.legend()
+    # plt.show()
+    plt.savefig(loss_plot_path, dpi=300)
 
-    fig.savefig(loss_plot_path, dpi=300)
+    palette = sns.color_palette("Dark2")
+    fig, ax = plt.subplots(1, 3, figsize=(19,5))
+    ax[0].plot(mae_results, color=palette[0], marker="o", label="MAE")
+    ax[0].plot(nrmse_results, color=palette[1], marker="o", label="NRMSE")
+    ax[0].set_xlabel("Epochs")
+    ax[0].set_ylabel("MAE / NRMSE")
+    ax[0].legend()
+
+    ax[1].plot(ms_ssim_results, color=palette[3], marker="o", label="MS-SSIM")
+    ax[1].plot(ssim_results, color=palette[4], marker="o", label="SSIM")
+    ax[1].set_xlabel("Epochs")
+    ax[1].set_ylabel("MS-SSIM / SSIM")
+    ax[1].legend()
+
+    ax[2].plot(psnr_results, color=palette[5], marker="o", label="PSNR")
+    ax[2].set_xlabel("Epochs")
+    ax[2].set_ylabel("PSNR")
+    ax[2].legend()
+    # plt.show()
+    plt.tight_layout()
+    plt.savefig(loss_plot_path, dpi=300)
+
+
     logger.success(f"Loss plot saved at {loss_plot_path}")
-    LOSS_DATA = np.stack((np.array(EPOCH_PLOT), np.array(LOSS_PLOT), np.array(TESTLOSS_PLOT)), axis=0)
-    np.save(loss_data_path, LOSS_DATA)
     logger.success(f"Loss data saved at {loss_data_path}")
-    torch.save(model.state_dict(), model_save_path)
     logger.success(f"Model saved at {model_save_path}")
     logger.success("✅ 模型保存完成（Step 2-5）")
-    
-    # ---- 2-6 First prediction ----
-    model.eval()
-    model.to(device)
-    for _, (img_LR, img_HR) in enumerate(testloader):
-        #print(img_LR.shape)
-        img_SR, _, _ = model(img_LR.to(device))
-        img_SR = img_SR.cpu()
-        break
-    num_images_to_show = 8
-    fig, axes = plt.subplots(num_images_to_show,5 , figsize=(15, 3 * num_images_to_show))
-    for i in range(num_images_to_show):
-        blurry_img_numpy = img_LR[i].squeeze().detach().cpu().numpy()
-        sr_img_numpy = img_SR[i].squeeze().detach().cpu().numpy()
-        original_img_numpy = img_HR[i].squeeze().detach().cpu().numpy()
-        blurry_img_numpy =blurry_img_numpy/blurry_img_numpy.sum()
-        original_img_numpy=original_img_numpy/original_img_numpy.sum()
-        sr_img_numpy =sr_img_numpy/sr_img_numpy.sum() 
-        
-        im0=axes[i, 0].imshow(blurry_img_numpy)
-        axes[i, 0].set_title('Blurry Image')
-        axes[i, 0].axis('off')
-
-        im1=axes[i, 1].imshow(sr_img_numpy)
-        axes[i, 1].set_title('SR Image')
-        axes[i, 1].axis('off')
-        
-        im2=axes[i, 2].imshow(original_img_numpy)
-        axes[i, 2].set_title('Original Image')
-        axes[i, 2].axis('off')
-
-        res_blur = (blurry_img_numpy-original_img_numpy)
-        res_sr = (sr_img_numpy-original_img_numpy)
-        vmin = min(res_blur.min(),res_sr.min())
-        vmax = max(res_blur.max(),res_sr.max())
-
-        im3= axes[i, 3].imshow(res_blur,vmin =vmin,vmax=vmax)
-        axes[i, 3].set_title('Res Blur')
-        axes[i, 3].axis('off')
-
-        im4 = axes[i, 4].imshow(res_sr,vmin =vmin,vmax=vmax)
-        axes[i, 4].set_title('Res SR')
-        axes[i, 4].axis('off')
-        cbar2 = fig.colorbar(
-            im4, ax=axes[i,4],shrink = 0.5
-        )
-    plt.tight_layout()
-    plt.show()
-    plt.savefig(f'{savepath}/PREDICT/EarlyPre_{model_save_name}.png', dpi = 300)
-    logger.success(f"First prediction saved at {savepath}/PREDICT/FirstPred_{model_save_name}.png")
-    logger.success("✅ 模型预测完成（Step 2-6）")
     # -----------------------------------------
 if __name__ == "__main__":
     app()

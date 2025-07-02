@@ -171,8 +171,8 @@ def main(
     ax.set_yscale('log')
 
     savepath = ADDR_ROOT / "saves"
-    loss_plot_path = savepath / "LOSS" / f"{model_save_name}.png"
-    loss_data_path = savepath / "LOSS" / f"{model_save_name}.npy"
+    loss_plot_path = savepath / "TRAIN" / f"{model_save_name}.png"
+    loss_data_path = savepath / "TRAIN" / f"{model_save_name}.npy"
     model_save_path = savepath / "MODEL" / f"{model_save_name}.pth"
 
     fig.savefig(loss_plot_path, dpi=300)
