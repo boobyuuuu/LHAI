@@ -757,6 +757,10 @@
           
         
       
+        
+      
+        
+      
     
     
       
@@ -782,6 +786,11 @@
 
             </a>
             
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
           </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
@@ -791,6 +800,48 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eval/cnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CNN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eval/diffusion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DIFFUSION
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -1293,105 +1344,109 @@
 <ol>
 <li>
 <p>第一步：git clone</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>Code<span class="w"> </span>https://github.com/boobyuuuu/LHAI.git
+<p>先安装lfs，以下载大文件（数据）：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>conda install -c conda-forge git-lfs
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>git lfs install
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>Code<span class="w"> </span>https://github.com/boobyuuuu/LHAI.git
 </span></code></pre></div>
 <p>这会下载Code branch下的所有代码于LHAI文件夹内。打开文件夹：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>LHAI
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>LHAI
 </span></code></pre></div>
 </li>
 <li>
 <p>检查LHAI文件夹的项目structure，是否包含完整：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>├── LICENSE            &lt;- 开源许可证（如果选择使用）
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── Makefile           &lt;- 提供便利命令的Makefile，例如 `make data` 或 `make train`
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── README.md          &lt;- 面向开发者的顶级README文件
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>├── data               &lt;- 不同类型的数据（推荐使用npy格式上传）
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>│   ├── FERMI
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>│   ├── POISSON
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│   ├── SIMU
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│   └── RAW
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>│
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>├── saves              &lt;- 保存训练中的图像、损失数据、训练后的模型和预测结果
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>│   ├── FIGURE         &lt;- 训练过程中保存的图像
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>│   │── PRE_FIG        &lt;- 推理时保存的图像
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>│   ├── LOSS           &lt;- 训练过程中保存的损失数据(.npy)和损失图像(.png)
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>│   └── MODEL          &lt;- 保存的已训练模型和序列化模型
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>│
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>├── docs               &lt;- 默认的mkdocs项目文件；详细信息请参考 www.mkdocs.org
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>│
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>├── notebooks          &lt;- Jupyter notebooks，命名规范包括编号、创建者缩写和描述，例如：
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>│                         `1.0-jqp-initial-data-exploration`
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>│
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>├── pyproject.toml     &lt;- 项目配置文件，包含LHAI的包元数据及工具（如black）的配置
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>│
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>├── references         &lt;- 数据字典、手册和其他说明性资料
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>│
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>├── reports            &lt;- 生成的分析报告（HTML、PDF、LaTeX等）
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>│   └── figures        &lt;- 报告中生成的图表和图形
-</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>│
-</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>├── requirements.txt   &lt;- 用于再现分析环境的依赖文件，例如通过
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>│                         `pip freeze &gt; requirements.txt` 生成
-</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>│
-</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>├── setup.cfg          &lt;- flake8的配置文件
-</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>│
-</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>└── LHAI               &lt;- 本项目使用的源代码
-</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>    │
-</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>    ├── __init__.py             &lt;- 使LHAI成为一个Python模块
-</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>    │
-</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>    ├── config.py               &lt;- 存储有用的变量和配置
-</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>    │
-</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>    ├── dataset.py              &lt;- 下载或生成数据的脚本
-</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>    │
-</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>    ├── features.py             &lt;- 用于生成建模特征的代码
-</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>    │
-</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a>    ├── modeling                &lt;- 模型训练和推理代码
-</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a>    │   ├── __init__.py 
-</span><span id="__span-3-45"><a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a>    │   ├── predict.py          &lt;- 用于模型推理的代码          
-</span><span id="__span-3-46"><a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a>    │   └── train.py            &lt;- 用于训练模型的代码
-</span><span id="__span-3-47"><a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a>    │
-</span><span id="__span-3-48"><a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a>    ├── models                  &lt;- 神经网络模型代码
-</span><span id="__span-3-49"><a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a>    │   └── CNN_EXP_0_1.py      &lt;- 模型名称_实验编号.py
-</span><span id="__span-3-50"><a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a>    │
-</span><span id="__span-3-51"><a id="__codelineno-3-51" name="__codelineno-3-51" href="#__codelineno-3-51"></a>    │── function                &lt;- 训练和推理过程中使用的功能代码
-</span><span id="__span-3-52"><a id="__codelineno-3-52" name="__codelineno-3-52" href="#__codelineno-3-52"></a>    │  ├── Dataset.py           &lt;- 数据集加载功能
-</span><span id="__span-3-53"><a id="__codelineno-3-53" name="__codelineno-3-53" href="#__codelineno-3-53"></a>    │  ├── Log.py               &lt;- 日志记录功能
-</span><span id="__span-3-54"><a id="__codelineno-3-54" name="__codelineno-3-54" href="#__codelineno-3-54"></a>    │  └── Loss.py              &lt;- 损失生成功能
-</span><span id="__span-3-55"><a id="__codelineno-3-55" name="__codelineno-3-55" href="#__codelineno-3-55"></a>    │
-</span><span id="__span-3-56"><a id="__codelineno-3-56" name="__codelineno-3-56" href="#__codelineno-3-56"></a>    └── plots.py                &lt;- 用于生成可视化的代码
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>├── LICENSE            &lt;- 开源许可证（如果选择使用）
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>├── Makefile           &lt;- 提供便利命令的Makefile，例如 `make data` 或 `make train`
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>├── README.md          &lt;- 面向开发者的顶级README文件
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>├── data               &lt;- 不同类型的数据（推荐使用npy格式上传）
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>│   ├── FERMI
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>│   ├── POISSON
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>│   ├── SIMU
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>│   └── RAW
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>│
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>├── saves              &lt;- 保存训练中的图像、损失数据、训练后的模型和预测结果
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>│   ├── FIGURE         &lt;- 训练过程中保存的图像
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>│   │── PRE_FIG        &lt;- 推理时保存的图像
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>│   ├── LOSS           &lt;- 训练过程中保存的损失数据(.npy)和损失图像(.png)
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>│   └── MODEL          &lt;- 保存的已训练模型和序列化模型
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>│
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>├── docs               &lt;- 默认的mkdocs项目文件；详细信息请参考 www.mkdocs.org
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>│
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>├── notebooks          &lt;- Jupyter notebooks，命名规范包括编号、创建者缩写和描述，例如：
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>│                         `1.0-jqp-initial-data-exploration`
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>│
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>├── pyproject.toml     &lt;- 项目配置文件，包含LHAI的包元数据及工具（如black）的配置
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>│
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>├── references         &lt;- 数据字典、手册和其他说明性资料
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>│
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>├── reports            &lt;- 生成的分析报告（HTML、PDF、LaTeX等）
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>│   └── figures        &lt;- 报告中生成的图表和图形
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>│
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>├── requirements.txt   &lt;- 用于再现分析环境的依赖文件，例如通过
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>│                         `pip freeze &gt; requirements.txt` 生成
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>│
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>├── setup.cfg          &lt;- flake8的配置文件
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>│
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>└── LHAI               &lt;- 本项目使用的源代码
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>    │
+</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>    ├── __init__.py             &lt;- 使LHAI成为一个Python模块
+</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>    │
+</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>    ├── config.py               &lt;- 存储有用的变量和配置
+</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>    │
+</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>    ├── dataset.py              &lt;- 下载或生成数据的脚本
+</span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>    │
+</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>    ├── features.py             &lt;- 用于生成建模特征的代码
+</span><span id="__span-4-42"><a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a>    │
+</span><span id="__span-4-43"><a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a>    ├── modeling                &lt;- 模型训练和推理代码
+</span><span id="__span-4-44"><a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a>    │   ├── __init__.py 
+</span><span id="__span-4-45"><a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a>    │   ├── predict.py          &lt;- 用于模型推理的代码          
+</span><span id="__span-4-46"><a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a>    │   └── train.py            &lt;- 用于训练模型的代码
+</span><span id="__span-4-47"><a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a>    │
+</span><span id="__span-4-48"><a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a>    ├── models                  &lt;- 神经网络模型代码
+</span><span id="__span-4-49"><a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a>    │   └── CNN_EXP_0_1.py      &lt;- 模型名称_实验编号.py
+</span><span id="__span-4-50"><a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a>    │
+</span><span id="__span-4-51"><a id="__codelineno-4-51" name="__codelineno-4-51" href="#__codelineno-4-51"></a>    │── function                &lt;- 训练和推理过程中使用的功能代码
+</span><span id="__span-4-52"><a id="__codelineno-4-52" name="__codelineno-4-52" href="#__codelineno-4-52"></a>    │  ├── Dataset.py           &lt;- 数据集加载功能
+</span><span id="__span-4-53"><a id="__codelineno-4-53" name="__codelineno-4-53" href="#__codelineno-4-53"></a>    │  ├── Log.py               &lt;- 日志记录功能
+</span><span id="__span-4-54"><a id="__codelineno-4-54" name="__codelineno-4-54" href="#__codelineno-4-54"></a>    │  └── Loss.py              &lt;- 损失生成功能
+</span><span id="__span-4-55"><a id="__codelineno-4-55" name="__codelineno-4-55" href="#__codelineno-4-55"></a>    │
+</span><span id="__span-4-56"><a id="__codelineno-4-56" name="__codelineno-4-56" href="#__codelineno-4-56"></a>    └── plots.py                &lt;- 用于生成可视化的代码
 </span></code></pre></div>
 </li>
 <li>
 <p>配置 python 环境</p>
 <p>首先确定我们的机器的宏观环境能够用于机器学习任务，我一般喜欢选择服务器配置：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>PyTorch  2.1.0
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Python  3.10(ubuntu22.04)
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Cuda  12.1
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>PyTorch  2.1.0
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Python  3.10(ubuntu22.04)
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Cuda  12.1
 </span></code></pre></div>
 <p>当然，更高的配置也没有问题，只是这个配置最经典和稳定；</p>
 <p>然后，需要创建python虚拟环境，安装python环境：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span>requirements.txt
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span>requirements.txt
 </span></code></pre></div>
 <p>这样环境方面就没有问题了。</p>
 </li>
 <li>
 <p>准备数据，并且放到数据文件夹 <code>data</code> 对应的类别文件夹内，修改 <code>config.py</code> 使之能够指向我们的数据</p>
 <p>比如根据 <code>config.py</code> 中的默认配置，我的泊松类型数据 <code>poisson_src_bkg.pkl.npy</code> 路径就是：</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="s2">&quot;data&quot;</span> <span class="o">/</span> <span class="s2">&quot;POISSON&quot;</span> <span class="o">/</span> <span class="n">poisson_src_bkg</span><span class="o">.</span><span class="n">pkl</span><span class="o">.</span><span class="n">npy</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="s2">&quot;data&quot;</span> <span class="o">/</span> <span class="s2">&quot;POISSON&quot;</span> <span class="o">/</span> <span class="n">poisson_src_bkg</span><span class="o">.</span><span class="n">pkl</span><span class="o">.</span><span class="n">npy</span>
 </span></code></pre></div>
 <p>在train中对训练用到的数据变量有三个：</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">PROJ_ROOT</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span> <span class="o">/</span> <span class="s2">&quot;POISSON&quot;</span>                                           <span class="c1"># 参数3：如果需要指定不同的数据集的文件名，可以在这里修改</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">DATA_NAME</span> <span class="o">=</span> <span class="s2">&quot;poisson_src_bkg.pkl.npy&quot;</span>                                               <span class="c1"># 参数4：如果需要指定不同的数据集，可以在这里修改</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">DATA_PATH</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">/</span> <span class="n">DATA_NAME</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">PROJ_ROOT</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span> <span class="o">/</span> <span class="s2">&quot;POISSON&quot;</span>                                           <span class="c1"># 参数3：如果需要指定不同的数据集的文件名，可以在这里修改</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">DATA_NAME</span> <span class="o">=</span> <span class="s2">&quot;poisson_src_bkg.pkl.npy&quot;</span>                                               <span class="c1"># 参数4：如果需要指定不同的数据集，可以在这里修改</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">DATA_PATH</span> <span class="o">=</span> <span class="n">DATA_DIR</span> <span class="o">/</span> <span class="n">DATA_NAME</span>
 </span></code></pre></div>
 </li>
 <li>
 <p>准备神经网络代码，放到神经网络文件夹内，修改 <code>config.py</code> 使之能够引用我们的神经网络代码</p>
 <p>比如根据 <code>config.py</code> 中的默认配置，我的CNN类型神经网络代码 <code>CNN_EXP_0_1.py</code> 路径就是：</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="s2">&quot;LHAI&quot;</span> <span class="o">/</span> <span class="s2">&quot;models&quot;</span> <span class="o">/</span> <span class="n">CNN_EXP_0_1</span><span class="o">.</span><span class="n">py</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="s2">&quot;LHAI&quot;</span> <span class="o">/</span> <span class="s2">&quot;models&quot;</span> <span class="o">/</span> <span class="n">CNN_EXP_0_1</span><span class="o">.</span><span class="n">py</span>
 </span></code></pre></div>
 <p>在train中对训练用到的模型变量有三个：</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">EXP_NAME</span> <span class="o">=</span> <span class="s2">&quot;EXP_0_1&quot;</span>                                                                <span class="c1"># 参数1：如果需要指定不同的实验，可以在这里修改</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">MODEL_NAME</span> <span class="o">=</span> <span class="s2">&quot;CNN&quot;</span>                                                                  <span class="c1"># 参数2：如果需要指定不同的模型，可以在这里修改</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">MODEL_PATH</span> <span class="o">=</span> <span class="n">PROJ_ROOT</span> <span class="o">/</span> <span class="s2">&quot;LHAI&quot;</span> <span class="o">/</span> <span class="s2">&quot;models&quot;</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">MODEL_NAME</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">EXP_NAME</span><span class="si">}</span><span class="s2">.py&quot;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">EXP_NAME</span> <span class="o">=</span> <span class="s2">&quot;EXP_0_1&quot;</span>                                                                <span class="c1"># 参数1：如果需要指定不同的实验，可以在这里修改</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">MODEL_NAME</span> <span class="o">=</span> <span class="s2">&quot;CNN&quot;</span>                                                                  <span class="c1"># 参数2：如果需要指定不同的模型，可以在这里修改</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">MODEL_PATH</span> <span class="o">=</span> <span class="n">PROJ_ROOT</span> <span class="o">/</span> <span class="s2">&quot;LHAI&quot;</span> <span class="o">/</span> <span class="s2">&quot;models&quot;</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">MODEL_NAME</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">EXP_NAME</span><span class="si">}</span><span class="s2">.py&quot;</span>
 </span></code></pre></div>
 </li>
 <li>
@@ -1400,10 +1455,10 @@
 <li>
 <p>确保训练过程不会出问题之后，正式设置参数，开始训练。</p>
 <p>方法1：设置 <code>config.py</code> 中TRAIN的参数，在 <code>modeling</code> 文件夹中直接运行。</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>python<span class="w"> </span>train.py
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>python<span class="w"> </span>train.py
 </span></code></pre></div>
 <p>方法2：高端一点的直接通过 <code>Typer</code> 接口设置命令行参数</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>python<span class="w"> </span>train.py<span class="w"> </span>--model-name<span class="w"> </span><span class="s2">&quot;GAN&quot;</span><span class="w"> </span>--exp-name<span class="w"> </span><span class="s2">&quot;MyExperiment&quot;</span><span class="w"> </span>--data-dir<span class="w"> </span><span class="s2">&quot;./data&quot;</span><span class="w"> </span>--data-name<span class="w"> </span><span class="s2">&quot;dataset.csv&quot;</span><span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span>--traintype<span class="w"> </span><span class="s2">&quot;supervised&quot;</span><span class="w"> </span>--frac-train<span class="w"> </span><span class="m">0</span>.8<span class="w"> </span>--epochs<span class="w"> </span><span class="m">10</span><span class="w"> </span>--batch-size<span class="w"> </span><span class="m">32</span><span class="w"> </span>--latentdim<span class="w"> </span><span class="m">128</span><span class="w"> </span>--lr-max<span class="w"> </span><span class="m">0</span>.01<span class="w"> </span>--lr-min<span class="w"> </span><span class="m">0</span>.001
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>python<span class="w"> </span>train.py<span class="w"> </span>--model-name<span class="w"> </span><span class="s2">&quot;GAN&quot;</span><span class="w"> </span>--exp-name<span class="w"> </span><span class="s2">&quot;MyExperiment&quot;</span><span class="w"> </span>--data-dir<span class="w"> </span><span class="s2">&quot;./data&quot;</span><span class="w"> </span>--data-name<span class="w"> </span><span class="s2">&quot;dataset.csv&quot;</span><span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span>--traintype<span class="w"> </span><span class="s2">&quot;supervised&quot;</span><span class="w"> </span>--frac-train<span class="w"> </span><span class="m">0</span>.8<span class="w"> </span>--epochs<span class="w"> </span><span class="m">10</span><span class="w"> </span>--batch-size<span class="w"> </span><span class="m">32</span><span class="w"> </span>--latentdim<span class="w"> </span><span class="m">128</span><span class="w"> </span>--lr-max<span class="w"> </span><span class="m">0</span>.01<span class="w"> </span>--lr-min<span class="w"> </span><span class="m">0</span>.001
 </span></code></pre></div>
 <p>具体请看 Code Section 的 LHAI 手册页面。</p>
 </li>
