@@ -17,6 +17,7 @@ from codes.config.config_cnn import TrainConfig
 from codes.function.Dataset import ImageDataset
 import codes.function.Loss as lossfunction
 from codes.function.Log import log
+import codes.function.Train as Train
 # ---- 1-3 Libraries for pytorch and others ----
 import torch
 import torch.nn as nn
@@ -115,53 +116,10 @@ def main(
     # 损失函数
     trainingloss = lossfunction.msejsloss
 
-    logger.success("✅ 模型加载完成（Step 2-3），准备开始训练")
-
+    logger.success("✅ 模型、损失函数、优化器加载完成（Step 2-3）")
 
     # ---- 2-4 Define the training function ----
-    def train(dataloader, num_epochs, train_msg=""):
-        with open("training.log", "w", encoding="utf-8"):
-            pass
-        log(train_msg)
-        for epoch in range(num_epochs):
-            model.train()
-            total_loss = 0.0
-
-            # 当前学习率
-            current_lr = scheduler.get_last_lr()[0]
-
-            for _, (img_LR, img_HR) in enumerate(dataloader):
-                img_LR = img_LR.to(device)
-                img_HR = img_HR.to(device)
-                img_SR, _, _ = model(img_LR)
-                loss = trainingloss(img_SR, img_HR)
-                optimizer.zero_grad()
-                loss.backward()
-                optimizer.step()
-                total_loss += loss.item()
-
-            avg_loss = total_loss / len(dataloader)
-
-            test_loss = 0.0
-            for _, (img_LR, img_HR) in enumerate(testloader):
-                img_LR = img_LR.to(device)
-                img_HR = img_HR.to(device)
-                img_SR, _, _ = model(img_LR)
-                loss = lossfunction(img_SR, img_HR)
-                test_loss += loss.item()
-
-            test_avg_loss = test_loss / len(testloader)
-
-            logger.info(f"Epoch [{epoch+1}/{num_epochs}], Avg Loss: {avg_loss:.4e}, Test Loss: {test_avg_loss:.4e}, LR: {current_lr:.4e}")
-            log(f"Epoch [{epoch+1}/{num_epochs}], Avg Loss: {avg_loss:.4e}, Test Loss: {test_avg_loss:.4e}, LR: {current_lr:.4e}")
-
-            LOSS_PLOT.append(avg_loss)
-            TESTLOSS_PLOT.append(test_avg_loss)
-            EPOCH_PLOT.append(epoch)
-
-            # 更新学习率
-            scheduler.step()
-
+    train = Train.train
     torch.set_printoptions(precision=10)
     gpu_name = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "No CUDA device"
     optimizer_name = optimizer.__class__.__name__                      # 优化器类名，例如 AdamW
@@ -186,7 +144,21 @@ def main(
     ==============================================================
     """
     logger.info(train_msg)
-    train(dataloader, epochs, train_msg = train_msg)
+    train(
+        model=model,
+        optimizer=optimizer,
+        scheduler=scheduler,
+        trainingloss=trainingloss,
+        device=device,
+        dataloader=dataloader,
+        testloader=testloader,
+        num_epochs=epochs,
+        logger=logger,
+        train_msg=train_msg,
+        LOSS_PLOT=[],
+        TESTLOSS_PLOT=[],
+        EPOCH_PLOT=[]
+    )
     logger.success("✅ 模型训练完成（Step 2-4）")
 
     # ---- 2-5 Save the model and plot the loss ----
