@@ -14,44 +14,47 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def train(model,optimizer,scheduler,trainingloss,device,dataloader,testloader,num_epochs,logger,train_msg="",LOSS_PLOT=[], TESTLOSS_PLOT=[], EPOCH_PLOT=[]):
-        with open("training.log", "w", encoding="utf-8"):
-            pass
-        log(train_msg)
-        for epoch in range(num_epochs):
-            model.train()
-            total_loss = 0.0
+    """
+    函数特色：使用scheduler动态调整学习率。似乎没有其他在train函数进行优化的方式？
+    """
+    with open("training.log", "w", encoding="utf-8"):
+        pass
+    log(train_msg)
+    for epoch in range(num_epochs):
+        model.train()
+        total_loss = 0.0
 
-            # 当前学习率
-            current_lr = scheduler.get_last_lr()[0]
+        # 当前学习率
+        current_lr = scheduler.get_last_lr()[0]
 
-            for _, (img_LR, img_HR) in enumerate(dataloader):
-                img_LR = img_LR.to(device)
-                img_HR = img_HR.to(device)
-                img_SR, _, _ = model(img_LR)
-                loss = trainingloss(img_SR, img_HR)
-                optimizer.zero_grad()
-                loss.backward()
-                optimizer.step()
-                total_loss += loss.item()
+        for _, (img_LR, img_HR) in enumerate(dataloader):
+            img_LR = img_LR.to(device)
+            img_HR = img_HR.to(device)
+            img_SR, _, _ = model(img_LR)
+            loss = trainingloss(img_SR, img_HR)
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+            total_loss += loss.item()
 
-            avg_loss = total_loss / len(dataloader)
+        avg_loss = total_loss / len(dataloader)
 
-            test_loss = 0.0
-            for _, (img_LR, img_HR) in enumerate(testloader):
-                img_LR = img_LR.to(device)
-                img_HR = img_HR.to(device)
-                img_SR, _, _ = model(img_LR)
-                loss = trainingloss(img_SR, img_HR)
-                test_loss += loss.item()
+        test_loss = 0.0
+        for _, (img_LR, img_HR) in enumerate(testloader):
+            img_LR = img_LR.to(device)
+            img_HR = img_HR.to(device)
+            img_SR, _, _ = model(img_LR)
+            loss = trainingloss(img_SR, img_HR)
+            test_loss += loss.item()
 
-            test_avg_loss = test_loss / len(testloader)
+        test_avg_loss = test_loss / len(testloader)
 
-            logger.info(f"Epoch [{epoch+1}/{num_epochs}], Avg Loss: {avg_loss:.4e}, Test Loss: {test_avg_loss:.4e}, LR: {current_lr:.4e}")
-            log(f"Epoch [{epoch+1}/{num_epochs}], Avg Loss: {avg_loss:.4e}, Test Loss: {test_avg_loss:.4e}, LR: {current_lr:.4e}")
+        logger.info(f"Epoch [{epoch+1}/{num_epochs}], Avg Loss: {avg_loss:.4e}, Test Loss: {test_avg_loss:.4e}, LR: {current_lr:.4e}")
+        log(f"Epoch [{epoch+1}/{num_epochs}], Avg Loss: {avg_loss:.4e}, Test Loss: {test_avg_loss:.4e}, LR: {current_lr:.4e}")
 
-            LOSS_PLOT.append(avg_loss)
-            TESTLOSS_PLOT.append(test_avg_loss)
-            EPOCH_PLOT.append(epoch)
+        LOSS_PLOT.append(avg_loss)
+        TESTLOSS_PLOT.append(test_avg_loss)
+        EPOCH_PLOT.append(epoch)
 
-            # 更新学习率
-            scheduler.step()
+        # 更新学习率
+        scheduler.step()

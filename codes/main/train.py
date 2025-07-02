@@ -118,8 +118,9 @@ def main(
 
     logger.success("✅ 模型、损失函数、优化器加载完成（Step 2-3）")
 
-    # ---- 2-4 Define the training function ----
+    # ---- 2-4 Initialize the training function ----
     train = Train.train
+
     torch.set_printoptions(precision=10)
     gpu_name = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "No CUDA device"
     optimizer_name = optimizer.__class__.__name__                      # 优化器类名，例如 AdamW
