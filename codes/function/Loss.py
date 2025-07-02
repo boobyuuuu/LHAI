@@ -154,7 +154,7 @@ def jsdiv_single(img1, img2):
 
 # ---- 22 custom ----
 
-def lossfunction(img1,img2):
+def msejsloss(img1,img2):
     mse = nn.MSELoss()
     loss = mse(img1,img2)*0.2 + jsdiv(img1,img2)*0.8
     return loss

@@ -20,11 +20,12 @@ class TrainConfig:
     data_dir: Path = ADDR_ROOT / "data" / "Train"
     data_name: str = "xingwei_10000_64_train_v1.npy"
     seed: int = 0
-    frac: float = 0.8
+    frac: float = 0.98
     epochs: int = 10
     batch_size: int = 32
     lr_max: float = 5e-4
     lr_min: float = 5e-6
+    datarange: float = 1.0
 
     @property
     def model_path(self) -> Path:
@@ -44,7 +45,7 @@ class PredictConfig:
     data_name: str = "poisson_src_bkg.pkl.npy"
     seed: int = 0
     pred_type: str = "poissonsrc+bkg_highresorig"
-    frac: float = 0.8
+    frac: float = 0.98
     batch_size: int = 32
     latent_dim: int = 64
 
@@ -67,7 +68,7 @@ class EvalConfig:
     model_weight_dir: Path = ADDR_ROOT / "saves" / "MODEL"
     model_weight_name: str = "CNN_EXP01_10epo_32bth_xingwei.pth"
     seed: int = 0
-    frac: float = 0.8
+    frac: float = 0.98
     batch_size: int = 32
     epochs: int = 400
     lr_max: float = 5e-4

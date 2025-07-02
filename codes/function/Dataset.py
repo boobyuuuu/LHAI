@@ -5,7 +5,7 @@ from torch.utils.data import Dataset
 import torchvision.transforms as transforms
 
 class ImageDataset(Dataset):
-    def __init__(self, num_to_learn,path_data,inverse=False):
+    def __init__(self, num_to_learn,path_data,inverse=False, data_range=1.0):
         self.transform = transforms.Compose([
             transforms.ToTensor(),
         ])
@@ -38,10 +38,16 @@ class ImageDataset(Dataset):
             blurry_data = blurry_datas[i]
             original_data = original_datas[i]
             
-            img_blurry = (blurry_data - blurry_data.min()) / (blurry_data.max() - blurry_data.min())
-            img_original = (original_data - original_data.min()) / (original_data.max() - original_data.min())
-            #img_blurry = blurry_data/blurry_data.max()
-            #img_original = original_data/original_data.max()
+            if abs(data_range - 1.0) < 1e-5:
+                img_blurry = (blurry_data - blurry_data.min()) / (blurry_data.max() - blurry_data.min())
+                img_original = (original_data - original_data.min()) / (original_data.max() - original_data.min())
+
+            elif abs(data_range - 2.0) < 1e-5:
+                img_blurry = 2 * (blurry_data - blurry_data.min()) / (blurry_data.max() - blurry_data.min()) - 1
+                img_original = 2 * (original_data - original_data.min()) / (original_data.max() - original_data.min()) - 1
+
+            else:
+                raise ValueError("datarange must be 1.0 or 2.0")
             
             img_blurry = Image.fromarray(img_blurry)
             img_original = Image.fromarray(img_original)
