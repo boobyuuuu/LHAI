@@ -1,3 +1,3 @@
-def log(message):
-    with open("training.log", "a", encoding="utf-8") as f:
+def log(logpath, message):
+    with open(logpath, "a", encoding="utf-8") as f:
         f.write(message + "\n")

@@ -1,57 +1,126 @@
-# This py file function: Store useful variables and configuration
-# 要指定训练/推理的变量，有两种方式可以修改：1.在这个文件中修改；2.在 python train.py 后附加参数，例如 python train.py --MODEL_NAME=...
-
+from dataclasses import dataclass
 from pathlib import Path
 from dotenv import load_dotenv
 from loguru import logger
+import os
+
 load_dotenv()
-PROJ_ROOT = Path(__file__).resolve().parents[1]
-logger.info(f"PROJ_ROOT path is: {PROJ_ROOT}")
 
-# ---- Train Parameters ----
-EXP_NAME = "EXP_0_1"                                                                # 参数1：如果需要指定不同的实验，可以在这里修改
-MODEL_NAME = "CNN"                                                                  # 参数2：如果需要指定不同的模型，可以在这里修改
-MODEL_PATH = PROJ_ROOT / "LHAI" / "models" / f"{MODEL_NAME}_{EXP_NAME}.py"
-DATA_DIR = PROJ_ROOT / "data" / "POISSON"                                           # 参数3：如果需要指定不同的数据集的文件名，可以在这里修改
-DATA_NAME = "poisson_src_bkg.pkl.npy"                                               # 参数4：如果需要指定不同的数据集，可以在这里修改
-DATA_PATH = DATA_DIR / DATA_NAME
-SEED = 0                                                                            # 参数5：如果需要指定不同的随机种子，可以在这里修改
-TRAINTYPE = "poissonsrc+bkg_highresorig"                                            # 参数6：如果需要指定不同的训练类型，可以在这里修改
-FRAC_TRAIN = 0.8                                                                    # 参数7：如果需要指定不同的训练集比例，可以在这里修改
-EPOCHS = 400                                                                        # 参数8：如果需要指定不同的训练轮数，可以在这里修改
-BATCH_SIZE = 32                                                                     # 参数9：如果需要指定不同的批次大小，可以在这里修改
-LATENTDIM = 64                                                                      # 参数10：如果需要指定不同的潜在维度，可以在这里修改(仅VAE模型)
-LR_MAX = 5e-4                                                                       # 参数11：如果需要指定不同的学习率上限，可以在这里修改
-LR_MIN = 5e-6                                                                       # 参数12：如果需要指定不同的学习率下限，可以在这里修改
+ADDR_CONFIG = Path(__file__).resolve().parents[0]
+ADDR_ROOT = Path(__file__).resolve().parents[2]
+logger.success(f"ADDR_CONFIG is: {ADDR_CONFIG}")
+logger.info(f"ADDR_ROOT is: {ADDR_ROOT}")
 
-# ---- Test Parameters ----
-PRE_MODEL_PATH = PROJ_ROOT / "saves" / "MODEL"
-PRE_DATA_PATH = PROJ_ROOT / "data" / "POISSON"
-PRE_MODEL_NAME = "CNN_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth"
-RRE_MODEL = "CNN"
-PRE_DATA_NAME = "poisson_src_bkg.pkl.npy"
-PRE_SEED = 0
-PRE_TRAINTYPE = "poissonsrc+bkg_highresorig"
-PRE_FRAC_TRAIN = 0.8
-PRE_BATCH_SIZE = 32
-PRE_LATENT_DIM = 64
+# ========== Train Config ==========
+@dataclass
+class TrainConfig:
+    exp_name: str = "EXP01"
+    model_name: str = "DIFFUSION"
+    model_dir: Path = ADDR_ROOT / "codes" / "models"
+    data_dir: Path = ADDR_ROOT / "data" / "Train"
+    data_name: str = "xingwei_10000_64_train_v1.npy"
+    seed: int = 0
+    frac: float = 0.98
+    epochs: int = 1
+    batch_size: int = 32
+    lr_max: float = 5e-4
+    lr_min: float = 5e-6
+    datarange: float = 1.0
+    position_encoding_dim: int = 256
+    noise_steps: int = 2000
+    EVALUATE_METRICS: bool = False
+    logpath: Path = ADDR_ROOT / "logs" / "train_diffusion.log"
 
-# ---- Eval Parameters ----
-EVAL_EXP_NAME = "EXP_0_1"                                                                # 参数1：实验代号
-EVAL_MODEL_NAME = "CNN"                                                                  # 参数2：模型在神经网络代码py文件中的class名称
-EVAL_MODEL_PYPATH = PROJ_ROOT / "LHAI" / "models" / f"{EVAL_MODEL_NAME}_{EVAL_EXP_NAME}.py"
-EVAL_MODEL_PTHNAME = "CNN_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth"    # 参数3：需要评估的模型名称
-EVAL_MODEL_PTHPATH = PROJ_ROOT / "saves" / "MODEL" / EVAL_MODEL_PTHNAME                  # 参数4：需要评估的模型保存的路径
+    @property
+    def model_path(self) -> Path:
+        return self.model_dir / f"{self.model_name}_{self.exp_name}.py"
 
-EVAL_DATA_DIR = PROJ_ROOT / "data" / "POISSON"                                           # 参数3：如果需要指定不同的数据集的文件名
-EVAL_DATA_NAME = "poisson_src_bkg.pkl.npy"                                               # 参数4：如果需要指定不同的数据集
-EVAL_DATA_PATH = EVAL_DATA_DIR / EVAL_DATA_NAME
-EVAL_SEED = 0                                                                            # 参数5：如果需要指定不同的随机种子
+    @property
+    def data_path(self) -> Path:
+        return self.data_dir / self.data_name
 
-try:
-    from tqdm import tqdm
+# ========== Predict Config ==========
+@dataclass
+class PredictConfig:
+    model_name: str = "CNN"
+    model_path: Path = ADDR_ROOT / "saves" / "MODEL"
+    model_file: str = "CNN_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth"
+    data_dir: Path = ADDR_ROOT / "data" / "POISSON"
+    data_name: str = "poisson_src_bkg.pkl.npy"
+    seed: int = 0
+    pred_type: str = "poissonsrc+bkg_highresorig"
+    frac: float = 0.98
+    batch_size: int = 32
+    latent_dim: int = 64
+    position_encoding_dim: int = 256
+    noise_steps: int = 2000
 
-    logger.remove(0)
-    logger.add(lambda msg: tqdm.write(msg, end=""), colorize=True)
-except ModuleNotFoundError:
-    pass
+    @property
+    def data_path(self) -> Path:
+        return self.data_dir / self.data_name
+
+    @property
+    def full_model_path(self) -> Path:
+        return self.model_path / self.model_file
+
+# ========== Eval Config ==========
+@dataclass
+class EvalConfig:
+    exp_name: str = "EXP01"
+    model_name: str = "CNN"
+    model_dir: Path = ADDR_ROOT / "codes" / "models"
+    data_dir: Path = ADDR_ROOT / "data" / "Train"
+    data_name: str = "xingwei_10000_64_train_v1.npy"
+    model_weight_dir: Path = ADDR_ROOT / "saves" / "MODEL"
+    model_weight_name: str = "CNN_EXP01_10epo_32bth_xingwei.pth"
+    seed: int = 0
+    frac: float = 0.98
+    batch_size: int = 32
+    epochs: int = 400
+    lr_max: float = 5e-4
+    lr_min: float = 5e-6
+    datarange: float = 1.0
+
+    @property
+    def model_path(self) -> Path:
+        return self.model_dir / f"{self.model_name}_{self.exp_name}.py"
+
+    @property
+    def data_path(self) -> Path:
+        return self.data_dir / self.data_name
+
+    @property
+    def model_weight_path(self) -> Path:
+        return self.model_weight_dir / self.model_weight_name
+
+
+# 实例化默认配置
+train_cfg = TrainConfig()
+predict_cfg = PredictConfig()
+eval_cfg = EvalConfig()
+
+if __name__ == "__main__":
+    try:
+        from tqdm import tqdm
+        logger.remove(0)
+        logger.add(lambda msg: tqdm.write(msg, end=""), colorize=True)
+    except ModuleNotFoundError:
+        pass
+
+    logger.info("========== 当前配置参数 ==========")
+
+    for cfg_name, cfg_obj in zip(["Train", "Predict", "Eval"], [train_cfg, predict_cfg, eval_cfg]):
+        logger.info(f"--- {cfg_name} Config ---")
+        for field in cfg_obj.__dataclass_fields__:
+            logger.info(f"{field} = {getattr(cfg_obj, field)}")
+        # 打印 property 值
+        for attr in dir(cfg_obj):
+            if not attr.startswith('_') and not attr in cfg_obj.__dataclass_fields__:
+                try:
+                    value = getattr(cfg_obj, attr)
+                    if isinstance(value, (Path, str, float, int)):
+                        logger.info(f"{attr} = {value}")
+                except:
+                    pass
+
+    logger.success("========== 配置参数输出完毕 ==========")
