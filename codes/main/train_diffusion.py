@@ -193,7 +193,7 @@ def main(
     logger.info(train_msg)
 
     train(
-        model=unet,
+        unet=unet,
         optimizer=optimizer,
         scheduler=scheduler,
         criterion=criterion,

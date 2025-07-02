@@ -13,9 +13,9 @@ class Diffusion:
         self.beta_start = beta_start
         self.beta_end = beta_end
         self.device = device
-        self.beta = self.prepare_noise_schedule().to(device)
-        self.alpha = 1.0 - self.beta
-        self.alpha_bar = torch.cumprod(self.alpha, dim=0)
+        self.beta = self.prepare_noise_schedule().to(self.device)
+        self.alpha = (1.0 - self.beta).to(self.device)
+        self.alpha_bar = torch.cumprod(self.alpha, dim=0).to(self.device)
         self.img_size = img_size
 
     def prepare_noise_schedule(self):
@@ -24,50 +24,60 @@ class Diffusion:
 
     def forward_diffusion(self, x0, t):
         """Implement the forward diffusion process."""
-        sqrt_alpha_bar = torch.sqrt(self.alpha_bar[t])[:, None, None, None]
-        sqrt_one_minus_alpha_bar = \
-        torch.sqrt(1 - self.alpha_bar[t])[:, None, None, None]
+        device = t.device
+        alpha_bar = self.alpha_bar.to(device)  # ✅ 将 alpha_bar 移到和 t 一样的 device
+
+        sqrt_alpha_bar = torch.sqrt(alpha_bar[t])[:, None, None, None]  # ✅ 正确索引 alpha_bar
+        sqrt_one_minus_alpha_bar = torch.sqrt(1 - alpha_bar[t])[:, None, None, None]  # ✅ 同样修复
+
         noise = torch.randn_like(x0)
-        return sqrt_alpha_bar * x0 + sqrt_one_minus_alpha_bar * noise, noise
+        x_t = sqrt_alpha_bar * x0 + sqrt_one_minus_alpha_bar * noise
+
+        return x_t, noise
 
     def reverse_diffusion(self, model, n_images, n_channels,
-                          position_encoding_dim, position_encoding_function,
-                          save_time_steps=None, input_image=None):
+                      position_encoding_dim, position_encoding_function,
+                      save_time_steps=None, input_image=None):
         """Reverse diffusion process"""
         with torch.no_grad():
-            x = torch.randn((n_images, n_channels, self.img_size, self.img_size))
-            x = x.to(self.device)
-
+            device = self.device
+    
+            x = torch.randn((n_images, n_channels, self.img_size, self.img_size)).to(device)
+            input_image = input_image.to(device)
+            model = model.to(device)
+    
+            # 确保 alpha 和 alpha_bar 在正确设备
+            alpha = self.alpha.to(device)
+            alpha_bar = self.alpha_bar.to(device)
+    
             denoised_images = []
-            for i in tqdm(reversed(range(0, self.noise_steps)),
-                          desc="U-Net inference", total=self.noise_steps):
-                t = (torch.ones(n_images) * i).long()
-                t_pos_enc = position_encoding_function(
-                    t.unsqueeze(1), position_encoding_dim
-                ).to(self.device)
-
-                predicted_noise = model(
-                    torch.cat((input_image.to(self.device), x), dim=1),
-                    t_pos_enc,
+            for i in tqdm(reversed(range(0, self.noise_steps)), desc="U-Net inference", total=self.noise_steps):
+                t = torch.full((n_images,), i, dtype=torch.long, device=device)
+    
+                t_pos_enc = position_encoding_function(t.unsqueeze(1), position_encoding_dim).to(device)
+    
+                xt_input = torch.cat((input_image, x), dim=1).to(device)  # ← 确保在 GPU
+    
+                predicted_noise = model(xt_input, t_pos_enc)  # 输入 now 确保都在 CUDA 上
+    
+                alpha_t = alpha[t][:, None, None, None]
+                alpha_bar_t = alpha_bar[t][:, None, None, None]
+    
+                noise = torch.randn_like(x) if i > 0 else torch.zeros_like(x)
+    
+                x = (
+                    (1 / torch.sqrt(alpha_t)) * (
+                        x - ((1 - alpha_t) / torch.sqrt(1 - alpha_bar_t)) * predicted_noise
+                    ) + torch.sqrt(1 - alpha_t) * noise
                 )
-                alpha = self.alpha[t][:, None, None, None]
-                alpha_bar = self.alpha_bar[t][:, None, None, None]
-
-                if i > 0:
-                    noise = torch.randn_like(x)
-                else:
-                    noise = torch.zeros_like(x)
-
-                x = (1 / torch.sqrt(alpha) * (x - ((1 - alpha)
-                    / torch.sqrt(1 - alpha_bar)) * predicted_noise)
-                    + torch.sqrt(1-alpha) * noise)
-
-                if i in save_time_steps:
+    
+                if save_time_steps and i in save_time_steps:
                     denoised_images.append(x)
-
+    
             denoised_images = torch.stack(denoised_images)
             denoised_images = denoised_images.swapaxes(0, 1)
             return denoised_images
+
 
 def positional_encoding(t, enc_dim):
     """Encode position informaiton with a sinusoid."""
