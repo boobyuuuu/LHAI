@@ -167,6 +167,8 @@ nav:
     - DIFFUSION: Content/model/diffusion.md
   - Eval Section:
     - index: Content/eval/index.md
+    - CNN: Content/eval/cnn.md
+    - DIFFUSION: Content/eval/diffusion.md
   - Codes Section:
     - index: Content/codes/index.md
     - SERVER: Content/codes/server.md

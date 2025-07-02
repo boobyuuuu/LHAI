@@ -12,6 +12,13 @@ LHAI/LHAI/modeling/train.py
 
 1. 第一步：git clone
 
+    先安装lfs，以下载大文件（数据）：
+
+    ```
+    conda install -c conda-forge git-lfs
+    git lfs install
+    ```
+
     ```bash
     git clone --branch Code https://github.com/boobyuuuu/LHAI.git
     ```

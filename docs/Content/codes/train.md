@@ -14,6 +14,13 @@ This page explains how to prepare and start training, beginning with `git clone`
 
 ### 1. Step One: Git Clone
 
+先安装lfs，以下载大文件（数据）：
+
+```
+conda install -c conda-forge git-lfs
+git lfs install
+```
+
 Run the following command to clone the code from the `Code` branch:
 
 ```bash
