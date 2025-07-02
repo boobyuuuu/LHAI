@@ -1,0 +1,25 @@
+
+    ====================== 🚀 开始训练 ======================
+    🔧 配置信息总览：
+    📦 实验名称             : EXP01
+    🧠 模型名称             : DIFFUSION
+    📁 模型脚本路径         : D:\Career\Academic\LHAI\codes\models\DIFFUSION_EXP01.py
+    📂 数据文件路径         : D:\Career\Academic\LHAI\data\Train\xingwei_10000_64_train_v1.npy
+    📊 数据集切分比例       : 训练集 98.0% / 测试集 2.0%
+    📈 样本总数             : 10000
+    🔁 总训练轮数 (Epochs)  : 1
+    📦 批次大小 (BatchSize)  : 32
+    🌱 随机种子 (Seed)      : 0
+    🔢 数据归一化范围       : 1.0
+    🧩 位置编码维度         : 256
+    🎲 噪声步数             : 2000
+    🔍 是否评估指标         : False
+    📉 学习率策略 (Cosine)  : 最小 = 5.0e-06, 最大 = 5.0e-04
+    🧪 损失函数 (Loss)      : msejsloss
+    🛠️ 优化器 (Optimizer)  : AdamW
+    💻 使用设备 (Device)    : cpu (No CUDA device)
+    ==============================================================
+    
+Epoch 1/1
+__________
+Batch 1/307: Train loss: 0.2799 LR: 0.000500

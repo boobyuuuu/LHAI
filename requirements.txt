@@ -11,6 +11,7 @@ cookiecutter==2.6.0
 cookiecutter-data-science==2.0.0
 csscompressor==0.9.5
 cycler==0.12.1
+deeplay==0.1.3
 filelock==3.16.1
 fonttools==4.55.3
 fsspec==2024.12.0

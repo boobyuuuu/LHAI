@@ -156,6 +156,7 @@ def main(
         testloader=testloader,
         num_epochs=epochs,
         logger=logger,
+        logpath=logpath,
         train_msg=train_msg,
         LOSS_PLOT=[],
         TESTLOSS_PLOT=[],
