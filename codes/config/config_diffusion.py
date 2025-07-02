@@ -67,19 +67,24 @@ class PredictConfig:
 @dataclass
 class EvalConfig:
     exp_name: str = "EXP01"
-    model_name: str = "CNN"
+    model_name: str = "DIFFUSION"
     model_dir: Path = ADDR_ROOT / "codes" / "models"
     data_dir: Path = ADDR_ROOT / "data" / "Train"
     data_name: str = "xingwei_10000_64_train_v1.npy"
-    model_weight_dir: Path = ADDR_ROOT / "saves" / "MODEL"
-    model_weight_name: str = "CNN_EXP01_10epo_32bth_xingwei.pth"
+    unet_weight_name: str = "unetconfig_DIFFUSION_EXP01_1epo_32bth_xingwei.pth"
+    unet_weight_path: Path = ADDR_ROOT / "saves" / "MODEL" / unet_weight_name
+    diffusion_weight_name: str = "diffusionconfig_DIFFUSION_EXP01_1epo_32bth_xingwei.pth"
+    diffusion_weight_path: Path = ADDR_ROOT / "saves" / "MODEL"/ diffusion_weight_name
     seed: int = 0
     frac: float = 0.98
+    epochs: int = 1
     batch_size: int = 32
-    epochs: int = 400
     lr_max: float = 5e-4
     lr_min: float = 5e-6
     datarange: float = 1.0
+    position_encoding_dim: int = 256
+    noise_steps: int = 2000
+    logpath: Path = ADDR_ROOT / "logs" / "evaluation_diffusion.log"
 
     @property
     def model_path(self) -> Path:

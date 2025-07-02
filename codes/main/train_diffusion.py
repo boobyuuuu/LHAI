@@ -121,16 +121,16 @@ def main(
 
     # ---- 2-3 Initialize the model, loss function and optimizer ----
     # 模型
-    model = dl.AttentionUNet(
+    unet = dl.AttentionUNet(
         in_channels=2,
-        channels=[64, 128, 256],
-        base_channels=[512, 512],
-        channel_attention=[False, True, True],
+        channels=[32, 64, 128],
+        base_channels=[256, 256],
+        channel_attention=[False, False, False],
         out_channels=1,
         position_embedding_dim=position_encoding_dim,
     )
-    model.build()
-    unet = EnhancedUNetWrapper(model).to(device)
+    unet.build()
+    unet.to(device)
     diffusion = Diffusion(
         noise_steps=noise_steps,
         img_size=64,
@@ -273,7 +273,7 @@ def main(
 
     logger.success(f"Loss plot saved at {loss_plot_path}")
     logger.success(f"Loss data saved at {loss_data_path}")
-    logger.success(f"Model saved at {model_save_path}")
+    logger.success(f"Model saved at {model_save_folder}")
     logger.success("✅ 模型保存完成（Step 2-5）")
     # -----------------------------------------
 if __name__ == "__main__":
