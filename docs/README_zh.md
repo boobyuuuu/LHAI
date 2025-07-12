@@ -1,4 +1,4 @@
-# LHAI
+# LHAI：新版请看main分支
 
 <p align="center">
  <img alt="" src="/docs/assets/images/logo1.png" width=500 align="center">
