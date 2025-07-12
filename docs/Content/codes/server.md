@@ -87,7 +87,7 @@
 
 2. 登录
 
-    refresh token：b69841de9160458da59d7757887b56c0
+    refresh token：b69841de9160458da59d7757887b56c0（已经过期）
 
 3. 查看命令
 
