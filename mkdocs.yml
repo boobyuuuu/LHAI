@@ -175,6 +175,8 @@ nav:
     - TRAIN: Content/codes/train.md
     - PREDICT: Content/codes/predict.md
     - EVALUATION: Content/codes/evaluation.md
+    - FUNCTION: Content/codes/function.md
+    - CONFIG: Content/codes/config.md
     - DATA: Content/codes/data.md
     - DOCS: Content/codes/docs.md
     - LHAI: Content/codes/lhai.md
