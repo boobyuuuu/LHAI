@@ -18,7 +18,7 @@ class TrainConfig:
     model_name: str = "CNN"
     model_dir: Path = ADDR_ROOT / "codes" / "models"
     data_dir: Path = ADDR_ROOT / "data" / "Train"
-    data_name: str = "xingwei_10000_64_train_v1_processed.npy"
+    data_name: str = "xingwei_10000_64_train_v1.npy"
     seed: int = 0
     frac: float = 0.98
     epochs: int = 10

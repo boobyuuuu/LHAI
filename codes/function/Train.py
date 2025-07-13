@@ -3,8 +3,8 @@ from codes.config.config_cnn import TrainConfig
 from codes.function.Dataset import ImageDataset
 import codes.function.Loss as lossfunction
 from codes.function.Log import log
-from codes.models.DIFFUSION_EXP01 import positional_encoding
-from codes.models.DIFFUSION_EXP01 import prepare_data
+from codes.models.DIFFUSION import positional_encoding
+from codes.models.DIFFUSION import prepare_data
 # ---- 1-3 Libraries for pytorch and others ----
 import torch
 import torch.nn as nn
