@@ -24,3 +24,21 @@ Average MSE (Input): 0.0418
 Average NRMSE (SR): 0.1022
 Average NRMSE (Input): 0.2038
 ```
+
+## dataprocess 参数
+
+```
+Average PSNR (SR): 18.2133
+Average PSNR (Input): 13.2108
+Average SSIM (SR): 0.2278
+Average SSIM (Input): 0.2459
+Average MS-SSIM (SR): 0.5334
+Average MS-SSIM (Input): 0.5216
+Average MAE (SR): 0.0427
+Average MAE (Input): 0.1312
+Average MSE (SR): 0.0157
+Average MSE (Input): 0.0485
+Average NRMSE (SR): 0.1241
+Average NRMSE (Input): 0.2193
+```
+
