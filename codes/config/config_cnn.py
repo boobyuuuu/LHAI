@@ -18,7 +18,7 @@ class TrainConfig:
     model_name: str = "CNN"
     model_dir: Path = ADDR_ROOT / "codes" / "models"
     data_dir: Path = ADDR_ROOT / "data" / "Train"
-    data_name: str = "xingwei_10000_64_train_v1.npy"
+    data_name: str = "xingwei_10000_64_train_v1_processed.npy"
     seed: int = 0
     frac: float = 0.98
     epochs: int = 10
@@ -27,14 +27,6 @@ class TrainConfig:
     lr_min: float = 5e-6
     datarange: float = 1.0
     logpath: Path = ADDR_ROOT / "logs" / "train_cnn.log"
-
-    @property
-    def model_path(self) -> Path:
-        return self.model_dir / f"{self.model_name}_{self.exp_name}.py"
-
-    @property
-    def data_path(self) -> Path:
-        return self.data_dir / self.data_name
 
 # ========== Predict Config ==========
 @dataclass
@@ -75,19 +67,6 @@ class EvalConfig:
     lr_max: float = 5e-4
     lr_min: float = 5e-6
     datarange: float = 1.0
-
-    @property
-    def model_path(self) -> Path:
-        return self.model_dir / f"{self.model_name}_{self.exp_name}.py"
-
-    @property
-    def data_path(self) -> Path:
-        return self.data_dir / self.data_name
-
-    @property
-    def model_weight_path(self) -> Path:
-        return self.model_weight_dir / self.model_weight_name
-
 
 # 实例化默认配置
 train_cfg = TrainConfig()

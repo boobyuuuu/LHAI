@@ -36,10 +36,8 @@ def main(
     exp_name: str = train_cfg.exp_name,                  # para01：实验名称 default: "EXP01"
     model_name: str = train_cfg.model_name,              # para02：模型名称 default: "CNN"
     model_dir: Path = train_cfg.model_dir,               # para03：模型目录 default: ADDR_ROOT / "codes" / "models"
-    model_path: Path = train_cfg.model_path,             # para04：模型路径 default: model_dir / f"{model_name}_{exp_name}.py"
     data_dir: Path = train_cfg.data_dir,                 # para05：数据目录 default: ADDR_ROOT / "data" / "Train"
     data_name: str = train_cfg.data_name,                # para06：数据文件名 default: "xingwei_10000_64_train_v1.npy"
-    data_path: Path = train_cfg.data_path,               # para07：数据完整路径 default: data_dir / data_name
     seed: int = train_cfg.seed,                          # para08：随机种子 default: 0
     frac: float = train_cfg.frac,                        # para09：训练集比例 default: 0.8
     epochs: int = train_cfg.epochs,                      # para10：训练轮数 default: 400
@@ -49,6 +47,9 @@ def main(
     datarange: float = train_cfg.datarange,               # para14：数据范围 default: 1.0
     logpath: Path = train_cfg.logpath,                   # para15：日志路径 default: ADDR_ROOT / "logs" / "train_cnn.log"
 ):
+
+    data_path = data_dir / data_name
+    model_path = model_dir / f"{model_name}.py"
     # ---- 2-1 Load the parameter ----
     logger.info("========== 当前训练参数 ==========")
     for idx, (key, value) in enumerate(locals().items(), start=1):

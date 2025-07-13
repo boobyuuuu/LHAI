@@ -43,13 +43,10 @@ def main(
     exp_name: str = eval_cfg.exp_name,                      # para01：实验名称 default: "EXP01"
     model_name: str = eval_cfg.model_name,                  # para02：模型名称 default: "CNN"
     model_dir: Path = eval_cfg.model_dir,                   # para03：模型目录 default: ADDR_ROOT / "codes" / "models"
-    model_path: Path = eval_cfg.model_path,                 # para04：模型定义路径（.py） default: model_dir / f"{model_name}_{exp_name}.py"
     model_weight_dir: Path = eval_cfg.model_weight_dir,     # para05：模型权重目录 default: ADDR_ROOT / "saves" / "MODEL"
     model_weight_name: str = eval_cfg.model_weight_name,    # para06：模型权重文件名 default: "CNN_EXP01_400epo_32bth_xingwei.pth"
-    model_weight_path: Path = eval_cfg.model_weight_path,   # para07：模型权重完整路径 default: model_weight_dir / model_weight_name
     data_dir: Path = eval_cfg.data_dir,                     # para08：数据目录 default: ADDR_ROOT / "data" / "Train"
     data_name: str = eval_cfg.data_name,                    # para09：数据文件名 default: "xingwei_10000_64_train_v1.npy"
-    data_path: Path = eval_cfg.data_path,                   # para10：数据完整路径 default: data_dir / data_name
     seed: int = eval_cfg.seed,                              # para11：随机种子 default: 0
     frac: float = eval_cfg.frac,                            # para12：训练集比例 default: 0.8
     batch_size: int = eval_cfg.batch_size,                  # para13：批次大小 default: 32
@@ -58,6 +55,10 @@ def main(
     lr_min: float = eval_cfg.lr_min,                        # para16：最小学习率 default: 5e-6
     datarange: float = eval_cfg.datarange
 ):
+
+    data_path = data_dir / data_name
+    model_path = model_dir / f"{model_name}.py"
+    model_weight_path = model_weight_dir / model_weight_name
     # ---- 2-1 Load the parameter ----
     logger.info("========== 当前训练参数 ==========")
     for idx, (key, value) in enumerate(locals().items(), start=1):
