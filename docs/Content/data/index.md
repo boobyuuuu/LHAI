@@ -43,8 +43,10 @@
 | `cube_1504_64_train.npy`      | 显微图像来源2，荧光小球             |   |
 | `pysted_5204_64_train.npy`      | 显微图像来源，量子点             |   |
 | `tangxiao_7000_64_train.npy`      | 唐晓模拟数据集             |   |
-| `halos_1200_64_train_crop.npy`      | 交大模拟数据集             |   |
+| `halos_1200_64_train_crop.npy`      | 交大模拟数据集(已裁剪)             |   |
 | `xingwei_10000_64_train_v1.npy`      | 星维模拟4表征数据集            |   |
+| `polygon_2000_64_train_cluster.npy`      | 欣雨模拟数据集1            |   |
+| `polygon_2000_64_train.npy`      | 欣雨模拟数据集2            |   |
 
 
 测试集：
