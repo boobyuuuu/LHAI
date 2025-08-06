@@ -1446,9 +1446,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#725" class="md-nav__link">
     <span class="md-ellipsis">
-      组会三
+      组会六 7月25日
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#713" class="md-nav__link">
+    <span class="md-ellipsis">
+      组会五 7月13日
     </span>
   </a>
   
@@ -1458,6 +1467,15 @@
   <a href="#624" class="md-nav__link">
     <span class="md-ellipsis">
       组会四 6月24日
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      组会三
     </span>
   </a>
   
@@ -1514,9 +1532,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#725" class="md-nav__link">
     <span class="md-ellipsis">
-      组会三
+      组会六 7月25日
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#713" class="md-nav__link">
+    <span class="md-ellipsis">
+      组会五 7月13日
     </span>
   </a>
   
@@ -1526,6 +1553,15 @@
   <a href="#624" class="md-nav__link">
     <span class="md-ellipsis">
       组会四 6月24日
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      组会三
     </span>
   </a>
   
@@ -1551,34 +1587,34 @@
 
 
 <h1 id="_1">组会与进展<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<h2 id="_2">组会三<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>可以从以下几个方面进行优化：</p>
+<h2 id="725">组会六 7月25日<a class="headerlink" href="#725" title="Permanent link">&para;</a></h2>
+<ol>
+<li>本周结营测试，没做多少任务</li>
+<li>完成了diffusion的框架，整合了一下现在能够用来应用展示的模型</li>
+</ol>
+<p>CNN+DIFFUSION</p>
+<p>xingwei+halos+miragesearch</p>
+<p>一共6个模型，等待欣雨那边给数据进行实际检测</p>
+<ol>
+<li>后续我希望加深一点对模型的理解，因此会按照SR模型发展的顺序，对每一个模型在我们的框架的基础上进行实现，并且记录每个模型的优劣势和效果。相应的笔记会发布在网页上供大家参考。但是会以老师和欣雨那边的需要实现作为主要的工作内容。</li>
+</ol>
+<h2 id="713">组会五 7月13日<a class="headerlink" href="#713" title="Permanent link">&para;</a></h2>
+<p>主要内容：讨论当前进展以及接下来的工作</p>
+<hr />
+<p>欣雨：可以增加更多源的模式</p>
+<p>工作：</p>
+<p>一 结合实际</p>
 <ol>
 <li>
-<p>Model</p>
-<p>（1）尝试transformer</p>
-<p>（2）尝试resnet（残差网络）</p>
+<p>将现在的模型应用到实际的天体源中</p>
 </li>
 <li>
-<p>LOSS</p>
-<p>（1）应对高/低流强差的情况：加入log loss</p>
-<p>（2）每个格点都不要差过10%：加框方差</p>
-<p>（3）加入物理机制/约束：LOSS加物理机制限制（非常FURTHER）</p>
-</li>
-<li>
-<p>Data</p>
-</li>
-<li>
-<p>Evaluation</p>
-<p>（1）加个框再进行评估，验证LOSS-（2）的效果</p>
-<p>（2）根据人工打分标签，训练出 evaluation model（非常FURTHER）</p>
-</li>
-<li>
-<p>训练机制：半监督方法</p>
-<p>（1）自我循环迭代半监督</p>
-<p>（2）根据人工打分标签，训练出 evaluation model；根据eval model进行大量数据集生成；进行循环训练（input data足够多）</p>
+<p>与传统处理方法进行对比</p>
 </li>
 </ol>
+<p>二 迭代模型</p>
+<p>十几个的数据：进行测试</p>
+<p>4200个的数据：</p>
 <h2 id="624">组会四 6月24日<a class="headerlink" href="#624" title="Permanent link">&para;</a></h2>
 <p>主要内容：星维、陈力琰、胡欣雨、刘梓航阶段性总结之前工作进展，并进行未来展望</p>
 <hr />
@@ -1613,6 +1649,34 @@
 <li>
 <p>Structure</p>
 <p>现在模型有点杂多，想个办法把不同的算法搞到同一个框架里去（非常重要且急迫）</p>
+</li>
+</ol>
+<h2 id="_2">组会三<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>可以从以下几个方面进行优化：</p>
+<ol>
+<li>
+<p>Model</p>
+<p>（1）尝试transformer</p>
+<p>（2）尝试resnet（残差网络）</p>
+</li>
+<li>
+<p>LOSS</p>
+<p>（1）应对高/低流强差的情况：加入log loss</p>
+<p>（2）每个格点都不要差过10%：加框方差</p>
+<p>（3）加入物理机制/约束：LOSS加物理机制限制（非常FURTHER）</p>
+</li>
+<li>
+<p>Data</p>
+</li>
+<li>
+<p>Evaluation</p>
+<p>（1）加个框再进行评估，验证LOSS-（2）的效果</p>
+<p>（2）根据人工打分标签，训练出 evaluation model（非常FURTHER）</p>
+</li>
+<li>
+<p>训练机制：半监督方法</p>
+<p>（1）自我循环迭代半监督</p>
+<p>（2）根据人工打分标签，训练出 evaluation model；根据eval model进行大量数据集生成；进行循环训练（input data足够多）</p>
 </li>
 </ol>
 
