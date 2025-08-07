@@ -14,6 +14,8 @@
   font-family: 'TIMES';
   src: url('fonts/TIMES.TTF') format('truetype');
 }
+
+
 /* 第一部分 */
 
 .topnote {
@@ -58,41 +60,112 @@
 /* 第二部分 */
 .noteforcode {
   padding: 40px 0;
-}
-
-.code-note {
-  max-width: 61.8%;         /* 黄金比例宽度 */
-  width: 100%;              /* 防止超出容器 */
-  margin: 20px auto;        /* 上下20px间距，auto 实现水平居中 */
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  margin-top: 20px;
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background-color: #f9fafb;
   font-family: 'Fira Code', monospace;
 }
 
+.note-section-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  font-family: 'FZSTK';
+  color: #2c3e50;
+}
+
+.code-note-grid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 95%;
+  margin: 0 auto;
+}
+
+.code-note-left,
+.code-note-right {
+  flex: 1;
+  min-width: 320px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.code-divider {
+  width: 2px;
+  background-color: #cccccc;
+  height: auto;
+  margin: 0 10px;
+  border-radius: 1px;
+}
+
+.code-block {
+  background: #ffffff;
+  border: 1px solid #e1e1e1;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
 .code-description {
-  font-size: 0.9rem;
-  margin-bottom: 10px;
+  font-size: 0.92rem;
   font-family: 'FZSTK', sans-serif;
   color: #333;
+  margin-bottom: 10px;
 }
 
 pre {
   margin: 0;
   overflow-x: auto;
-  background-color: #f8f8f8;
+  background-color: #f4f4f4;
   border-radius: 8px;
-  padding: 12px;
+  padding: 10px 14px;
 }
 
 pre code {
   font-size: 0.85rem;
   color: #2c3e50;
   white-space: pre-wrap;
+  line-height: 1.4;
 }
+
+.custom-copy-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: #eeeeee;
+  color: #333;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'Fira Code', monospace;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  user-select: none;
+  z-index: 10;
+}
+
+.custom-copy-button:hover {
+  background-color: #dddddd;
+}
+
+.custom-copy-button.copied {
+  background-color: #d4edda !important;
+  color: #155724 !important;
+  font-weight: bold;
+}
+
+.code-block {
+  background: #ffffff;
+  border: 1px solid #e1e1e1;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative; /* 添加这个用于定位按钮 */
+}
+
+
 
 /* 第三部分 */
 
@@ -216,6 +289,8 @@ pre code {
   border-bottom: 1px solid #ddd;
 }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs-copy/dist/highlightjs-copy.min.css">
     
 <!-- 第一部分 This is the user manual for LHAI-->
   <section class="hero-section">
@@ -267,48 +342,83 @@ pre code {
     </section>
 
 
-<!-- 第二部分 CodeNote for LHAI-->
+<!-- 第二部分 CodeNote for LHAI -->
 <section class="noteforcode">
-  <div class="topnote">
-    <div class="topnote-container">
-      <p class="section-title">CodeNote for LHAI</p>
-    </div>
+  <div class="topnote-container">
+    <p class="note-section-title">CodeNote for LHAI</p>
+    <div class="code-note-grid">
 
-    <div class="code-note">
-      <p class="code-description">
-        Clone the code:
-      </p>
-      <pre><code class="language-bash">git clone --branch Code https://github.com/boobyuuuu/LHAI.git</code></pre>
-    </div>
+      <!-- 左栏 -->
+      <div class="code-note-left">
+        <div class="code-block">
+          <p class="code-description">2. 启动服务器 VPN 加速：</p>
+          <pre><code class="language-bash">source /etc/network_turbo</code></pre>
+        </div>
 
-    <div class="code-note">
-      <p class="code-description">
-        Run Train:
-      </p>
-      <pre><code class="language-bash">git clone --branch Code https://github.com/boobyuuuu/LHAI.git</code></pre>
-    </div>
+        <div class="code-block">
+          <p class="code-description">3. 下载 LHAI 文件：</p>
+          <pre><code class="language-bash">git clone --branch Code https://github.com/boobyuuuu/LHAI.git</code></pre>
+        </div>
 
-    <div class="code-note">
-      <p class="code-description">
-        Run Evaluation:
-      </p>
-      <pre><code class="language-bash">git clone --branch Code https://github.com/boobyuuuu/LHAI.git</code></pre>
-    </div>
+        <div class="code-block">
+          <p class="code-description">4. 安装环境 & 上传数据：</p>
+          <pre><code class="language-bash">cd LHAI
+pip install -r requirements.txt</code></pre>
+        </div>
 
-    <div class="code-note">
-      <p class="code-description">
-        Run Predict:
-      </p>
-      <pre><code class="language-bash">git clone --branch Code https://github.com/boobyuuuu/LHAI.git</code></pre>
+        <div class="code-block">
+          <p class="code-description">5. 处理数据：</p>
+          <pre><code class="language-bash">python main_dataprocess_gpu.py \
+  --input_path /root/LHAI/data/Train/xingwei_10000_64_train_v1.npy \
+  --output_path /root/LHAI/data/Train/xingwei_10000_64_train_v1_processed.npy \
+  --num_to_learn 10000 \
+  --data_range 1.0 \
+  --remove_duplicates \
+  --augment \
+  --enhance \
+  --remove_low_info \
+  --device cuda</code></pre>
+        </div>
+      </div>
+
+      <!-- 中间分界线 -->
+      <div class="code-divider"></div>
+
+      <!-- 右栏 -->
+      <div class="code-note-right">
+        <div class="code-block">
+          <p class="code-description">6. 使用默认数据 xingwei 训练：</p>
+          <pre><code class="language-bash">python train_cnn.py</code></pre>
+        </div>
+
+        <div class="code-block">
+          <p class="code-description">7. 使用处理后数据训练：</p>
+          <pre><code class="language-bash">python train_cnn.py \
+  --data-name "xingwei_10000_64_train_v1_processed.npy" \
+  --exp-name "dataprocessed"</code></pre>
+        </div>
+
+        <div class="code-block">
+          <p class="code-description">8. 使用模型1进行评估：</p>
+          <pre><code class="language-bash">python evaluation.py</code></pre>
+        </div>
+
+        <div class="code-block">
+          <p class="code-description">9. 使用模型2进行评估（示例）：</p>
+          <pre><code class="language-bash">python evaluation.py --model-name model_v2.pth</code></pre>
+        </div>
+
+        <div class="code-block">
+          <p class="code-description">10. 上传至 GitHub：</p>
+          <pre><code class="language-bash">git add .
+git commit -m "..."
+git push</code></pre>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
-
-<!-- highlight.js 引入（浅色主题） -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script>hljs.highlightAll();</script>
-
 
 <!-- 第三部分 User Manual Contents-->
 
@@ -436,6 +546,37 @@ pre code {
     </div>
   </div>
 </section>
+
+<!-- Highlight.js 主库 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<!-- Bash 支持 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+<!-- Copy Button 插件 -->
+<script src="https://cdn.jsdelivr.net/npm/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+
+<!-- 初始化 -->
+<script>
+  hljs.highlightAll();
+  hljs.addPlugin(new CopyButtonPlugin({
+    hook: (buttonEl, {text}) => {
+      buttonEl.innerHTML = '📋 复制';
+      buttonEl.classList.add('custom-copy-button');
+
+      buttonEl.onclick = async () => {
+        try {
+          await navigator.clipboard.writeText(text);
+          buttonEl.innerHTML = '✔ 已复制';
+          setTimeout(() => {
+            buttonEl.innerHTML = '📋 复制';
+          }, 2000);
+        } catch (err) {
+          alert('复制失败，请手动复制');
+          console.error('复制失败', err);
+        }
+      };
+    }
+  }));
+</script>
 
 
   {% endblock %}
