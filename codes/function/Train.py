@@ -16,13 +16,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 from datetime import timedelta
+import os
 
 def train(model,optimizer,scheduler,trainingloss,device,dataloader,testloader,num_epochs,logger,logpath,train_msg="",LOSS_PLOT=[], TESTLOSS_PLOT=[], EPOCH_PLOT=[]):
     """
     函数特色：使用scheduler动态调整学习率。似乎没有其他在train函数进行优化的方式？
     """
-    with open(logpath, "w", encoding="utf-8"):
-        pass
+    if not os.path.exists(logpath):
+        with open(logpath, "w", encoding="utf-8"):
+            pass
     log(logpath,train_msg)
     for epoch in range(num_epochs):
         model.train()
@@ -62,7 +64,6 @@ def train(model,optimizer,scheduler,trainingloss,device,dataloader,testloader,nu
 
         # 更新学习率
         scheduler.step()
-
 
 def train_diffusion(
     unet,
