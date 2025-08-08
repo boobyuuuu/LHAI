@@ -16,6 +16,42 @@
 
 6. 特殊架构模型
 
+```mermaid
+graph TD
+    SRCNN[2014 SRCNN\n首个端到端超分CNN]
+    ESPCN[2016 ESPCN\n子像素卷积加速上采样]
+    VDSR[2016 VDSR\n深层残差学习]
+    DRCN[2016 DRCN\n递归残差网络]
+    FSRCNN[2016 FSRCNN\n轻量化改进]
+    DRRN[2017 DRRN\n递归残差融合]
+    LapSRN[2017 LapSRN\n多级残差金字塔结构]
+    SRDenseNet[2017 SRDenseNet\n密集连接残差网络]
+    EDSR[2017-2018 EDSR\n去BN的深残差网络]
+    IDN[2019 IDN\n信息导向轻量网络]
+    CARN[2018 CARN\n级联残差多尺度融合]
+    RCAN[2018-2019 RCAN\n通道注意力机制]
+    SAN_HAN[2019 SAN / HAN\n多层次注意力机制]
+    TRANSFORMER[2021+ Transformer超分\n全局上下文建模]
+    DIFFUSION[2022+ Diffusion生成模型\n概率建模]
+
+    SRCNN --> VDSR
+    SRCNN --> FSRCNN
+    SRCNN --> ESPCN
+    VDSR --> DRCN
+    VDSR --> DRRN
+    DRCN --> DRRN
+    DRRN --> EDSR
+    FSRCNN --> CARN
+    EDSR --> RCAN
+    CARN --> RCAN
+    RCAN --> SAN_HAN
+    SAN_HAN --> TRANSFORMER
+    TRANSFORMER --> DIFFUSION
+    LapSRN --> EDSR
+    SRDenseNet --> EDSR
+    IDN --> CARN
+```
+
 
 模型命名规则格式:
 

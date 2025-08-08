@@ -1,5 +1,9 @@
 # CNN 类神经网络
 
+1. 看一下eval的input，每一次是否都相同，为什么会有0.1左右的波动
+
+2. 对同一个模型的同一个参数，eval产生0.1的波动是正常现象。
+
 ## DEFAULT 参数
 
 实验参数：
@@ -22,15 +26,15 @@
 - 📁 log保存地址             : /root/LHAI/saves/TRAIN/LOGS/trainlog_CNN
 ```
 
-![LOSS分布图](Eval_loss_CNN_EXP01_jsdiv.png)
+![LOSS分布图](Eval_loss_CNN_EXP01_jsdiv.png){width="600"}
 
-![Lineprofile图](Eval_distribution_CNN_EXP01.png)
+![Lineprofile图](Eval_distribution_CNN_EXP01.png){width="600"}
 
-![评估图](evaluation_plots_CNN_EXP01.png)
+![评估图](evaluation_plots_CNN_EXP01.png){width="600"}
 
 平均数据：
 
-![alt text](image.png)
+![alt text](image.png){width="400"}
 
 ## dataprocess 参数
 
@@ -53,32 +57,38 @@ Average NRMSE (Input): 0.2193
 
 实验参数：
 
-![alt text](image-1.png)
+![alt text](image-1.png){width="400"}
 
 评估结果：
 
-![alt text](image-2.png)
+![alt text](image-2.png){width="400"}
 
 ## CARN_v1
 
 实验参数：
 
-![alt text](image-3.png)
+![alt text](image-3.png){width="400"}
 
 评估结果：
 
-![alt text](image-4.png)
+![alt text](image-4.png){width="400"}
 
 ## CARN_v2
 
 实验参数：
 
-![alt text](image-5.png)
+![alt text](image-5.png){width="400"}
 
 评估结果：
 
-![alt text](image-6.png)
+![alt text](image-6.png){width="400"}
 
-1. 看一下eval的input，每一次是否都相同，为什么会有0.1左右的波动
+## DRCN
 
-2. 对同一个模型的同一个参数，eval产生0.1的波动是正常现象。
+实验参数：
+
+![alt text](image-7.png){width="400"}
+
+评估结果：
+
+![alt text](image-8.png){width="400"}
