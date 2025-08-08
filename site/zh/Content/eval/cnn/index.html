@@ -946,6 +946,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#drcn" class="md-nav__link">
+    <span class="md-ellipsis">
+      DRCN
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1583,6 +1592,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#drcn" class="md-nav__link">
+    <span class="md-ellipsis">
+      DRCN
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1603,6 +1621,14 @@
 
 
 <h1 id="cnn">CNN 类神经网络<a class="headerlink" href="#cnn" title="Permanent link">&para;</a></h1>
+<ol>
+<li>
+<p>看一下eval的input，每一次是否都相同，为什么会有0.1左右的波动</p>
+</li>
+<li>
+<p>对同一个模型的同一个参数，eval产生0.1的波动是正常现象。</p>
+</li>
+</ol>
 <h2 id="default">DEFAULT 参数<a class="headerlink" href="#default" title="Permanent link">&para;</a></h2>
 <p>实验参数：</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>- 📦 实验名称                : EXP01
@@ -1621,11 +1647,11 @@
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>- 💻 使用设备（Device）      : cuda:0（NVIDIA GeForce RTX 4090）
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>- 📁 log保存地址             : /root/LHAI/saves/TRAIN/LOGS/trainlog_CNN
 </span></code></pre></div>
-<p><img alt="LOSS分布图" src="../../../../Content/eval/Eval_loss_CNN_EXP01_jsdiv.png" /></p>
-<p><img alt="Lineprofile图" src="../../../../Content/eval/Eval_distribution_CNN_EXP01.png" /></p>
-<p><img alt="评估图" src="../../../../Content/eval/evaluation_plots_CNN_EXP01.png" /></p>
+<p><img alt="LOSS分布图" src="../../../../Content/eval/Eval_loss_CNN_EXP01_jsdiv.png" width="600" /></p>
+<p><img alt="Lineprofile图" src="../../../../Content/eval/Eval_distribution_CNN_EXP01.png" width="600" /></p>
+<p><img alt="评估图" src="../../../../Content/eval/evaluation_plots_CNN_EXP01.png" width="600" /></p>
 <p>平均数据：</p>
-<p><img alt="alt text" src="../../../../Content/eval/image.png" /></p>
+<p><img alt="alt text" src="../../../../Content/eval/image.png" width="400" /></p>
 <h2 id="dataprocess">dataprocess 参数<a class="headerlink" href="#dataprocess" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Average PSNR (SR): 18.2133
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Average PSNR (Input): 13.2108
@@ -1642,27 +1668,24 @@
 </span></code></pre></div>
 <h2 id="default-model-400epochs">DEFAULT Model - 400epochs<a class="headerlink" href="#default-model-400epochs" title="Permanent link">&para;</a></h2>
 <p>实验参数：</p>
-<p><img alt="alt text" src="../../../../Content/eval/image-1.png" /></p>
+<p><img alt="alt text" src="../../../../Content/eval/image-1.png" width="400" /></p>
 <p>评估结果：</p>
-<p><img alt="alt text" src="../../../../Content/eval/image-2.png" /></p>
+<p><img alt="alt text" src="../../../../Content/eval/image-2.png" width="400" /></p>
 <h2 id="carn_v1">CARN_v1<a class="headerlink" href="#carn_v1" title="Permanent link">&para;</a></h2>
 <p>实验参数：</p>
-<p><img alt="alt text" src="../../../../Content/eval/image-3.png" /></p>
+<p><img alt="alt text" src="../../../../Content/eval/image-3.png" width="400" /></p>
 <p>评估结果：</p>
-<p><img alt="alt text" src="../../../../Content/eval/image-4.png" /></p>
+<p><img alt="alt text" src="../../../../Content/eval/image-4.png" width="400" /></p>
 <h2 id="carn_v2">CARN_v2<a class="headerlink" href="#carn_v2" title="Permanent link">&para;</a></h2>
 <p>实验参数：</p>
-<p><img alt="alt text" src="../../../../Content/eval/image-5.png" /></p>
+<p><img alt="alt text" src="../../../../Content/eval/image-5.png" width="400" /></p>
 <p>评估结果：</p>
-<p><img alt="alt text" src="../../../../Content/eval/image-6.png" /></p>
-<ol>
-<li>
-<p>看一下eval的input，每一次是否都相同，为什么会有0.1左右的波动</p>
-</li>
-<li>
-<p>对同一个模型的同一个参数，eval产生0.1的波动是正常现象。</p>
-</li>
-</ol>
+<p><img alt="alt text" src="../../../../Content/eval/image-6.png" width="400" /></p>
+<h2 id="drcn">DRCN<a class="headerlink" href="#drcn" title="Permanent link">&para;</a></h2>
+<p>实验参数：</p>
+<p><img alt="alt text" src="../../../../Content/eval/image-7.png" width="400" /></p>
+<p>评估结果：</p>
+<p><img alt="alt text" src="../../../../Content/eval/image-8.png" width="400" /></p>
 
 
 
