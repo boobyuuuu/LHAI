@@ -88,7 +88,29 @@ def main(
     dataloader = DataLoader(trainset,shuffle=True,batch_size=batch_size)
     testloader = DataLoader(testset,shuffle=True,batch_size=batch_size)
 
-    model = MODEL(0).to(device)
+    # ==== MODEL ====
+    model_params = {
+        'CNN': {'jpt': 0},
+        'CARN_v1': {
+            'jpt': 0,
+            'in_channels': 1,
+            'out_channels': 1,
+            'hid_channels': 64,
+            'act_type': 'relu',
+        },
+        'CARN_v2':{'jpt': 0},
+        'DRCN': {
+            'in_channels':1,
+            'out_channels':1,
+            'recursions':16,
+            'hid_channels':256,
+            'act_type':'relu',
+            'arch_type':'advanced',
+            'use_recursive_supervision':False
+        }
+    }
+    params = model_params[model_name]
+    model = MODEL(**params).to(device)
     state_dict = torch.load(model_weight_path, map_location=device)
     model.load_state_dict(state_dict)
     logger.success(f"✅ 数据{data_path}加载完成，模型{model_path} + {model_weight_path}加载完成（Step 2-2）")
