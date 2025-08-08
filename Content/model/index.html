@@ -1445,6 +1445,32 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型发展脉络
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lhai" class="md-nav__link">
+    <span class="md-ellipsis">
+      LHAI模型命名规范
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1463,25 +1489,26 @@
 
 
 <h1 id="_1">模型介绍与规范化标准<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">模型发展脉络<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>本篇介绍超分辨常用的神经网络技术，包括：</p>
 <ol>
 <li>
 <p><code>CNN</code> 网络原理与结构</p>
-</li>
-<li>
-<p><code>VAE</code> 网路原理与结构</p>
+<blockquote>
+<blockquote>
+<p><code>VAE</code> 网络原理与结构</p>
+<p><code>ResNet</code> 网络原理与结构</p>
+</blockquote>
+</blockquote>
 </li>
 <li>
 <p><code>GAN</code> 网络原理与结构</p>
 </li>
 <li>
-<p><code>ResNet</code> 网络原理与结构</p>
+<p><code>Transformer</code> 网络原理与结构</p>
 </li>
 <li>
 <p><code>DIFFUSION</code> 网络原理与结构</p>
-</li>
-<li>
-<p><code>Transformer</code> 网络原理与结构</p>
 </li>
 <li>
 <p>特殊架构模型</p>
@@ -1520,6 +1547,7 @@
     LapSRN --&gt; EDSR
     SRDenseNet --&gt; EDSR
     IDN --&gt; CARN</code></pre>
+<h2 id="lhai">LHAI模型命名规范<a class="headerlink" href="#lhai" title="Permanent link">&para;</a></h2>
 <p>模型命名规则格式:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>[模型架构]_[实验代号]_[训练轮数]epo_[批大小]bth_[数据集简写]_[版本].pth
 </span></code></pre></div>
