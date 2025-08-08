@@ -18,7 +18,29 @@ import time
 from datetime import timedelta
 import os
 
-def train(model,optimizer,scheduler,trainingloss,device,dataloader,testloader,num_epochs,logger,logpath,train_msg="",LOSS_PLOT=[], TESTLOSS_PLOT=[], EPOCH_PLOT=[]):
+def format_model_params(params: dict) -> str:
+    lines = []
+    for k, v in params.items():
+        lines.append(f"    - {k:<25}: {v}")
+    return "\n".join(lines)
+
+def train(
+    model,
+    optimizer,
+    scheduler,
+    trainingloss,
+    device,
+    dataloader,
+    testloader,
+    num_epochs,
+    logger,
+    logpath,
+    train_msg="",
+    LOSS_PLOT=[],
+    TESTLOSS_PLOT=[],
+    EPOCH_PLOT=[],
+    Best_model_save_path=""
+):
     """
     函数特色：使用scheduler动态调整学习率。似乎没有其他在train函数进行优化的方式？
     """
@@ -26,11 +48,12 @@ def train(model,optimizer,scheduler,trainingloss,device,dataloader,testloader,nu
         with open(logpath, "w", encoding="utf-8"):
             pass
     log(logpath,train_msg)
+
+    best_loss = float('inf')
+
     for epoch in range(num_epochs):
         model.train()
         total_loss = 0.0
-
-        # 当前学习率
         current_lr = scheduler.get_last_lr()[0]
 
         for _, (img_LR, img_HR) in enumerate(dataloader):
@@ -45,16 +68,19 @@ def train(model,optimizer,scheduler,trainingloss,device,dataloader,testloader,nu
 
         avg_loss = total_loss / len(dataloader)
 
+        # ===== 验证阶段 =====
         test_loss = 0.0
-        for _, (img_LR, img_HR) in enumerate(testloader):
-            img_LR = img_LR.to(device)
-            img_HR = img_HR.to(device)
-            img_SR, _, _ = model(img_LR)
-            loss = trainingloss(img_SR, img_HR)
-            test_loss += loss.item()
-
+        model.eval()
+        with torch.no_grad():
+            for _, (img_LR, img_HR) in enumerate(testloader):
+                img_LR = img_LR.to(device)
+                img_HR = img_HR.to(device)
+                img_SR, _, _ = model(img_LR)
+                loss = trainingloss(img_SR, img_HR)
+                test_loss += loss.item()
         test_avg_loss = test_loss / len(testloader)
 
+        # ===== 日志输出 =====
         logger.info(f"Epoch [{epoch+1}/{num_epochs}], Avg Loss: {avg_loss:.4e}, Test Loss: {test_avg_loss:.4e}, LR: {current_lr:.4e}")
         log(logpath,f"Epoch [{epoch+1}/{num_epochs}], Avg Loss: {avg_loss:.4e}, Test Loss: {test_avg_loss:.4e}, LR: {current_lr:.4e}")
 
@@ -62,7 +88,12 @@ def train(model,optimizer,scheduler,trainingloss,device,dataloader,testloader,nu
         TESTLOSS_PLOT.append(test_avg_loss)
         EPOCH_PLOT.append(epoch)
 
-        # 更新学习率
+        # ===== 保存最佳模型 =====
+        if test_avg_loss < best_loss:
+            best_loss = test_avg_loss
+            torch.save(model.state_dict(), Best_model_save_path)
+            logger.success(f"💾 发现更优模型（Test Loss={best_loss:.4e}），已保存：{Best_model_save_path} (Epoch {epoch+1})")
+
         scheduler.step()
 
 def train_diffusion(

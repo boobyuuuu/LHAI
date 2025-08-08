@@ -47,11 +47,12 @@ def main(
     datarange: float = train_cfg.datarange,               # para14：数据范围 default: 1.0
     log_dir: Path = train_cfg.log_dir,                   # para15：日志路径 default: ADDR_ROOT / "logs" / "train_cnn.log"
 ):
-
+    #【重要】根据命令行输入重新定义参数
     data_path = data_dir / data_name
     model_path = model_dir / f"{model_name}.py"
     logpath = log_dir / f"trainlog_{model_name}"
-    # ---- 2-1 Load the parameter ----
+
+    # ==== 2-1 Load the parameter ====
     logger.info("========== 当前训练参数 ==========")
     for idx, (key, value) in enumerate(locals().items(), start=1):
         logger.info(f"{idx:02d}. {key:<20}: {value}")
@@ -69,7 +70,7 @@ def main(
     model_save_name = f"{model_name}_{exp_name}_{epochs}epo_{batch_size}bth_{data_sim}"
     logger.success("✅ 参数加载完成（Step 2-1）")
     
-    # ---- 2-2 Load data ----
+    # ==== 2-2 Load data ====
     filetmp = np.load(data_path, allow_pickle=True)
     filelen = filetmp.shape[0]
     del filetmp
@@ -109,13 +110,36 @@ def main(
 
     logger.success("✅ 数据加载完成（Step 2-2）")
 
-    # ---- 2-3 Initialize the model, loss function and optimizer ----
-    # 模型
-    model = MODEL(0).to(device)
+    # ==== 2-3 Initialize the model, loss function and optimizer ====
+    # 初始化模型及其参数 MODEL
+    model_params = {
+        'CNN': {'jpt': 0},
+        'CARN_v1': {
+            'jpt': 0,
+            'in_channels': 1,
+            'out_channels': 1,
+            'hid_channels': 64,
+            'act_type': 'relu',
+        },
+        'CARN_v2':{'jpt': 0},
+        'DRCN': {
+            'in_channels':1,
+            'out_channels':1,
+            'recursions':16,
+            'hid_channels':256,
+            'act_type':'relu',
+            'arch_type':'advanced',
+            'use_recursive_supervision':False
+        }
+    }
+    params = model_params[model_name]
+    model = MODEL(**params).to(device)
+
     # 优化器
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr_max)
     lr_lambda = lambda epoch: lr_min / lr_max + 0.5 * (1 - lr_min / lr_max) * (1 + np.cos(np.pi * epoch / epochs))
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
+
     # 损失函数
     trainingloss = lossfunction.msejsloss
 
@@ -123,11 +147,13 @@ def main(
 
     # ---- 2-4 Initialize the training function ----
     train = Train.train
+    format_model_params = Train.format_model_params
 
     torch.set_printoptions(precision=10)
     gpu_name = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "No CUDA device"
     optimizer_name = optimizer.__class__.__name__                      # 优化器类名，例如 AdamW
     loss_name = trainingloss.__name__                                  # 损失函数名称，例如 msejsloss
+    model_params_str = format_model_params(model_params[model_name])
     train_msg = f"""
     ====================== 🚀 开始训练 ======================
     🔧 配置信息概览：
@@ -146,9 +172,18 @@ def main(
     - 🛠️ 优化器（Optimizer）     : {optimizer_name}
     - 💻 使用设备（Device）      : {device}（{gpu_name}）
     - 📁 log保存地址             : {logpath}
+    - ⚙️ 模型参数：
+    {model_params_str}
     ==============================================================
     """
     logger.info(train_msg)
+
+    savepath = ADDR_ROOT / "saves"
+    loss_plot_path = savepath / "TRAIN" / f"{model_save_name}.png"
+    loss_data_path = savepath / "TRAIN" / f"{model_save_name}.npy"
+    Best_model_save_path = savepath / "MODEL" / f"Best_{model_save_name}.pth"
+    Last_model_save_path = savepath / "MODEL" / f"Last_{model_save_name}.pth"
+
     train(
         model=model,
         optimizer=optimizer,
@@ -161,10 +196,10 @@ def main(
         logger=logger,
         logpath=logpath,
         train_msg=train_msg,
-        LOSS_PLOT=[],
-        TESTLOSS_PLOT=[],
-        EPOCH_PLOT=[]
-    )
+        LOSS_PLOT=LOSS_PLOT,
+        TESTLOSS_PLOT=TESTLOSS_PLOT,
+        EPOCH_PLOT=EPOCH_PLOT,
+        Best_model_save_path = Best_model_save_path)
     logger.success(f"✅ 模型训练完成（Step 2-4）, 训练log已保存在{logpath}")
 
     # ---- 2-5 Save the model and plot the loss ----
@@ -173,18 +208,13 @@ def main(
     ax.plot(EPOCH_PLOT, TESTLOSS_PLOT)
     ax.set_yscale('log')
 
-    savepath = ADDR_ROOT / "saves"
-    loss_plot_path = savepath / "TRAIN" / f"{model_save_name}.png"
-    loss_data_path = savepath / "TRAIN" / f"{model_save_name}.npy"
-    model_save_path = savepath / "MODEL" / f"{model_save_name}.pth"
-
     fig.savefig(loss_plot_path, dpi=300)
     logger.success(f"Loss plot saved at {loss_plot_path}")
     LOSS_DATA = np.stack((np.array(EPOCH_PLOT), np.array(LOSS_PLOT), np.array(TESTLOSS_PLOT)), axis=0)
     np.save(loss_data_path, LOSS_DATA)
     logger.success(f"Loss data saved at {loss_data_path}")
-    torch.save(model.state_dict(), model_save_path)
-    logger.success(f"Model saved at {model_save_path}")
+    torch.save(model.state_dict(), Last_model_save_path)
+    logger.success(f"Last model saved at {Last_model_save_path}")
     logger.success("✅ 模型保存完成（Step 2-5）")
     
     # ---- 2-6 First prediction ----

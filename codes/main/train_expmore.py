@@ -149,6 +149,13 @@ def main(
     ==============================================================
     """
     logger.info(train_msg)
+
+    savepath = ADDR_ROOT / "saves"
+    loss_plot_path = savepath / "TRAIN" / f"{model_save_name}.png"
+    loss_data_path = savepath / "TRAIN" / f"{model_save_name}.npy"
+    Best_model_save_path = savepath / "MODEL" / f"Best_{model_save_name}.pth"
+    Last_model_save_path = savepath / "MODEL" / f"Last_{model_save_name}.pth"
+
     train(
         model=model,
         optimizer=optimizer,
@@ -161,10 +168,10 @@ def main(
         logger=logger,
         logpath=logpath,
         train_msg=train_msg,
-        LOSS_PLOT=[],
-        TESTLOSS_PLOT=[],
-        EPOCH_PLOT=[]
-    )
+        LOSS_PLOT=LOSS_PLOT,
+        TESTLOSS_PLOT=TESTLOSS_PLOT,
+        EPOCH_PLOT=EPOCH_PLOT,
+        Best_model_save_path = Best_model_save_path)
     logger.success(f"✅ 模型训练完成（Step 2-4）, 训练log已保存在{logpath}")
 
     # ---- 2-5 Save the model and plot the loss ----
@@ -173,18 +180,13 @@ def main(
     ax.plot(EPOCH_PLOT, TESTLOSS_PLOT)
     ax.set_yscale('log')
 
-    savepath = ADDR_ROOT / "saves"
-    loss_plot_path = savepath / "TRAIN" / f"{model_save_name}.png"
-    loss_data_path = savepath / "TRAIN" / f"{model_save_name}.npy"
-    model_save_path = savepath / "MODEL" / f"{model_save_name}.pth"
-
     fig.savefig(loss_plot_path, dpi=300)
     logger.success(f"Loss plot saved at {loss_plot_path}")
     LOSS_DATA = np.stack((np.array(EPOCH_PLOT), np.array(LOSS_PLOT), np.array(TESTLOSS_PLOT)), axis=0)
     np.save(loss_data_path, LOSS_DATA)
     logger.success(f"Loss data saved at {loss_data_path}")
-    torch.save(model.state_dict(), model_save_path)
-    logger.success(f"Model saved at {model_save_path}")
+    torch.save(model.state_dict(), Last_model_save_path)
+    logger.success(f"Last model saved at {Last_model_save_path}")
     logger.success("✅ 模型保存完成（Step 2-5）")
     
     # ---- 2-6 First prediction ----
