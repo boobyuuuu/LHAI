@@ -70,7 +70,7 @@ def main(
     spec.loader.exec_module(module)
     MODEL = getattr(module, model_name)
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    logger.success("✅ 参数加载完成（Step 2-1）")
+    logger.success("✅ 参数初始化完成（Step 2-1）")
     
     # ---- 2-2 Load the data and model ----
     filetmp = np.load(data_path,allow_pickle=True)
@@ -89,7 +89,9 @@ def main(
     testloader = DataLoader(testset,shuffle=True,batch_size=batch_size)
 
     model = MODEL(0).to(device)
-    logger.success("✅ 数据与模型加载完成（Step 2-2）")
+    state_dict = torch.load(model_weight_path, map_location=device)
+    model.load_state_dict(state_dict)
+    logger.success(f"✅ 数据{data_path}加载完成，模型{model_path} + {model_weight_path}加载完成（Step 2-2）")
     
     # ---- 2-3 evaluation 1: loss ----
     model.eval()
