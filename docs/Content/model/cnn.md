@@ -447,11 +447,19 @@ graph TD
 
 ## 12 RCAN
 
+见transformer
+
 ## 13 SAN / HAN
+
+见transformer
 
 ## 14 CNN+Transformer
 
+见transformer
+
 ## 15 CNN+Diffusion
+
+见diffusion
 
 ---
 
@@ -468,3 +476,159 @@ graph TD
 最后，用你擅长的作图语言画出这个模型的结构图，让我能够更好地理解模型。
 
 你需要书写的第三个blog：DRCN
+
+---
+
+你是一个AI高级工程师，主攻机器学习超分辨技术。你自己搭建了一套 data - initialize - train - evaluate 代码框架，叫做LHAI。这套框架处理的是天文图像超分辨，超分辨前后scale不变。目前这套框架只支持cnn模型，你要做的是将cnn至今的所有超分辨神经网络模型都移植到你们的框架内。
+
+相关介绍 - 数据存储方式：本数据集以 NumPy 数组（.npy）格式存储，数据结构为四维数组 (N, 2, H, W)，其中 N 表示样本数量，H 和 W 分别为图像的高度与宽度（64*64）。每个样本包含一对图像，按顺序存储为清晰图像与模糊图像，即维度索引为 0 的图像为清晰图（如高分辨率或参考图），索引为 1 的图像为对应的模糊图（如低分辨率或退化图）。我们用的图像尺寸规定为64*64。
+
+注意：
+1.你只需要写modle部分，请保持model的输入输出与给的示例cnn一致，这样才能保持模型通畅性。如果有其他新的必要输入输出，请务必告知我。
+2. 为了保持对每个模型的理解深度，你需要将这个模型的核心改变与核心思路、与cnn和其他模型的不同、核心特色等信息给出，以及提出这个模型的文章、发布时间等基本信息。
+
+4. cnn model 示例：
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class CNN(nn.Module):
+    def __init__(self,jpt):
+        super(CNN, self).__init__()
+        self.conv1 = nn.Conv2d(1, 64, kernel_size=9, padding=4)
+        self.conv2 = nn.Conv2d(64, 32, kernel_size=5, padding=2)
+        self.conv3 = nn.Conv2d(32, 1, kernel_size=5, padding=2)
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        x = F.relu(self.conv2(x))
+        x = self.conv3(x)
+        return x,0,0
+
+
+好的，现在开始EDSR模型。我在github上也找到了CARN的一个相关代码，但是有些许不同：它支持不同scale，因此更为复杂。你需要：
+
+1. 检查其是否为EDSR模型，检查代码是否有错误，检查该网络结构是否能发挥EDSR的模型性能。
+2. 将scale部分都删除，并且默认是不变化图像大小的输入输出；
+3. 根据它的思路，保留这部分代码内关于网络结构的部分；简化其不必要的部分，增强代码的一惯性、优美性和可读性，更加流畅；
+
+代码如下：
+
+import torch.nn as nn
+
+class Activation(nn.Module):
+    def __init__(self, act_type, **kwargs):
+        super(Activation, self).__init__()
+        activation_hub = {'relu': nn.ReLU,             'relu6': nn.ReLU6,
+                          'leakyrelu': nn.LeakyReLU,    'prelu': nn.PReLU,
+                          'celu': nn.CELU,              'elu': nn.ELU, 
+                          'hardswish': nn.Hardswish,    'hardtanh': nn.Hardtanh,
+                          'gelu': nn.GELU,              'glu': nn.GLU, 
+                          'selu': nn.SELU,              'silu': nn.SiLU,
+                          'sigmoid': nn.Sigmoid,        'softmax': nn.Softmax, 
+                          'tanh': nn.Tanh,              'none': nn.Identity,
+                        }
+                        
+        act_type = act_type.lower()
+        if act_type not in activation_hub.keys():
+            raise NotImplementedError(f'Unsupport activation type: {act_type}')
+        
+        self.activation = activation_hub[act_type](**kwargs)
+        
+    def forward(self, x):
+        return self.activation(x)
+
+class ConvAct(nn.Sequential):
+    def __init__(self, in_channels, out_channels, kernel_size=3, stride=1, dilation=1, 
+                    groups=1, bias=True, act_type='relu', **kwargs):
+        if isinstance(kernel_size, list) or isinstance(kernel_size, tuple):
+            padding = ((kernel_size[0] - 1) // 2 * dilation, (kernel_size[1] - 1) // 2 * dilation)
+        elif isinstance(kernel_size, int):    
+            padding = (kernel_size - 1) // 2 * dilation
+            
+        super(ConvAct, self).__init__(
+            nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding, dilation, groups, bias),
+            Activation(act_type, **kwargs)
+        )
+
+class Upsample(nn.Module):
+    def __init__(self, in_channels, out_channels, scale_factor=2, upsample_type=None, 
+                    kernel_size=None,):
+        super(Upsample, self).__init__()
+        if upsample_type == 'deconvolution':
+            if kernel_size is None:
+                kernel_size = 2*scale_factor + 1
+            padding = (kernel_size - 1) // 2
+            output_padding = scale_factor - 1
+            self.up_conv = nn.ConvTranspose2d(in_channels, out_channels, kernel_size=kernel_size, 
+                                                stride=scale_factor, padding=padding, 
+                                                output_padding=output_padding, bias=True)
+        elif upsample_type == 'pixelshuffle':
+            ks = kernel_size if kernel_size is not None else 3
+            padding = (ks - 1) // 2
+            self.up_conv = nn.Sequential(
+                                nn.Conv2d(in_channels, out_channels * (scale_factor**2), ks, 1, padding),
+                                nn.PixelShuffle(scale_factor)
+                            )
+        else:
+            ks = kernel_size if kernel_size is not None else 3
+            padding = (ks - 1) // 2
+            self.up_conv = nn.Sequential(
+                                nn.Conv2d(in_channels, out_channels, ks, 1, padding),
+                                nn.Upsample(scale_factor=scale_factor, mode='bicubic')
+                            )
+
+    def forward(self, x):
+        return self.up_conv(x)
+    
+def conv3x3(in_channels, out_channels, stride=1):
+    return nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=stride, 
+                    padding=1, bias=True)
+
+class ResidualBlock(nn.Module):
+    def __init__(self, channels, scale_factor, act_type):
+        super(ResidualBlock, self).__init__()
+        self.scale_factor = scale_factor
+        self.conv = nn.Sequential(
+                        ConvAct(channels, channels, 3, act_type=act_type),
+                        conv3x3(channels, channels)
+                    )
+
+    def forward(self, x):
+        residual = x
+        x = self.conv(x)
+        if self.scale_factor < 1:
+            x = x * self.scale_factor
+        x += residual
+
+        return x
+    
+class EDSR(nn.Module):
+    def __init__(self, in_channels, out_channels, upscale, B=16, F=64, scale_factor=None, 
+                    act_type='relu', upsample_type='pixelshuffle'):
+        super(EDSR, self).__init__()
+        if scale_factor is None:
+            scale_factor = 0.1 if B > 16 else 1.0
+
+        self.first_layer = conv3x3(in_channels, F)
+
+        layers = []
+        for _ in range(B):
+            layers.append(ResidualBlock(F, scale_factor, act_type))
+        self.res_layers = nn.Sequential(*layers)
+        
+        self.mid_layer = conv3x3(F, F)
+        self.last_layers = nn.Sequential(
+                                Upsample(F, F, upscale, upsample_type, 3),
+                                conv3x3(F, out_channels)
+                            )
+
+    def forward(self, x):
+        x = self.first_layer(x)
+        residual = x
+        x = self.res_layers(x)
+        x = self.mid_layer(x)
+        x += residual
+        x = self.last_layers(x)
+        return x

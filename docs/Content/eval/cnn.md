@@ -92,3 +92,13 @@ Average NRMSE (Input): 0.2193
 评估结果：
 
 ![alt text](image-8.png){width="400"}
+
+## EDSR
+
+实验参数：
+
+![alt text](image-10.png){width="400"}
+
+评估结果：
+
+![alt text](image-9.png){width="400"}

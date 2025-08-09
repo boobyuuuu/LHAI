@@ -163,7 +163,7 @@ nav:
     - index: Content/model/index.md
     - CNN: Content/model/cnn.md
     - GAN: Content/model/gan.md
-    - VAE: Content/model/vae.md
+    - Transformer: Content/model/transformer.md
     - DIFFUSION: Content/model/diffusion.md
   - Eval Section:
     - index: Content/eval/index.md
