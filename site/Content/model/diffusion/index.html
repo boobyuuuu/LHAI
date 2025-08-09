@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://boobyuuuu.github.io/LHAI/Content/model/diffusion/">
       
       
-        <link rel="prev" href="../vae/">
+        <link rel="prev" href="../transformer/">
       
       
         <link rel="next" href="../../eval/">
@@ -84,6 +84,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#diffusion" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -734,12 +739,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../vae/" class="md-nav__link">
+      <a href="../transformer/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    VAE
+    Transformer
     
   </span>
   
@@ -763,6 +768,21 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    DIFFUSION
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -775,6 +795,79 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1 扩散模型超分辨率发展框架
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 关键阶段与技术突破
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-cnntransformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      3 与CNN/Transformer框架的对应关系
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-div2k-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4 性能对比（DIV2K ×4 盲超分）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5 当前研究热点方向
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6 典型改进路径示例
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1445,6 +1538,70 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1 扩散模型超分辨率发展框架
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 关键阶段与技术突破
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-cnntransformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      3 与CNN/Transformer框架的对应关系
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-div2k-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4 性能对比（DIV2K ×4 盲超分）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5 当前研究热点方向
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6 典型改进路径示例
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1463,9 +1620,170 @@
   
 
 
-  <h1>DIFFUSION</h1>
+<h1 id="diffusion">DIFFUSION 类神经网络<a class="headerlink" href="#diffusion" title="Permanent link">&para;</a></h1>
+<h2 id="1">1 扩散模型超分辨率发展框架<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TD
+    DDPM[2020 DDPM\n去噪扩散概率模型奠基]
+    SR3[2021 SR3\n首个扩散超分模型]
+    CDM[2021 CDM\n级联扩散模型]
+    LDM[2022 LDM\n潜在扩散模型]
+    SRDiff[2022 SRDiff\n条件扩散超分]
+    DiffIR[2023 DiffIR\nTransformer引导扩散]
+    DDNM[2023 DDNM\n零样本扩散超分]
+    ResDiff[2023 ResDiff\n残差扩散架构]
+    DiffBIR[2024 DiffBIR\n盲复原扩散模型]
 
+    DDPM --&gt; SR3
+    SR3 --&gt; CDM
+    CDM --&gt; LDM
+    LDM --&gt; SRDiff
+    SRDiff --&gt; DiffIR
+    SRDiff --&gt; DDNM
+    DDNM --&gt; DiffBIR
+    CDM --&gt; ResDiff</code></pre>
+<h2 id="2">2 关键阶段与技术突破<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>基础理论阶段</strong>  </li>
+<li><strong>DDPM (2020 NeurIPS)</strong>：建立前向加噪/反向去噪的完整理论框架  </li>
+<li>
+<p><strong>ScoreSDE (2021 ICLR)</strong>：引入随机微分方程统一视角</p>
+</li>
+<li>
+<p><strong>超分应用探索</strong>  </p>
+</li>
+<li>
+<p><strong>SR3 (2021 arXiv)</strong>：首次将扩散模型用于超分，采用级联噪声预测<br />
+     <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 典型噪声预测网络结构</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Unet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">down_blocks</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span><span class="n">DownsampleBlock</span><span class="p">(</span><span class="o">...</span><span class="p">)])</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">up_blocks</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span><span class="n">UpsampleBlock</span><span class="p">(</span><span class="o">...</span><span class="p">)])</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">time_embed</span> <span class="o">=</span> <span class="n">SinusoidalPosEmb</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p><strong>效率优化</strong>  </p>
+</li>
+<li><strong>LDM (2022 CVPR)</strong>：在潜在空间进行扩散，计算量减少10倍  </li>
+<li>
+<p><strong>DDNM (2023 CVPR)</strong>：零样本超分，无需训练数据</p>
+</li>
+<li>
+<p><strong>融合创新</strong>  </p>
+</li>
+<li><strong>DiffIR (2023 ICCV)</strong>：用Transformer预测扩散过程的注意力图  </li>
+<li><strong>DiffBIR (2024 CVPR)</strong>：解决盲超分问题（联合去噪+超分）</li>
+</ol>
+<h2 id="3-cnntransformer">3 与CNN/Transformer框架的对应关系<a class="headerlink" href="#3-cnntransformer" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>技术维度</th>
+<th>CNN时代</th>
+<th>Transformer时代</th>
+<th>Diffusion时代</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>核心机制</strong></td>
+<td>局部卷积</td>
+<td>全局注意力</td>
+<td>迭代去噪</td>
+</tr>
+<tr>
+<td><strong>训练目标</strong></td>
+<td>像素级MSE</td>
+<td>感知损失</td>
+<td>变分下界(ELBO)</td>
+</tr>
+<tr>
+<td><strong>生成方式</strong></td>
+<td>确定性映射</td>
+<td>确定性生成</td>
+<td>随机过程</td>
+</tr>
+<tr>
+<td><strong>优势场景</strong></td>
+<td>实时处理</td>
+<td>纹理重建</td>
+<td>高保真生成</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-div2k-4">4 性能对比（DIV2K ×4 盲超分）<a class="headerlink" href="#4-div2k-4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>参数量</th>
+<th>推理步数</th>
+<th>FID</th>
+<th>核心创新</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SR3</td>
+<td>256M</td>
+<td>1000</td>
+<td>18.7</td>
+<td>条件扩散</td>
+</tr>
+<tr>
+<td>LDM</td>
+<td>134M</td>
+<td>200</td>
+<td>15.2</td>
+<td>潜在空间扩散</td>
+</tr>
+<tr>
+<td>DiffIR</td>
+<td>89M</td>
+<td>50</td>
+<td>12.3</td>
+<td>Transformer引导</td>
+</tr>
+<tr>
+<td>DiffBIR</td>
+<td>210M</td>
+<td>25</td>
+<td>9.8</td>
+<td>退化模型联合训练</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5">5 当前研究热点方向<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph LR
+    A[扩散超分] --&gt; B[加速采样]
+    A --&gt; C[多模态控制]
+    A --&gt; D[三维超分]
 
+    B --&gt; B1[蒸馏加速]
+    B --&gt; B2[隐式扩散]
+
+    C --&gt; C1[文本引导]
+    C --&gt; C2[语义编辑]
+
+    D --&gt; D1[视频超分]
+    D --&gt; D2[CT/MRI增强]</code></pre>
+<h2 id="6">6 典型改进路径示例<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>采样加速</strong><br />
+   <pre class="mermaid"><code>graph LR
+    DDPM --&gt; DDIM[DDIM\n确定性采样]
+    DDIM --&gt; PNDM[PNDM\n伪数值方法]
+    PNDM --&gt; LCM[LCM\n一致性模型]</code></pre></p>
+</li>
+<li>
+<p><strong>架构演进</strong><br />
+   <pre class="mermaid"><code>graph LR
+    Unet --&gt; DiT[DiT\nTransformer主干]
+    DiT --&gt; U-ViT[U-ViT\n全局建模]
+    U-ViT --&gt; LDM[LDM\n潜在空间]</code></pre></p>
+</li>
+</ol>
 
 
 
