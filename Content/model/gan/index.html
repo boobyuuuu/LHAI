@@ -16,7 +16,7 @@
         <link rel="prev" href="../cnn/">
       
       
-        <link rel="next" href="../vae/">
+        <link rel="next" href="../transformer/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -84,6 +84,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#gan" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -717,6 +722,21 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    GAN
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -730,6 +750,154 @@
 
       </a>
       
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-gan" class="md-nav__link">
+    <span class="md-ellipsis">
+      1 GAN超分辨率发展框架
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 关键阶段与技术突破
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 关键阶段与技术突破">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础架构阶段
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能突破阶段
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构创新阶段
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      现代融合阶段
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-div2k-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      3 性能演进对比（DIV2K ×4）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4 技术分支演进
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cnntransformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      5 与CNN/Transformer框架的关联
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6 典型代码演进示例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6 典型代码演进示例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成器架构变化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      判别器改进路径
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7 当前研究热点
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -742,12 +910,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../vae/" class="md-nav__link">
+      <a href="../transformer/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    VAE
+    Transformer
     
   </span>
   
@@ -1445,6 +1613,145 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-gan" class="md-nav__link">
+    <span class="md-ellipsis">
+      1 GAN超分辨率发展框架
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 关键阶段与技术突破
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 关键阶段与技术突破">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础架构阶段
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      性能突破阶段
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构创新阶段
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      现代融合阶段
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-div2k-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      3 性能演进对比（DIV2K ×4）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4 技术分支演进
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cnntransformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      5 与CNN/Transformer框架的关联
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6 典型代码演进示例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6 典型代码演进示例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成器架构变化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      判别器改进路径
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7 当前研究热点
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1463,9 +1770,216 @@
   
 
 
-  <h1>GAN</h1>
+<h1 id="gan">GAN 类神经网络<a class="headerlink" href="#gan" title="Permanent link">&para;</a></h1>
+<h2 id="1-gan">1 GAN超分辨率发展框架<a class="headerlink" href="#1-gan" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TD
+    GAN[2014 GAN\n生成对抗网络奠基]
+    SRGAN[2017 SRGAN\n首个超分GAN]
+    ESRGAN[2018 ESRGAN\n增强型SRGAN]
+    SPSR[2019 SPSR\n空间金字塔对抗]
+    RankSRGAN[2019 RankSRGAN\n排序学习GAN]
+    USRGAN[2020 USRGAN\n非配对训练]
+    BSRGAN[2021 BSRGAN\n盲超分GAN]
+    SwinGAN[2022 SwinGAN\nTransformer判别器]
+    DiffGAN[2023 DiffGAN\n扩散引导GAN]
+    UltraGAN[2024 UltraGAN\n多模态对抗]
 
+    GAN --&gt; SRGAN
+    SRGAN --&gt; ESRGAN
+    ESRGAN --&gt; SPSR
+    ESRGAN --&gt; RankSRGAN
+    RankSRGAN --&gt; USRGAN
+    USRGAN --&gt; BSRGAN
+    BSRGAN --&gt; SwinGAN
+    SwinGAN --&gt; DiffGAN
+    DiffGAN --&gt; UltraGAN
+    SPSR --&gt; BSRGAN</code></pre>
+<h2 id="2">2 关键阶段与技术突破<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="_1"><strong>基础架构阶段</strong><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>SRGAN (2017 CVPR)</strong>  </li>
+<li>首次将GAN引入超分任务</li>
+<li>创新点：  <ul>
+<li>感知损失（VGG特征匹配）  </li>
+<li>对抗训练框架<br />
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 典型损失函数组成</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">loss</span> <span class="o">=</span> <span class="n">content_loss</span><span class="p">(</span><span class="n">vgg</span><span class="p">(</span><span class="n">gen</span><span class="p">),</span> <span class="n">vgg</span><span class="p">(</span><span class="n">hr</span><span class="p">))</span> <span class="o">+</span>  <span class="c1"># 内容损失</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>       <span class="n">λ_adv</span> <span class="o">*</span> <span class="n">D</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span>           <span class="c1"># 对抗损失</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>       <span class="n">λ_tv</span> <span class="o">*</span> <span class="n">total_variation</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span>        <span class="c1"># 平滑正则</span>
+</span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h3 id="_2"><strong>性能突破阶段</strong><a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>ESRGAN (2018 ECCV)</strong>  </li>
+<li>核心改进：  <ul>
+<li>RRDB残差块（去BN+残差缩放）  </li>
+<li>相对判别器（Relativistic Discriminator）  </li>
+<li>网络插值稳定训练  </li>
+</ul>
+</li>
+<li>效果：PSNR↑1.2dB，纹理质量显著提升</li>
+</ul>
+<h3 id="_3"><strong>结构创新阶段</strong><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>创新点</th>
+<th>效果提升</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SPSR</strong></td>
+<td>空间金字塔对抗学习</td>
+<td>多尺度纹理生成</td>
+</tr>
+<tr>
+<td><strong>RankSRGAN</strong></td>
+<td>排序一致性损失</td>
+<td>避免过度平滑</td>
+</tr>
+<tr>
+<td><strong>USRGAN</strong></td>
+<td>非配对训练（CycleGAN式）</td>
+<td>真实场景适应能力</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4"><strong>现代融合阶段</strong><a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>SwinGAN (2022)</strong>：  </li>
+<li>将判别器替换为Swin Transformer  </li>
+<li>关键代码：<br />
+    <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">SwinDiscriminator</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">SwinTransformerBlock</span><span class="p">(</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>            <span class="n">dim</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>            <span class="n">num_heads</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>            <span class="n">window_size</span><span class="o">=</span><span class="mi">8</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="p">)</span>
+</span></code></pre></div></li>
+<li><strong>DiffGAN (2023)</strong>：  </li>
+<li>用扩散模型生成对抗样本  </li>
+<li>训练流程：<br />
+    <pre class="mermaid"><code>graph LR
+    A[LR] --&gt; B[Generator] --&gt; C[HR_fake]
+    A --&gt; D[Diffusion] --&gt; E[HR_noisy]
+    C &amp; E --&gt; F[Discriminator]</code></pre></li>
+</ul>
+<hr />
+<h2 id="3-div2k-4">3 性能演进对比（DIV2K ×4）<a class="headerlink" href="#3-div2k-4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>PSNR</th>
+<th>LPIPS↓</th>
+<th>参数量</th>
+<th>关键创新</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SRGAN</td>
+<td>26.02</td>
+<td>0.253</td>
+<td>1.5M</td>
+<td>首次GAN超分</td>
+</tr>
+<tr>
+<td>ESRGAN</td>
+<td>27.25</td>
+<td>0.187</td>
+<td>16.7M</td>
+<td>RRDB块+相对判别器</td>
+</tr>
+<tr>
+<td>BSRGAN</td>
+<td>28.11</td>
+<td>0.152</td>
+<td>18.3M</td>
+<td>盲超分退化建模</td>
+</tr>
+<tr>
+<td>SwinGAN</td>
+<td>28.47</td>
+<td>0.136</td>
+<td>23.1M</td>
+<td>Transformer判别器</td>
+</tr>
+<tr>
+<td>DiffGAN</td>
+<td>29.03</td>
+<td>0.121</td>
+<td>41.5M</td>
+<td>扩散先验引导</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4">4 技术分支演进<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TB
+    A[GAN] --&gt; B[损失函数创新]
+    A --&gt; C[网络结构创新]
+    A --&gt; D[训练策略创新]
 
+    B --&gt; B1[感知损失]
+    B --&gt; B2[排序损失]
+    B --&gt; B3[扩散损失]
+
+    C --&gt; C1[RRDB块]
+    C --&gt; C2[Swin判别器]
+    C --&gt; C3[多尺度生成]
+
+    D --&gt; D1[网络插值]
+    D --&gt; D2[自适应对抗]
+    D --&gt; D3[零样本学习]</code></pre>
+<hr />
+<h2 id="5-cnntransformer">5 与CNN/Transformer框架的关联<a class="headerlink" href="#5-cnntransformer" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph LR
+    CNN --&gt;|提供生成器基础| GAN
+    Transformer --&gt;|改进判别器| GAN
+    GAN --&gt;|对抗训练思想| Diffusion</code></pre>
+<hr />
+<h2 id="6">6 典型代码演进示例<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="_5">生成器架构变化<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># SRGAN (2017)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">Generator</span> <span class="o">=</span> <span class="n">ResNetWithBNBlocks</span><span class="p">()</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># ESRGAN (2018)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">Generator</span> <span class="o">=</span> <span class="n">RRDBNet</span><span class="p">(</span><span class="n">block_num</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span>  <span class="c1"># 去BN+残差缩放</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># SwinGAN (2022)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">Generator</span> <span class="o">=</span> <span class="n">SwinGenerator</span><span class="p">(</span><span class="n">win_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="_6">判别器改进路径<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph LR
+    PatchGAN --&gt; RelativePatchGAN
+    RelativePatchGAN --&gt; SwinDiscriminator
+    SwinDiscriminator --&gt; DiffusionDiscriminator</code></pre>
+<h2 id="7">7 当前研究热点<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>多模态对抗</strong>  </li>
+<li>文本引导超分（CLIP+GAN）</li>
+<li>
+<p>示例：<br />
+     <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">text_feat</span> <span class="o">=</span> <span class="n">CLIP</span><span class="o">.</span><span class="n">encode_text</span><span class="p">(</span><span class="s2">&quot;sharp edges&quot;</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">gen_img</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">(</span><span class="n">lr_img</span><span class="p">,</span> <span class="n">text_feat</span><span class="p">)</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p><strong>轻量化方向</strong>  </p>
+</li>
+<li>
+<p>知识蒸馏GAN（如ESRGAN-Lite）</p>
+</li>
+<li>
+<p><strong>三维超分</strong>  </p>
+</li>
+<li>视频超分GAN（BasicVSR++）</li>
+</ol>
 
 
 
