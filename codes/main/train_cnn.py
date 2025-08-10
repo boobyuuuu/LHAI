@@ -1,4 +1,4 @@
-# This py file function: Code to train models
+# 所有CNN类模型通用训练框架
 
 # ---- 01 Improt Libraries ----
 # ---- 1-1 Libraries for Path and Logging ----
@@ -14,6 +14,7 @@ sys.path.append(str(ADDR_ROOT))
 logger.success(f"ADDR_CODE path is: {ADDR_CODE}")
 # ---- 1-2 Libraries for Configuration and Modules ----
 from codes.config.config_cnn import TrainConfig
+from codes.config.config_cnn import ModelConfig
 from codes.function.Dataset import ImageDataset
 import codes.function.Loss as lossfunction
 from codes.function.Log import log
@@ -30,6 +31,7 @@ import numpy as np
 
 # ---- 02 Define the main function ----
 train_cfg = TrainConfig()
+model_cfg = ModelConfig()
 app = typer.Typer()
 @app.command()
 def main(
@@ -51,6 +53,7 @@ def main(
     data_path = data_dir / data_name
     model_path = model_dir / f"{model_name}.py"
     logpath = log_dir / f"trainlog_{model_name}"
+    model_params = model_cfg.model_params
 
     # ==== 2-1 Load the parameter ====
     logger.info("========== 当前训练参数 ==========")
@@ -112,26 +115,7 @@ def main(
 
     # ==== 2-3 Initialize the model, loss function and optimizer ====
     # 初始化模型及其参数 MODEL
-    model_params = {
-        'CNN': {'jpt': 0},
-        'CARN_v1': {
-            'jpt': 0,
-            'in_channels': 1,
-            'out_channels': 1,
-            'hid_channels': 64,
-            'act_type': 'relu',
-        },
-        'CARN_v2':{'jpt': 0},
-        'DRCN': {
-            'in_channels':1,
-            'out_channels':1,
-            'recursions':16,
-            'hid_channels':256,
-            'act_type':'relu',
-            'arch_type':'advanced',
-            'use_recursive_supervision':False
-        }
-    }
+    model_params = model_params
     params = model_params[model_name]
     model = MODEL(**params).to(device)
 

@@ -1,4 +1,4 @@
-# This py file function: Code to train models
+# 所有DIFFUSION方案模型通用训练框架
 
 # ---- 01 Improt Libraries ----
 # ---- 1-1 Libraries for Path and Logging ----

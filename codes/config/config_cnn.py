@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from dotenv import load_dotenv
 from loguru import logger
@@ -67,6 +67,59 @@ class EvalConfig:
     lr_min: float = 5e-6
     datarange: float = 1.0
 
+# ========== Model Config ==========
+@dataclass
+class ModelConfig:
+    model_params: dict = field(default_factory=lambda: {
+        'CNN': {'jpt': 0},
+        'CARN_v1': {
+            'jpt': 0,
+            'in_channels': 1,
+            'out_channels': 1,
+            'hid_channels': 64,
+            'act_type': 'relu',
+        },
+        'CARN_v2': {'jpt': 0},
+        'DRCN': {
+            'in_channels': 1,
+            'out_channels': 1,
+            'recursions': 16,
+            'hid_channels': 256,
+            'act_type': 'relu',
+            'arch_type': 'advanced',
+            'use_recursive_supervision': False
+        },
+        'EDSR': {
+            'in_channels': 1,
+            'out_channels': 1,
+            'num_blocks': 16,
+            'num_feats': 64,
+            'res_scale': 0.1,
+            'act_type': 'relu'
+        },
+        'SRCNN_Transformer': {
+            'jpt': None,               # 兼容占位
+            'in_channels': 1,
+            'out_channels': 1,
+            'scale': 1,                 # 空间分辨率保持不变
+            'shallow_feats': 64,        # 卷积特征通道数
+            'patch_size': 4,            # Transformer patch 大小
+            'transformer_layers': 2,    # Transformer 层数
+            'transformer_heads': 4,     # Multi-head 注意力头数
+            'transformer_embed': 64,    # Transformer embedding 维度
+            'act_type': 'relu'          # 激活函数类型
+        },
+        'SwinIR_LHAI': {
+            'in_ch': 1,
+            'out_ch': 1,
+            'img_size': 64,
+            'embed_dim': 64,
+            'depths': [2],          # RSTB 个数与每层深度
+            'num_heads': [4],
+            'window_size': 8,
+            'mlp_ratio': 4.0
+        }     
+    })
 # 实例化默认配置
 train_cfg = TrainConfig()
 predict_cfg = PredictConfig()

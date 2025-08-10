@@ -1,4 +1,4 @@
-# This py file function: evaluate the performance of the model
+# 所有DIFFUSION方案模型通用测试框架
 
 # ---- 01 Improt Libraries ----
 # ---- 1-1 Libraries for Path and Logging ----

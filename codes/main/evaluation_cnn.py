@@ -1,4 +1,4 @@
-# This py file function: evaluate the performance of the model
+# 所有cnn类模型通用测试框架
 
 # ---- 01 Improt Libraries ----
 # ---- 1-1 Libraries for Path and Logging ----
@@ -14,9 +14,11 @@ sys.path.append(str(ADDR_ROOT))
 logger.success(f"ADDR_CODE path is: {ADDR_CODE}")
 # ---- 1-2 Libraries for Configuration ----
 from codes.config.config_cnn import EvalConfig
+from codes.config.config_cnn import ModelConfig
 from codes.function.Dataset import ImageDataset
 from codes.function.Loss import jsdiv,jsdiv_single
 from codes.function.Log import log
+import codes.function.Train as Train
 # ---- 1-3 Libraries for pytorch and others ----
 import torch
 import torch.nn as nn
@@ -38,6 +40,7 @@ app = typer.Typer()
 
 # ---- 02 Define the main function ----
 eval_cfg = EvalConfig()
+model_cfg = ModelConfig()
 @app.command()
 def main(
     exp_name: str = eval_cfg.exp_name,                      # para01：实验名称 default: "EXP01"
@@ -59,6 +62,7 @@ def main(
     data_path = data_dir / data_name
     model_path = model_dir / f"{model_name}.py"
     model_weight_path = model_weight_dir / model_weight_name
+    model_params = model_cfg.model_params
     # ---- 2-1 Load the parameter ----
     logger.info("========== 当前训练参数 ==========")
     for idx, (key, value) in enumerate(locals().items(), start=1):
@@ -89,31 +93,36 @@ def main(
     testloader = DataLoader(testset,shuffle=True,batch_size=batch_size)
 
     # ==== MODEL ====
-    model_params = {
-        'CNN': {'jpt': 0},
-        'CARN_v1': {
-            'jpt': 0,
-            'in_channels': 1,
-            'out_channels': 1,
-            'hid_channels': 64,
-            'act_type': 'relu',
-        },
-        'CARN_v2':{'jpt': 0},
-        'DRCN': {
-            'in_channels':1,
-            'out_channels':1,
-            'recursions':16,
-            'hid_channels':256,
-            'act_type':'relu',
-            'arch_type':'advanced',
-            'use_recursive_supervision':False
-        }
-    }
+    model_params = model_params
     params = model_params[model_name]
     model = MODEL(**params).to(device)
     state_dict = torch.load(model_weight_path, map_location=device)
     model.load_state_dict(state_dict)
-    logger.success(f"✅ 数据{data_path}加载完成，模型{model_path} + {model_weight_path}加载完成（Step 2-2）")
+    logger.success(f"✅ 数据{data_path}加载完成，模型{model_path} + {model_weight_path}加载完成（Step 2-2），模型参数为{params}")
+
+    torch.set_printoptions(precision=10)
+    gpu_name = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "No CUDA device"
+    format_model_params = Train.format_model_params
+    model_params_str = format_model_params(model_params[model_name])
+    evaluation_msg = f"""
+    ====================== 🚀 开始评估 ======================
+    🔧 配置信息概览：
+    - 📦 实验名称                : {exp_name}
+    - 🧠 模型名称                : {model_name}
+    - 📂 数据文件路径            : {data_path}
+    - 📁 模型脚本路径            : {model_path}
+    - 📂 模型权重路径            : {model_weight_dir}/{model_weight_path}
+    - 📊 数据集切分比例          : 训练集 {frac*100:.1f}% / 测试集 {100-frac*100:.1f}%
+    - 📈 样本总数                : {filelen}
+    - 🌱 随机种子（Seed）        : {seed}
+    - 🔢 数据归一化范围          : {datarange}
+    - 📉 学习率策略（Cosine）    : 最小 = {lr_min:.1e}, 最大 = {lr_max:.1e}
+    - 💻 使用设备（Device）      : {device}（{gpu_name}）
+    - ⚙️ 模型参数：
+    {model_params_str}
+    ==============================================================
+    """
+    logger.info(evaluation_msg)
     
     # ---- 2-3 evaluation 1: loss ----
     model.eval()
@@ -138,7 +147,7 @@ def main(
     hist(LOSS_BLU,'red',label = 'blur')
     hist(LOSS_SR,'blue',label = 'SR')
     savepath = f'{ADDR_ROOT}/saves'
-    savefigname = f"Eval_loss_{model_name}_{exp_name}"
+    savefigname = f"Eval_loss_{model_weight_name}"
     plt.savefig(f'{savepath}/EVAL/{savefigname}_jsdiv.png',dpi=300)
     logger.info(f"Evaluation 1: Loss figure saved at {savepath}/EVAL/{savefigname}_jsdiv.png")
     logger.success("✅ loss评估完成（Step 2-3-1）")
@@ -224,7 +233,7 @@ def main(
         )
     plt.tight_layout()
     savepath = f'{ADDR_ROOT}/saves'
-    savefigname = f"Eval_distribution_{model_name}_{exp_name}"
+    savefigname = f"Eval_distribution_{model_weight_name}"
     savefig_path = f'{savepath}/EVAL/{savefigname}.png'
     plt.savefig(savefig_path, dpi=300)
     logger.success(f"Evaluation 1: Loss figure saved at {savefig_path}")
@@ -245,7 +254,7 @@ def main(
     psnr_input_list, ssim_input_list, ms_ssim_input_list, mae_input_list, mse_input_list, nrmse_input_list = [], [], [], [], [], []
     
     output_path = f"{ADDR_ROOT}/saves/EVAL"
-    output_file = f"{output_path}/Eval_PSNR_SSIM_{model_name}_{exp_name}.txt"
+    output_file = f"{output_path}/Eval_data_{model_weight_name}.txt"
     
     model.eval()
     model.to(device)
@@ -359,7 +368,7 @@ def main(
     
     plt.tight_layout()
     
-    plot_save_path = f"{output_path}/evaluation_plots_{model_name}_{exp_name}.png"
+    plot_save_path = f"{output_path}/evaluation_plots_{model_weight_name}.png"
     plt.savefig(plot_save_path)
     plt.close()
     logger.info(f"Evaluation plots saved at {plot_save_path}")
