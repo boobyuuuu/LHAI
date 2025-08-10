@@ -1493,60 +1493,110 @@
 <p>本篇介绍超分辨常用的神经网络技术，包括：</p>
 <ol>
 <li>
-<p><code>CNN</code> 网络原理与结构</p>
+<p><code>CNN</code> 类网络原理与结构</p>
 <blockquote>
 <blockquote>
 <p><code>VAE</code> 网络原理与结构</p>
 <p><code>ResNet</code> 网络原理与结构</p>
+<p><code>U-Net</code> 网络原理与结构</p>
 </blockquote>
 </blockquote>
 </li>
 <li>
-<p><code>GAN</code> 网络原理与结构</p>
+<p><code>GAN</code> 类网络原理与结构</p>
 </li>
 <li>
-<p><code>Transformer</code> 网络原理与结构</p>
+<p><code>Transformer</code> 类网络原理与结构</p>
 </li>
 <li>
-<p><code>DIFFUSION</code> 网络原理与结构</p>
+<p><code>DIFFUSION</code> 类网络原理与结构</p>
 </li>
 <li>
 <p>特殊架构模型</p>
 </li>
 </ol>
 <pre class="mermaid"><code>graph TD
-    SRCNN[2014 SRCNN\n首个端到端超分CNN]
-    ESPCN[2016 ESPCN\n子像素卷积加速上采样]
-    VDSR[2016 VDSR\n深层残差学习]
-    DRCN[2016 DRCN\n递归残差网络]
-    FSRCNN[2016 FSRCNN\n轻量化改进]
-    DRRN[2017 DRRN\n递归残差融合]
-    LapSRN[2017 LapSRN\n多级残差金字塔结构]
-    SRDenseNet[2017 SRDenseNet\n密集连接残差网络]
-    EDSR[2017-2018 EDSR\n去BN的深残差网络]
-    IDN[2019 IDN\n信息导向轻量网络]
-    CARN[2018 CARN\n级联残差多尺度融合]
-    RCAN[2018-2019 RCAN\n通道注意力机制]
-    SAN_HAN[2019 SAN / HAN\n多层次注意力机制]
-    TRANSFORMER[2021+ Transformer超分\n全局上下文建模]
-    DIFFUSION[2022+ Diffusion生成模型\n概率建模]
+    %% ===== 基础架构 =====
+    INTERP[1970s+ 插值方法&lt;br&gt;双线性/双三次] --&gt; SPARSE[2000s 稀疏表示]
+    SPARSE --&gt; NEIGHBOR[2010 ANR&lt;br&gt;邻域嵌入回归]
 
-    SRCNN --&gt; VDSR
-    SRCNN --&gt; FSRCNN
-    SRCNN --&gt; ESPCN
-    VDSR --&gt; DRCN
-    VDSR --&gt; DRRN
-    DRCN --&gt; DRRN
-    DRRN --&gt; EDSR
-    FSRCNN --&gt; CARN
-    EDSR --&gt; RCAN
-    CARN --&gt; RCAN
-    RCAN --&gt; SAN_HAN
-    SAN_HAN --&gt; TRANSFORMER
-    TRANSFORMER --&gt; DIFFUSION
-    LapSRN --&gt; EDSR
-    SRDenseNet --&gt; EDSR
-    IDN --&gt; CARN</code></pre>
+    %% ===== CNN主线 =====
+    SPARSE --&gt; SRCNN[2014 SRCNN&lt;br&gt;首个端到端CNN]
+    SRCNN --&gt; VDSR[2016 VDSR&lt;br&gt;深度残差学习]
+    VDSR --&gt; DRCN[2016 DRCN&lt;br&gt;递归残差]
+    VDSR --&gt; EDSR[2017 EDSR&lt;br&gt;去BN的深残差]
+    EDSR --&gt; RCAN[2018 RCAN&lt;br&gt;通道注意力]
+    RCAN --&gt; SAN[2019 SAN&lt;br&gt;二阶注意力]
+
+    %% ===== 轻量化分支 =====
+    SRCNN --&gt; FSRCNN[2016 FSRCNN&lt;br&gt;加速上采样]
+    FSRCNN --&gt; CARN[2018 CARN&lt;br&gt;级联残差]
+    CARN --&gt; IMDN[2019 IMDN&lt;br&gt;信息蒸馏]
+
+    %% ===== GAN主线 =====
+    SRCNN --&gt; SRGAN[2017 SRGAN&lt;br&gt;感知质量突破]
+    SRGAN --&gt; ESRGAN[2018 ESRGAN&lt;br&gt;相对判别器]
+    ESRGAN --&gt; BSRGAN[2021 BSRGAN&lt;br&gt;盲超分]
+    ESRGAN --&gt; SwinGAN[2022 SwinGAN&lt;br&gt;Transformer判别器]
+
+    %% ===== 注意力演进 =====
+    RCAN --&gt; HAN[2020 HAN&lt;br&gt;混合注意力]
+    SAN --&gt; NAF[2022 NAF&lt;br&gt;无激活网络]
+
+    %% ===== Transformer主线 =====
+    HAN --&gt; TTSR[2020 TTSR&lt;br&gt;首篇超分Transformer]
+    TTSR --&gt; SwinIR[2021 SwinIR&lt;br&gt;窗口注意力]
+    SwinIR --&gt; EDT[2022 EDT&lt;br&gt;扩散增强]
+
+    %% ===== Diffusion主线 =====
+    DDPM[2020 DDPM&lt;br&gt;去噪扩散奠基] --&gt; SR3[2021 SR3&lt;br&gt;首篇扩散超分]
+    SR3 --&gt; LDM[2022 LDM&lt;br&gt;潜在空间扩散]
+    LDM --&gt; DiffIR[2023 DiffIR&lt;br&gt;Transformer引导]
+
+    %% ===== 其他独特架构 =====
+    SPARSE --&gt; KRR[2012 KRR&lt;br&gt;核岭回归]
+    NEIGHBOR --&gt; APlus[2014 A+&lt;br&gt;锚点邻域回归]
+    APlus --&gt; SelfEx[2015 SelfEx&lt;br&gt;自相似性]
+
+    %% ===== 神经架构搜索 =====
+    EDSR --&gt; SRNAS[2019 SRNAS&lt;br&gt;神经架构搜索]
+    SRNAS --&gt; FALSR[2020 FALSR&lt;br&gt;轻量搜索]
+
+    %% ===== 跨技术融合 =====
+    SwinIR --&gt; Restormer[2022 Restormer&lt;br&gt;多尺度Transformer]
+    DiffIR --&gt; DiffBIR[2024 DiffBIR&lt;br&gt;盲复原扩散]
+    SwinGAN --&gt; DiffGAN[2023 DiffGAN&lt;br&gt;扩散引导对抗]
+
+    %% ===== 交叉连接 =====
+    SelfEx --&gt; EDSR
+    ESRGAN --&gt; RCAN
+    LDM --&gt; SwinIR
+    NAF --&gt; Restormer
+    FALSR --&gt; CARN
+    KRR --&gt; SRCNN</code></pre>
+<pre class="mermaid"><code>gantt
+    title 超分辨率PSNR演进 (DIV2K ×4)
+    dateFormat  YYYY
+    axisFormat  %Y
+
+    section 关键突破
+    Bicubic : 2010, 28.42
+    SC-SR : 2012, 29.15
+    SRCNN : 2014, 30.09
+    VDSR : 2016, 31.35
+    EDSR : 2017, 32.46
+    RCAN : 2018, 32.63
+    SwinIR : 2021, 32.92
+    DiffIR : 2023, 33.41</code></pre>
+<pre class="mermaid"><code>graph LR
+    A[CNN&lt;br&gt;局部特征] --&gt; D[混合架构]
+    B[Transformer&lt;br&gt;全局建模] --&gt; D
+    C[Diffusion&lt;br&gt;概率生成] --&gt; D
+    D --&gt; E1[EfficientSR&lt;br&gt;移动端]
+    D --&gt; E2[Text2SR&lt;br&gt;语义引导]
+    D --&gt; E3[3D-SR&lt;br&gt;体积重建]
+
+    style D fill:#f9f,stroke:#333</code></pre>
 <h2 id="lhai">LHAI模型命名规范<a class="headerlink" href="#lhai" title="Permanent link">&para;</a></h2>
 <p>模型命名规则格式:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>[模型架构]_[实验代号]_[训练轮数]epo_[批大小]bth_[数据集简写]_[版本].pth
@@ -1601,21 +1651,34 @@
 <p>本模型以 PyTorch 的 <code>.pth</code> 格式存储，包含训练好的权重参数，命名规则反映了模型的架构、训练配置与对应数据集，方便版本管理和快速定位。</p>
 </blockquote>
 <p>在代码配置中的规范写法示例:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">TRAIN_EXP_NAME</span>        <span class="o">=</span> <span class="s2">&quot;EXP_0_1&quot;</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">TRAIN_MODEL_NAME</span>      <span class="o">=</span> <span class="s2">&quot;CNN&quot;</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">TRAIN_MODEL_PY</span>        <span class="o">=</span> <span class="n">PROJ_ROOT</span> <span class="o">/</span> <span class="s2">&quot;LHAI&quot;</span> <span class="o">/</span> <span class="s2">&quot;models&quot;</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">TRAIN_MODEL_NAME</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">TRAIN_EXP_NAME</span><span class="si">}</span><span class="s2">.py&quot;</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">TRAIN_DATA_DIR</span>        <span class="o">=</span> <span class="n">PROJ_ROOT</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span> <span class="o">/</span> <span class="s2">&quot;POISSON&quot;</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">TRAIN_DATA_NAME</span>       <span class="o">=</span> <span class="s2">&quot;poisson_src_bkg.pkl.npy&quot;</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">TRAIN_DATA_PATH</span>       <span class="o">=</span> <span class="n">TRAIN_DATA_DIR</span> <span class="o">/</span> <span class="n">TRAIN_DATA_NAME</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">TRAIN_SEED</span>            <span class="o">=</span> <span class="mi">0</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">TRAIN_TYPE</span>            <span class="o">=</span> <span class="s2">&quot;poissonsrc+bkg_highresorig&quot;</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">TRAIN_FRAC</span>            <span class="o">=</span> <span class="mf">0.8</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">TRAIN_EPOCHS</span>          <span class="o">=</span> <span class="mi">400</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">TRAIN_BATCH_SIZE</span>      <span class="o">=</span> <span class="mi">32</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">TRAIN_LATENT_DIM</span>      <span class="o">=</span> <span class="mi">64</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="n">TRAIN_LR_MAX</span>          <span class="o">=</span> <span class="mf">5e-4</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="n">TRAIN_LR_MIN</span>          <span class="o">=</span> <span class="mf">5e-6</span>
-</span></code></pre></div>
+<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">TRAIN_EXP_NAME</span>        <span class="o">=</span> <span class="s2">&quot;EXP_0_1&quot;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="n">TRAIN_MODEL_NAME</span>      <span class="o">=</span> <span class="s2">&quot;CNN&quot;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="n">TRAIN_MODEL_PY</span>        <span class="o">=</span> <span class="n">PROJ_ROOT</span> <span class="o">/</span> <span class="s2">&quot;LHAI&quot;</span> <span class="o">/</span> <span class="s2">&quot;models&quot;</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">TRAIN_MODEL_NAME</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">TRAIN_EXP_NAME</span><span class="si">}</span><span class="s2">.py&quot;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="n">TRAIN_DATA_DIR</span>        <span class="o">=</span> <span class="n">PROJ_ROOT</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span> <span class="o">/</span> <span class="s2">&quot;POISSON&quot;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="n">TRAIN_DATA_NAME</span>       <span class="o">=</span> <span class="s2">&quot;poisson_src_bkg.pkl.npy&quot;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="n">TRAIN_DATA_PATH</span>       <span class="o">=</span> <span class="n">TRAIN_DATA_DIR</span> <span class="o">/</span> <span class="n">TRAIN_DATA_NAME</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="n">TRAIN_SEED</span>            <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="n">TRAIN_TYPE</span>            <span class="o">=</span> <span class="s2">&quot;poissonsrc+bkg_highresorig&quot;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="n">TRAIN_FRAC</span>            <span class="o">=</span> <span class="mf">0.8</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="n">TRAIN_EPOCHS</span>          <span class="o">=</span> <span class="mi">400</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="n">TRAIN_BATCH_SIZE</span>      <span class="o">=</span> <span class="mi">32</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="n">TRAIN_LATENT_DIM</span>      <span class="o">=</span> <span class="mi">64</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="n">TRAIN_LR_MAX</span>          <span class="o">=</span> <span class="mf">5e-4</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="n">TRAIN_LR_MIN</span>          <span class="o">=</span> <span class="mf">5e-6</span>
+</span></code></pre></div></td></tr></table></div>
 
 
 

@@ -1802,11 +1802,14 @@
 <li>创新点：  <ul>
 <li>感知损失（VGG特征匹配）  </li>
 <li>对抗训练框架<br />
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 典型损失函数组成</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">loss</span> <span class="o">=</span> <span class="n">content_loss</span><span class="p">(</span><span class="n">vgg</span><span class="p">(</span><span class="n">gen</span><span class="p">),</span> <span class="n">vgg</span><span class="p">(</span><span class="n">hr</span><span class="p">))</span> <span class="o">+</span>  <span class="c1"># 内容损失</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>       <span class="n">λ_adv</span> <span class="o">*</span> <span class="n">D</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span>           <span class="c1"># 对抗损失</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>       <span class="n">λ_tv</span> <span class="o">*</span> <span class="n">total_variation</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span>        <span class="c1"># 平滑正则</span>
-</span></code></pre></div></li>
+<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># 典型损失函数组成</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="n">loss</span> <span class="o">=</span> <span class="n">content_loss</span><span class="p">(</span><span class="n">vgg</span><span class="p">(</span><span class="n">gen</span><span class="p">),</span> <span class="n">vgg</span><span class="p">(</span><span class="n">hr</span><span class="p">))</span> <span class="o">+</span>  <span class="c1"># 内容损失</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>       <span class="n">λ_adv</span> <span class="o">*</span> <span class="n">D</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span>           <span class="c1"># 对抗损失</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>       <span class="n">λ_tv</span> <span class="o">*</span> <span class="n">total_variation</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span>        <span class="c1"># 平滑正则</span>
+</span></code></pre></div></td></tr></table></div></li>
 </ul>
 </li>
 </ul>
@@ -1853,14 +1856,20 @@
 <li><strong>SwinGAN (2022)</strong>：  </li>
 <li>将判别器替换为Swin Transformer  </li>
 <li>关键代码：<br />
-    <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">SwinDiscriminator</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">SwinTransformerBlock</span><span class="p">(</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>            <span class="n">dim</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>            <span class="n">num_heads</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>            <span class="n">window_size</span><span class="o">=</span><span class="mi">8</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="p">)</span>
-</span></code></pre></div></li>
+    <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">SwinDiscriminator</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">SwinTransformerBlock</span><span class="p">(</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>            <span class="n">dim</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>            <span class="n">num_heads</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>            <span class="n">window_size</span><span class="o">=</span><span class="mi">8</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a>        <span class="p">)</span>
+</span></code></pre></div></td></tr></table></div></li>
 <li><strong>DiffGAN (2023)</strong>：  </li>
 <li>用扩散模型生成对抗样本  </li>
 <li>训练流程：<br />
@@ -1945,15 +1954,22 @@
 <hr />
 <h2 id="6">6 典型代码演进示例<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
 <h3 id="_5">生成器架构变化<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># SRGAN (2017)</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">Generator</span> <span class="o">=</span> <span class="n">ResNetWithBNBlocks</span><span class="p">()</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># ESRGAN (2018)</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">Generator</span> <span class="o">=</span> <span class="n">RRDBNet</span><span class="p">(</span><span class="n">block_num</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span>  <span class="c1"># 去BN+残差缩放</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># SwinGAN (2022)</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">Generator</span> <span class="o">=</span> <span class="n">SwinGenerator</span><span class="p">(</span><span class="n">win_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-</span></code></pre></div>
+<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># SRGAN (2017)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="n">Generator</span> <span class="o">=</span> <span class="n">ResNetWithBNBlocks</span><span class="p">()</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="c1"># ESRGAN (2018)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="n">Generator</span> <span class="o">=</span> <span class="n">RRDBNet</span><span class="p">(</span><span class="n">block_num</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span>  <span class="c1"># 去BN+残差缩放</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="c1"># SwinGAN (2022)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="n">Generator</span> <span class="o">=</span> <span class="n">SwinGenerator</span><span class="p">(</span><span class="n">win_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
 <h3 id="_6">判别器改进路径<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>graph LR
     PatchGAN --&gt; RelativePatchGAN
@@ -1965,9 +1981,10 @@
 <li>文本引导超分（CLIP+GAN）</li>
 <li>
 <p>示例：<br />
-     <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">text_feat</span> <span class="o">=</span> <span class="n">CLIP</span><span class="o">.</span><span class="n">encode_text</span><span class="p">(</span><span class="s2">&quot;sharp edges&quot;</span><span class="p">)</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">gen_img</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">(</span><span class="n">lr_img</span><span class="p">,</span> <span class="n">text_feat</span><span class="p">)</span>
-</span></code></pre></div></p>
+     <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">text_feat</span> <span class="o">=</span> <span class="n">CLIP</span><span class="o">.</span><span class="n">encode_text</span><span class="p">(</span><span class="s2">&quot;sharp edges&quot;</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="n">gen_img</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">(</span><span class="n">lr_img</span><span class="p">,</span> <span class="n">text_feat</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div></p>
 </li>
 <li>
 <p><strong>轻量化方向</strong>  </p>

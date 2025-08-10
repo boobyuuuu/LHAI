@@ -821,6 +821,75 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2-diffusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 DIFFUSION 核心特色与原理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 DIFFUSION 核心特色与原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-forward-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 前向扩散过程（Forward Process）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-reverse-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 反向生成过程（Reverse Process）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-timestep-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 时间步条件编码（Timestep Embedding）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-conditional-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 条件控制机制（Conditional Guidance）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-pytorch" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 PyTorch 核心实现示例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 核心总结（对标 CNN）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
       2 关键阶段与技术突破
@@ -1557,6 +1626,75 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2-diffusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 DIFFUSION 核心特色与原理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 DIFFUSION 核心特色与原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-forward-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 前向扩散过程（Forward Process）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-reverse-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 反向生成过程（Reverse Process）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-timestep-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 时间步条件编码（Timestep Embedding）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-conditional-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 条件控制机制（Conditional Guidance）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-pytorch" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 PyTorch 核心实现示例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 核心总结（对标 CNN）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
       2 关键阶段与技术突破
@@ -1641,38 +1779,176 @@
     SRDiff --&gt; DDNM
     DDNM --&gt; DiffBIR
     CDM --&gt; ResDiff</code></pre>
+<h2 id="2-diffusion">2 DIFFUSION 核心特色与原理<a class="headerlink" href="#2-diffusion" title="Permanent link">&para;</a></h2>
+<p>扩散模型（Diffusion Model）可以看作是一个 <strong>逐步加噪 → 学习去噪</strong> 的生成框架，通过反向扩散过程从噪声重构出清晰图像。它的核心构成可浓缩为 <strong>四大支柱</strong>：</p>
+<ol>
+<li><strong>前向扩散过程（Forward Diffusion Process）</strong> —— 将真实图像逐步加噪至高斯噪声</li>
+<li><strong>反向生成过程（Reverse Process）</strong> —— 学习从噪声逐步去噪重建图像</li>
+<li><strong>时间步条件编码（Timestep Embedding）</strong> —— 表示当前生成过程的进度</li>
+<li><strong>条件控制机制（Conditional Guidance）</strong> —— 将超分或其他条件信息引入去噪过程</li>
+</ol>
+<h3 id="21-forward-process">2.1 前向扩散过程（Forward Process）<a class="headerlink" href="#21-forward-process" title="Permanent link">&para;</a></h3>
+<p><strong>思想</strong></p>
+<p>前向过程是一个固定的马尔可夫链，将数据分布 <span class="arithmatex">\(x_0\)</span> 逐步加噪至各向同性高斯分布 <span class="arithmatex">\(x_T \sim \mathcal{N}(0, I)\)</span>。
+这样，模型只需学习逆过程即可生成图像。</p>
+<p><strong>数学原理</strong></p>
+<p>前向过程定义为：</p>
+<div class="arithmatex">\[
+q(x_t | x_{t-1}) = \mathcal{N}\left(x_t; \sqrt{1-\beta_t} \, x_{t-1}, \beta_t I \right)
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(t \in \{1, \dots, T\}\)</span> 为时间步</li>
+<li><span class="arithmatex">\(\beta_t\)</span> 为噪声强度调度（Noise Schedule）</li>
+</ul>
+<p>由于高斯的可传递性，可以直接写成：</p>
+<div class="arithmatex">\[
+q(x_t | x_0) = \mathcal{N}\left(x_t; \sqrt{\bar{\alpha}_t} \, x_0, (1-\bar{\alpha}_t)I \right)
+\]</div>
+<p>其中：</p>
+<div class="arithmatex">\[
+\alpha_t = 1 - \beta_t, \quad \bar{\alpha}_t = \prod_{s=1}^t \alpha_s
+\]</div>
+<hr />
+<h3 id="22-reverse-process">2.2 反向生成过程（Reverse Process）<a class="headerlink" href="#22-reverse-process" title="Permanent link">&para;</a></h3>
+<p><strong>思想</strong></p>
+<p>反向过程是另一个马尔可夫链，目标是估计：</p>
+<div class="arithmatex">\[
+p_\theta(x_{t-1} | x_t) = \mathcal{N}\left(x_{t-1}; \mu_\theta(x_t, t), \Sigma_\theta(x_t, t) \right)
+\]</div>
+<p>其中 <span class="arithmatex">\(\mu_\theta\)</span> 由神经网络（如 U-Net、Transformer）预测。</p>
+<p>为了简化训练，DDPM 将 <span class="arithmatex">\(\mu_\theta\)</span> 改为预测噪声 <span class="arithmatex">\(\epsilon_\theta(x_t, t)\)</span>，并直接优化：</p>
+<div class="arithmatex">\[
+\mathcal{L}_{\text{simple}} = \mathbb{E}_{x_0, \epsilon, t}\left[ \| \epsilon - \epsilon_\theta(x_t, t) \|_2^2 \right]
+\]</div>
+<p>这样，模型学会在任意时间步去除噪声。</p>
+<h3 id="23-timestep-embedding">2.3 时间步条件编码（Timestep Embedding）<a class="headerlink" href="#23-timestep-embedding" title="Permanent link">&para;</a></h3>
+<p>由于去噪过程依赖时间步 <span class="arithmatex">\(t\)</span>，需要将 <span class="arithmatex">\(t\)</span> 映射为特征向量并注入网络：</p>
+<ul>
+<li><strong>正余弦编码</strong>（类似 Transformer 位置编码）：</li>
+</ul>
+<div class="arithmatex">\[
+\text{TE}_{(t, 2i)} = \sin\left(\frac{t}{10000^{2i/d}}\right), \quad
+\text{TE}_{(t, 2i+1)} = \cos\left(\frac{t}{10000^{2i/d}}\right)
+\]</div>
+<ul>
+<li>或 <strong>可学习嵌入</strong>（Learnable Embedding）</li>
+</ul>
+<h3 id="24-conditional-guidance">2.4 条件控制机制（Conditional Guidance）<a class="headerlink" href="#24-conditional-guidance" title="Permanent link">&para;</a></h3>
+<p>在超分任务中，模型除了接收噪声输入 <span class="arithmatex">\(x_t\)</span>，还会接收低分辨率图像 <span class="arithmatex">\(y\)</span> 作为条件：</p>
+<div class="arithmatex">\[
+\epsilon_\theta(x_t, t, y)
+\]</div>
+<p>常见方式：</p>
+<ul>
+<li><strong>直接拼接</strong>（在通道维度拼接 <span class="arithmatex">\(x_t\)</span> 与上采样后的 <span class="arithmatex">\(y\)</span>）</li>
+<li><strong>条件编码</strong>（将 <span class="arithmatex">\(y\)</span> 编码后作为附加输入注入网络特征层）</li>
+</ul>
+<p>这种机制确保去噪过程受低分辨率图像约束，生成的高分辨率图像既符合数据分布，又与输入一致。</p>
+<h3 id="25-pytorch">2.5 PyTorch 核心实现示例<a class="headerlink" href="#25-pytorch" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">SimpleDDPM</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">betas</span><span class="p">):</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>  <span class="c1"># U-Net or Transformer</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">betas</span> <span class="o">=</span> <span class="n">betas</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">alphas</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">betas</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_bars</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alphas</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">forward_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="n">noise</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn_like</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        <span class="n">sqrt_alpha_bar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha_bars</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">**</span> <span class="mf">0.5</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="n">sqrt_one_minus</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha_bars</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">**</span> <span class="mf">0.5</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="n">xt</span> <span class="o">=</span> <span class="n">sqrt_alpha_bar</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">x0</span> <span class="o">+</span> \
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>             <span class="n">sqrt_one_minus</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">noise</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        <span class="k">return</span> <span class="n">xt</span><span class="p">,</span> <span class="n">noise</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">p_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        <span class="n">xt</span><span class="p">,</span> <span class="n">noise</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_diffusion</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>        <span class="n">pred_noise</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">xt</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">noise</span> <span class="o">-</span> <span class="n">pred_noise</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="26-cnn">2.6 核心总结（对标 CNN）<a class="headerlink" href="#26-cnn" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>模块功能</th>
+<th>CNN 对应</th>
+<th>Diffusion 对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>特征提取</td>
+<td>卷积核提取局部模式</td>
+<td>去噪网络提取并还原信号</td>
+</tr>
+<tr>
+<td>生成逻辑</td>
+<td>前向卷积映射</td>
+<td>逐步去噪重建</td>
+</tr>
+<tr>
+<td>条件控制</td>
+<td>输入通道堆叠</td>
+<td>条件引导（Conditional Guidance）</td>
+</tr>
+<tr>
+<td>时间控制</td>
+<td>固定深度网络</td>
+<td>时间步嵌入</td>
+</tr>
+</tbody>
+</table>
+<p><strong>一句话核心：</strong> CNN 是一次性映射，Diffusion 是逐步生成；CNN 专注局部卷积，Diffusion 通过多步去噪建模全局分布。</p>
+<p>由高斯模糊，模拟加噪过程</p>
+<p>然后训练一个模型，让它能够从噪声中恢复出原始图像/或者能够拟合出噪声</p>
+<p>这样就能得到清晰的图像。</p>
+<p>这个模型，可以是 CNN，可以是 U-Net，也可以是Transformer。</p>
+<p>因此说，DIFFUSION和CNN\Transformer不是一个维度的东西，它是一种训练范式，而后者是具体的网络架构。它们可以很好的组合起来。</p>
 <h2 id="2">2 关键阶段与技术突破<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>基础理论阶段</strong>  </li>
-<li><strong>DDPM (2020 NeurIPS)</strong>：建立前向加噪/反向去噪的完整理论框架  </li>
 <li>
-<p><strong>ScoreSDE (2021 ICLR)</strong>：引入随机微分方程统一视角</p>
+<p><strong>基础理论阶段</strong>  </p>
+<ul>
+<li><strong>DDPM (2020 NeurIPS)</strong>：建立前向加噪/反向去噪的完整理论框架  </li>
+<li><strong>ScoreSDE (2021 ICLR)</strong>：引入随机微分方程统一视角</li>
+</ul>
 </li>
 <li>
 <p><strong>超分应用探索</strong>  </p>
-</li>
-<li>
-<p><strong>SR3 (2021 arXiv)</strong>：首次将扩散模型用于超分，采用级联噪声预测<br />
-     <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 典型噪声预测网络结构</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Unet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">down_blocks</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span><span class="n">DownsampleBlock</span><span class="p">(</span><span class="o">...</span><span class="p">)])</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">up_blocks</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span><span class="n">UpsampleBlock</span><span class="p">(</span><span class="o">...</span><span class="p">)])</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">time_embed</span> <span class="o">=</span> <span class="n">SinusoidalPosEmb</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
-</span></code></pre></div></p>
+<ul>
+<li><strong>SR3 (2021 arXiv)</strong>：首次将扩散模型用于超分，采用级联噪声预测<br />
+    <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># 典型噪声预测网络结构</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Unet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">down_blocks</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span><span class="n">DownsampleBlock</span><span class="p">(</span><span class="o">...</span><span class="p">)])</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">up_blocks</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span><span class="n">UpsampleBlock</span><span class="p">(</span><span class="o">...</span><span class="p">)])</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">time_embed</span> <span class="o">=</span> <span class="n">SinusoidalPosEmb</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div></li>
+</ul>
 </li>
 <li>
 <p><strong>效率优化</strong>  </p>
-</li>
+<ul>
 <li><strong>LDM (2022 CVPR)</strong>：在潜在空间进行扩散，计算量减少10倍  </li>
-<li>
-<p><strong>DDNM (2023 CVPR)</strong>：零样本超分，无需训练数据</p>
+<li><strong>DDNM (2023 CVPR)</strong>：零样本超分，无需训练数据</li>
+</ul>
 </li>
 <li>
 <p><strong>融合创新</strong>  </p>
-</li>
+<ul>
 <li><strong>DiffIR (2023 ICCV)</strong>：用Transformer预测扩散过程的注意力图  </li>
 <li><strong>DiffBIR (2024 CVPR)</strong>：解决盲超分问题（联合去噪+超分）</li>
+</ul>
+</li>
 </ol>
 <h2 id="3-cnntransformer">3 与CNN/Transformer框架的对应关系<a class="headerlink" href="#3-cnntransformer" title="Permanent link">&para;</a></h2>
 <table>
