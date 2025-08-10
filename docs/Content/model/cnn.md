@@ -59,7 +59,7 @@ graph TD
 3. **图像重建**：5×5卷积生成高清输出  
 **关键改进**：抛弃手工设计滤波器，用卷积自动学习映射函数。
 
-```python
+```python linenums="1"
 class SRCNN(nn.Module):
     def __init__(self):
         super(SRCNN, self).__init__()
@@ -141,7 +141,7 @@ E --> F[输出HR]
 3. **递归监督**：融合所有中间预测进行最终重建  
 **关键改进**：用递归深度替代堆叠深度，实现参数效率与性能的突破平衡。
 
-```python
+```python linenums="1"
 class DRCN(nn.Module):
     def __init__(self, recursion_depth=16):
         super(DRCN, self).__init__()
@@ -247,7 +247,7 @@ DRCN的递归权重共享思想在当今大模型时代展现出惊人前瞻性�
 3. **多尺度框架**：单一模型支持×2/×3/×4上采样  
 **关键改进**：证明超分任务中BN层有害，通过简化架构释放深度网络潜力。
 
-```python
+```python linenums="1"
 class EDSR(nn.Module):
     def __init__(self, scale_factor=4):
         super(EDSR, self).__init__()
@@ -358,7 +358,7 @@ EDSR的核心价值在于其"少即是多"的设计哲学——通过移除BN层
 3. **高效上采样**：亚像素卷积替代转置卷积  
 **关键改进**：通过特征复用机制，用浅层网络实现深层网络的表达能力。
 
-```python
+```python linenums="1"
 class CascadingBlock(nn.Module):
     def __init__(self, channels):
         super(CascadingBlock, self).__init__()

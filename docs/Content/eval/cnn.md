@@ -102,3 +102,27 @@ Average NRMSE (Input): 0.2193
 评估结果：
 
 ![alt text](image-9.png){width="400"}
+
+## SRCNN_Transformer
+
+实验参数：
+
+400epochs
+
+![alt text](image-11.png){width="400"}
+
+评估结果：
+
+![alt text](image-12.png){width="400"}
+
+## SwinIR_LHAI
+
+实验参数：
+
+400epochs
+
+![alt text](image-13.png){width="400"}
+
+评估结果：
+
+![alt text](image-14.png){width="400"}

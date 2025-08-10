@@ -26,32 +26,246 @@ graph TD
     EDT --> DiffIR
 ```
 
-## 2 关键节点解析
+## 2 Transformer核心特色与原理
+
+Transformer 的核心构成可以浓缩为 **四大支柱**：
+
+1. **自注意力机制（Self-Attention）** —— 代替卷积感受野，捕捉全局依赖
+2. **多头机制（Multi-Head Attention）** —— 多组注意力并行，学习不同的特征子空间
+3. **位置编码（Positional Encoding）** —— 补足序列的位置信息
+4. **前馈网络（Feed-Forward Network, FFN）** —— 局部非线性映射，增强特征表达
+
+### 2.1 自注意力机制（Self-Attention）
+
+传统 CNN 依赖局部卷积核捕捉特征，而自注意力允许 **任意两个位置** 直接建立联系，计算它们的相关性权重，从而实现全局信息建模。
+
+---
+
+**① Q/K/V 的来源与作用**
+
+给定输入序列（或图像特征）矩阵 $X \in \mathbb{R}^{n \times d}$ （ $n$ 为序列长度，或展开后的像素数，$d$ 为每个位置的特征维度），通过三个线性映射得到：
+
+$$
+Q = XW_Q, \quad K = XW_K, \quad V = XW_V
+$$
+
+其中：
+
+* **Query（Q）**：表示“我要找什么信息”，从当前特征生成查询向量
+* **Key（K）**：表示“我能提供什么信息”，是每个位置的特征索引
+* **Value（V）**：表示“具体携带的信息内容”，在计算权重后进行加权融合
+* $W_Q, W_K, W_V \in \mathbb{R}^{d \times d_k}$ 是可训练矩阵
+
+> 类比图书馆检索：Q 是读者的检索意图，K 是书的目录卡，V 是书的实际内容。
+
+---
+
+**② 为什么 $QK^\top$ 是相似度**
+
+Q 和 K 都是向量，计算 $Q_i \cdot K_j$（点积）可以衡量位置 $i$ 和位置 $j$ 的特征相似度：
+
+* 若两者方向接近，点积大 → 高相关性
+* 若方向差异大，点积小 → 低相关性
+
+在公式中加入缩放因子 $\sqrt{d_k}$ 是为了防止高维向量点积过大，导致 Softmax 梯度过小。
+
+---
+
+**③ Attention 的计算逻辑**
+
+注意力权重：
+
+$$
+\alpha_{ij} = \frac{\exp(Q_i \cdot K_j / \sqrt{d_k})}{\sum_{t=1}^n \exp(Q_i \cdot K_t / \sqrt{d_k})}
+$$
+
+这是一个 **概率分布**，表示位置 $i$ 在整条序列中对位置 $j$ 的关注程度。
+
+最终输出：
+
+$$
+\text{Attention}(Q, K, V)_i = \sum_{j=1}^n \alpha_{ij} V_j
+$$
+
+即 **用相关性权重，对所有位置的 Value 做加权求和**，得到融合全局信息的特征向量。
+
+---
+
+**④ 在超分辨率任务中的意义**
+
+* CNN 卷积只能捕捉局部邻域信息，而超分任务往往需要利用远距离像素的关联（如纹理重复、对称结构）
+* 自注意力让每个像素都能“看到”全图，从而保留长距离依赖
+* 输出的全局特征再经过反卷积/重建模块，可以更精准地还原纹理和细节
+
+---
+
+**⑤代码示例（PyTorch）**
+
+```python linenums="1"
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class SelfAttention(nn.Module):
+    def __init__(self, dim):
+        super().__init__()
+        self.q_proj = nn.Linear(dim, dim)
+        self.k_proj = nn.Linear(dim, dim)
+        self.v_proj = nn.Linear(dim, dim)
+
+    def forward(self, x):
+        # x: [batch, seq_len, dim]
+        Q = self.q_proj(x)  # [B, N, D]
+        K = self.k_proj(x)  # [B, N, D]
+        V = self.v_proj(x)  # [B, N, D]
+
+        attn_scores = Q @ K.transpose(-2, -1) / (Q.size(-1) ** 0.5)  # [B, N, N]
+        attn_weights = F.softmax(attn_scores, dim=-1)
+        out = attn_weights @ V  # [B, N, D]
+        return out
+```
+
+### 2.2 多头注意力机制（Multi-Head Attention）
+
+单一的注意力可能只捕捉到一种相关性，多头机制通过 **并行计算多组 Q/K/V**，让不同的子空间去学习不同的关系模式。
+
+$$
+\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h) W_O
+$$
+
+其中：
+
+$$
+\text{head}_i = \text{Attention}(QW_Q^{(i)}, KW_K^{(i)}, VW_V^{(i)})
+$$
+
+---
+
+代码示例：
+
+```python linenums="1"
+class MultiHeadAttention(nn.Module):
+    def __init__(self, dim, num_heads):
+        super().__init__()
+        self.num_heads = num_heads
+        self.head_dim = dim // num_heads
+        self.qkv = nn.Linear(dim, dim * 3)
+        self.proj = nn.Linear(dim, dim)
+
+    def forward(self, x):
+        B, N, D = x.shape
+        qkv = self.qkv(x).reshape(B, N, 3, self.num_heads, self.head_dim)
+        Q, K, V = qkv.unbind(2)  # [B, N, H, d]
+        attn_scores = (Q @ K.transpose(-2, -1)) / (self.head_dim ** 0.5)
+        attn_weights = F.softmax(attn_scores, dim=-1)
+        out = (attn_weights @ V).transpose(1, 2).reshape(B, N, D)
+        return self.proj(out)
+```
+
+### 2.3 位置编码（Positional Encoding）
+
+由于自注意力本身与序列顺序无关，必须显式引入位置信息。
+常用方法：
+
+* **正余弦编码**（Sinusoidal）——固定公式，支持无限长序列
+
+$$
+PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d}}\right)
+$$
+
+$$
+PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d}}\right)
+$$
+
+* **可学习位置嵌入**（Learnable Embedding）——参数化学习位置信息
+
+---
+
+代码示例（正余弦位置编码）
+
+```python linenums="1"
+import math
+
+class PositionalEncoding(nn.Module):
+    def __init__(self, dim, max_len=5000):
+        super().__init__()
+        pe = torch.zeros(max_len, dim)
+        position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
+        div_term = torch.exp(torch.arange(0, dim, 2).float() * (-math.log(10000.0) / dim))
+        pe[:, 0::2] = torch.sin(position * div_term)
+        pe[:, 1::2] = torch.cos(position * div_term)
+        self.register_buffer('pe', pe.unsqueeze(0))
+
+    def forward(self, x):
+        return x + self.pe[:, :x.size(1)]
+```
+
+
+### 2.4 前馈网络（FFN）
+
+每个 Transformer 层后都有一个逐位置的前馈网络：
+
+$$
+\text{FFN}(x) = \text{GELU}(xW_1 + b_1)W_2 + b_2
+$$
+
+相当于 **对每个位置的特征进行独立的非线性映射**，提升模型表达能力。
+
+---
+
+代码示例：
+
+```python linenums="1"
+class FeedForward(nn.Module):
+    def __init__(self, dim, hidden_dim):
+        super().__init__()
+        self.fc1 = nn.Linear(dim, hidden_dim)
+        self.fc2 = nn.Linear(hidden_dim, dim)
+
+    def forward(self, x):
+        return self.fc2(F.gelu(self.fc1(x)))
+```
+
+### 2.5 核心总结
+
+| 模块功能   | CNN 对应     | Transformer 对应 |
+| ------ | ---------- | -------------- |
+| 特征提取   | 卷积核（局部感受野） | 自注意力（全局依赖）     |
+| 多尺度特征  | 不同卷积核堆叠    | 多头机制           |
+| 空间位置信息 | 卷积结构内建     | 位置编码显式加入       |
+| 特征映射   | 全连接层       | 前馈网络           |
+
+**一句话核心：** CNN 在空间域做局部卷积，Transformer 在特征域做全局加权。
+
+
+## 3 关键节点解析
 
 1. **奠基阶段**  
-   - **ViT (2020)**：证明纯Transformer在图像分类的可行性，但需要大数据预训练  
-   - **TTSR (2020 CVPR)**：首次将Transformer用于超分，引入跨尺度注意力
+      - **ViT (2020)**：证明纯Transformer在图像分类的可行性，但需要大数据预训练  
+      - **TTSR (2020 CVPR)**：首次将Transformer用于超分，引入跨尺度注意力
 
 2. **架构探索**  
-   - **IPT (2021 CVPR)**：展示大规模预训练潜力（在ImageNet上预训练）  
-   - **SwinIR (2021 ICCV)**：通过窗口注意力实现计算效率突破  
-     ```python
-     # 窗口注意力核心代码
-     class WindowAttention(nn.Module):
-         def __init__(self, dim, window_size):
-             self.qkv = nn.Linear(dim, dim*3)
-             self.relative_position_bias = nn.Parameter(...)
-     ```
+      - **IPT (2021 CVPR)**：展示大规模预训练潜力（在ImageNet上预训练）  
+      - **SwinIR (2021 ICCV)**：通过窗口注意力实现计算效率突破  
+        ```python linenums="1"
+        # 窗口注意力核心代码
+        class WindowAttention(nn.Module):
+            def __init__(self, dim, window_size):
+                self.qkv = nn.Linear(dim, dim*3)
+                self.relative_position_bias = nn.Parameter(...)
+        ```
 
 3. **效率优化**  
-   - **ESRT (2021 NeurIPS)**：CNN-Transformer混合架构，参数量减少60%  
-   - **DAT (2022 CVPR)**：可变形注意力提升纹理重建能力  
+      - **ESRT (2021 NeurIPS)**：CNN-Transformer混合架构，参数量减少60%  
+      - **DAT (2022 CVPR)**：可变形注意力提升纹理重建能力  
 
 4. **融合创新**  
-   - **EDT (2022 ECCV)**：将扩散过程引入Transformer训练  
-   - **DiffIR (2023 CVPR)**：用扩散模型生成注意力引导图  
+      - **EDT (2022 ECCV)**：将扩散过程引入Transformer训练  
+      - **DiffIR (2023 CVPR)**：用扩散模型生成注意力引导图  
 
-## 3 与CNN框架的对应关系
+---
+
+与CNN框架的对应关系
 
 | CNN时代特征          | Transformer时代对应创新          |
 |----------------------|----------------------------------|
@@ -114,7 +328,7 @@ RCAN 基础信息
 3. **注意力残差块**：每个残差块内嵌通道注意力模块（CA）  
 **关键改进**：让网络自动学习不同通道的重要性权重，突破传统均等特征处理的局限。
 
-```python
+```python linenums="1"
 class ChannelAttention(nn.Module):
    def __init__(self, channels, reduction=16):
       super(ChannelAttention, self).__init__()
@@ -244,7 +458,7 @@ RCAN将注意力机制引入超分的创新，标志着CNN架构从"被动卷积
 2. **非局部增强**：结合空间注意力捕捉长程依赖  
 3. **分层结构**：浅层→深层逐步细化注意力图  
 
-```python
+```python linenums="1"
 class SecondOrderAttention(nn.Module):
     def __init__(self, channels):
         super().__init__()
@@ -294,7 +508,7 @@ class SecondOrderAttention(nn.Module):
    - 层间注意力（创新点）  
 2. **自适应融合**：动态加权不同层次特征图  
 
-```python
+```python linenums="1"
 class LayerAttention(nn.Module):
     def __init__(self):
         super().__init__()
@@ -361,7 +575,7 @@ graph TD
 2. **计算效率优化**：  
    从SAN的O(C²)复杂度到HAN的O(C)简化  
 3. **当代融合建议**：  
-   ```python
+   ```python linenums="1"
    # 现代混合注意力示例
    class ModernAttention(nn.Module):
        def __init__(self):
@@ -412,7 +626,7 @@ graph TD
 
       - **分块嵌入（Patch Embedding）**：  
         将图像分割为$16\times16$的块，线性投影为序列（类似NLP的token）  
-        ```python
+        ```python linenums="1"
         class PatchEmbed(nn.Module):
             def __init__(self, img_size=224, patch_size=16, embed_dim=768):
                 self.proj = nn.Conv2d(3, embed_dim, kernel_size=patch_size, stride=patch_size)
@@ -423,7 +637,7 @@ graph TD
         ```
       - **位置编码**：  
         使用可学习的1D位置编码（不同于原始Transformer的正弦编码）  
-        ```python
+        ```python linenums="1"
         self.pos_embed = nn.Parameter(torch.zeros(1, num_patches + 1, embed_dim))  # +1 for [CLS] token
         ```
 
@@ -443,7 +657,7 @@ graph TD
 2. **超分专用改进**
 
       - **SwinIR (2021)**：引入窗口注意力，降低计算复杂度  
-        ```python
+        ```python linenums="1"
         class SwinBlock(nn.Module):
             def __init__(self, dim, num_heads, window_size=8):
                 self.attn = WindowAttention(dim, num_heads, window_size)
@@ -492,14 +706,14 @@ graph TD
 **在超分任务中的典型应用**
 
 1. **特征提取器**：替换SRCNN中的卷积骨干  
-   ```python
+   ```python linenums="1"
    class ViT_SR(nn.Module):
        def __init__(self):
            self.vit = ViT(...)  # 预训练ViT
            self.upsample = PixelShuffle(scale=4)
    ```
 2. **判别器**：在GAN框架中提供全局感知  
-   ```python
+   ```python linenums="1"
    discriminator = ViT(
        image_size=256,
        patch_size=16,
@@ -547,12 +761,12 @@ Transformer的命名与核心特征
 - **关键特征**：  
 
     1. **自注意力机制**：根据输入内容动态生成权重（对比CNN的静态卷积核）  
-       ```python
+       ```python linenums="1"
        # 自注意力计算示例
        attention = softmax(Q @ K.T / √d_k) @ V  # Q/K/V来自同一输入
        ```
     2. **位置编码**：弥补注意力机制的位置不敏感性（尤其重要于视觉任务）  
-       ```python
+       ```python linenums="1"
        # 典型正弦位置编码
        pos_enc = [sin(pos/10000^(2i/d), cos(...)]  # 交替频率
        ```

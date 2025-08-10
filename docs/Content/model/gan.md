@@ -36,7 +36,7 @@ graph TD
   - 创新点：  
     - 感知损失（VGG特征匹配）  
     - 对抗训练框架  
-    ```python
+    ```python linenums="1"
     # 典型损失函数组成
     loss = content_loss(vgg(gen), vgg(hr)) +  # 内容损失
            λ_adv * D(gen).mean() +           # 对抗损失
@@ -62,7 +62,7 @@ graph TD
 - **SwinGAN (2022)**：  
   - 将判别器替换为Swin Transformer  
   - 关键代码：  
-    ```python
+    ```python linenums="1"
     class SwinDiscriminator(nn.Module):
         def __init__(self):
             self.layers = SwinTransformerBlock(
@@ -130,7 +130,7 @@ graph LR
 
 ## 6 典型代码演进示例
 ### 生成器架构变化
-```python
+```python linenums="1"
 # SRGAN (2017)
 Generator = ResNetWithBNBlocks()
 
@@ -154,7 +154,7 @@ graph LR
 1. **多模态对抗**  
    - 文本引导超分（CLIP+GAN）
    - 示例：  
-     ```python
+     ```python linenums="1"
      text_feat = CLIP.encode_text("sharp edges")
      gen_img = Generator(lr_img, text_feat)
      ```
