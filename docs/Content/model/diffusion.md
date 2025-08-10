@@ -160,6 +160,10 @@ class SimpleDDPM(nn.Module):
 
 这样就能得到清晰的图像。
 
+这个模型，可以是 CNN，可以是 U-Net，也可以是Transformer。
+
+因此说，DIFFUSION和CNN\Transformer不是一个维度的东西，它是一种训练范式，而后者是具体的网络架构。它们可以很好的组合起来。
+
 ## 2 关键阶段与技术突破
 
 1. **基础理论阶段**  
