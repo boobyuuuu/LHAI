@@ -15,10 +15,10 @@ logger.info(f"ADDR_ROOT is: {ADDR_ROOT}")
 @dataclass
 class TrainConfig:
     exp_name: str = "EXP01"
-    model_name: str = "CNN"
-    model_dir: Path = ADDR_ROOT / "codes" / "models"
     data_dir: Path = ADDR_ROOT / "data" / "Train"
     data_name: str = "xingwei_10000_64_train_v1.npy"
+    model_dir: Path = ADDR_ROOT / "codes" / "models"
+    model_name: str = "CNN"
     seed: int = 0
     frac: float = 0.98
     epochs: int = 10
@@ -118,7 +118,16 @@ class ModelConfig:
             'num_heads': [4],
             'window_size': 8,
             'mlp_ratio': 4.0
-        }     
+        },
+        'ESPCN': {
+            'jpt': 0,
+            'in_channels': 1,
+            'out_channels': 1,
+            'n1': 64,
+            'n2': 32,
+            'act_type': 'prelu',
+            'out_act_type': 'none'
+        }
     })
 # 实例化默认配置
 train_cfg = TrainConfig()
