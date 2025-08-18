@@ -119,6 +119,75 @@ E --> F[输出HR]
 
 ## 2 ESPCN
 
+### 1. ESPCN 基础信息
+
+**论文标题**：Real-Time Single Image and Video Super-Resolution Using an Efficient Sub-Pixel Convolutional Neural Network  
+**作者**：Wenzhe Shi et al.  
+**会议/期刊**：CVPR  
+**发表时间**：2016年  
+
+### 2. 核心特点与架构
+
+**核心优势**：  
+首次实现实时4K超分辨率（30fps），通过亚像素卷积将计算量降低至传统方法的1/9，PSNR保持与VDSR相当。
+
+**架构创新**：  
+   1. **末端上采样**：在最后一层使用亚像素卷积（PixelShuffle）替代先插值再卷积  
+   2. **高效设计**：仅3层卷积+1层重组操作  
+   **关键改进**：将计算负担从高分辨率空间转移到低分辨率空间，利用通道扩张进行隐式上采样。
+
+```python linenums="1"
+class ESPCN(nn.Module):
+    def __init__(self, scale_factor=2):
+        super(ESPCN, self).__init__()
+        # 低分辨率特征提取（计算量仅为传统方法的1/9）
+        self.conv1 = nn.Conv2d(1, 64, 5, padding=2)  # 输入通道扩增64倍
+        self.conv2 = nn.Conv2d(64, 32, 3, padding=1)
+        
+        # 创新点：亚像素卷积上采样（无参操作）
+        self.conv3 = nn.Conv2d(32, 1*(scale_factor**2), 3, padding=1)  # 通道数扩展为scale²倍
+        self.pixel_shuffle = nn.PixelShuffle(scale_factor)  # ← 核心创新点
+
+    def forward(self, x):
+        x = torch.tanh(self.conv1(x))
+        x = torch.tanh(self.conv2(x))
+        x = self.pixel_shuffle(self.conv3(x))  # 通道重组为上采样图像
+        return x
+```
+
+### 3. 时代局限性与启发
+
+**当前差距**：  
+1. 性能落后：PSNR比SwinIR低1.8dB，纹理生成弱于扩散模型  
+2. 功能局限：仅支持整数倍上采样（如2×/3×/4×）
+
+**架构启发**：  
+1. **亚像素思想**：PixelShuffle被后续EDSR、RCAN等广泛采用  
+2. **计算效率**：末端上采样策略影响MobileSR等轻量模型  
+3. **改进方向**：  
+   ```mermaid
+   graph LR
+       A[ESPCN骨架] --> B[替换Tanh为ReLU]
+       B --> C[添加通道注意力]
+       C --> D[结合Transformer块]
+       D --> E[输出HR]
+   ```
+
+### 模型结构图
+
+```mermaid
+graph TD
+    A[输入LR] --> B[Conv5x5+Tanh]
+    B --> C[Conv3x3+Tanh]
+    C --> D[Conv3x3]
+    D --> E[PixelShuffle]  # ← 核心操作
+    E --> F[输出HR]
+    
+    subgraph 亚像素卷积原理
+    E -->|通道重组| G[将C×r²×H×W → 1×rH×rW]
+    end
+```
+
 ## 3 VDSR
 
 ## 4 DRCN
@@ -512,6 +581,7 @@ class CNN(nn.Module):
 1. 检查其是否为EDSR模型，检查代码是否有错误，检查该网络结构是否能发挥EDSR的模型性能。
 2. 将scale部分都删除，并且默认是不变化图像大小的输入输出；
 3. 根据它的思路，保留这部分代码内关于网络结构的部分；简化其不必要的部分，增强代码的一惯性、优美性和可读性，更加流畅；
+4. 保留Activation函数。
 
 代码如下：
 

@@ -126,3 +126,13 @@ Average NRMSE (Input): 0.2193
 评估结果：
 
 ![alt text](image-14.png){width="400"}
+
+## ESPCN
+
+实验参数：
+
+![alt text](image-15.png){width="400"}
+
+评估结果：
+
+![alt text](image-16.png){width="400"}
