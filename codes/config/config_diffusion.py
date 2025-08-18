@@ -15,13 +15,13 @@ logger.info(f"ADDR_ROOT is: {ADDR_ROOT}")
 @dataclass
 class TrainConfig:
     exp_name: str = "EXP01"
-    model_name: str = "DIFFUSION"
-    model_dir: Path = ADDR_ROOT / "codes" / "models"
     data_dir: Path = ADDR_ROOT / "data" / "Train"
     data_name: str = "xingwei_10000_64_train_v1.npy"
+    model_dir: Path = ADDR_ROOT / "codes" / "models"
+    model_name: str = "DIFFUSION"
     seed: int = 0
     frac: float = 0.98
-    epochs: int = 1
+    epochs: int = 2
     batch_size: int = 32
     lr_max: float = 5e-4
     lr_min: float = 5e-6
@@ -29,16 +29,7 @@ class TrainConfig:
     position_encoding_dim: int = 256
     noise_steps: int = 2000
     EVALUATE_METRICS: bool = False
-    logpath: Path = ADDR_ROOT / "logs" / "train_diffusion.log"
-
-    @property
-    def model_path(self) -> Path:
-        return self.model_dir / f"{self.model_name}_{self.exp_name}.py"
-
-    @property
-    def data_path(self) -> Path:
-        return self.data_dir / self.data_name
-
+    log_dir: Path = ADDR_ROOT / "saves" / "TRAIN" / "LOGS"
 # ========== Predict Config ==========
 @dataclass
 class PredictConfig:

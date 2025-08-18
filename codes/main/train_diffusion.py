@@ -18,10 +18,10 @@ from codes.function.Dataset import ImageDataset
 import codes.function.Loss as lossfunction
 from codes.function.Log import log
 import codes.function.Train as Train
-from codes.models.DIFFUSION_EXP01 import EnhancedUNetWrapper
-from codes.models.DIFFUSION_EXP01 import Diffusion
-from codes.models.DIFFUSION_EXP01 import positional_encoding
-from codes.models.DIFFUSION_EXP01 import prepare_data
+from codes.models.DIFFUSION import EnhancedUNetWrapper
+from codes.models.DIFFUSION import Diffusion
+from codes.models.DIFFUSION import positional_encoding
+from codes.models.DIFFUSION import prepare_data
 # ---- 1-3 Libraries for pytorch and others ----
 import torch
 import torch.nn as nn
@@ -46,12 +46,10 @@ app = typer.Typer()
 @app.command()
 def main(
     exp_name: str = train_cfg.exp_name,                  # para01：实验名称 default: "EXP01"
-    model_name: str = train_cfg.model_name,              # para02：模型名称 default: "DIFFUSION"
-    model_dir: Path = train_cfg.model_dir,               # para03：模型目录 default: ADDR_ROOT / "codes" / "models"
-    model_path: Path = train_cfg.model_path,             # para04：模型路径 default: model_dir / f"{model_name}_{exp_name}.py"
     data_dir: Path = train_cfg.data_dir,                 # para05：数据目录 default: ADDR_ROOT / "data" / "Train"
     data_name: str = train_cfg.data_name,                # para06：数据文件名 default: "xingwei_10000_64_train_v1.npy"
-    data_path: Path = train_cfg.data_path,               # para07：数据完整路径 default: data_dir / data_name
+    model_dir: Path = train_cfg.model_dir,               # para03：模型目录 default: ADDR_ROOT / "codes" / "models"
+    model_name: str = train_cfg.model_name,              # para02：模型名称 default: "DIFFUSION"
     seed: int = train_cfg.seed,                          # para08：随机种子 default: 0
     frac: float = train_cfg.frac,                        # para09：训练集比例 default: 0.8
     epochs: int = train_cfg.epochs,                      # para10：训练轮数 default: 400
@@ -62,8 +60,12 @@ def main(
     position_encoding_dim: int = train_cfg.position_encoding_dim,   # para15：位置编码维度 default: 256
     noise_steps: int = train_cfg.noise_steps,            # para16：噪声步数 default: 2000
     EVALUATE_METRICS: bool = train_cfg.EVALUATE_METRICS, # para17：是否评估指标 default: False
-    logpath: Path = train_cfg.logpath,                   # para18：日志路径 default: ADDR_ROOT / "logs" / "train_diffusion.log"
+    log_dir: Path = train_cfg.log_dir,                   # para18：日志文件夹 default: ADDR_ROOT / "logs"
 ):
+    #【重要】根据命令行输入重新定义参数
+    data_path = data_dir / data_name
+    model_path = model_dir / f"{model_name}.py"
+    logpath = log_dir / f"trainlog_{model_name}"
     # ---- 2-1 Load the parameter ----
     logger.info("========== 当前训练参数 ==========")
     for idx, (key, value) in enumerate(locals().items(), start=1):
