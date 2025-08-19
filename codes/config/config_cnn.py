@@ -135,13 +135,20 @@ class ModelConfig:
             'layer_num': 20,
             'hid_channels': 64
         },
+        'DRRN': {
+            'in_channels': 1,
+            'out_channels': 1,
+            'hid_channels': 128,
+            'U':9,                   # 递归次数（经典设定 9~25 之间可选）
+            'act_type': 'relu'
+        },
         'LapSRN': {
             'jpt': 0,
             'in_channels': 1,
             'out_channels': 1,
             'hid_channels': 64,
             'fe_layers': 10
-        }
+        }       
     })
 # 实例化默认配置
 train_cfg = TrainConfig()
