@@ -134,6 +134,13 @@ class ModelConfig:
             'out_channels': 1,
             'layer_num': 20,
             'hid_channels': 64
+        },
+        'LapSRN': {
+            'jpt': 0,
+            'in_channels': 1,
+            'out_channels': 1,
+            'hid_channels': 64,
+            'fe_layers': 10
         }
     })
 # 实例化默认配置
