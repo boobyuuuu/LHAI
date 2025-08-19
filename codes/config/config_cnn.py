@@ -18,10 +18,10 @@ class TrainConfig:
     data_dir: Path = ADDR_ROOT / "data" / "Train"
     data_name: str = "xingwei_10000_64_train_v1.npy"
     model_dir: Path = ADDR_ROOT / "codes" / "models"
-    model_name: str = "CNN"
+    model_name: str = "VDSR" # modified
     seed: int = 0
     frac: float = 0.98
-    epochs: int = 10
+    epochs: int = 400
     batch_size: int = 32
     lr_max: float = 5e-4
     lr_min: float = 5e-6
@@ -30,11 +30,11 @@ class TrainConfig:
 # ========== Predict Config ==========
 @dataclass
 class PredictConfig:
-    model_name: str = "CNN"
+    model_name: str = "VDSR" # modified
     model_path: Path = ADDR_ROOT / "saves" / "MODEL"
-    model_file: str = "CNN_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth"
-    data_dir: Path = ADDR_ROOT / "data" / "POISSON"
-    data_name: str = "poisson_src_bkg.pkl.npy"
+    model_file: str = "VDSR_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth" # modified
+    data_dir: Path = ADDR_ROOT / "data" / "Train"
+    data_name: str = "xingwei_10000_64_train_v1.npy"
     seed: int = 0
     pred_type: str = "poissonsrc+bkg_highresorig"
     frac: float = 0.98
@@ -53,12 +53,12 @@ class PredictConfig:
 @dataclass
 class EvalConfig:
     exp_name: str = "EXP01"
-    model_name: str = "CNN"
+    model_name: str = "VDSR" # modified
     model_dir: Path = ADDR_ROOT / "codes" / "models"
     data_dir: Path = ADDR_ROOT / "data" / "Train"
     data_name: str = "xingwei_10000_64_train_v1.npy"
     model_weight_dir: Path = ADDR_ROOT / "saves" / "MODEL"
-    model_weight_name: str = "CNN_EXP01_10epo_32bth_xingwei.pth"
+    model_weight_name: str = "Last_VDSR_EXP01_400epo_32bth_xingwei.pth" # modified
     seed: int = 0
     frac: float = 0.98
     batch_size: int = 32
@@ -127,6 +127,13 @@ class ModelConfig:
             'n2': 32,
             'act_type': 'prelu',
             'out_act_type': 'none'
+        },
+        'VDSR': {
+            'jpt': 0, 
+            'in_channels': 1,
+            'out_channels': 1,
+            'layer_num': 20,
+            'hid_channels': 64
         }
     })
 # 实例化默认配置
