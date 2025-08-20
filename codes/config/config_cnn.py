@@ -148,7 +148,15 @@ class ModelConfig:
             'out_channels': 1,
             'hid_channels': 64,
             'fe_layers': 10
-        }       
+        },
+        'FSRCNN': {
+            'in_channels': 1,
+            'out_channels': 1,
+            'upscale': 1,
+            'd': 56,
+            's': 12,
+            'act_type': 'prelu'
+        }    
     })
 # 实例化默认配置
 train_cfg = TrainConfig()
