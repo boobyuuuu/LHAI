@@ -156,7 +156,16 @@ class ModelConfig:
             'd': 56,
             's': 12,
             'act_type': 'prelu'
-        }    
+        },
+        'IDN': {
+            'jpt': 0,
+            'in_channels': 1,
+            'out_channels': 1,
+            'num_blocks': 4,
+            'C': 64,
+            's': 4,
+            'act_type': 'leakyrelu'
+        } 
     })
 # 实例化默认配置
 train_cfg = TrainConfig()
