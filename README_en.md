@@ -1,4 +1,4 @@
-# LHAI
+# LHAI mannual
 
 <p align="center">
  <img alt="" src="/docs/assets/images/logo1.png" width=500 align="center">
