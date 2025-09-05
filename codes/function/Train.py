@@ -18,19 +18,21 @@ import time
 from datetime import timedelta
 import os
 
-def format_model_params(params: dict) -> str:
-    lines = []
-    for k, v in params.items():
-        lines.append(f"    - {k:<25}: {v}")
-    return "\n".join(lines)
+def format_model_params(params: dict, indent: int = 8) -> str:
+    max_len = max(len(str(k)) for k in params)
+    pad = " " * indent  # 控制缩进宽度
+    return "\n".join(
+        f"{pad}• {k:<{max_len}} : {v}"
+        for k, v in params.items()
+    )
 
-def train(
+def train_cnn(
     model,
     optimizer,
     scheduler,
     trainingloss,
     device,
-    dataloader,
+    trainloader,
     testloader,
     num_epochs,
     logger,
@@ -44,9 +46,8 @@ def train(
     """
     函数特色：使用scheduler动态调整学习率。似乎没有其他在train函数进行优化的方式？
     """
-    if not os.path.exists(logpath):
-        with open(logpath, "w", encoding="utf-8"):
-            pass
+    with open(logpath, "w", encoding="utf-8"):
+        pass
     log(logpath,train_msg)
 
     best_loss = float('inf')
@@ -56,7 +57,7 @@ def train(
         total_loss = 0.0
         current_lr = scheduler.get_last_lr()[0]
 
-        for _, (img_LR, img_HR) in enumerate(dataloader):
+        for _, (img_LR, img_HR) in enumerate(trainloader):
             img_LR = img_LR.to(device)
             img_HR = img_HR.to(device)
             img_SR, _, _ = model(img_LR)
@@ -66,7 +67,7 @@ def train(
             optimizer.step()
             total_loss += loss.item()
 
-        avg_loss = total_loss / len(dataloader)
+        avg_loss = total_loss / len(trainloader)
 
         # ===== 验证阶段 =====
         test_loss = 0.0

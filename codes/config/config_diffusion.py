@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from dotenv import load_dotenv
 from loguru import logger
@@ -88,12 +88,25 @@ class EvalConfig:
     @property
     def model_weight_path(self) -> Path:
         return self.model_weight_dir / self.model_weight_name
-
+    
+@dataclass
+class ModelConfig:
+    model_params: dict = field(default_factory=lambda: {
+        "AttentionUNet": {
+            "in_channels": 2,
+            "channels": [32, 64, 128],
+            "base_channels": [256, 256],
+            "channel_attention": [False, False, False],
+            "out_channels": 1
+            # position_embedding_dim will be injected at runtime
+        }
+    })
 
 # 实例化默认配置
 train_cfg = TrainConfig()
 predict_cfg = PredictConfig()
 eval_cfg = EvalConfig()
+model_cfg = ModelConfig()
 
 if __name__ == "__main__":
     try:

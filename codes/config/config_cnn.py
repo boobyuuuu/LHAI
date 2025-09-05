@@ -18,21 +18,21 @@ class TrainConfig:
     data_dir: Path = ADDR_ROOT / "data" / "Train"
     data_name: str = "xingwei_10000_64_train_v1.npy"
     model_dir: Path = ADDR_ROOT / "codes" / "models"
-    model_name: str = "VDSR" # modified
+    model_name: str = "CNN"
     seed: int = 0
     frac: float = 0.98
-    epochs: int = 400
+    epochs: int = 10
     batch_size: int = 32
     lr_max: float = 5e-4
     lr_min: float = 5e-6
     datarange: float = 1.0
-    log_dir: Path = ADDR_ROOT / "saves" / "TRAIN" / "LOGS"
+
 # ========== Predict Config ==========
 @dataclass
 class PredictConfig:
-    model_name: str = "VDSR" # modified
+    model_name: str = "CNN" # modified
     model_path: Path = ADDR_ROOT / "saves" / "MODEL"
-    model_file: str = "VDSR_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth" # modified
+    model_file: str = "CNN_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth" # modified
     data_dir: Path = ADDR_ROOT / "data" / "Train"
     data_name: str = "xingwei_10000_64_train_v1.npy"
     seed: int = 0
@@ -53,19 +53,19 @@ class PredictConfig:
 @dataclass
 class EvalConfig:
     exp_name: str = "EXP01"
-    model_name: str = "VDSR" # modified
+    model_name: str = "CNN"
     model_dir: Path = ADDR_ROOT / "codes" / "models"
     data_dir: Path = ADDR_ROOT / "data" / "Train"
-    data_name: str = "xingwei_10000_64_train_v1.npy"
-    model_weight_dir: Path = ADDR_ROOT / "saves" / "MODEL"
-    model_weight_name: str = "Last_VDSR_EXP01_400epo_32bth_xingwei.pth" # modified
+    data_name: str = "xingwei_10000_64_train_v1.npy"    
     seed: int = 0
     frac: float = 0.98
     batch_size: int = 32
-    epochs: int = 400
+    epochs: int = 10
     lr_max: float = 5e-4
     lr_min: float = 5e-6
     datarange: float = 1.0
+    LoB: str = "Last" # "Best" or "Last"
+    dataname: str = "xingwei"
 
 # ========== Model Config ==========
 @dataclass

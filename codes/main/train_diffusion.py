@@ -13,7 +13,7 @@ ADDR_CODE = Path(__file__).resolve().parents[1]
 sys.path.append(str(ADDR_ROOT))
 logger.success(f"ADDR_CODE path is: {ADDR_CODE}")
 # ---- 1-2 Libraries for Configuration and Modules ----
-from codes.config.config_diffusion import TrainConfig
+from codes.config.config_diffusion import TrainConfig, ModelConfig
 from codes.function.Dataset import ImageDataset
 import codes.function.Loss as lossfunction
 from codes.function.Log import log
@@ -42,6 +42,7 @@ import seaborn as sns
 
 # ---- 02 Define the main function ----
 train_cfg = TrainConfig()
+model_cfg = ModelConfig()
 app = typer.Typer()
 @app.command()
 def main(
@@ -66,7 +67,7 @@ def main(
     data_path = data_dir / data_name
     model_path = model_dir / f"{model_name}.py"
     logpath = log_dir / f"trainlog_{model_name}"
-    # ---- 2-1 Load the parameter ----
+    model_params = model_cfg.model_params    # ---- 2-1 Load the parameter ----
     logger.info("========== 当前训练参数 ==========")
     for idx, (key, value) in enumerate(locals().items(), start=1):
         logger.info(f"{idx:02d}. {key:<20}: {value}")
@@ -123,6 +124,12 @@ def main(
 
     # ---- 2-3 Initialize the model, loss function and optimizer ----
     # 模型
+    spec = importlib.util.spec_from_file_location("module.name", model_path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules["module.name"] = module
+    spec.loader.exec_module(module)
+    MODEL = getattr(module, model_name)
+
     unet = dl.AttentionUNet(
         in_channels=2,
         channels=[32, 64, 128],

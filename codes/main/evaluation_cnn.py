@@ -1,53 +1,54 @@
 # 所有cnn类模型通用测试框架
 
 # ---- 01 Improt Libraries ----
-# ---- 1-1 Libraries for Path and Logging ----
-from pathlib import Path
-import typer
-from loguru import logger
-from tqdm import tqdm
+# ---- 1-1 Path and Logging ----
+import os
 import sys
+import typer
+from tqdm import tqdm
+from pathlib import Path
+from loguru import logger
 ADDR_ROOT = Path(__file__).resolve().parents[2]
 logger.success(f"ADDR_ROOT path is: {ADDR_ROOT}")
 ADDR_CODE = Path(__file__).resolve().parents[1]
 sys.path.append(str(ADDR_ROOT))
 logger.success(f"ADDR_CODE path is: {ADDR_CODE}")
-# ---- 1-2 Libraries for Configuration ----
+# ---- 1-2 Configuration and Modules ----
+from codes.function.Log import log
+import codes.function.Train as Train
+import codes.function.Loss as lossfunction
 from codes.config.config_cnn import EvalConfig
 from codes.config.config_cnn import ModelConfig
 from codes.function.Dataset import ImageDataset
-from codes.function.Loss import jsdiv,jsdiv_single
-from codes.function.Log import log
-import codes.function.Train as Train
-# ---- 1-3 Libraries for pytorch and others ----
+# ---- 1-3 PyTorch ----
 import torch
+import torch.cuda
 import torch.nn as nn
-from torch.utils.data import DataLoader,random_split, ConcatDataset
 import torch.nn.functional as F
-import importlib
-import matplotlib.pyplot as plt
-import numpy as np
+from torch.utils.data import DataLoader,random_split, ConcatDataset
+# ---- 1-4 Others ----
 import scipy
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
-
+import importlib
+import numpy as np
 import seaborn as sns
+from datetime import datetime
+import matplotlib.pyplot as plt
+# ---- 1-5 eval ----
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 from torchmetrics.image import MultiScaleStructuralSimilarityIndexMeasure as MS_SSIM
 from torchmetrics.image import StructuralSimilarityIndexMeasure as SSIM
 from torchmetrics.image import PeakSignalNoiseRatio as PSNR
 from torchmetrics.regression import MeanAbsoluteError as MAE
 
-app = typer.Typer()
-
 # ---- 02 Define the main function ----
 eval_cfg = EvalConfig()
 model_cfg = ModelConfig()
+app = typer.Typer()
 @app.command()
 def main(
     exp_name: str = eval_cfg.exp_name,                      # para01：实验名称 default: "EXP01"
     model_name: str = eval_cfg.model_name,                  # para02：模型名称 default: "CNN"
     model_dir: Path = eval_cfg.model_dir,                   # para03：模型目录 default: ADDR_ROOT / "codes" / "models"
-    model_weight_dir: Path = eval_cfg.model_weight_dir,     # para05：模型权重目录 default: ADDR_ROOT / "saves" / "MODEL"
-    model_weight_name: str = eval_cfg.model_weight_name,    # para06：模型权重文件名 default: "CNN_EXP01_400epo_32bth_xingwei.pth"
     data_dir: Path = eval_cfg.data_dir,                     # para08：数据目录 default: ADDR_ROOT / "data" / "Train"
     data_name: str = eval_cfg.data_name,                    # para09：数据文件名 default: "xingwei_10000_64_train_v1.npy"
     seed: int = eval_cfg.seed,                              # para11：随机种子 default: 0
@@ -56,27 +57,25 @@ def main(
     epochs: int = eval_cfg.epochs,                          # para14：训练轮数（如需评估多个 epoch） default: 400
     lr_max: float = eval_cfg.lr_max,                        # para15：最大学习率 default: 5e-4
     lr_min: float = eval_cfg.lr_min,                        # para16：最小学习率 default: 5e-6
-    datarange: float = eval_cfg.datarange
+    datarange: float = eval_cfg.datarange,
+    LoB: str = eval_cfg.LoB,                                # para17：选择加载Best还是Last模型 default: "Last"
+    dataname: str = eval_cfg.dataname                       # para18：数据集名称缩写 default: "xingwei"
 ):
-
+    # ==== 2-1 Initialization  ====
+    # eval 自定义参数
     data_path = data_dir / data_name
     model_path = model_dir / f"{model_name}.py"
+    model_weight_name = f"{LoB}_{model_name}_{exp_name}_{epochs}epo_{batch_size}bth_{dataname}.pth"
+    model_weight_dir = ADDR_ROOT / "saves" / "MODEL" / model_name
     model_weight_path = model_weight_dir / model_weight_name
-    model_params = model_cfg.model_params
-    # ---- 2-1 Load the parameter ----
-    logger.info("========== 当前训练参数 ==========")
-    for idx, (key, value) in enumerate(locals().items(), start=1):
-        logger.info(f"{idx:02d}. {key:<20}: {value}")
+
+    # exp 实验参数
     torch.manual_seed(seed)
-    spec = importlib.util.spec_from_file_location("module.name", model_path)
-    module = importlib.util.module_from_spec(spec)
-    sys.modules["module.name"] = module
-    spec.loader.exec_module(module)
-    MODEL = getattr(module, model_name)
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    logger.success("✅ 参数初始化完成（Step 2-1）")
-    
-    # ---- 2-2 Load the data and model ----
+
+    logger.success("========= 2-1 参数加载完成 =========")
+
+    # ==== 2-2 Data: trainloader & testloader ====
     filetmp = np.load(data_path,allow_pickle=True)
     filelen = filetmp.shape[0]
     del filetmp
@@ -89,52 +88,102 @@ def main(
         generator=torch.Generator().manual_seed(0)
         )
 
-    dataloader = DataLoader(trainset,shuffle=True,batch_size=batch_size)
+    trainloader = DataLoader(trainset,shuffle=True,batch_size=batch_size)
     testloader = DataLoader(testset,shuffle=True,batch_size=batch_size)
 
-    # ==== MODEL ====
-    model_params = model_params
+    for batch_idx, (blurry_img, original_img) in enumerate(trainloader):
+        if batch_idx == 0:
+            blurry_img_shape = blurry_img.shape  # 示例：(32, 1, 64, 64)
+            original_img_shape = original_img.shape
+            blurry_img_numpy = blurry_img[1].squeeze().detach().cpu().numpy()
+            blurry_img_min = blurry_img_numpy.min()
+            blurry_img_max = blurry_img_numpy.max()
+            blurry_img_sample = blurry_img_numpy
+            break
+
+    logger.info(f"""
+    ====================== 数据参数 ======================
+    Output of data from Batch 1
+
+    - blurry image     : {blurry_img_shape} [批次, 通道数, 高度, 宽度]
+    - clear image      : {original_img_shape} [批次, 通道数, 高度, 宽度]
+    - datarange        : 最小值 = {blurry_img_min:.6f}, 最大值 = {blurry_img_max:.6f}
+    - 1st image output :
+
+    {np.array2string(blurry_img_sample, precision=4, suppress_small=True, threshold=64)}
+    ===============================================================
+    """)
+
+    logger.success("========= 2-2 数据加载完成 =========")
+
+    # ==== 2-3 Initialize the model ====
+    # model
+    model_params = model_cfg.model_params
     params = model_params[model_name]
+
+    sys.path.append(str(model_dir))
+    module = importlib.import_module(model_name)
+    MODEL = getattr(module, model_name)
+
     model = MODEL(**params).to(device)
+
     state_dict = torch.load(model_weight_path, map_location=device)
     model.load_state_dict(state_dict)
-    logger.success(f"✅ 数据{data_path}加载完成，模型{model_path} + {model_weight_path}加载完成（Step 2-2），模型参数为{params}")
 
-    torch.set_printoptions(precision=10)
-    gpu_name = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "No CUDA device"
+    # loss
+    trainingloss = lossfunction.msejsloss
+
+    logger.success(f"========= 2-3 模型、模型参数与loss加载完成 =========")
+
+    # ==== 2-4 Evaluation ====
+
+    # save path
+    dataname = data_name.split("_")[0]
+    if not os.path.exists(ADDR_ROOT / "saves" / "EVAL" / model_name):
+        save_dir_eval = ADDR_ROOT / "saves" / "EVAL" / model_name
+        os.makedirs(save_dir_eval)
+
+    # logger output
     format_model_params = Train.format_model_params
+    torch.set_printoptions(precision=10)
+    train_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    gpu_name = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "No CUDA device"
+    loss_name = trainingloss.__name__
     model_params_str = format_model_params(model_params[model_name])
     evaluation_msg = f"""
-    ====================== 🚀 开始评估 ======================
+    ====================== 评估参数 ======================
     🔧 配置信息概览：
-    - 📦 实验名称                : {exp_name}
-    - 🧠 模型名称                : {model_name}
-    - 📂 数据文件路径            : {data_path}
-    - 📁 模型脚本路径            : {model_path}
-    - 📂 模型权重路径            : {model_weight_dir}/{model_weight_path}
-    - 📊 数据集切分比例          : 训练集 {frac*100:.1f}% / 测试集 {100-frac*100:.1f}%
-    - 📈 样本总数                : {filelen}
-    - 📈 学习次数                : {epochs}
-    - 🌱 随机种子（Seed）        : {seed}
-    - 🔢 数据归一化范围          : {datarange}
-    - 📉 学习率策略（Cosine）    : 最小 = {lr_min:.1e}, 最大 = {lr_max:.1e}
-    - 💻 使用设备（Device）      : {device}（{gpu_name}）
-    - ⚙️ 模型参数：
+    - traintime               : {train_time}
+    - exp_name                : {exp_name}
+    - model_name              : {model_name}
+    - data_name               : {data_name}（{dataname}）
+    - model_path              : {model_path}
+    - model_weight_path       : {model_weight_path}
+    - data_path               : {data_path}
+    - seed                    : {seed}
+    - frac                    : 训练集 {frac*100:.1f}% / 测试集 {100-frac*100:.1f}%
+    - datalength              : {filelen}
+    - epochs                  : {epochs}
+    - batch_size              : {batch_size}
+    - datarange               : {datarange}
+    - lossname                : {loss_name}
+    - device                  : {device}（{gpu_name}）
+    - model_params            :
+
     {model_params_str}
     ==============================================================
     """
     logger.info(evaluation_msg)
-    
-    # ---- 2-3 evaluation 1: loss ----
+
+    # ==== 2-4-1 evaluation 1: loss distribution map ====
     model.eval()
     model.cpu()
     LOSS_SR = np.array([])
     LOSS_BLU = np.array([])
-    valid_lossf = jsdiv_single
     for batch_idx, (blurry_img, original_img) in enumerate(testloader):
         img_sr,jpt,jpt = model(blurry_img.detach())
-        loss_sr = valid_lossf(img_sr,original_img).detach().cpu().numpy()
-        loss_blurry = valid_lossf(blurry_img,original_img).detach().numpy()
+        loss_sr = trainingloss(img_sr,original_img).detach().cpu().numpy()
+        loss_blurry = trainingloss(blurry_img,original_img).detach().numpy()
         LOSS_SR = np.concat((LOSS_SR,loss_sr.flatten()))
         LOSS_BLU = np.concat((LOSS_BLU,loss_blurry.flatten()))
     def hist(arr,color,nbins = 50,histtype = 'step',label = 'label'):
@@ -147,13 +196,15 @@ def main(
     plt.figure()
     hist(LOSS_BLU,'red',label = 'blur')
     hist(LOSS_SR,'blue',label = 'SR')
-    savepath = f'{ADDR_ROOT}/saves'
     savefigname = f"Eval_loss_{model_weight_name}"
-    plt.savefig(f'{savepath}/EVAL/{savefigname}_jsdiv.png',dpi=300)
-    logger.info(f"Evaluation 1: Loss figure saved at {savepath}/EVAL/{savefigname}_jsdiv.png")
-    logger.success("✅ loss评估完成（Step 2-3-1）")
-    
-    # ---- 2-3 evaluation 2: lineprofiles and resmap----
+    savefig1_path = f'{save_dir_eval}/{savefigname}_{loss_name}.png'
+    plt.savefig(savefig1_path,dpi=300)
+    logger.info(f"Evaluation 1: Loss figure saved at {savefig1_path}")
+    logger.success("========= 2-4-1 loss分布评估完成 =========")
+
+    # ==== 2-4-2 evaluation 2: lineprofiles and resmap ====
+    model.eval()
+    model.to(device)
     num_images_to_show = 3
     def interp2d(x1,x2,y1,y2,arr):
         x = np.arange(arr.shape[0])
@@ -164,8 +215,6 @@ def main(
         x_t = np.linspace(y1,y2,101)
         z_t = interpolate((x_t,y_t))
         return z_t
-    model.eval()
-    model.to(device)
     img_LR=[] 
     img_HR=[]
     img_SR=[]
@@ -235,12 +284,12 @@ def main(
     plt.tight_layout()
     savepath = f'{ADDR_ROOT}/saves'
     savefigname = f"Eval_distribution_{model_weight_name}"
-    savefig_path = f'{savepath}/EVAL/{savefigname}.png'
-    plt.savefig(savefig_path, dpi=300)
-    logger.success(f"Evaluation 1: Loss figure saved at {savefig_path}")
-    logger.success("✅ distribution评估完成（Step 2-3-2）")
-    
-    # ---- 2-3 evaluation 3: NRMSE,MAE,MS-SSIM,SSIM,PSNR ----
+    savefig2_path = f'{save_dir_eval}/{savefigname}.png'
+    plt.savefig(savefig2_path, dpi=300)
+    logger.success(f"Evaluation 1: Loss figure saved at {savefig2_path}")
+    logger.success("========= 2-4-2 lineprofiles and resmap 评估完成 =========")
+
+    # ==== 2-4-3 evaluation 3: NRMSE,MAE,MS-SSIM,SSIM,PSNR ====
     def nrmse(x, y):
         return torch.sqrt(torch.mean((x - y) ** 2)) / (y.max() - y.min())
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -254,9 +303,9 @@ def main(
     psnr_list, ssim_list, ms_ssim_list, mae_list, mse_list, nrmse_list = [], [], [], [], [], []
     psnr_input_list, ssim_input_list, ms_ssim_input_list, mae_input_list, mse_input_list, nrmse_input_list = [], [], [], [], [], []
     
-    output_path = f"{ADDR_ROOT}/saves/EVAL"
-    output_file = f"{output_path}/Eval_data_{model_weight_name}.txt"
-    
+    savetxt_path = save_dir_eval
+    output_file = f"{savetxt_path}/Eval_data_{model_weight_name}.txt"
+
     model.eval()
     model.to(device)
 
@@ -369,11 +418,11 @@ def main(
     
     plt.tight_layout()
     
-    plot_save_path = f"{output_path}/evaluation_plots_{model_weight_name}.png"
-    plt.savefig(plot_save_path)
+    savefig3_path = f'{save_dir_eval}/Eval_metrics_{model_weight_name}.png'
+    plt.savefig(savefig3_path)
     plt.close()
-    logger.info(f"Evaluation plots saved at {plot_save_path}")
-    logger.success("✅ NRMSE,MAE,MS-SSIM,SSIM,PSNR评估完成（Step 2-3-2）")
+    logger.info(f"Evaluation plots saved at {savefig3_path}")
+    logger.success("========= 2-4-3 NRMSE, MAE, MS-SSIM, SSIM, PSNR 评估完成 =========")
     # -----------------------------------------
 
 if __name__ == "__main__":
