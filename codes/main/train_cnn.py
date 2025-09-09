@@ -130,12 +130,17 @@ def main(
     # save path
     dataname = data_name.split("_")[0]
     model_save_name = f"{model_name}_{exp_name}_{epochs}epo_{batch_size}bth_{dataname}"
+
     if not os.path.exists(ADDR_ROOT / "saves" / "TRAIN" / model_name):
         save_dir_train = ADDR_ROOT / "saves" / "TRAIN" / model_name
-        os.makedirs(save_dir_train)
+        os.makedirs(ADDR_ROOT / "saves" / "TRAIN" / model_name)   
     if not os.path.exists(ADDR_ROOT / "saves" / "MODEL" / model_name):
         save_dir_model = ADDR_ROOT / "saves" / "MODEL" / model_name
-        os.makedirs(save_dir_model)
+        os.makedirs(ADDR_ROOT / "saves" / "MODEL" / model_name)
+
+    save_dir_train = ADDR_ROOT / "saves" / "TRAIN" / model_name
+    save_dir_model = ADDR_ROOT / "saves" / "MODEL" / model_name
+
     log_dir = save_dir_train
     logpath = log_dir / f"trainlog_{model_name}"
     loss_plot_path = save_dir_train / f"{model_save_name}.png"
