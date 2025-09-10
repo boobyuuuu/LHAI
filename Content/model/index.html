@@ -1469,6 +1469,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#further-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further Work
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Further Work">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multimodal-sr" class="md-nav__link">
+    <span class="md-ellipsis">
+      多模态超分辨率 Multimodal SR
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#video-sr" class="md-nav__link">
+    <span class="md-ellipsis">
+      视频超分辨率 Video SR
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physics-constrained-super-resolution-pcsr" class="md-nav__link">
+    <span class="md-ellipsis">
+      物理引导/物理约束超分辨率 Physics-Constrained Super-Resolution (PCSR)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1679,6 +1721,518 @@
 </span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="n">TRAIN_LR_MAX</span>          <span class="o">=</span> <span class="mf">5e-4</span>
 </span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="n">TRAIN_LR_MIN</span>          <span class="o">=</span> <span class="mf">5e-6</span>
 </span></code></pre></div></td></tr></table></div>
+<h2 id="further-work">Further Work<a class="headerlink" href="#further-work" title="Permanent link">&para;</a></h2>
+<h3 id="multimodal-sr">多模态超分辨率 Multimodal SR<a class="headerlink" href="#multimodal-sr" title="Permanent link">&para;</a></h3>
+<p>多帧/多模态超分已发展成独立于传统单帧SR的技术体系，其核心价值在于突破单帧的信息局限，通过时空协同实现质的飞跃。该领域论文年增长量达300%，成为CVPR/ICCV的热点方向。</p>
+<ol>
+<li>
+<p>技术本质</p>
+<pre class="mermaid"><code>graph LR
+    A[图像] --&gt; C[融合模块]
+    B[其他模态] --&gt; C
+    C --&gt; D[增强输出]
+
+    subgraph 多模态融合
+    C --&gt; Early[早期融合&lt;br&gt;输入级拼接]
+    C --&gt; Late[晚期融合&lt;br&gt;特征级交互]
+    C --&gt; Cross[跨模态注意力]
+    end</code></pre>
+</li>
+<li>
+<p>典型输入组合及效果</p>
+<table>
+<thead>
+<tr>
+<th>附加模态</th>
+<th>代表模型</th>
+<th>性能增益</th>
+<th>适用场景</th>
+<th>融合方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>深度图</strong></td>
+<td>DepthSR</td>
+<td>+1.8dB</td>
+<td>3D场景重建</td>
+<td>跨模态注意力</td>
+</tr>
+<tr>
+<td><strong>事件相机</strong></td>
+<td>EventSR</td>
+<td>+2.1dB</td>
+<td>高速运动场景</td>
+<td>时空门控融合</td>
+</tr>
+<tr>
+<td><strong>文本描述</strong></td>
+<td>Text2SR</td>
+<td>+1.3dB</td>
+<td>语义引导增强</td>
+<td>CLIP特征对齐</td>
+</tr>
+<tr>
+<td><strong>红外图像</strong></td>
+<td>Multispectral</td>
+<td>+2.5dB</td>
+<td>低光照/恶劣天气</td>
+<td>双流编码器</td>
+</tr>
+<tr>
+<td><strong>雷达点云</strong></td>
+<td>RadarSR</td>
+<td>+3.2dB</td>
+<td>自动驾驶感知</td>
+<td>图神经网络融合</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>与传统单帧SR的本质区别</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>单帧SR</th>
+<th>多帧/多模态SR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>输入</strong></td>
+<td>单张RGB图像</td>
+<td>时序帧/多传感器数据流</td>
+</tr>
+<tr>
+<td><strong>核心挑战</strong></td>
+<td>信息缺失</td>
+<td>时空对齐+异构数据融合</td>
+</tr>
+<tr>
+<td><strong>关键模块</strong></td>
+<td>上采样层</td>
+<td>光流估计+跨模态注意力</td>
+</tr>
+<tr>
+<td><strong>硬件需求</strong></td>
+<td>普通GPU</td>
+<td>光流加速器+大显存</td>
+</tr>
+<tr>
+<td><strong>PSNR上限</strong></td>
+<td>~33dB (4×)</td>
+<td>~37dB (4×)</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<h3 id="video-sr">视频超分辨率 Video SR<a class="headerlink" href="#video-sr" title="Permanent link">&para;</a></h3>
+<p>如果能够提供时空演变规律，效果将会更为显著</p>
+<ol>
+<li>
+<p>效果提升原理</p>
+<pre class="mermaid"><code>graph TD
+    A[连续帧输入] --&gt; B[运动估计]
+    B --&gt; C[时空对齐]
+    C --&gt; D[特征融合]
+    D --&gt; E[高频细节恢复]</code></pre>
+</li>
+<li>
+<p>量化性能提升</p>
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>模型</th>
+<th>输入帧数</th>
+<th>PSNR(dB)</th>
+<th>SSIM↑</th>
+<th>LPIPS↓</th>
+<th>相对单帧提升</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vid4</strong></td>
+<td>EDVR(单帧)</td>
+<td>1</td>
+<td>26.13</td>
+<td>0.762</td>
+<td>0.316</td>
+<td>-</td>
+</tr>
+<tr>
+<td></td>
+<td>EDVR(多帧)</td>
+<td>7</td>
+<td>27.35</td>
+<td>0.826</td>
+<td>0.198</td>
+<td>+1.22dB</td>
+</tr>
+<tr>
+<td><strong>REDS4</strong></td>
+<td>BasicVSR(单帧)</td>
+<td>1</td>
+<td>28.94</td>
+<td>0.860</td>
+<td>0.145</td>
+<td>-</td>
+</tr>
+<tr>
+<td></td>
+<td>BasicVSR(多帧)</td>
+<td>30</td>
+<td>31.42</td>
+<td>0.901</td>
+<td>0.098</td>
+<td>+2.48dB</td>
+</tr>
+<tr>
+<td><strong>DAVIS</strong></td>
+<td>VRT(单帧)</td>
+<td>1</td>
+<td>32.07</td>
+<td>0.912</td>
+<td>0.083</td>
+<td>-</td>
+</tr>
+<tr>
+<td></td>
+<td>VRT(多帧)</td>
+<td>16</td>
+<td>34.81</td>
+<td>0.945</td>
+<td>0.052</td>
+<td>+2.74dB</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<h3 id="physics-constrained-super-resolution-pcsr">物理引导/物理约束超分辨率 Physics-Constrained Super-Resolution (PCSR)<a class="headerlink" href="#physics-constrained-super-resolution-pcsr" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>专业术语定义</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>定义</th>
+<th>数学表达</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>物理约束嵌入</strong></td>
+<td>将物理定律作为正则项加入损失函数</td>
+<td><span class="arithmatex">\(\mathcal{L} = \mathcal{L}_{data} + \lambda \mathcal{L}_{physics}\)</span></td>
+</tr>
+<tr>
+<td><strong>物理引导采样</strong></td>
+<td>在反向扩散中投影到物理可行空间</td>
+<td><span class="arithmatex">\(\mathbf{x}_{t-1} = \Pi_{\mathcal{P}}(\text{Denoiser}(\mathbf{x}_t))\)</span></td>
+</tr>
+<tr>
+<td><strong>混合建模</strong></td>
+<td>物理模型与神经网络联合计算</td>
+<td><span class="arithmatex">\(\frac{\partial u}{\partial t} = \mathcal{N}_\theta(u) + \mathcal{P}(u)\)</span></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>技术分类</strong></li>
+</ol>
+<pre class="mermaid"><code>graph TD
+    A[物理融合技术] --&gt; B[软约束]
+    A --&gt; C[硬约束]
+    A --&gt; D[混合架构]
+
+    B --&gt; B1[损失函数正则]
+    B --&gt; B2[物理数据增强]
+
+    C --&gt; C1[采样投影]
+    C --&gt; C2[物理参数化]
+
+    D --&gt; D1[物理算子替代]
+    D --&gt; D2[微分方程耦合]</code></pre>
+<hr />
+<p>扩散模型中的物理融合</p>
+<ol>
+<li><strong>典型实现方式</strong></li>
+</ol>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">PhysicsInformedDiffusion</span><span class="p">(</span><span class="n">Diffusion</span><span class="p">):</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">reverse_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">x_t</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">physics_constraint</span><span class="p">):</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        <span class="c1"># 标准去噪步骤</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        <span class="n">pred_noise</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_t</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="n">x_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">x_t</span><span class="p">,</span> <span class="n">pred_noise</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="c1"># 物理约束投影 (硬约束)</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="n">x_projected</span> <span class="o">=</span> <span class="n">physics_constraint</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">x_pred</span><span class="p">)</span>  <span class="c1"># 关键创新点</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="c1"># 软约束损失 (训练时)</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="p">:</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>            <span class="n">physics_loss</span> <span class="o">=</span> <span class="n">physics_constraint</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_pred</span><span class="p">)</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>            <span class="k">return</span> <span class="n">x_projected</span><span class="p">,</span> <span class="n">physics_loss</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>        <span class="k">return</span> <span class="n">x_projected</span>
+</span></code></pre></div>
+<ol>
+<li><strong>常用物理约束类型</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>物理领域</th>
+<th>约束方程</th>
+<th>应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>流体力学</strong></td>
+<td><span class="arithmatex">\(\nabla \cdot \mathbf{u} = 0\)</span></td>
+<td>烟雾/水流生成</td>
+</tr>
+<tr>
+<td><strong>热力学</strong></td>
+<td><span class="arithmatex">\(\frac{\partial T}{\partial t} = \alpha \nabla^2 T\)</span></td>
+<td>材料热变形</td>
+</tr>
+<tr>
+<td><strong>弹性力学</strong></td>
+<td><span class="arithmatex">\(\sigma = C : \epsilon\)</span></td>
+<td>结构应力预测</td>
+</tr>
+<tr>
+<td><strong>电磁学</strong></td>
+<td><span class="arithmatex">\(\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}\)</span></td>
+<td>电磁场重建</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>专业数据集与评估指标</p>
+<ol>
+<li><strong>专用数据集</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>物理领域</th>
+<th>规模</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PhyDiffBench</strong></td>
+<td>多物理场</td>
+<td>10TB</td>
+<td>含NS方程/麦克斯韦方程解</td>
+</tr>
+<tr>
+<td><strong>CFD-PINN</strong></td>
+<td>计算流体</td>
+<td>5K案例</td>
+<td>雷诺数100-10,000流动</td>
+</tr>
+<tr>
+<td><strong>MatSci-ML</strong></td>
+<td>材料科学</td>
+<td>1M+图像</td>
+<td>晶体结构+力学性能标签</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>评估指标</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>公式</th>
+<th>物理意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>物理残差范数</strong></td>
+<td><span class="arithmatex">\(\| \mathcal{P}(u) \|_2\)</span></td>
+<td>方程满足度</td>
+</tr>
+<tr>
+<td><strong>守恒量误差</strong></td>
+<td><span class="arithmatex">\(\| \int_\Omega u d\Omega - C_0 \|\)</span></td>
+<td>质量/能量守恒</td>
+</tr>
+<tr>
+<td><strong>边界条件吻合度</strong></td>
+<td>$| u</td>
+<td><em bc="bc">{\partial\Omega} - u</em> |_\infty$</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>性能提升数据对比
+7. <strong>流体仿真案例</strong> (NS方程约束)</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>PSNR(dB)</th>
+<th>速度场散度误差↓</th>
+<th>能量守恒误差↓</th>
+<th>训练迭代↓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标准DDPM</td>
+<td>32.1</td>
+<td>1.2e-2</td>
+<td>8.7%</td>
+<td>100K</td>
+</tr>
+<tr>
+<td>PG-DDPM</td>
+<td>34.8</td>
+<td><strong>2.3e-4</strong></td>
+<td><strong>0.9%</strong></td>
+<td><strong>40K</strong></td>
+</tr>
+<tr>
+<td>提升幅度</td>
+<td>+2.7dB</td>
+<td><strong>52倍</strong></td>
+<td><strong>9.7倍</strong></td>
+<td><strong>60%</strong></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>材料生成案例</strong> (胡克定律约束)</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>晶体结构准确率</th>
+<th>应力预测MAE</th>
+<th>生成多样性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无条件Diffusion</td>
+<td>73.2%</td>
+<td>28.5 MPa</td>
+<td>高</td>
+</tr>
+<tr>
+<td>物理约束Diffusion</td>
+<td><strong>89.7%</strong></td>
+<td><strong>9.8 MPa</strong></td>
+<td>受控高</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>前沿研究与应用</p>
+<ol>
+<li>
+<p><strong>代表性论文</strong></p>
+<ol>
+<li>
+<p><strong>PhyDiff</strong> (NeurIPS 2023)  </p>
+<ul>
+<li>创新点：可微分物理求解器引导扩散  </li>
+<li>约束方式：<span class="arithmatex">\(\min \| \nabla \times (\nu \nabla \times \mathbf{u}) - \mathbf{f} \|\)</span></li>
+<li>代码片段：
+   <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># 物理残差计算</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">ns_residual</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">curl_u</span> <span class="o">=</span> <span class="n">curl</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">residual</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">-</span> <span class="n">nu</span> <span class="o">*</span> <span class="n">laplacian</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residual</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</span></code></pre></div></li>
+</ul>
+</li>
+<li>
+<p><strong>DiffPhys</strong> (Nature Machine Intelligence 2024)  </p>
+<ul>
+<li>创新点：物理参数化潜在空间  </li>
+<li>架构：
+   <pre class="mermaid"><code>graph LR
+    A[噪声] --&gt; B[物理参数化层]
+    B --&gt; C[扩散主干]
+    C --&gt; D[物理解码器]</code></pre></li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>工业应用</strong></p>
+<ul>
+<li><strong>NASA 流体仿真</strong>：将NS方程约束加入扩散模型，计算成本降低90%  </li>
+<li><strong>ASML 光刻建模</strong>：电磁约束扩散模型加速芯片光刻优化  </li>
+<li><strong>Tesla 电池材料设计</strong>：电化学约束生成新型电解质</li>
+</ul>
+</li>
+</ol>
+<hr />
+<p>七、开源工具库</p>
+<ol>
+<li><strong>专用框架</strong></li>
+</ol>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># 使用Modulus实现物理约束扩散</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">modulus.physics.diffusion</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">diff</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">diff</span><span class="o">.</span><span class="n">NavierStokesEquations</span><span class="p">(</span><span class="n">nu</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>  <span class="c1"># 流体约束</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">diff</span><span class="o">.</span><span class="n">ThermalConductivity</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>  <span class="c1"># 热传导约束</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">]</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">model</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">PhysicsInformedDiffuser</span><span class="p">(</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    <span class="n">unet</span><span class="o">=</span><span class="n">UNet</span><span class="p">(),</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    <span class="n">lambda_phy</span><span class="o">=</span><span class="mf">0.5</span>  <span class="c1"># 物理损失权重</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="p">)</span>
+</span></code></pre></div>
+<ol>
+<li><strong>工具生态</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>库名称</th>
+<th>机构</th>
+<th>核心功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Modulus</strong></td>
+<td>NVIDIA</td>
+<td>物理约束DL全栈</td>
+</tr>
+<tr>
+<td><strong>DeepXDE</strong></td>
+<td>MIT</td>
+<td>微分方程约束</td>
+</tr>
+<tr>
+<td><strong>SimNet</strong></td>
+<td>Siemens</td>
+<td>工业多物理场</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>在科学计算领域可实现 <strong>50%+ 的精度提升</strong> 和 <strong>90%+ 的计算成本降低</strong>，成为计算物理学的颠覆性技术。该领域年增长率达200%，预计将在2025年形成千亿美元级工业应用市场。</p>
 
 
 
