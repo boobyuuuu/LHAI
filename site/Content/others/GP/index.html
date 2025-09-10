@@ -1446,6 +1446,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#99" class="md-nav__link">
+    <span class="md-ellipsis">
+      讨论 9月9日
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#97" class="md-nav__link">
+    <span class="md-ellipsis">
+      组会七 9月7日
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#725" class="md-nav__link">
     <span class="md-ellipsis">
       组会六 7月25日
@@ -1532,6 +1550,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#99" class="md-nav__link">
+    <span class="md-ellipsis">
+      讨论 9月9日
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#97" class="md-nav__link">
+    <span class="md-ellipsis">
+      组会七 9月7日
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#725" class="md-nav__link">
     <span class="md-ellipsis">
       组会六 7月25日
@@ -1587,6 +1623,51 @@
 
 
 <h1 id="_1">组会与进展<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="99">讨论 9月9日<a class="headerlink" href="#99" title="Permanent link">&para;</a></h2>
+<p>要解决的几个数据问题</p>
+<ol>
+<li>
+<p>xingwei数据问题</p>
+</li>
+<li>
+<p>圆环/圆盘问题</p>
+</li>
+<li>
+<p>数据集引用的顺序问题</p>
+</li>
+<li>
+<p>分子云数据</p>
+</li>
+<li>
+<p>HESS真实评估数据集</p>
+</li>
+</ol>
+<p>讨论结果：</p>
+<ol>
+<li>
+<p>xingwei数据问题：</p>
+<ul>
+<li>出现噪点数据。为什么会出现这种数据：输入的数据总流强太低，达到了仪器的噪声水平。解决：1. 考察一下产生这种噪点的输入数据流强，是否与其他数据有数量级的本质差别，并且确定产生这种噪点的输入数据的流强范围。  -- 第一个置信度控制量：输入总流强</li>
+<li>卷积出现流强分布异常问题。现象：在原本没有信号的地方出现了异常的流强峰值。我们猜测的原因：输入数据存在流强数量级差别过大的源，一些不明显的源导致。解决：考察一下产生这种异常的输入数据流强，是否与其他数据有数量级的本质差别，并且确定产生这种异常的输入数据的流强数量级差范围，确保现实应用中不会出现这个问题  -- 第二个置信度控制量：输入数据中源的流强数量级差</li>
+</ul>
+</li>
+<li>
+<p>圆环/圆盘问题</p>
+<ul>
+<li>确定会出现问题。猜测影响因素：1.内外径比例 2.外径绝对大小 3. 总流强 解决：1.内外径比例来控制圆环，生成连续圆环评估数据集，确定在多少时会出现问题。2.生成单个连续圆环评估数据集。 -- 第三个置信度考察量：圆环/圆盘评估值</li>
+</ul>
+</li>
+<li>
+<p>数据集引用的顺序问题。已解决，将shuffle设置为False</p>
+</li>
+<li>
+<p>分子云数据。已解决，分子云数据已经加入训练集</p>
+</li>
+<li>
+<p>HESS真实评估数据集。不着急</p>
+</li>
+</ol>
+<h2 id="97">组会七 9月7日<a class="headerlink" href="#97" title="Permanent link">&para;</a></h2>
 <h2 id="725">组会六 7月25日<a class="headerlink" href="#725" title="Permanent link">&para;</a></h2>
 <ol>
 <li>本周结营测试，没做多少任务</li>

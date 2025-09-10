@@ -185,5 +185,4 @@ nav:
     - ChangeLog: 
       - changelog/index.md
     - HowtoBeCollaborator: Content/others/1.md
-    - improvement:
-      - GroupMeeting: Content/others/GP.md
+    - GroupMeeting: Content/others/GP.md
