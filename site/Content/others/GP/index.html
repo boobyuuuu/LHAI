@@ -1350,53 +1350,6 @@
   
   
   
-    
-    
-      
-        
-      
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    improvement
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6_3">
-            <span class="md-nav__icon md-icon"></span>
-            improvement
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-    
-  
-  
-  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -1502,14 +1455,6 @@
     </ul>
   
 </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -1641,6 +1586,9 @@
 <li>
 <p>HESS真实评估数据集</p>
 </li>
+<li>
+<p>归一化与流强还原问题</p>
+</li>
 </ol>
 <p>讨论结果：</p>
 <ol>
@@ -1665,6 +1613,13 @@
 </li>
 <li>
 <p>HESS真实评估数据集。不着急</p>
+</li>
+<li>
+<p>归一化与流强还原问题。</p>
+<ul>
+<li>确定在建立响应过程中，卷积前后两张图的总流强相等</li>
+<li>为了模型快速收敛，训练过程中采用min-max归一化。归一化之后，两张图总流强不等，并且超分图像较难还原。考虑实际情况，采用新的归一化方式，并且在超分之后能够正确还原现实流强。</li>
+</ul>
 </li>
 </ol>
 <h2 id="97">组会七 9月7日<a class="headerlink" href="#97" title="Permanent link">&para;</a></h2>
