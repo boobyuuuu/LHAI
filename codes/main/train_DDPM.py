@@ -159,7 +159,7 @@ def main(
     logger.success("========= 2-3 模型、损失函数、优化器加载完成 =========")
 
     # ==== 2-4 Initialize the training function ====
-    train = Train.train_diffusion  # 确认train_diffusion函数签名与之前定义的train一致
+    train = Train.train_DDPM  # 确认train_DDPM函数签名与之前定义的train一致
 
     # logger output
     format_model_params = Train.format_model_params
@@ -170,6 +170,9 @@ def main(
     loss_name = criterion.__name__                                  # 损失函数名称，例如 msejsloss
     model_params_str_diffusion = format_model_params(model_params[model_name_diffusion])
     model_params_str_unet = format_model_params(model_params[model_name_unet])
+    filetmp = np.load(data_path, allow_pickle=True)
+    filelen = int(filetmp.shape[0])
+    del filetmp
     train_msg = f"""
     ====================== 训练参数 ======================
     🔧 配置信息概览：

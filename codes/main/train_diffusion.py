@@ -168,6 +168,9 @@ def main(
     gpu_name = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "No CUDA device"
     optimizer_name = optimizer.__class__.__name__                      # 优化器类名，例如 AdamW
     loss_name = criterion.__name__                                  # 损失函数名称，例如 msejsloss
+    filetmp = np.load(data_path, allow_pickle=True)
+    filelen = int(filetmp.shape[0])
+    del filetmp
 
     train_msg = f"""
     ====================== 🚀 开始训练 ======================

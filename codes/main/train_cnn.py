@@ -154,6 +154,9 @@ def main(
     optimizer_name = optimizer.__class__.__name__                      # 优化器类名，例如 AdamW
     loss_name = criterion.__name__                                  # 损失函数名称，例如 msejsloss
     model_params_str = format_model_params(model_params[model_name])
+    filetmp = np.load(data_path, allow_pickle=True)
+    filelen = int(filetmp.shape[0])
+    del filetmp
     train_msg = f"""
     ====================== 训练参数 ======================
     🔧 配置信息概览：
