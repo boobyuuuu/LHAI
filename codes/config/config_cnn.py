@@ -8,8 +8,10 @@ load_dotenv()
 
 ADDR_CONFIG = Path(__file__).resolve().parents[0]
 ADDR_ROOT = Path(__file__).resolve().parents[2]
-logger.success(f"ADDR_CONFIG is: {ADDR_CONFIG}")
-logger.info(f"ADDR_ROOT is: {ADDR_ROOT}")
+
+if __name__ == "__main__":
+    logger.success(f"ADDR_CONFIG is: {ADDR_CONFIG}")
+    logger.info(f"ADDR_ROOT is: {ADDR_ROOT}")
 
 # ========== Train Config ==========
 @dataclass

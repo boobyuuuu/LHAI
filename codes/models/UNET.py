@@ -1,57 +1,68 @@
+# UNET.py
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
+
+try:
+    import deeplay as dl
+except Exception as e:
+    dl = None
+    _IMPORT_ERR = e
+
 
 class UNET(nn.Module):
-    def __init__(self, in_channels, out_channels):
-        super(UNET, self).__init__()
+    """
+    轻量包装：将 dl.AttentionUNet 封装为 LHAI 统一接口
+    - __init__ 参数与原始 main 中一致
+    - 提供 build() 以保持一致调用
+    - forward(x, t) 直接转发给底层 AttentionUNet
+    """
 
-        # 下采样部分
-        self.encoder1 = self.conv_block(in_channels, 64)
-        self.encoder2 = self.conv_block(64, 128)
-        self.encoder3 = self.conv_block(128, 256)
-        self.encoder4 = self.conv_block(256, 512)
+    def __init__(
+        self,
+        jpt=None,  # 兼容占位
+        in_channels: int = 2,
+        channels=(32, 64, 128),
+        base_channels=(256, 256),
+        channel_attention=(False, False, False),
+        out_channels: int = 1,
+        position_embedding_dim: int = 128,
+    ):
+        super().__init__()
+        if dl is None:
+            raise ImportError(
+                "deeplay 未能导入，请确认已正确安装/可用。\n原始错误：{}".format(_IMPORT_ERR)
+            )
 
-        # Bottleneck
-        self.bottleneck = self.conv_block(512, 1024)
-
-        # 上采样部分
-        self.decoder4 = self.upconv_block(1024, 512)
-        self.decoder3 = self.upconv_block(512, 256)
-        self.decoder2 = self.upconv_block(256, 128)
-        self.decoder1 = nn.Conv2d(128, out_channels, kernel_size=1)  # 输出通道调整为out_channels
-
-    def conv_block(self, in_channels, out_channels):
-        return nn.Sequential(
-            nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1),
-            nn.ReLU(inplace=True)
+        # 保持与你的原始构造完全一致
+        self.net = dl.AttentionUNet(
+            in_channels=in_channels,
+            channels=list(channels),
+            base_channels=list(base_channels),
+            channel_attention=list(channel_attention),
+            out_channels=out_channels,
+            position_embedding_dim=position_embedding_dim,
         )
 
-    def upconv_block(self, in_channels, out_channels):
-        return nn.Sequential(
-            nn.ConvTranspose2d(in_channels, out_channels, kernel_size=2, stride=2),
-            nn.ReLU(inplace=True)
-        )
+        # 某些版本需要 build() 才完成子模块构建
+        # 为了与 main 一致，这里不自动 build，让外部显式调用
+        self._built = False
 
-    def forward(self, x):
-        # 下采样
-        enc1 = self.encoder1(x)                     # (B, 64, 64, 64)
-        enc2 = self.encoder2(F.max_pool2d(enc1, 2)) # (B, 128, 32, 32)
-        enc3 = self.encoder3(F.max_pool2d(enc2, 2)) # (B, 256, 16, 16)
-        enc4 = self.encoder4(F.max_pool2d(enc3, 2)) # (B, 512, 8, 8)
+    def build(self):
+        """与原 main 中一致的构建入口。"""
+        if hasattr(self.net, "build"):
+            self.net.build()
+        self._built = True
+        return self
 
-        # Bottleneck
-        bottleneck = self.bottleneck(F.max_pool2d(enc4, 2)) # (B, 1024, 4, 4)
-
-        # 上采样
-        dec4 = self.decoder4(bottleneck)               # (B, 512, 8, 8)
-        dec4 = torch.cat((dec4, enc4), dim=1)          # 跳跃连接
-        dec3 = self.decoder3(dec4)                      # (B, 256, 16, 16)
-        dec3 = torch.cat((dec3, enc3), dim=1)          # 跳跃连接
-        dec2 = self.decoder2(dec3)                      # (B, 128, 32, 32)
-        dec2 = torch.cat((dec2, enc2), dim=1)          # 跳跃连接
-        dec1 = self.decoder1(dec2)                      # (B, out_channels, 64, 64)
-
-        return dec1,0,0
+    def forward(self, x, t=None):
+        """
+        训练/采样阶段调用方式与原始一致：
+        - x: 模型输入（如 [LR | x_t] 拼接）
+        - t: 时间步嵌入（sinusoidal 或 learnable），shape ~ (B, D)
+        """
+        # 兼容两种写法：unet(x, t) / unet(x=x, t=t)
+        try:
+            return self.net(x=x, t=t)
+        except TypeError:
+            # 若底层定义是 net(x, t) 位置参数，也能兼容
+            return self.net(x, t)

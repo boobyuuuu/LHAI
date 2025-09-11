@@ -8,8 +8,9 @@ load_dotenv()
 
 ADDR_CONFIG = Path(__file__).resolve().parents[0]
 ADDR_ROOT = Path(__file__).resolve().parents[2]
-logger.success(f"ADDR_CONFIG is: {ADDR_CONFIG}")
-logger.info(f"ADDR_ROOT is: {ADDR_ROOT}")
+if __name__ == "__main__":
+    logger.success(f"ADDR_CONFIG is: {ADDR_CONFIG}")
+    logger.info(f"ADDR_ROOT is: {ADDR_ROOT}")
 
 # ========== Train Config ==========
 @dataclass
@@ -18,7 +19,8 @@ class TrainConfig:
     data_dir: Path = ADDR_ROOT / "data" / "Train"
     data_name: str = "xingwei_10000_64_train_v1.npy"
     model_dir: Path = ADDR_ROOT / "codes" / "models"
-    model_name: str = "DIFFUSION"
+    model_name_diffusion: str = "DDPM"
+    model_name_unet: str = "UNET"
     seed: int = 0
     frac: float = 0.98
     epochs: int = 2
@@ -26,10 +28,6 @@ class TrainConfig:
     lr_max: float = 5e-4
     lr_min: float = 5e-6
     datarange: float = 1.0
-    position_encoding_dim: int = 256
-    noise_steps: int = 2000
-    EVALUATE_METRICS: bool = False
-    log_dir: Path = ADDR_ROOT / "saves" / "TRAIN" / "LOGS"
 # ========== Predict Config ==========
 @dataclass
 class PredictConfig:
@@ -92,13 +90,33 @@ class EvalConfig:
 @dataclass
 class ModelConfig:
     model_params: dict = field(default_factory=lambda: {
-        "AttentionUNet": {
-            "in_channels": 2,
-            "channels": [32, 64, 128],
-            "base_channels": [256, 256],
-            "channel_attention": [False, False, False],
-            "out_channels": 1
-            # position_embedding_dim will be injected at runtime
+        'UNET': {
+            'jpt': None,                    # 兼容占位
+            'in_channels': 2,               # 条件扩散输入：LR 与 x_t 拼接
+            'channels': [32, 64, 128],
+            'base_channels': [256, 256],
+            'channel_attention': [False, False, False],
+            'out_channels': 1,              # 预测噪声
+            'position_embedding_dim': 128,  # 与 diffusion 的 pos_emb_dim 对齐
+        },
+        'DDPM': {
+            'noise_steps': 2000,            # 扩散过程步数
+            'beta_start': 1e-4,             # 噪声调度起始值
+            'beta_end': 0.02,               # 噪声调度结束值
+            'img_size': 64,                 # 图像分辨率 (H=W=64)
+            'device': None,                 # 默认为 None，会在类内自动选择 CUDA/CPU
+            'position_encoding_fn': None,   # 可传入 SinusoidalPosEmb 或其他 PE 函数
+            'position_encoding_dim': None,  # 若需要位置编码，设置 embedding 维度
+            'conditional': True             # 是否启用条件扩散（拼接 LR 输入）
+        },
+        'DDPM_Transformer': {
+            'noise_steps': 2000,        # 扩散过程的步数 (T)
+            'beta_start': 1e-6,         # 噪声调度起始值
+            'beta_end': 0.01,           # 噪声调度结束值
+            'img_size': 64,             # 图像输入/输出分辨率 (H=W=64)
+            'device': None,             # 默认 None，类内部会自动选择 "cuda" 或 "cpu"
+            'pos_emb_dim': 128,         # 时间步位置编码维度
+            'conditional': True         # 是否启用条件扩散 (输入=LR+噪声)
         }
     })
 

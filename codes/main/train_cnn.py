@@ -60,6 +60,26 @@ def main(
     torch.manual_seed(seed)
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
+    # save path
+    dataname = data_name.split("_")[0]
+    model_save_name = f"{model_name}_{exp_name}_{epochs}epo_{batch_size}bth_{dataname}"
+
+    save_dir_train = ADDR_ROOT / "saves" / "TRAIN" / model_name
+    save_dir_model = ADDR_ROOT / "saves" / "MODEL" / model_name
+    if not os.path.exists(save_dir_train):
+        os.makedirs(save_dir_train)
+    if not os.path.exists(save_dir_model):
+        os.makedirs(save_dir_model)
+
+    log_dir = save_dir_train
+    logpath = log_dir / f"trainlog_{model_name}"
+
+    loss_plot_path = save_dir_train / f"{model_save_name}.png"
+    loss_data_path = save_dir_train / f"{model_save_name}.npy"
+
+    Best_model_save_path = save_dir_model / f"Best_{model_save_name}.pth"
+    Last_model_save_path = save_dir_model / f"Last_{model_save_name}.pth"
+
     logger.success("========= 2-1 参数加载完成 =========")
     
     # ==== 2-2 Data: trainloader & testloader ====
@@ -120,33 +140,12 @@ def main(
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
 
     # loss function
-    trainingloss = lossfunction.msejsloss
+    criterion = lossfunction.msejsloss
 
     logger.success("========= 2-3 模型、损失函数、优化器加载完成 =========")
 
     # ==== 2-4 Initialize the training function ====
     train = Train.train_cnn
-
-    # save path
-    dataname = data_name.split("_")[0]
-    model_save_name = f"{model_name}_{exp_name}_{epochs}epo_{batch_size}bth_{dataname}"
-
-    if not os.path.exists(ADDR_ROOT / "saves" / "TRAIN" / model_name):
-        save_dir_train = ADDR_ROOT / "saves" / "TRAIN" / model_name
-        os.makedirs(ADDR_ROOT / "saves" / "TRAIN" / model_name)   
-    if not os.path.exists(ADDR_ROOT / "saves" / "MODEL" / model_name):
-        save_dir_model = ADDR_ROOT / "saves" / "MODEL" / model_name
-        os.makedirs(ADDR_ROOT / "saves" / "MODEL" / model_name)
-
-    save_dir_train = ADDR_ROOT / "saves" / "TRAIN" / model_name
-    save_dir_model = ADDR_ROOT / "saves" / "MODEL" / model_name
-
-    log_dir = save_dir_train
-    logpath = log_dir / f"trainlog_{model_name}"
-    loss_plot_path = save_dir_train / f"{model_save_name}.png"
-    loss_data_path = save_dir_train / f"{model_save_name}.npy"
-    Best_model_save_path = save_dir_model / f"Best_{model_save_name}.pth"
-    Last_model_save_path = save_dir_model / f"Last_{model_save_name}.pth"
 
     # logger output
     format_model_params = Train.format_model_params
@@ -154,7 +153,7 @@ def main(
     train_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     gpu_name = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "No CUDA device"
     optimizer_name = optimizer.__class__.__name__                      # 优化器类名，例如 AdamW
-    loss_name = trainingloss.__name__                                  # 损失函数名称，例如 msejsloss
+    loss_name = criterion.__name__                                  # 损失函数名称，例如 msejsloss
     model_params_str = format_model_params(model_params[model_name])
     train_msg = f"""
     ====================== 训练参数 ======================
@@ -174,7 +173,7 @@ def main(
     - learnrate               : 最小 = {lr_min:.1e}, 最大 = {lr_max:.1e}
     - lossname                : {loss_name}
     - optimizer               : {optimizer_name}
-    - device                  : {device}（{gpu_name}）
+    - device                  : {device}({gpu_name})
     - logpath                 : {logpath}
     - model_params            :
 
@@ -191,7 +190,7 @@ def main(
         model=model,
         optimizer=optimizer,
         scheduler=scheduler,
-        trainingloss=trainingloss,
+        criterion=criterion,
         device=device,
         trainloader=trainloader,
         testloader=testloader,
@@ -270,8 +269,8 @@ def main(
             im4, ax=axes[i,4],shrink = 0.5
         )
     plt.tight_layout()
-    plt.show()
     plt.savefig(f'{save_dir_train}/Trainpredict_{model_save_name}.png', dpi = 300)
+    plt.show()
     logger.success(f"First prediction saved at {save_dir_train}/Trainpredict_{model_save_name}.png")
     logger.success("========= 2-6 模型初次推理完成 =========")
     # -----------------------------------------
