@@ -55,8 +55,8 @@ class PredictConfig:
 @dataclass
 class EvalConfig:
     exp_name: str = "EXP01"
-    model_name: str = "CNN"
     model_dir: Path = ADDR_ROOT / "codes" / "models"
+    model_name: str = "CNN"
     data_dir: Path = ADDR_ROOT / "data" / "Train"
     data_name: str = "xingwei_10000_64_train_v1.npy"    
     seed: int = 0

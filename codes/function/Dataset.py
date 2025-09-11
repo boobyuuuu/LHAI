@@ -3,6 +3,7 @@ import numpy as np
 from PIL import Image
 from torch.utils.data import Dataset
 import torchvision.transforms as transforms
+from torch.utils.data import DataLoader, Subset
 
 class ImageDataset(Dataset):
     def __init__(self, num_to_learn,path_data,inverse=False, data_range=1.0):
@@ -62,3 +63,78 @@ class ImageDataset(Dataset):
 
     def __getitem__(self, index):
         return self.data[index]
+
+class DataModule:
+    """
+    负责从 .npy 构建 ImageDataset，并按给定 frac 连续切分为 train/test，
+    返回与原逻辑完全一致的 DataLoader。
+    """
+    def __init__(
+        self,
+        data_path: str,
+        batch_size: int,
+        frac: float = 0.8,
+        inverse: bool = False,
+        shuffle_train: bool = False,
+        shuffle_test: bool = False,
+        num_workers: int = 0, # 数据加载子进程数
+        pin_memory: bool = False, # 是否将数据加载到 CUDA 可用的锁页内存
+        drop_last: bool = False, # 是否丢弃最后一个不完整的 batch
+    ):
+        self.data_path = data_path
+        self.batch_size = batch_size
+        self.frac = float(frac)
+        self.inverse = bool(inverse)
+        self.shuffle_train = bool(shuffle_train)
+        self.shuffle_test = bool(shuffle_test)
+        self.num_workers = int(num_workers)
+        self.pin_memory = bool(pin_memory)
+        self.drop_last = bool(drop_last)
+
+        # 占位
+        self.dataset = None
+        self.trainset = None
+        self.testset = None
+        self.trainloader = None
+        self.testloader = None
+
+    def build(self):
+        filetmp = np.load(self.data_path, allow_pickle=True)
+        filelen = int(filetmp.shape[0])
+        del filetmp
+
+        self.dataset = ImageDataset(filelen, self.data_path, inverse=self.inverse)
+
+        # 连续切分（保持与原代码一致，而非随机）
+        train_size = int(self.frac * len(self.dataset))
+        test_size  = len(self.dataset) - train_size
+
+        train_indices = list(range(0, train_size))
+        test_indices  = list(range(train_size, len(self.dataset)))
+
+        self.trainset = Subset(self.dataset, train_indices)
+        self.testset  = Subset(self.dataset, test_indices)
+
+        # DataLoader（保持与原代码一致：默认 shuffle=False）
+        self.trainloader = DataLoader(
+            self.trainset,
+            shuffle=self.shuffle_train,
+            batch_size=self.batch_size,
+            num_workers=self.num_workers,
+            pin_memory=self.pin_memory,
+            drop_last=self.drop_last,
+        )
+        self.testloader = DataLoader(
+            self.testset,
+            shuffle=self.shuffle_test,
+            batch_size=self.batch_size,
+            num_workers=self.num_workers,
+            pin_memory=self.pin_memory,
+            drop_last=self.drop_last,
+        )
+        return self.trainloader, self.testloader
+
+    def get_loaders(self):
+        if self.trainloader is None or self.testloader is None:
+            raise RuntimeError("You must call build() before get_loaders().")
+        return self.trainloader, self.testloader

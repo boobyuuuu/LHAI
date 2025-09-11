@@ -19,7 +19,7 @@ import codes.function.Train as Train
 import codes.function.Loss as lossfunction
 from codes.config.config_cnn import EvalConfig
 from codes.config.config_cnn import ModelConfig
-from codes.function.Dataset import ImageDataset
+from codes.function.Dataset import ImageDataset, DataModule
 # ---- 1-3 PyTorch ----
 import torch
 import torch.cuda
@@ -76,20 +76,19 @@ def main(
     logger.success("========= 2-1 参数加载完成 =========")
 
     # ==== 2-2 Data: trainloader & testloader ====
-    filetmp = np.load(data_path,allow_pickle=True)
-    filelen = filetmp.shape[0]
-    del filetmp
-    NUM_TO_LEARN = int(filelen)
+    dm = DataModule(
+    data_path=data_path,
+    batch_size=batch_size,
+    frac=frac,
+    inverse=False,
+    shuffle_train=False,
+    shuffle_test=False,
+    num_workers=0,
+    pin_memory=False,
+    drop_last=False,
+    )
 
-    dataset = ImageDataset(NUM_TO_LEARN,data_path,inverse=False)
-    trainset, testset = random_split(dataset,
-        lengths=[int(frac *len(dataset)),
-        len(dataset) - int(frac * len(dataset))],
-        generator=torch.Generator().manual_seed(0)
-        )
-
-    trainloader = DataLoader(trainset,shuffle=True,batch_size=batch_size)
-    testloader = DataLoader(testset,shuffle=True,batch_size=batch_size)
+    trainloader, testloader = dm.build()
 
     for batch_idx, (blurry_img, original_img) in enumerate(trainloader):
         if batch_idx == 0:
@@ -139,8 +138,8 @@ def main(
 
     # save path
     dataname = data_name.split("_")[0]
-    if not os.path.exists(ADDR_ROOT / "saves" / "EVAL" / model_name):
-        save_dir_eval = ADDR_ROOT / "saves" / "EVAL" / model_name
+    save_dir_eval = ADDR_ROOT / "saves" / "EVAL" / model_name
+    if not os.path.exists(save_dir_eval):
         os.makedirs(save_dir_eval)
 
     # logger output
@@ -177,7 +176,7 @@ def main(
 
     # ==== 2-4-1 evaluation 1: loss distribution map ====
     model.eval()
-    model.cpu()
+    model.to(device)
     LOSS_SR = np.array([])
     LOSS_BLU = np.array([])
     for batch_idx, (blurry_img, original_img) in enumerate(testloader):

@@ -2,100 +2,94 @@
 
 # ---- 01 Improt Libraries ----
 # ---- 1-1 Libraries for Path and Logging ----
-from pathlib import Path
-import typer
-from loguru import logger
-from tqdm import tqdm
+import os
 import sys
+import typer
+from tqdm import tqdm
+from pathlib import Path
+from loguru import logger
 ADDR_ROOT = Path(__file__).resolve().parents[2]
 logger.success(f"ADDR_ROOT path is: {ADDR_ROOT}")
 ADDR_CODE = Path(__file__).resolve().parents[1]
 sys.path.append(str(ADDR_ROOT))
 logger.success(f"ADDR_CODE path is: {ADDR_CODE}")
-# ---- 1-2 Libraries for Configuration ----
-from codes.config.config_diffusion import EvalConfig
-from codes.function.Dataset import ImageDataset, DataModule
-import codes.function.Loss as lossfunction
+# ---- 1-2 Libraries for Configuration and Modules ----
 from codes.function.Log import log
 import codes.function.Train as Train
-from codes.models.DIFFUSION import EnhancedUNetWrapper
-from codes.models.DIFFUSION import Diffusion
-from codes.models.DIFFUSION import positional_encoding
-from codes.models.DIFFUSION import prepare_data
-# ---- 1-3 Libraries for pytorch and others ----
+import codes.function.Loss as lossfunction
+from codes.config.config_DDPM import EvalConfig
+from codes.config.config_DDPM import ModelConfig
+from codes.function.Dataset import ImageDataset, DataModule
+# ---- 1-3 PyTorch ----
 import torch
-import torch.nn as nn
 import torch.cuda
-from torch.utils.data import DataLoader,random_split, ConcatDataset
+import torch.nn as nn
 import torch.nn.functional as F
-import importlib
-import matplotlib.pyplot as plt
-import numpy as np
-import deeplay as dl
-import time
-from datetime import timedelta
+from torch.utils.data import DataLoader,random_split, ConcatDataset
+# ---- 1-4 Others ----
 import scipy
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+import importlib
+import numpy as np
 import seaborn as sns
+from datetime import datetime
+import matplotlib.pyplot as plt
+
+import deeplay as dl
+# ---- 1-5 eval ----
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 from torchmetrics.image import MultiScaleStructuralSimilarityIndexMeasure as MS_SSIM
 from torchmetrics.image import StructuralSimilarityIndexMeasure as SSIM
 from torchmetrics.image import PeakSignalNoiseRatio as PSNR
 from torchmetrics.regression import MeanAbsoluteError as MAE
-import scipy.interpolate
-
-app = typer.Typer()
 
 # ---- 02 Define the main function ----
 eval_cfg = EvalConfig()
+model_cfg = ModelConfig()
+app = typer.Typer()
 @app.command()
 def main(
     exp_name: str = eval_cfg.exp_name,                      # para01：实验名称 default: "EXP01"
-    model_name: str = eval_cfg.model_name,                  # para02：模型名称 default: "CNN"
-    model_dir: Path = eval_cfg.model_dir,                   # para03：模型目录 default: ADDR_ROOT / "codes" / "models"
-    model_path: Path = eval_cfg.model_path,                 # para04：模型定义路径（.py） default: model_dir / f"{model_name}_{exp_name}.py"
-    data_dir: Path = eval_cfg.data_dir,                   # para05：数据目录 default: ADDR_ROOT / "data" / "Train"
-    data_name: str = eval_cfg.data_name,                    # para06：数据名称 default: "xingwei_10000_64_train_v1.npy"
-    data_path: Path = eval_cfg.data_path,                   # para07：数据路径 default: data_dir / data_name
-    unet_weight_name: str = eval_cfg.unet_weight_name,      # para08：UNet权重名称 default: "unetconfig_DIFFUSION_EXP01_1epo_32bth_xingwei.pth"
-    unet_weight_path: Path = eval_cfg.unet_weight_path,      # para09：UNet权重路径 default: ADDR_ROOT / "saves" / "MODEL" / unet_weight_name
-    diffusion_weight_name: str = eval_cfg.diffusion_weight_name,  # para10：Diffusion权重名称 default: "diffusionconfig_DIFFUSION_EXP01_1epo_32bth_xingwei.pth"
-    diffusion_weight_path: Path = eval_cfg.diffusion_weight_path,  # para11：Diffusion权重路径 default: ADDR_ROOT / "saves" / "MODEL"/ diffusion_weight_name
-    seed: int = eval_cfg.seed,                              # para12：随机种子 default: 0
-    frac: float = eval_cfg.frac,                            # para13：数据集划分比例 default: 0.98
-    epochs: int = eval_cfg.epochs,                          # para14：训练轮数 default: 1
-    batch_size: int = eval_cfg.batch_size,                  # para15：批次大小 default: 32
-    lr_max: float = eval_cfg.lr_max,                        # para16：最大学习率 default: 5e-4
-    lr_min: float = eval_cfg.lr_min,                        # para17：最小学习率 default: 5e-6
-    datarange: float = eval_cfg.datarange,                  # para18：数据范围 default: 1.0
-    position_encoding_dim: int = eval_cfg.position_encoding_dim,  # para19：位置编码维度 default: 256
-    noise_steps: int = eval_cfg.noise_steps,                # para20：噪声步骤 default: 2000
-    logpath: Path = eval_cfg.logpath                        # para21：日志路径 default: ADDR_ROOT / "logs" / "train_diffusion.log"
+    data_dir: Path = eval_cfg.data_dir,                 # para05：数据目录 default: ADDR_ROOT / "data" / "Train"
+    data_name: str = eval_cfg.data_name,                # para06：数据文件名 default: "xingwei_10000_64_train_v1.npy"
+    model_dir: Path = eval_cfg.model_dir,               # para03：模型目录 default: ADDR_ROOT / "codes" / "models"
+    model_name_diffusion: str = eval_cfg.model_name_diffusion,              # para02：模型名称 default: "DIFFUSION"
+    model_name_unet: str = eval_cfg.model_name_unet,                            # para02：模型名称 default: "UNET"
+    seed: int = eval_cfg.seed,                              # para11：随机种子 default: 0
+    frac: float = eval_cfg.frac,                            # para12：训练集比例 default: 0.8
+    batch_size: int = eval_cfg.batch_size,                  # para13：批次大小 default: 32
+    epochs: int = eval_cfg.epochs,                          # para14：训练轮数（如需评估多个 epoch） default: 400
+    lr_max: float = eval_cfg.lr_max,                        # para15：最大学习率 default: 5e-4
+    lr_min: float = eval_cfg.lr_min,                        # para16：最小学习率 default: 5e-6
+    datarange: float = eval_cfg.datarange,
+    LoB: str = eval_cfg.LoB,                                # para17：选择加载Best还是Last模型 default: "Last"
+    dataname: str = eval_cfg.dataname                       # para18：数据集名称缩写 default: "xingwei"
 ):
-    # ---- 2-1 Load the parameter ----
-    logger.info("========== 当前训练参数 ==========")
-    for idx, (key, value) in enumerate(locals().items(), start=1):
-        logger.info(f"{idx:02d}. {key:<20}: {value}")
+    # ==== 2-1 Initialization  ====
+    # train 自定义参数
+    data_path = data_dir / data_name
+    model_path = model_dir / f"{model_name_diffusion}.py"
+    model_weight_name = f"{LoB}_{model_name_diffusion}_{exp_name}_{epochs}epo_{batch_size}bth_{dataname}.pth"
+    model_weight_dir = ADDR_ROOT / "saves" / "MODEL" / model_name_diffusion
+    model_weight_path = model_weight_dir / model_weight_name
+
+    # exp 实验参数
     torch.manual_seed(seed)
-    # spec = importlib.util.spec_from_file_location("module.name", model_path)
-    # module = importlib.util.module_from_spec(spec)
-    # sys.modules["module.name"] = module
-    # spec.loader.exec_module(module)
-    # MODEL = getattr(module, model_name)
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    logger.success("✅ 参数加载完成（Step 2-1）")
+
+    logger.success("========= 2-1 参数加载完成 =========")
     
-    # ---- 2-2 Load the data and model ----
+    # ==== 2-2 Data: trainloader & testloader ====
     dm = DataModule(
-        data_path=data_path,
-        batch_size=batch_size,
-        frac=frac,
-        inverse=False,
-        shuffle_train=False,
-        shuffle_test=False,
-        num_workers=0,
-        pin_memory=False,
-        drop_last=False,
-        )
+    data_path=data_path,
+    batch_size=batch_size,
+    frac=frac,
+    inverse=False,
+    shuffle_train=False,
+    shuffle_test=False,
+    num_workers=0,
+    pin_memory=False,
+    drop_last=False,
+    )
 
     trainloader, testloader = dm.build()
 
@@ -110,75 +104,95 @@ def main(
             break
 
     logger.info(f"""
-    ====================== 📊 数据集统计信息 ======================
-    样本来源：第一个训练 mini-batch（Batch 1）
+    ====================== 数据参数 ======================
+    Output of data from Batch 1
 
-    - 🖼️ 模糊图像张量尺寸     : {blurry_img_shape}（格式：[批次, 通道数, 高度, 宽度]）
-    - 🖼️ 原始图像张量尺寸     : {original_img_shape}（格式：[批次, 通道数, 高度, 宽度]）
-    - 🔢 模糊图像像素取值范围 : 最小值 = {blurry_img_min:.6f}, 最大值 = {blurry_img_max:.6f}
-    - 🧪 模糊图像样本（索引 1）二维数据如下（截取）：
+    - blurry image     : {blurry_img_shape} [批次, 通道数, 高度, 宽度]
+    - clear image      : {original_img_shape} [批次, 通道数, 高度, 宽度]
+    - datarange        : 最小值 = {blurry_img_min:.6f}, 最大值 = {blurry_img_max:.6f}
+    - 1st image output :
+
     {np.array2string(blurry_img_sample, precision=4, suppress_small=True, threshold=64)}
     ===============================================================
     """)
 
-    logger.success("✅ 数据加载完成（Step 2-2）")
-    
-    diffusion_config = torch.load(diffusion_weight_path)
-    diffusion = Diffusion(
-        noise_steps=diffusion_config['noise_steps'],
-        beta_start=diffusion_config['beta_start'],
-        beta_end=diffusion_config['beta_end'],
-        img_size=diffusion_config['img_size'],
-        device=device
-    )
+    logger.success("========= 2-2 数据加载完成 =========")
 
-    # 重建并加载 UNet 模型
-    unet = dl.AttentionUNet(
-        in_channels=2,
-        channels=[32, 64, 128],
-        base_channels=[256, 256],
-        channel_attention=[False, False, False],
-        out_channels=1,
-        position_embedding_dim=position_encoding_dim,
-    )
+    # ==== 2-3 Initialize the model ====
+    # DIFFUSION
+    model_params = model_cfg.model_params
+    params_diffusion = model_params[model_name_diffusion]
+    params_unet = model_params[model_name_unet]
+
+    sys.path.append(str(model_dir))
+    module_diffusion = importlib.import_module(model_name_diffusion)
+    DIFFUSION = getattr(module_diffusion, model_name_diffusion)
+
+    diffusion = DIFFUSION(**params_diffusion)
+
+    # Unet
+    model_params = model_cfg.model_params
+    params_unet = model_params[model_name_unet]
+    sys.path.append(str(model_dir))
+    module_unet = importlib.import_module(model_name_unet)
+    UNET = getattr(module_unet, model_name_unet)
+
+    unet = UNET(**params_unet).to(device)
     unet.build()
     unet.to(device)
     
     # 加载权重
-    unet.load_state_dict(torch.load(unet_weight_path, map_location=device))
-    unet.eval()
+    unet.load_state_dict(torch.load(model_weight_path, map_location=device))
+    
+    # loss
+    trainingloss = lossfunction.msejsloss
 
-    # 加载权重
-    unet.load_state_dict(torch.load(unet_weight_path, map_location=device))
-    unet.eval()
-    logger.success("✅ 模型加载完成（Step 2-2）")
+    logger.success(f"========= 2-3 模型、模型参数与loss加载完成 =========")
     
-    # # ---- 2-3 evaluation 1: loss ----
-    # LOSS_SR = np.array([])
-    # LOSS_BLU = np.array([])
-    # valid_lossf = lossfunction.msejsloss
-    # for batch_idx, (blurry_img, original_img) in enumerate(testloader):
-    #     img_sr,jpt,jpt = model(blurry_img.detach())
-    #     loss_sr = valid_lossf(img_sr,original_img).detach().cpu().numpy()
-    #     loss_blurry = valid_lossf(blurry_img,original_img).detach().numpy()
-    #     LOSS_SR = np.concat((LOSS_SR,loss_sr.flatten()))
-    #     LOSS_BLU = np.concat((LOSS_BLU,loss_blurry.flatten()))
-    # def hist(arr,color,nbins = 50,histtype = 'step',label = 'label'):
-    #     #bins = np.logspace(np.log10(arr.min()),np.log10(arr.max()),nbins)
-    #     #jpt = plt.hist(arr,bins = bins,density=True,histtype = histtype,color =color)
-    #     #plt.xscale('log')
-    #     bins = np.linspace((arr.min()),(arr.max()),nbins)
-    #     jpt = plt.hist(arr,bins = bins,density=False,histtype = histtype,color =color,label = label)
-    #     plt.legend()
-    # plt.figure()
-    # hist(LOSS_BLU,'red',label = 'blur')
-    # hist(LOSS_SR,'blue',label = 'SR')
-    # savepath = f'{ADDR_ROOT}/saves'
-    # savefigname = f"Eval_loss_{model_name}_{exp_name}"
-    # plt.savefig(f'{savepath}/EVAL/{savefigname}_jsdiv.png',dpi=300)
-    # logger.info(f"Evaluation 1: Loss figure saved at {savepath}/EVAL/{savefigname}_jsdiv.png")
-    # logger.success("✅ loss评估完成（Step 2-3-1）")
+    # ==== 2-4 Evaluation ====
+
+    # save path
+    dataname = data_name.split("_")[0]
+    save_dir_eval = ADDR_ROOT / "saves" / "EVAL" / model_name_diffusion
+    if not os.path.exists(save_dir_eval):
+        os.makedirs(save_dir_eval)
+
+    # logger output
+    format_model_params = Train.format_model_params
+    torch.set_printoptions(precision=10)
+    train_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    gpu_name = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "No CUDA device"
+    loss_name = trainingloss.__name__
+    model_params_str_diffusion = format_model_params(model_params[model_name_diffusion])
+    model_params_str_unet = format_model_params(model_params[model_name_unet])
+    train_msg = f"""
+    ====================== 训练参数 ======================
+    🔧 配置信息概览：
+    - traintime               : {train_time}
+    - exp_name                : {exp_name}
+    - model_name              : {model_name_diffusion} + {model_name_unet}
+    - data_name               : {data_name}（{dataname}）
+    - model_path              : {model_path}
+    - data_path               : {data_path}
+    - seed                    : {seed}
+    - frac                    : 训练集 {frac*100:.1f}% / 测试集 {100-frac*100:.1f}%
+    - datalength              : {filelen}
+    - epochs                  : {epochs}
+    - batch_size              : {batch_size}
+    - datarange               : {datarange}
+    - learnrate               : 最小 = {lr_min:.1e}, 最大 = {lr_max:.1e}
+    - lossname                : {loss_name}
+    - device                  : {device}({gpu_name})
+    - model_params_diffusion  : 
     
+    {model_params_str_diffusion}
+    - model_params_unet       :
+
+    {model_params_str_unet}
+    ==============================================================
+    """
+    logger.info(train_msg)
+
     # ---- 2-3 evaluation 2: lineprofiles and resmap----
     def interp2d(x1,x2,y1,y2,arr):
         x = np.arange(arr.shape[0])
@@ -203,10 +217,8 @@ def main(
             model=unet,
             n_images=n_images,
             n_channels=1,
-            position_encoding_dim=position_encoding_dim,
-            position_encoding_function=positional_encoding,
             input_image=test_input_images[:n_images],
-            save_time_steps=[0]
+            save_time_steps=None
         )
 
     # 转置维度，从 (T, B, C, H, W) → (B, T, C, H, W)
@@ -298,11 +310,11 @@ def main(
     
     plt.tight_layout()
     savepath = f'{ADDR_ROOT}/saves'
-    savefigname = f"Eval_lineprofiles_{model_name}_{exp_name}"
-    savefig_path = f'{savepath}/EVAL/{savefigname}.png'
-    plt.savefig(savefig_path, dpi=300)
-    logger.success(f"Evaluation 1: Loss figure saved at {savefig_path}")
-    logger.success("✅ lineprofiles评估完成（Step 2-3-2）")
+    savefigname = f"Eval_distribution_{model_weight_name}"
+    savefig2_path = f'{save_dir_eval}/{savefigname}.png'
+    plt.savefig(savefig2_path, dpi=300)
+    logger.success(f"Evaluation 1: Loss figure saved at {savefig2_path}")
+    logger.success("========= 2-4-2 lineprofiles and resmap 评估完成 =========")
     
     # ---- 2-3 evaluation 3: NRMSE,MAE,MS-SSIM,SSIM,PSNR ----
     ms_ssim_metric = MS_SSIM(
@@ -325,14 +337,12 @@ def main(
             model=unet,
             n_images=n_images,
             n_channels=1,
-            position_encoding_dim=position_encoding_dim,
-            position_encoding_function=positional_encoding,
             input_image=test_input_images[:n_images],
-            save_time_steps=[0]
+            save_time_steps=None
         )
 
     # 转置维度 (T, B, C, H, W) → (B, T, C, H, W)
-    generated_images = generated_images.swapaxes(0, 1)
+    # generated_images = generated_images.swapaxes(0, 1)
 
     # 存储每张图像的评估指标
     nrmse_list, mae_list, ms_ssim_list, ssim_list, psnr_list = [], [], [], [], []
@@ -440,11 +450,11 @@ def main(
     
     plt.tight_layout()
     
-    plot_save_path = f"{savepath}/EVAL/evaluationplots_{model_name}_{exp_name}.png"
-    plt.savefig(plot_save_path)
+    savefig3_path = f'{save_dir_eval}/Eval_metrics_{model_weight_name}.png'
+    plt.savefig(savefig3_path)
     plt.close()
-    logger.info(f"Evaluation plots saved at {plot_save_path}")
-    logger.success("✅ NRMSE,MAE,MS-SSIM,SSIM,PSNR评估完成（Step 2-3-2）")
+    logger.info(f"Evaluation plots saved at {savefig3_path}")
+    logger.success("========= 2-4-3 NRMSE, MAE, MS-SSIM, SSIM, PSNR 评估完成 =========")
     # -----------------------------------------
 
 if __name__ == "__main__":
