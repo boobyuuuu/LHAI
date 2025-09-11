@@ -332,64 +332,64 @@ def train_diffusion(
                     + f"Train loss: {train_loss[-1]:.4f}, "
                     + f"Time taken: {timedelta(seconds=end_time - start_time)}")
 
-        # 评估阶段
-        unet.eval()
+        # # 评估阶段
+        # unet.eval()
 
-        running_mae = 0.0
-        running_ms_ssim = 0.0
-        running_ssim = 0.0
-        running_psnr = 0.0
-        running_nrmse = 0.0
+        # running_mae = 0.0
+        # running_ms_ssim = 0.0
+        # running_ssim = 0.0
+        # running_psnr = 0.0
+        # running_nrmse = 0.0
 
-        n_images = 4
+        # n_images = 4
 
-        for batch_idx, (test_input_images, \
-                    test_target_images) in enumerate(testloader):
+        # for batch_idx, (test_input_images, \
+        #             test_target_images) in enumerate(testloader):
 
-            num_batches = len(testloader)
-            test_input_images = test_input_images.to(device)
-            test_target_images = test_target_images.to(device)
+        #     num_batches = len(testloader)
+        #     test_input_images = test_input_images.to(device)
+        #     test_target_images = test_target_images.to(device)
 
-            generated_images = diffusion.reverse_diffusion(
-                model=unet,
-                n_images=test_input_images.shape[0] if EVALUATE_METRICS else n_images,
-                n_channels=1,
-                position_encoding_dim=position_encoding_dim,
-                position_encoding_function=positional_encoding,
-                input_image=test_input_images if EVALUATE_METRICS else \
-                    test_input_images[:n_images],
-                save_time_steps=[0],
-            )
+        #     generated_images = diffusion.reverse_diffusion(
+        #         model=unet,
+        #         n_images=test_input_images.shape[0] if EVALUATE_METRICS else n_images,
+        #         n_channels=1,
+        #         position_encoding_dim=position_encoding_dim,
+        #         position_encoding_function=positional_encoding,
+        #         input_image=test_input_images if EVALUATE_METRICS else \
+        #             test_input_images[:n_images],
+        #         save_time_steps=[0],
+        #     )
 
-            if EVALUATE_METRICS:
-                generated_images_reshaped = generated_images.swapaxes(0, 1)[0]
+        #     if EVALUATE_METRICS:
+        #         generated_images_reshaped = generated_images.swapaxes(0, 1)[0]
 
-                # Calculating the metrics for each batch
-                batch_mae = mae_metric(generated_images_reshaped, test_target_images)
-                batch_ms_ssim = ms_ssim_metric(generated_images_reshaped, test_target_images)
-                batch_ssim = ssim_metric(generated_images_reshaped, test_target_images)
-                batch_psnr = psnr_metric(generated_images_reshaped, test_target_images)
-                batch_nrmse = torch.sqrt(
-                    torch.mean((generated_images_reshaped - test_target_images) ** 2)
-                ) / (test_target_images.max() - test_target_images.min())
+        #         # Calculating the metrics for each batch
+        #         batch_mae = mae_metric(generated_images_reshaped, test_target_images)
+        #         batch_ms_ssim = ms_ssim_metric(generated_images_reshaped, test_target_images)
+        #         batch_ssim = ssim_metric(generated_images_reshaped, test_target_images)
+        #         batch_psnr = psnr_metric(generated_images_reshaped, test_target_images)
+        #         batch_nrmse = torch.sqrt(
+        #             torch.mean((generated_images_reshaped - test_target_images) ** 2)
+        #         ) / (test_target_images.max() - test_target_images.min())
 
-                # Accumulating the metrics
-                running_mae += batch_mae.item()
-                running_ms_ssim += batch_ms_ssim.item()
-                running_ssim += batch_ssim.item()
-                running_psnr += batch_psnr.item()
-                running_nrmse += batch_nrmse.item()
+        #         # Accumulating the metrics
+        #         running_mae += batch_mae.item()
+        #         running_ms_ssim += batch_ms_ssim.item()
+        #         running_ssim += batch_ssim.item()
+        #         running_psnr += batch_psnr.item()
+        #         running_nrmse += batch_nrmse.item()
 
-            else:
-                break
+        #     else:
+        #         break
 
-        if EVALUATE_METRICS:
-            # Storing the mean metric values per epoch to the empty lists
-            mae_results.append(running_mae / num_batches)
-            ms_ssim_results.append(running_ms_ssim / num_batches)
-            ssim_results.append(running_ssim / num_batches)
-            psnr_results.append(running_psnr / num_batches)
-            nrmse_results.append(running_nrmse / num_batches)
+        # if EVALUATE_METRICS:
+        #     # Storing the mean metric values per epoch to the empty lists
+        #     mae_results.append(running_mae / num_batches)
+        #     ms_ssim_results.append(running_ms_ssim / num_batches)
+        #     ssim_results.append(running_ssim / num_batches)
+        #     psnr_results.append(running_psnr / num_batches)
+        #     nrmse_results.append(running_nrmse / num_batches)
 
         # 更新学习率
         scheduler.step()

@@ -65,7 +65,7 @@ def main(
     #【重要】根据命令行输入重新定义参数
     data_path = data_dir / data_name
     model_path = model_dir / f"{model_name}.py"
-    logpath = log_dir / f"trainlog_{model_name}"
+    logpath = ADDR_ROOT / "saves" / f"trainlog_{model_name}"
     # ---- 2-1 Load the parameter ----
     logger.info("========== 当前训练参数 ==========")
     for idx, (key, value) in enumerate(locals().items(), start=1):

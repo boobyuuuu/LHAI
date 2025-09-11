@@ -7,12 +7,12 @@ class Diffusion:
     """Denoising diffusion probabilstic model (DDPM)."""
 
     def __init__(self, noise_steps=1000, beta_start=1e-4, beta_end=0.02,
-                img_size=64, device='cpu'):
+                img_size=64, device=None):
         """Initialize the diffusion model."""
         self.noise_steps = noise_steps
         self.beta_start = beta_start
         self.beta_end = beta_end
-        self.device = device
+        self.device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
         self.beta = self.prepare_noise_schedule().to(self.device)
         self.alpha = (1.0 - self.beta).to(self.device)
         self.alpha_bar = torch.cumprod(self.alpha, dim=0).to(self.device)
