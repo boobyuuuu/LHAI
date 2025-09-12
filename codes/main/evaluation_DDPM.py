@@ -174,6 +174,7 @@ def main(
     - traintime               : {train_time}
     - exp_name                : {exp_name}
     - model_name              : {model_name_diffusion} + {model_name_unet}
+    - model_weight_name       : {model_weight_path}
     - data_name               : {data_name}（{dataname}）
     - model_path              : {model_path}
     - data_path               : {data_path}
