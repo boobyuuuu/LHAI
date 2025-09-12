@@ -22,7 +22,7 @@ class TrainConfig:
     model_name_diffusion: str = "DDPM"
     model_name_unet: str = "UNET"
     seed: int = 0
-    frac: float = 0.98
+    frac: float = 0.80
     epochs: int = 2
     batch_size: int = 32
     lr_max: float = 5e-4
@@ -38,7 +38,7 @@ class PredictConfig:
     data_name: str = "poisson_src_bkg.pkl.npy"
     seed: int = 0
     pred_type: str = "poissonsrc+bkg_highresorig"
-    frac: float = 0.98
+    frac: float = 0.80
     batch_size: int = 32
     latent_dim: int = 64
     position_encoding_dim: int = 256
@@ -62,7 +62,7 @@ class EvalConfig:
     data_dir: Path = ADDR_ROOT / "data" / "Train"
     data_name: str = "xingwei_10000_64_train_v1.npy"
     seed: int = 0
-    frac: float = 0.98
+    frac: float = 0.80
     epochs: int = 2
     batch_size: int = 32
     lr_max: float = 5e-4

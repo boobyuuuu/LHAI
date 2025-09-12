@@ -22,7 +22,7 @@ class TrainConfig:
     model_dir: Path = ADDR_ROOT / "codes" / "models"
     model_name: str = "CNN"
     seed: int = 0
-    frac: float = 0.98
+    frac: float = 0.80
     epochs: int = 10
     batch_size: int = 32
     lr_max: float = 5e-4
@@ -39,7 +39,7 @@ class PredictConfig:
     data_name: str = "xingwei_10000_64_train_v1.npy"
     seed: int = 0
     pred_type: str = "poissonsrc+bkg_highresorig"
-    frac: float = 0.98
+    frac: float = 0.80
     batch_size: int = 32
     latent_dim: int = 64
 
@@ -60,7 +60,7 @@ class EvalConfig:
     data_dir: Path = ADDR_ROOT / "data" / "Train"
     data_name: str = "xingwei_10000_64_train_v1.npy"    
     seed: int = 0
-    frac: float = 0.98
+    frac: float = 0.80
     batch_size: int = 32
     epochs: int = 10
     lr_max: float = 5e-4
