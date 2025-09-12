@@ -165,8 +165,11 @@ def main(
     loss_name = trainingloss.__name__
     model_params_str_diffusion = format_model_params(model_params[model_name_diffusion])
     model_params_str_unet = format_model_params(model_params[model_name_unet])
+    filetmp = np.load(data_path, allow_pickle=True)
+    filelen = int(filetmp.shape[0])
+    del filetmp
     train_msg = f"""
-    ====================== 训练参数 ======================
+    ====================== 评估参数 ======================
     🔧 配置信息概览：
     - traintime               : {train_time}
     - exp_name                : {exp_name}
@@ -193,7 +196,7 @@ def main(
     """
     logger.info(train_msg)
 
-    # ---- 2-3 evaluation 2: lineprofiles and resmap----
+    # ---- 2-4 evaluation 2: lineprofiles and resmap----
     def interp2d(x1,x2,y1,y2,arr):
         x = np.arange(arr.shape[0])
         y = np.arange(arr.shape[0])
@@ -316,7 +319,7 @@ def main(
     logger.success(f"Evaluation 1: Loss figure saved at {savefig2_path}")
     logger.success("========= 2-4-2 lineprofiles and resmap 评估完成 =========")
     
-    # ---- 2-3 evaluation 3: NRMSE,MAE,MS-SSIM,SSIM,PSNR ----
+    # ---- 2-4 evaluation 4: NRMSE,MAE,MS-SSIM,SSIM,PSNR ----
     ms_ssim_metric = MS_SSIM(
         data_range=2.0, kernel_size=7, betas=(0.0448, 0.2856, 0.3001)
     ).to(device)
@@ -342,7 +345,7 @@ def main(
         )
 
     # 转置维度 (T, B, C, H, W) → (B, T, C, H, W)
-    # generated_images = generated_images.swapaxes(0, 1)
+    generated_images = generated_images.unsqueeze(0)
 
     # 存储每张图像的评估指标
     nrmse_list, mae_list, ms_ssim_list, ssim_list, psnr_list = [], [], [], [], []

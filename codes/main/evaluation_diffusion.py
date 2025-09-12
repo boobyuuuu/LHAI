@@ -52,14 +52,12 @@ def main(
     exp_name: str = eval_cfg.exp_name,                      # para01：实验名称 default: "EXP01"
     model_name: str = eval_cfg.model_name,                  # para02：模型名称 default: "CNN"
     model_dir: Path = eval_cfg.model_dir,                   # para03：模型目录 default: ADDR_ROOT / "codes" / "models"
-    model_path: Path = eval_cfg.model_path,                 # para04：模型定义路径（.py） default: model_dir / f"{model_name}_{exp_name}.py"
     data_dir: Path = eval_cfg.data_dir,                   # para05：数据目录 default: ADDR_ROOT / "data" / "Train"
     data_name: str = eval_cfg.data_name,                    # para06：数据名称 default: "xingwei_10000_64_train_v1.npy"
-    data_path: Path = eval_cfg.data_path,                   # para07：数据路径 default: data_dir / data_name
     unet_weight_name: str = eval_cfg.unet_weight_name,      # para08：UNet权重名称 default: "unetconfig_DIFFUSION_EXP01_1epo_32bth_xingwei.pth"
-    unet_weight_path: Path = eval_cfg.unet_weight_path,      # para09：UNet权重路径 default: ADDR_ROOT / "saves" / "MODEL" / unet_weight_name
+    unet_weight_path: str = eval_cfg.unet_weight_path,
     diffusion_weight_name: str = eval_cfg.diffusion_weight_name,  # para10：Diffusion权重名称 default: "diffusionconfig_DIFFUSION_EXP01_1epo_32bth_xingwei.pth"
-    diffusion_weight_path: Path = eval_cfg.diffusion_weight_path,  # para11：Diffusion权重路径 default: ADDR_ROOT / "saves" / "MODEL"/ diffusion_weight_name
+    diffusion_weight_path: str = eval_cfg.diffusion_weight_path,
     seed: int = eval_cfg.seed,                              # para12：随机种子 default: 0
     frac: float = eval_cfg.frac,                            # para13：数据集划分比例 default: 0.98
     epochs: int = eval_cfg.epochs,                          # para14：训练轮数 default: 1
@@ -71,6 +69,8 @@ def main(
     noise_steps: int = eval_cfg.noise_steps,                # para20：噪声步骤 default: 2000
     logpath: Path = eval_cfg.logpath                        # para21：日志路径 default: ADDR_ROOT / "logs" / "train_diffusion.log"
 ):
+    data_path = data_dir / data_name
+    model_path = model_dir / f"{model_name}.py"
     # ---- 2-1 Load the parameter ----
     logger.info("========== 当前训练参数 ==========")
     for idx, (key, value) in enumerate(locals().items(), start=1):
