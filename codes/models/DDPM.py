@@ -14,11 +14,11 @@ class DDPM:
     def __init__(
         self,
         noise_steps: int = 1000,
-        beta_start: float = 1e-4,
-        beta_end: float = 0.02,
+        beta_start: float = 1e-6,
+        beta_end: float = 0.01,
         img_size: int = 64,
         device: torch.device | str | None = None,
-        pos_emb_dim: int = 128,
+        pos_emb_dim: int = 256,
         conditional: bool = True,
     ):
         self.noise_steps = noise_steps

@@ -81,7 +81,7 @@ class ModelConfig:
             'base_channels': [256, 256],
             'channel_attention': [False, False, False],
             'out_channels': 1,              # 预测噪声
-            'position_embedding_dim': 128,  # 与 diffusion 的 pos_emb_dim 对齐
+            'position_embedding_dim': 256,  # 与 diffusion 的 pos_emb_dim 对齐
         },
         'UNET_v2': {
             'jpt': None,                    # 兼容占位
@@ -94,17 +94,17 @@ class ModelConfig:
         },
         'DDPM': {
             'noise_steps': 2000,            # 扩散过程步数
-            'beta_start': 1e-4,             # 噪声调度起始值
-            'beta_end': 0.02,               # 噪声调度结束值
+            'beta_start': 1e-6,             # 噪声调度起始值
+            'beta_end': 0.01,               # 噪声调度结束值
             'img_size': 64,                 # 图像分辨率 (H=W=64)
             'device': None,                 # 默认为 None，会在类内自动选择 CUDA/CPU
-            'pos_emb_dim': 128,             # 若需要位置编码，设置 embedding 维度
+            'pos_emb_dim': 256,             # 若需要位置编码，设置 embedding 维度
             'conditional': True              # 是否启用条件扩散（拼接 LR 输入）
         },
         'DDPM_v2': {
             'noise_steps': 2000,            # 扩散过程步数
-            'beta_start': 1e-4,             # 噪声调度起始值
-            'beta_end': 0.02,               # 噪声调度结束值
+            'beta_start': 1e-6,             # 噪声调度起始值
+            'beta_end': 0.01,               # 噪声调度结束值
             'img_size': 64,                 # 图像分辨率 (H=W=64)
             'device': None,                 # 默认为 None，会在类内自动选择 CUDA/CPU
             'pos_emb_dim': 256,             # 若需要位置编码，设置 embedding 维度
@@ -116,7 +116,7 @@ class ModelConfig:
             'beta_end': 0.01,           # 噪声调度结束值
             'img_size': 64,             # 图像输入/输出分辨率 (H=W=64)
             'device': None,             # 默认 None，类内部会自动选择 "cuda" 或 "cpu"
-            'pos_emb_dim': 128,         # 时间步位置编码维度
+            'pos_emb_dim': 256,         # 时间步位置编码维度
             'conditional': True         # 是否启用条件扩散 (输入=LR+噪声)
         }
     })
