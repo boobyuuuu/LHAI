@@ -9,7 +9,7 @@ except Exception as e:
     _IMPORT_ERR = e
 
 
-class UNET(nn.Module):
+class UNET_v2(nn.Module):
     """
     轻量包装：将 dl.AttentionUNet 封装为 LHAI 统一接口
     - __init__ 参数与原始 main 中一致

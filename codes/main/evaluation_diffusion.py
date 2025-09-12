@@ -99,7 +99,7 @@ def main(
 
     trainloader, testloader = dm.build()
 
-    for batch_idx, (blurry_img, original_img) in enumerate(trainloader):
+    for batch_idx, (blurry_img, original_img) in enumerate(testloader):
         if batch_idx == 0:
             blurry_img_shape = blurry_img.shape  # 示例：(32, 1, 64, 64)
             original_img_shape = original_img.shape
