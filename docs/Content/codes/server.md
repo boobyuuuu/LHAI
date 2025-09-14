@@ -135,13 +135,32 @@
 
 - ssh连接服务器
 
-    方法1：在终端输入（环境中已下载ssh）
-
     ```
-    ssh -L 8889:localhost:8889 root@111.61.30.143
+    ssh innov2023@114.212.184.60
     ```
 
-    方法2：使用vscode进行服务器编辑：[https://blog.csdn.net/kiong_/article/details/135877723](https://blog.csdn.net/kiong_/article/details/135877723)
+- 服务器jupyter lab 在本地打开
+
+    本地开一个带转发的ssh：
+
+    ```
+    ssh -L 8888:localhost:8888 innov2023@114.212.184.60
+    ```
+
+    在服务器这个 SSH 会话里（可先激活你的环境）启动 JupyterLab：
+
+    ```
+    jupyter lab --no-browser --port 8888
+    ```
+
+    复制 Jupyter 输出里的 URL（带 ?token=...），在本机浏览器打开：
+
+    ```
+    http://localhost:8888/?token=xxxxxxxx
+    ```
+
+
+- 使用vscode进行服务器编辑：[https://blog.csdn.net/kiong_/article/details/135877723](https://blog.csdn.net/kiong_/article/details/135877723)
 
     vscode连接服务器使用ipynb文件的小问题：[vscode中 ssh连接服务器后 无法为jupyter文件选择内核kernel](https://blog.csdn.net/jyk19991222/article/details/131486776)
 
