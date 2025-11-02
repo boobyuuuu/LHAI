@@ -138,3 +138,34 @@ class DataModule:
         if self.trainloader is None or self.testloader is None:
             raise RuntimeError("You must call build() before get_loaders().")
         return self.trainloader, self.testloader
+    
+class SingleImageDataset(Dataset):
+    """
+    用于单张图像推理的数据集。
+    输入： path_img -> .npy 文件 (形状: (64,64))
+    输出： img_tensor (形状: [1,64,64])
+    """
+    def __init__(self, path_img, data_range=1.0):
+        if not os.path.exists(path_img):
+            raise FileNotFoundError(f"{path_img} not found.")
+
+        img = np.load(path_img).astype(np.float32)
+
+        # 归一化
+        if abs(data_range - 1.0) < 1e-5:
+            img = (img - img.min()) / (img.max() - img.min() + 1e-8)
+        elif abs(data_range - 2.0) < 1e-5:
+            img = 2 * (img - img.min()) / (img.max() - img.min() + 1e-8) - 1
+        else:
+            raise ValueError("data_range must be 1.0 or 2.0")
+
+        img = Image.fromarray(img)
+        transform = transforms.Compose([transforms.ToTensor()])
+        self.img_tensor = transform(img)  # shape = [1,64,64]
+
+    def __len__(self):
+        # 单图像 → 数据集长度为 1
+        return 1
+
+    def __getitem__(self, index):
+        return self.img_tensor

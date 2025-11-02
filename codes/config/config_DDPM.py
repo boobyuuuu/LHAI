@@ -31,18 +31,21 @@ class TrainConfig:
 # ========== Predict Config ==========
 @dataclass
 class PredictConfig:
-    model_name: str = "CNN"
-    model_path: Path = ADDR_ROOT / "saves" / "MODEL"
-    model_file: str = "CNN_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth"
-    data_dir: Path = ADDR_ROOT / "data" / "POISSON"
-    data_name: str = "poisson_src_bkg.pkl.npy"
+    exp_name: str = "EXP01"
+    model_dir: Path = ADDR_ROOT / "codes" / "models"
+    model_name_diffusion: str = "DDPM"
+    model_name_unet: str = "UNET"
+    model_weight_name: str = "Last_DDPM_EXP01_400epo_32bth_xingwei.pth"
+    data_dir: Path = ADDR_ROOT / "data" / "Evaluation"
+    data_name: str = "nhit100_1_64_val.npy"
     seed: int = 0
-    pred_type: str = "poissonsrc+bkg_highresorig"
-    frac: float = 0.80
-    batch_size: int = 32
-    latent_dim: int = 64
-    position_encoding_dim: int = 256
-    noise_steps: int = 2000
+    epochs: int = 400
+    batch_size: int = 1
+    lr_max: float = 5e-4
+    lr_min: float = 5e-6
+    datarange: float = 1.0
+    LoB: str = "Last" # "Best" or "Last"
+    dataname: str = "xingwei"
 
     @property
     def data_path(self) -> Path:
