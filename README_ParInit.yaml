@@ -1,0 +1,124 @@
+# 弥散成分的设置
+DGE:
+    # 分析中是否加入弥散成分，0为不加入，1为加入
+    Active: 1
+    # 拟合弥散成分时是否卷积PSF，0为不卷积，1为卷积；暂不支持，可设置为任意值
+    ConvoPSF: 1
+    # 第一个弥散成分的设置
+    Template0:
+        # 成分名称
+        Name: dust
+        # 模板文件：可设置成'ISO'即各向同性模板，也可指定模板文件。指定模板文件可为ROOT文件或txt文件
+            # txt文件：须包含三列，ra(l)、dec(b)、density，且第一行应为X坐标的起点、bin数和bin宽，第二行应为Y坐标的起点、bin数和bin宽（可参考DGE_Template/gll_dust_process.txt）
+            # ROOT文件：须包含一个存有模板信息的TH2
+        Tempfile: /home/lhaaso/hushicong/Standard_prog_lib/Source_Analysis/Space_energy_Joint_fitting/DGE_Template/gll_dust_process_Eqm.root
+        # 模板histogram的名字
+            # 若模板文件为txt文件，则此处必须是hTXT
+            # 若模板文件为ROOT文件，则此处可为除hTXT之外的任何符合C++变量命名规范的字符串
+        TempHist: [hTemp_ana]
+        # pivot energy
+        Epiv: 3
+        # 能谱模型设置
+        SEDModel:
+            # 能谱模型
+            type: PL
+            # 四个参数含义分别为：
+                # var0：F0的初始值
+                # var1 && var2：F0限制范围的下届和上届
+                # var3：是否固定，0为不固定，1为固定
+                # var4: F0的数量级F0_order，实际计算中能谱的归一化因子等于F0*F0_order
+            F0: [2.3, 0, 5, 0, 1.e-14]
+            alpha: [2.6, 2.0, 3.0, 0]
+
+# 源成分的设置
+SRC:
+    # 是否调用LHAASO Catalog的结果，0为调用，1为不调用；正在添加
+    UseCatalog: 0
+    # 分析中是否加入源成分，0为不加入，1为加入
+    Active: 1
+    # 全局的pivot energy：若大于0，则所有源的pivot energy均设置为该值；若小于0，则每个源的pivot energy设置为各自的值
+    Epiv: 10
+    # 全局的参数状态，即是否固定所有源的相应参数：0为不固定，1为固定
+    ParStatus:
+        Position: 0
+        F0: 0
+        # 能谱参数中除F0之外的所有参数
+        Index: 0
+        # 形态参数
+        MorPar: 0
+    Src0: 
+        Name: Crab
+        Epiv: 10
+        SEDModel:
+            type: LP
+            # 参数含义同前
+            F0: [8.23737, 0, 50, 0, 1.e-14]
+            alpha: [2.88655, 2.0, 4.0, 0]
+            beta: [0.07781, 0.0, 0.3, 0]
+        MorModel:
+            type: Ext_gaus
+            ra: [83.62180, 79.63, 87.63, 0]
+            dec: [22.01300, 18.02, 26.02, 0] 
+            sigma: [0.000, 0, 0.2, 0]
+    Src1: 
+        Name: Halo
+        Epiv: 10
+        SEDModel:
+            type: PEC 
+            F0: [2.97422, 0, 50, 0, 1.e-14]
+            alpha: [1.82436, 1.0, 4.0, 0]
+            Ecut: [32.27556, 5, 200, 0]
+        MorModel:
+            type: Ext_gaus
+            ra: [85.67054, 81.85, 89.85, 0]
+            dec: [23.17787, 19.21, 27.21, 0]
+            sigma: [1.01160, 0.5, 6.0, 0]
+    # Link parameters
+    Src2:
+        Name: Halo_2
+        Epiv: 10
+        # 设置Link parameters，可省略
+        LinkPars:
+            # link Src2的谱型参数至其他源，数字为linked到的源的编号。源的编号即ParInit.yaml中的源的顺序，从0开始
+            # 注意事项：
+                # 1）ParInit.yaml中link的源和被link的源的能谱模型必须相同
+                # 2）ParInit.yaml中link的源必须写在被link的源之后
+            SED: 1
+        SEDModel:
+            type: PEC
+            F0: [0.56846, 0.00, 500.00, 0, 1.e-14]
+            alpha: [1.82436, 1.00, 4.00, 0]
+            Ecut: [32.27556, 0.00, 500.00, 0]
+        MorModel:
+            type: Ext_gaus
+            ra: [85.48447, 79.63, 87.63, 0]
+            dec: [23.31043, 18.02, 26.02, 0]
+            sigma: [0.41935, 0.00, 3.00, 0]
+    # 使用固定模板（'Ext_Temp'）的源的设置方式  
+    Src3: 
+        Name: Test
+        Epiv: 10
+        SEDModel:
+            type: PEC 
+            F0: [2.97422, 0, 50, 0, 1.e-14]
+            alpha: [1.46248, 1.0, 4.0, 0]
+            Ecut: [26.48279, 5, 200, 0]
+        MorModel:
+            type: Ext_Temp
+            Tempfile: xxx.root
+            TempHist: [xxx]
+    # EBL吸收/CMB吸收修正
+    Src4:
+        Name: Mkn421
+        Epiv: 1
+        # EBL/CMB光深文件，文件中需要两列内容：能量(E/D):光深(Tau/D)。可参考config/Tutorial/Example4_ExtraGal/ParInit.yaml
+        GGAbs: /home/lhaaso/hushicong/Standard_prog_lib/Source_Analysis/Space_energy_Joint_fitting/EBL_Model/Saldana_lopez2021/TAU_z0.031.txt
+        SEDModel:
+            type: LP
+            F0: [29.03979, 0.00, 500.00, 0, 1.e-12]
+            alpha: [2.73769, 2.00, 4.00, 0]
+            beta: [0.32449, 0.00, 1.00, 0]
+        MorModel:
+            type: Point
+            ra: [166.09439, 162.63, 170.63, 0]
+            dec: [38.17424, 34.02, 42.02, 0]

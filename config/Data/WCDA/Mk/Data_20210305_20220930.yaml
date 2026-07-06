@@ -1,0 +1,17 @@
+Version: Mk
+Decrange: [-30, 90]
+Decstep: 1
+DECstep: 0.2
+Nnhit: 6
+Nhit: [60, 100, 200, 300, 500, 800, 2000]
+Zenrange: [0, 50]
+Livetime: 508.43
+Mapfile: /home/lhaaso/hushicong/DATA/WCDA/Mk/DataMap/20210305_20220930_bkgJ2000.root 
+PSFtype: 2Gaus
+Zenstep: 1
+Erange: [0, 7]
+Estep: 0.1
+Responsefile1: /home/lhaaso/hushicong/Standard_prog_lib/Source_Analysis/Space_energy_Joint_fitting/Response/WCDA/Mk/Response_0.75.root
+Responsefile2: /home/lhaaso/hushicong/Standard_prog_lib/Source_Analysis/Space_energy_Joint_fitting/Response/WCDA/Mk/Response_0.75.root
+Simufile1: /home/lhaaso/hushicong/DATA/WCDA/Mk/Simu/WCDAMC_Rec_Nig_Filter_0.75.root 
+Simufile2: /home/lhaaso/hushicong/DATA/WCDA/Mk/Simu/WCDAMC_Rec_Nig_Filter_0.75.root 

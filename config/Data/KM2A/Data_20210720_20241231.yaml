@@ -1,0 +1,16 @@
+KNEbin: 14
+DataErange: [0.6, 3.4]
+DataErangeStep: 0.2
+Zenrange: [0, 50]
+Mapfile: /home/lhaaso/hushicong/DATA_temp/KM2A/DataMap/20241231/sky20-cs3_process.root
+Livetime: 1064.9
+PSFtype: 1Gaus
+PSFOffset: 0.1
+Zenstep: 1
+Erange: [0, 4]
+Estep: 0.1
+Responsefile: /home/lhaaso/hushicong/Standard_prog_lib/Source_Analysis/Space_energy_Joint_fitting/Response/KM2A/Response_CPCCut_FullArray_count1Gaus_Index-3.root
+Simufile: /home/lhaaso/hushicong/DATA/KM2A/Simu/KM2AMC_Rec_Filter.root
+Mapfile_All: /home/lhaaso/hushicong/DATA_temp/KM2A/DataMap/20241231/all/sky20-cs3_process.root
+Responsefile_All: /home/lhaaso/hushicong/DATA_temp/KM2A/Response/20241231/all/Response_CPCCut_AllArray_count1Gaus_Index-3.root 
+Simufile_All: /home/lhaaso/hushicong/DATA/KM2A/Simu/KM2AMC_Rec_Filter.root 

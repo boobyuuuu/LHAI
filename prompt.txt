@@ -1,0 +1,313 @@
+现在，请在 DATAGENERATING 目录中帮助我构建规范训练集。请先检查当前目录和相关 KM2A/Type_* 数据文件是否存在，再写脚本/运行脚本生成数据集。不要改变任何样本顺序；所有输出样本顺序必须与输入 conv/GT 文件顺序一致。
+
+背景说明：
+
+已有经过 LHAASO 响应后的 conv 文件，其通道定义为：
+
+CHANNEL_NAMES = [
+    "input",          # 0: 本征源形态 / GT 64
+    "excess",         # 1: 无背景、无泊松的源响应
+    "bkg",            # 2: 背景期望图
+    "bkg:on",         # 3: 无泊松的 源响应 + 背景
+    "poisson:on",     # 4: 有泊松的 源响应 + 背景，等价真实 on counts
+    "poisson:bkg",    # 5: 有泊松的 background-only on counts
+    "poisson:excess", # 6: 旧定义，不作为主训练输入使用
+]
+
+重要修正：
+
+1. 不要使用原始第 6 通道 "poisson:excess" 来构建 poissonexcess 训练集。
+2. 真实 LHAASO 数据处理中，科学家使用的是 on counts 和 bkg 背景期望图。
+3. 因此，本任务中重新定义：
+
+   realistic_poisson_excess = poisson:on - bkg
+
+   即：
+
+   conv[:, 4] - conv[:, 2]
+
+4. 对于 Type_D 空白视场，重新定义：
+
+   Type_D realistic_empty_poisson_excess = poisson:bkg - bkg
+
+   即从 Type_C 的 conv 文件前 800 张取：
+
+   conv[:800, 5] - conv[:800, 2]
+
+5. Type_D 的 poissonon 则直接使用 poisson:bkg：
+
+   conv[:800, 5]
+
+6. Type_D 的 bkgon 在空源情况下等于 bkg：
+
+   conv[:800, 2]
+
+7. Type_D 的 excess 在空源情况下是 0：
+
+   zeros
+
+请按以下规则生成数据集。
+
+============================================================
+一、64x64 非超分辨双通道训练集
+============================================================
+
+对除了 Type_D 以外的所有已有类型，包括 Type_A、Type_B、Type_C、Type_E，如果存在对应的 *_64_conv.npy 文件，就生成 4 类双通道数据集。
+
+每个输出文件 shape 应为：
+
+    (N, 2, 64, 64)
+
+其中：
+
+    output[:, 0] = GT
+    output[:, 1] = blurry
+
+GT 始终取 conv 的第 0 通道 input：
+
+    GT = conv[:, 0]
+
+四类 blurry 定义如下：
+
+1. SR4excess
+
+    blurry = conv[:, 1]          # excess
+
+    输出命名：
+    原文件名去掉 _conv.npy 后加 _SR4excess.npy
+
+    例：
+    Type_A_COMPACT_200_64_conv.npy
+    -> Type_A_COMPACT_200_64_SR4excess.npy
+
+2. SR4bkgon
+
+    blurry = conv[:, 3]          # bkg:on
+
+    输出命名：
+    *_SR4bkgon.npy
+
+3. SR4poissonexcess
+
+    注意：不要使用 conv[:, 6]。
+
+    blurry = conv[:, 4] - conv[:, 2]    # poisson:on - bkg
+
+    输出命名：
+    *_SR4poissonexcess.npy
+
+4. SR4poissonon
+
+    blurry = conv[:, 4]          # poisson:on
+
+    输出命名：
+    *_SR4poissonon.npy
+
+要求：
+- 不改变样本顺序。
+- dtype 建议保存为 float32。
+- 保存前检查 shape。
+- 对每个输出打印文件名、shape、min/max/mean 简要统计。
+
+============================================================
+二、Type_D_EMPTY_800_64 非超分辨双通道训练集
+============================================================
+
+Type_D 是空白视场，仅背景/噪声训练集。
+
+它不来自 Type_D conv，而是从：
+
+    KM2A/Type_C/Type_C_MC_1000_64_conv.npy
+
+中按顺序取前 800 张图构建。
+
+记：
+
+    src = Type_C_MC_1000_64_conv.npy[:800]
+
+输出 shape 均为：
+
+    (800, 2, 64, 64)
+
+GT 均为：
+
+    zeros_64 = np.zeros((800, 64, 64), dtype=np.float32)
+
+四类 blurry 定义如下：
+
+1. Type_D_EMPTY_800_64_SR4excess.npy
+
+    GT     = zeros_64
+    blurry = zeros_64
+
+2. Type_D_EMPTY_800_64_SR4bkgon.npy
+
+    GT     = zeros_64
+    blurry = src[:, 2]              # bkg
+
+3. Type_D_EMPTY_800_64_SR4poissonexcess.npy
+
+    GT     = zeros_64
+    blurry = src[:, 5] - src[:, 2]  # poisson:bkg - bkg
+
+    这是空源情况下真实 on-bkg 的泊松残差。
+
+4. Type_D_EMPTY_800_64_SR4poissonon.npy
+
+    GT     = zeros_64
+    blurry = src[:, 5]              # poisson:bkg
+
+要求：
+- 不改变 Type_C 前 800 张图像顺序。
+- dtype 保存为 float32。
+- 输出文件名必须带 SR4 前缀，例如 Type_D_EMPTY_800_64_SR4poissonexcess.npy，不要省略 SR4。
+
+============================================================
+三、128x128 GT + 128x128 blurry 的超分辨反卷积训练集
+============================================================
+
+目标：生成 GT 为 128、blurry 也插值到 128 的双通道训练集。
+
+输出 shape：
+
+    (N, 2, 128, 128)
+
+其中：
+
+    output[:, 0] = GT_128
+    output[:, 1] = blurry_64 插值到 128 后的图
+
+注意：
+- 这里的 blurry 来源于上面已经生成的 64x64 SR4* 文件的第二通道。
+- 使用项目中之前已经用过的插值函数；如果没有现成函数，请用一致、可复现的双线性插值，并在脚本里明确函数名。
+- 不改变样本顺序。
+
+对 Type_A、Type_B、Type_C：
+
+128 GT 文件在主数据文件夹中，例如：
+
+    Type_A_COMPACT_1000_128_GT.npy
+    Type_B_...
+    Type_C_...
+
+对于某个 64 conv 文件，例如：
+
+    Type_A_COMPACT_200_64_conv.npy
+
+对应 128 GT 应从：
+
+    Type_A_COMPACT_1000_128_GT.npy
+
+中取前 200 张：
+
+    GT_128 = GT_128_all[:200]
+
+然后分别读取已生成的：
+
+    Type_A_COMPACT_200_64_SR4excess.npy
+    Type_A_COMPACT_200_64_SR4bkgon.npy
+    Type_A_COMPACT_200_64_SR4poissonexcess.npy
+    Type_A_COMPACT_200_64_SR4poissonon.npy
+
+取其第二通道 blurry：
+
+    blurry_64 = sr4[:, 1]
+
+插值到 128：
+
+    blurry_128 = resize_64_to_128(blurry_64)
+
+保存为对应的 128 训练集。
+
+建议命名规则：
+
+    原 64 SR4 文件名中的 _64_ 替换为 _128_
+    并保留 SR4 类型
+
+例如：
+
+    Type_A_COMPACT_200_64_SR4excess.npy
+    -> Type_A_COMPACT_200_128_SR4excess.npy
+
+或如果目录已有既定命名规范，请保持与现有规范一致，但必须清晰区分 64 和 128。
+
+对 Type_E：
+
+128 GT 在：
+
+    KM2A/Type_E/Type_E_intensity_1200_128_GT.npy
+
+对应 Type_E 的 64 SR4 文件使用相同样本数和顺序，GT_128 取前 N 张或对应 N 张。
+
+============================================================
+四、Type_D_EMPTY_800_128 超分辨训练集
+============================================================
+
+Type_D 的 128 GT 是 0 矩阵：
+
+    GT_128 = np.zeros((800, 128, 128), dtype=np.float32)
+
+blurry 来源于 Type_D 的四个 64 SR4 文件第二通道，插值到 128：
+
+1. Type_D_EMPTY_800_64_SR4excess.npy
+   -> Type_D_EMPTY_800_128_SR4excess.npy
+
+2. Type_D_EMPTY_800_64_SR4bkgon.npy
+   -> Type_D_EMPTY_800_128_SR4bkgon.npy
+
+3. Type_D_EMPTY_800_64_SR4poissonexcess.npy
+   -> Type_D_EMPTY_800_128_SR4poissonexcess.npy
+
+4. Type_D_EMPTY_800_64_SR4poissonon.npy
+   -> Type_D_EMPTY_800_128_SR4poissonon.npy
+
+输出 shape 均为：
+
+    (800, 2, 128, 128)
+
+============================================================
+五、校验要求
+============================================================
+
+请在生成后执行以下校验：
+
+1. 所有输出文件能被 np.load 正常读取。
+2. 64 数据集 shape 为 (N, 2, 64, 64)。
+3. 128 数据集 shape 为 (N, 2, 128, 128)。
+4. 所有 GT 和 blurry 的样本数一致。
+5. 对 Type_D：
+   - SR4excess 的 GT 和 blurry 都应全 0。
+   - SR4bkgon 的 blurry 应等于 Type_C conv 前 800 张的 bkg 通道。
+   - SR4poissonon 的 blurry 应等于 Type_C conv 前 800 张的 poisson:bkg 通道。
+   - SR4poissonexcess 的 blurry 应等于 Type_C conv 前 800 张的 poisson:bkg - bkg。
+6. 对非 Type_D：
+   - SR4poissonexcess 的 blurry 必须等于 conv[:, 4] - conv[:, 2]，不是 conv[:, 6]。
+7. 打印每个生成文件的：
+   - path
+   - shape
+   - dtype
+   - GT min/max/mean
+   - blurry min/max/mean
+
+============================================================
+六、实现建议
+============================================================
+
+请优先写一个可重复运行的 Python 脚本，例如：
+
+    build_sr_training_sets.py
+
+脚本应：
+- 自动发现需要处理的 *_64_conv.npy 文件。
+- 排除 Type_D，因为 Type_D 单独构建。
+- 对 Type_A/B/C/E 按上述规则生成 64 SR4 数据集。
+- 再生成 128 SR4 数据集。
+- 如果输出文件已存在，可以覆盖，但覆盖前打印提示。
+- 不要删除原始 conv 或 GT 文件。
+- 不要移动原始文件。
+
+完成后请给出：
+1. 新增/修改的脚本路径。
+2. 生成的文件列表。
+3. 校验结果摘要。
+4. 如果有文件缺失，例如某个 Type 的 128 GT 找不到，请明确列出并跳过对应 128 输出，不要静默失败。

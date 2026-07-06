@@ -1,0 +1,42 @@
+Tag: [PL, LP, PEC, PSEC, BPL, SBPL, SBPL2]
+
+# power-law
+PL:
+    Npar: 2
+    Parname: [F0, alpha]
+    Formula: "[0]*pow(x/Epiv, -[1])"
+
+# log-parabola
+LP:
+    Npar: 3
+    Parname: [F0, alpha, beta]
+    Formula: "[0]*pow(x/Epiv, -[1]-[2]*log(x/Epiv))"
+
+# power-law with exponential cutoff
+PEC:
+    Npar: 3
+    Parname: [F0, alpha, Ecut]
+    Formula: "[0]*pow(x/Epiv, -[1])*exp(-x/[2])"
+
+# power-law with slowly exponential cutoff
+PSEC:
+    Npar: 3
+    Parname: [F0, alpha, Ecut]
+    Formula: "[0]*pow(x/Epiv, -[1])*exp(-sqrt(x/[2]))"
+
+# broken power-law
+BPL:
+    Npar: 4
+    Parname: [F0, Etra, alpha1, alpha2]
+    Formula: "[0]*((x<[1])?pow(x/[1], -[2]):pow(x/[1], -[3]))"
+
+# smoothly broken power-law
+SBPL:
+    Npar: 5
+    Parname: [F0, Etra, alpha1, alpha2, beta]
+    Formula: "[0]*pow(x/[1], -[2])*pow(0.5*(1+pow(x/[1], 1/[4])), ([2]-[3])*[4])"
+
+SBPL2:
+  Npar: 5
+  Parname: [F0, Ebr, alpha, beta, s]
+  Formula: "[0]*pow(x/Epiv, -[2])*pow(1+pow(x/[1], [4]), ([2]-[3])/[4])"

@@ -1,0 +1,111 @@
+{
+  "input": "/home/lhaaso/zhliu/LZH/response/Tools/NJU_AI/DATAGENERATING/HESS_J1713/HESS_J1713.npy",
+  "output": "/home/lhaaso/zhliu/LZH/response/Tools/NJU_AI/DATAGENERATING/HESS_J1713/HESS_J1713_CV.npy",
+  "start_index": 0,
+  "num": 5,
+  "batchsize": 5,
+  "workdir": "/home/lhaaso/zhliu/LZH/response",
+  "seed": {
+    "mode": "batch_time",
+    "base": 20260514
+  },
+  "energy": {
+    "emin_log10_TeV": 1.4,
+    "emax_log10_TeV": 3.4,
+    "Epiv_TeV": 50.0,
+    "alpha": 3.0
+  },
+  "flux": {
+    "distribution": "const",
+    "min": 0.1,
+    "max": 10.0,
+    "value": 5.0,
+    "order": "1.e-16",
+    "shuffle": false,
+    "seed": "batch_time"
+  },
+  "roi": {
+    "shape": "rectangle",
+    "fov_deg": 6.4,
+    "pixel_size_deg": 0.1,
+    "ra_center_mode": "random",
+    "dec_center_mode": "fixed"
+  },
+  "samples": [
+    {
+      "index": 0,
+      "batch": 0,
+      "seed": 1732699722,
+      "flux_F0": 5.0,
+      "flux_order": "1.e-16",
+      "Epiv_TeV": 50.0,
+      "alpha": 3.0,
+      "ra_center_deg": 57.88573713080608,
+      "dec_center_deg": 22.0
+    },
+    {
+      "index": 1,
+      "batch": 0,
+      "seed": 1732699722,
+      "flux_F0": 5.0,
+      "flux_order": "1.e-16",
+      "Epiv_TeV": 50.0,
+      "alpha": 3.0,
+      "ra_center_deg": 317.9118656534113,
+      "dec_center_deg": 22.0
+    },
+    {
+      "index": 2,
+      "batch": 0,
+      "seed": 1732699722,
+      "flux_F0": 5.0,
+      "flux_order": "1.e-16",
+      "Epiv_TeV": 50.0,
+      "alpha": 3.0,
+      "ra_center_deg": 20.673650790131568,
+      "dec_center_deg": 22.0
+    },
+    {
+      "index": 3,
+      "batch": 0,
+      "seed": 1732699722,
+      "flux_F0": 5.0,
+      "flux_order": "1.e-16",
+      "Epiv_TeV": 50.0,
+      "alpha": 3.0,
+      "ra_center_deg": 253.5861079248149,
+      "dec_center_deg": 22.0
+    },
+    {
+      "index": 4,
+      "batch": 0,
+      "seed": 1732699722,
+      "flux_F0": 5.0,
+      "flux_order": "1.e-16",
+      "Epiv_TeV": 50.0,
+      "alpha": 3.0,
+      "ra_center_deg": 55.652830078265325,
+      "dec_center_deg": 22.0
+    }
+  ],
+  "batches": [
+    {
+      "batch": 0,
+      "start": 0,
+      "stop": 5,
+      "dir": "/home/lhaaso/zhliu/LZH/response/Tools/NJU_AI/DATAGENERATING/HESS_J1713/HESS_J1713_CV_work/batch_00000_00005",
+      "seed": 1732699722,
+      "poisson_seed": 1732699722,
+      "ra_center_deg": 141.14203831548585,
+      "dec_center_deg": 22.0
+    }
+  ],
+  "channels": {
+    "0": "intrinsic/GT",
+    "1": "excess",
+    "2": "bkg",
+    "3": "bkg_on",
+    "4": "poisson",
+    "5": "on_off (poisson_on - bkg)"
+  }
+}

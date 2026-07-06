@@ -1,0 +1,1141 @@
+source_dict:
+  J1814-1719:
+    sed_model:
+      sed_type: PL
+      norm: [2.64607, 0.24589, 0.24589, 1.0e-12]
+      index: [2.83304, 0.05800, 0.05800]
+      E_0: 3
+    spatial_model:
+      src_map: J1814-1719_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [273.6853, 0.1121, 0.1121]
+      dec: [-17.3324, 0.1111, 0.1111]
+      ext: [0.71548, 0.07019, 0.07019]
+    TS: 119.09
+    ts_ext: 73.56
+  J1810-1918:
+    sed_model:
+      sed_type: PL
+      norm: [0.34578, 0.06066, 0.06066, 1.0e-12]
+      index: [2.23691, 0.06394, 0.06394]
+      E_0: 3
+    spatial_model:
+      src_map: J1810-1918_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [272.6614, 0.0844, 0.0844]
+      dec: [-19.3151, 0.0836, 0.0836]
+      ext: [0.34592, 0.05599, 0.05599]
+    TS: 55.34
+    ts_ext: 16.06
+  J1826-1302:
+    sed_model:
+      sed_type: PL
+      norm: [0.82689, 0.05433, 0.05433, 1.0e-12]
+      index: [2.60808, 0.03469, 0.03469]
+      E_0: 3
+    spatial_model:
+      src_map: J1826-1302_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [276.5512, 0.0319, 0.0319]
+      dec: [-13.0414, 0.0328, 0.0328]
+      ext: [0.23966, 0.02530, 0.02530]
+    TS: 231.04
+    ts_ext: 27.08
+  J1831-1007:
+    sed_model:
+      sed_type: PL
+      norm: [1.78301, 0.10633, 0.10633, 1.0e-12]
+      index: [2.70817, 0.03805, 0.03805]
+      E_0: 3
+    spatial_model:
+      src_map: J1831-1007_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [277.7504, 0.0653, 0.0653]
+      dec: [-10.1231, 0.0657, 0.0657]
+      ext: [0.77951, 0.03881, 0.03881]
+    TS: 376.27
+    ts_ext: 230.57
+  J1825-1418:
+    sed_model:
+      sed_type: PL
+      norm: [3.92082, 0.22951, 0.22951, 1.0e-12]
+      index: [2.98115, 0.04566, 0.04566]
+      E_0: 3
+    spatial_model:
+      src_map: J1825-1418_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [276.2865, 0.0758, 0.0758]
+      dec: [-14.3163, 0.0767, 0.0767]
+      ext: [0.81242, 0.04684, 0.04684]
+    TS: 210.88
+    ts_ext: 146.91
+  J1813-1243:
+    sed_model:
+      sed_type: PL
+      norm: [0.24426, 0.04404, 0.04404, 1.0e-12]
+      index: [2.61090, 0.08259, 0.08259]
+      E_0: 3
+    spatial_model:
+      src_map: J1813-1243_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [273.3528, 0.0774, 0.0774]
+      dec: [-12.7287, 0.0844, 0.0844]
+      ext: [0.22713, 0.05350, 0.05350]
+    TS: 36.82
+    ts_ext: 8.55
+  J1834-0831:
+    sed_model:
+      sed_type: PL
+      norm: [0.59941, 0.10863, 0.10863, 1.0e-12]
+      index: [3.08358, 0.13301, 0.13301]
+      E_0: 3
+    spatial_model:
+      src_map: J1834-0831_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [278.6213, 0.0789, 0.0789]
+      dec: [-8.5299, 0.0911, 0.0911]
+      ext: [0.39489, 0.06812, 0.06812]
+    TS: 96.06
+    ts_ext: 30.87
+  J1826-1343:
+    sed_model:
+      sed_type: PL
+      norm: [1.04151, 0.05610, 0.05610, 1.0e-12]
+      index: [2.55306, 0.02821, 0.02821]
+      E_0: 3
+    spatial_model:
+      src_map: J1826-1343_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [276.5452, 0.0222, 0.0222]
+      dec: [-13.7311, 0.0219, 0.0219]
+      ext: [0.16834, 0.01909, 0.01909]
+    TS: 289.35
+    ts_ext: 21.64
+  J1841-0519:
+    sed_model:
+      sed_type: PL
+      norm: [1.52361, 0.08381, 0.08381, 1.0e-12]
+      index: [2.88255, 0.03824, 0.03824]
+      E_0: 3
+    spatial_model:
+      src_map: J1841-0519_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [280.3326, 0.0374, 0.0374]
+      dec: [-5.3249, 0.0385, 0.0385]
+      ext: [0.59567, 0.03110, 0.03110]
+    TS: 521.56
+    ts_ext: 263.02
+  J1844-0330:
+    sed_model:
+      sed_type: PL
+      norm: [0.90141, 0.04309, 0.04309, 1.0e-12]
+      index: [2.57986, 0.02791, 0.02791]
+      E_0: 3
+    spatial_model:
+      src_map: J1844-0330_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [281.0115, 0.0210, 0.0210]
+      dec: [-3.5004, 0.0229, 0.0229]
+      ext: [0.39647, 0.01649, 0.01649]
+    TS: 1164.16
+    ts_ext: 410.26
+  J1850-0004:
+    sed_model:
+      sed_type: PL
+      norm: [0.53035, 0.03216, 0.03216, 1.0e-12]
+      index: [2.49018, 0.03613, 0.03613]
+      E_0: 3
+    spatial_model:
+      src_map: J1850-0004_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [282.7366, 0.0331, 0.0331]
+      dec: [-0.0715, 0.0330, 0.0330]
+      ext: [0.45582, 0.02187, 0.02187]
+    TS: 801.42
+    ts_ext: 427.06
+  J1848-0153:
+    sed_model:
+      sed_type: PL
+      norm: [0.70527, 0.04033, 0.04033, 1.0e-12]
+      index: [2.64990, 0.03961, 0.03961]
+      E_0: 3
+    spatial_model:
+      src_map: J1848-0153_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [282.0583, 0.0374, 0.0374]
+      dec: [-1.8859, 0.0422, 0.0422]
+      ext: [0.50900, 0.02621, 0.02621]
+    TS: 573.35
+    ts_ext: 292.27
+  J1837-0654:
+    sed_model:
+      sed_type: PL
+      norm: [1.55386, 0.05424, 0.05424, 1.0e-12]
+      index: [2.91888, 0.03234, 0.03234]
+      E_0: 3
+    spatial_model:
+      src_map: J1837-0654_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [279.3947, 0.0201, 0.0201]
+      dec: [-6.9024, 0.0223, 0.0223]
+      ext: [0.34243, 0.01491, 0.01491]
+    TS: 1047.98
+    ts_ext: 226.98
+  J1839-0554:
+    sed_model:
+      sed_type: PL
+      norm: [0.46214, 0.02901, 0.02901, 1.0e-12]
+      index: [2.64599, 0.04331, 0.04331]
+      E_0: 3
+    spatial_model:
+      src_map: J1839-0554_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [279.8491, 0.0292, 0.0292]
+      dec: [-5.9004, 0.0279, 0.0279]
+      ext: [0.22075, 0.01964, 0.01964]
+    TS: 198.17
+    ts_ext: 41.58
+  J1854+0123:
+    sed_model:
+      sed_type: PL
+      norm: [0.46715, 0.06984, 0.06984, 1.0e-12]
+      index: [2.74232, 0.06226, 0.06226]
+      E_0: 3
+    spatial_model:
+      src_map: J1854+0123_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [283.7330, 0.0800, 0.0800]
+      dec: [1.3983, 0.0763, 0.0763]
+      ext: [0.63985, 0.06491, 0.06491]
+    TS: 230.57
+    ts_ext: 136.79
+  J1904+0611:
+    sed_model:
+      sed_type: PL
+      norm: [2.17169, 0.20953, 0.20953, 1.0e-12]
+      index: [2.65723, 0.05916, 0.05916]
+      E_0: 3
+    spatial_model:
+      src_map: J1904+0611_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [286.1608, 0.2229, 0.2229]
+      dec: [6.1837, 0.3184, 0.3184]
+      ext: [3.00255, 0.33373, 0.33373]
+    TS: 330.39
+    ts_ext: 324.22
+  J1912+1014:
+    sed_model:
+      sed_type: PL
+      norm: [0.30660, 0.02409, 0.02409, 1.0e-12]
+      index: [2.67557, 0.05960, 0.05960]
+      E_0: 3
+    spatial_model:
+      src_map: J1912+1014_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [288.2194, 0.0314, 0.0314]
+      dec: [10.2457, 0.0338, 0.0338]
+      ext: [0.36200, 0.02913, 0.02913]
+    TS: 583.37
+    ts_ext: 212.04
+  J1858+0158:
+    sed_model:
+      sed_type: PL
+      norm: [0.16806, 0.04252, 0.04252, 1.0e-12]
+      index: [2.46412, 0.10757, 0.10757]
+      E_0: 3
+    spatial_model:
+      src_map: J1858+0158_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [284.5030, 0.0320, 0.0320]
+      dec: [1.9784, 0.0435, 0.0435]
+      ext: [0.18899, 0.03274, 0.03274]
+    TS: 186.45
+    ts_ext: 37.06
+  J1908+0615:
+    sed_model:
+      sed_type: PL
+      norm: [0.79721, 0.05357, 0.05357, 1.0e-12]
+      index: [2.41980, 0.03135, 0.03135]
+      E_0: 3
+    spatial_model:
+      src_map: J1908+0615_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [287.0509, 0.0180, 0.0180]
+      dec: [6.2591, 0.0215, 0.0215]
+      ext: [0.43533, 0.01928, 0.01928]
+    TS: 2065.83
+    ts_ext: 907.30
+  J1857+0245:
+    sed_model:
+      sed_type: PL
+      norm: [0.40421, 0.05736, 0.05736, 1.0e-12]
+      index: [2.93318, 0.07053, 0.07053]
+      E_0: 3
+    spatial_model:
+      src_map: J1857+0245_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [284.3705, 0.0282, 0.0282]
+      dec: [2.7527, 0.0442, 0.0442]
+      ext: [0.24333, 0.03520, 0.03520]
+    TS: 359.75
+    ts_ext: 52.63
+  J1859+0342:
+    sed_model:
+      sed_type: PL
+      norm: [0.28414, 0.06286, 0.06286, 1.0e-12]
+      index: [2.62853, 0.10475, 0.10475]
+      E_0: 3
+    spatial_model:
+      src_map: J1859+0342_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [284.7896, 0.0888, 0.0888]
+      dec: [3.7005, 0.1395, 0.1395]
+      ext: [0.52112, 0.08118, 0.08118]
+    TS: 114.99
+    ts_ext: 83.17
+  J1907+0826:
+    sed_model:
+      sed_type: PL
+      norm: [0.13408, 0.02921, 0.02921, 1.0e-12]
+      index: [2.62116, 0.14244, 0.14244]
+      E_0: 3
+    spatial_model:
+      src_map: J1907+0826_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [286.9653, 0.0927, 0.0927]
+      dec: [8.4405, 0.1254, 0.1254]
+      ext: [0.43337, 0.07893, 0.07893]
+    TS: 52.00
+    ts_ext: 22.50
+  J1911+0503:
+    sed_model:
+      sed_type: PL
+      norm: [0.08615, 0.02884, 0.02884, 1.0e-12]
+      index: [2.54416, 0.14994, 0.14994]
+      E_0: 3
+    spatial_model:
+      src_map: J1911+0503_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [287.8810, 0.1549, 0.1549]
+      dec: [5.0663, 0.0750, 0.0750]
+      ext: [0.29035, 0.08619, 0.08619]
+    TS: 36.26
+    ts_ext: 15.06
+  J1902+0648:
+    sed_model:
+      sed_type: PL
+      norm: [0.04516, 0.01297, 0.01297, 1.0e-12]
+      index: [2.38671, 0.17567, 0.17567]
+      E_0: 3
+    spatial_model:
+      src_map: J1902+0648_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [285.5798, 0.0395, 0.0395]
+      dec: [6.8053, 0.0392, 0.0392]
+      ext: [0.05857, 0.05501, 0.05501]
+    TS: 46.22
+    ts_ext: .34
+  J1906+0712:
+    sed_model:
+      sed_type: PL
+      norm: [0.10068, 0.02520, 0.02520, 1.0e-12]
+      index: [2.72178, 0.14981, 0.14981]
+      E_0: 3
+    spatial_model:
+      src_map: J1906+0712_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [286.5554, 0.0562, 0.0562]
+      dec: [7.2034, 0.0845, 0.0845]
+      ext: [0.21431, 0.05335, 0.05335]
+    TS: 57.49
+    ts_ext: 10.45
+  J1929+1846:
+    sed_model:
+      sed_type: PL
+      norm: [0.24814, 0.01095, 0.01095, 1.0e-12]
+      index: [2.37282, 0.04248, 0.04248]
+      E_0: 3
+    spatial_model:
+      src_map: J1929+1846_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [292.3419, 0.0413, 0.0413]
+      dec: [18.7748, 0.0349, 0.0349]
+      ext: [0.48975, 0.02155, 0.02155]
+    TS: 415.88
+    ts_ext: 184.70
+  J1922+1403:
+    sed_model:
+      sed_type: PL
+      norm: [0.13667, 0.01018, 0.01018, 1.0e-12]
+      index: [2.61607, 0.06993, 0.06993]
+      E_0: 3
+    spatial_model:
+      src_map: J1922+1403_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [290.6979, 0.0264, 0.0264]
+      dec: [14.0642, 0.0269, 0.0269]
+      ext: [0.18333, 0.02088, 0.02088]
+    TS: 257.28
+    ts_ext: 33.22
+  J1915+1144:
+    sed_model:
+      sed_type: PL
+      norm: [0.10948, 0.01188, 0.01188, 1.0e-12]
+      index: [2.33636, 0.06814, 0.06814]
+      E_0: 3
+    spatial_model:
+      src_map: J1915+1144_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [288.8123, 0.0492, 0.0492]
+      dec: [11.7437, 0.0552, 0.0552]
+      ext: [0.33210, 0.04092, 0.04092]
+    TS: 151.64
+    ts_ext: 37.45
+  J1924+1609:
+    sed_model:
+      sed_type: PL
+      norm: [0.44358, 0.04120, 0.04120, 1.0e-12]
+      index: [2.53711, 0.08270, 0.08270]
+      E_0: 3
+    spatial_model:
+      src_map: J1924+1609_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [291.0881, 0.1555, 0.1555]
+      dec: [16.1505, 0.1761, 0.1761]
+      ext: [1.44778, 0.10641, 0.10641]
+    TS: 168.87
+    ts_ext: 147.29
+  J1928+1746:
+    sed_model:
+      sed_type: PL
+      norm: [0.07916, 0.00527, 0.00527, 1.0e-12]
+      index: [2.22054, 0.05195, 0.05195]
+      E_0: 3
+    spatial_model:
+      src_map: J1928+1746_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [292.1401, 0.0289, 0.0289]
+      dec: [17.7795, 0.0255, 0.0255]
+      ext: [0.17051, 0.01919, 0.01919]
+    TS: 196.80
+    ts_ext: 29.72
+  J1945+2424:
+    sed_model:
+      sed_type: PL
+      norm: [0.42683, 0.05078, 0.05078, 1.0e-12]
+      index: [2.55826, 0.08204, 0.08204]
+      E_0: 3
+    spatial_model:
+      src_map: J1945+2424_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [296.3598, 0.1645, 0.1645]
+      dec: [24.4040, 0.1509, 0.1509]
+      ext: [1.29306, 0.10898, 0.10898]
+    TS: 263.65
+    ts_ext: 210.18
+  J1937+2059:
+    sed_model:
+      sed_type: PL
+      norm: [0.20842, 0.05845, 0.05845, 1.0e-12]
+      index: [2.42805, 0.15650, 0.15650]
+      E_0: 3
+    spatial_model:
+      src_map: J1937+2059_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [294.3006, 0.2480, 0.2480]
+      dec: [20.9955, 0.3299, 0.3299]
+      ext: [1.24798, 0.23162, 0.23162]
+    TS: 65.09
+    ts_ext: 49.80
+  J2018+3644:
+    sed_model:
+      sed_type: PL
+      norm: [0.21904, 0.00626, 0.00626, 1.0e-12]
+      index: [1.94218, 0.01916, 0.01916]
+      E_0: 3
+    spatial_model:
+      src_map: J2018+3644_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [304.6092, 0.0140, 0.0140]
+      dec: [36.7467, 0.0109, 0.0109]
+      ext: [0.26166, 0.00867, 0.00867]
+    TS: 1604.45
+    ts_ext: 379.96
+  J2005+3415:
+    sed_model:
+      sed_type: PL
+      norm: [0.35324, 0.02136, 0.02136, 1.0e-12]
+      index: [2.58375, 0.05205, 0.05205]
+      E_0: 3
+    spatial_model:
+      src_map: J2005+3415_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [301.3027, 0.0780, 0.0780]
+      dec: [34.2533, 0.0593, 0.0593]
+      ext: [0.73659, 0.03570, 0.03570]
+    TS: 389.80
+    ts_ext: 237.39
+  J2012+3441:
+    sed_model:
+      sed_type: PL
+      norm: [1.45430, 0.09354, 0.09354, 1.0e-12]
+      index: [2.64693, 0.06931, 0.06931]
+      E_0: 3
+    spatial_model:
+      src_map: J2012+3441_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [303.0376, 0.6481, 0.6481]
+      dec: [34.6997, 0.5697, 0.5697]
+      ext: [6.07257, 0.47090, 0.47090]
+    TS: 103.38
+    ts_ext: 102.97
+  J1954+3253:
+    sed_model:
+      sed_type: PL
+      norm: [0.06211, 0.00612, 0.00612, 1.0e-12]
+      index: [2.45073, 0.08947, 0.08947]
+      E_0: 3
+    spatial_model:
+      src_map: J1954+3253_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [298.6315, 0.0451, 0.0451]
+      dec: [32.8841, 0.0358, 0.0358]
+      ext: [0.17387, 0.02541, 0.02541]
+    TS: 143.01
+    ts_ext: 21.23
+  J1956+2921:
+    sed_model:
+      sed_type: PL
+      norm: [0.14657, 0.01561, 0.01561, 1.0e-12]
+      index: [2.03073, 0.06474, 0.06474]
+      E_0: 3
+    spatial_model:
+      src_map: J1956+2921_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [299.2394, 0.1302, 0.1302]
+      dec: [29.3541, 0.1542, 0.1542]
+      ext: [0.99207, 0.07468, 0.07468]
+    TS: 162.35
+    ts_ext: 140.36
+  J2002+3244:
+    sed_model:
+      sed_type: PL
+      norm: [0.03391, 0.00579, 0.00579, 1.0e-12]
+      index: [2.20922, 0.11227, 0.11227]
+      E_0: 3
+    spatial_model:
+      src_map: J2002+3244_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [300.6379, 0.0387, 0.0387]
+      dec: [32.7449, 0.0379, 0.0379]
+      ext: [0.10092, 0.03321, 0.03321]
+    TS: 73.34
+    ts_ext: 2.24
+  J1952+2922:
+    sed_model:
+      sed_type: PL
+      norm: [0.05531, 0.00546, 0.00546, 1.0e-12]
+      index: [2.51585, 0.09518, 0.09518]
+      E_0: 3
+    spatial_model:
+      src_map: J1952+2922_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [298.0450, 0.0299, 0.0299]
+      dec: [29.3827, 0.0293, 0.0293]
+      ext: [0.08129, 0.02638, 0.02638]
+    TS: 104.78
+    ts_ext: 2.11
+  J2020+3638:
+    sed_model:
+      sed_type: PL
+      norm: [0.35855, 0.04334, 0.04334, 1.0e-12]
+      index: [2.62466, 0.08959, 0.08959]
+      E_0: 3
+    spatial_model:
+      src_map: J2020+3638_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [305.1369, 0.1733, 0.1733]
+      dec: [36.6338, 0.1256, 0.1256]
+      ext: [1.27107, 0.10998, 0.10998]
+    TS: 87.93
+    ts_ext: 87.91
+  J2005+3059:
+    sed_model:
+      sed_type: PL
+      norm: [0.02887, 0.00454, 0.00454, 1.0e-12]
+      index: [1.98754, 0.09807, 0.09807]
+      E_0: 3
+    spatial_model:
+      src_map: J2005+3059_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [301.3696, 0.0633, 0.0633]
+      dec: [30.9878, 0.0531, 0.0531]
+      ext: [0.21050, 0.03798, 0.03798]
+    TS: 60.55
+    ts_ext: 16.51
+  J1954+2834:
+    sed_model:
+      sed_type: PL
+      norm: [0.03363, 0.00400, 0.00400, 1.0e-12]
+      index: [2.22433, 0.08869, 0.08869]
+      E_0: 3
+    spatial_model:
+      src_map: J1954+2834_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [298.5037, 0.0332, 0.0332]
+      dec: [28.5714, 0.0267, 0.0267]
+      ext: [0.04799, 0.03932, 0.03932]
+    TS: 75.28
+    ts_ext: .48
+  J2013+3304:
+    sed_model:
+      sed_type: PL
+      norm: [0.09325, 0.02908, 0.02908, 1.0e-12]
+      index: [2.70759, 0.12600, 0.12600]
+      E_0: 3
+    spatial_model:
+      src_map: J2013+3304_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [303.4187, 0.2943, 0.2943]
+      dec: [33.0779, 0.1221, 0.1221]
+      ext: [0.67700, 0.13780, 0.13780]
+    TS: 25.49
+    ts_ext: 14.68
+  J2031+4135:
+    sed_model:
+      sed_type: PL
+      norm: [0.30661, 0.01230, 0.01230, 1.0e-12]
+      index: [2.29348, 0.02830, 0.02830]
+      E_0: 3
+    spatial_model:
+      src_map: J2031+4135_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [307.8542, 0.0170, 0.0170]
+      dec: [41.5969, 0.0156, 0.0156]
+      ext: [0.26667, 0.00982, 0.00982]
+    TS: 1524.61
+    ts_ext: 294.51
+  J2030+4134:
+    sed_model:
+      sed_type: PL
+      norm: [1.51514, 0.13625, 0.13625, 1.0e-12]
+      index: [2.60373, 0.04413, 0.04413]
+      E_0: 3
+    spatial_model:
+      src_map: J2030+4134_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [307.5489, 0.1954, 0.1954]
+      dec: [41.5790, 0.1678, 0.1678]
+      ext: [2.43805, 0.12086, 0.12086]
+    TS: 517.75
+    ts_ext: 516.81
+  J2020+4034:
+    sed_model:
+      sed_type: PL
+      norm: [0.23596, 0.01654, 0.01654, 1.0e-12]
+      index: [2.90998, 0.06447, 0.06447]
+      E_0: 3
+    spatial_model:
+      src_map: J2020+4034_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [305.0264, 0.0413, 0.0413]
+      dec: [40.5721, 0.0308, 0.0308]
+      ext: [0.37937, 0.02727, 0.02727]
+    TS: 459.81
+    ts_ext: 159.86
+  J2021+3654:
+    sed_model:
+      sed_type: PL
+      norm: [0.05468, 0.01610, 0.01610, 1.0e-12]
+      index: [1.78330, 0.17629, 0.17629]
+      E_0: 3
+    spatial_model:
+      src_map: J2021+3654_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [305.2554, 0.0901, 0.0901]
+      dec: [36.9070, 0.0264, 0.0264]
+      ext: [0.14561, 0.01947, 0.01947]
+    TS: 356.05
+    ts_ext: 44.48
+  J2031+4052:
+    sed_model:
+      sed_type: PL
+      norm: [0.07708, 0.01249, 0.01249, 1.0e-12]
+      index: [2.80705, 0.15725, 0.15725]
+      E_0: 3
+    spatial_model:
+      src_map: J2031+4052_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [307.9054, 0.0807, 0.0807]
+      dec: [40.8818, 0.0767, 0.0767]
+      ext: [0.25362, 0.04742, 0.04742]
+    TS: 57.79
+    ts_ext: 9.79
+  J2107+5157:
+    sed_model:
+      sed_type: PL
+      norm: [0.00834, 0.00179, 0.00179, 1.0e-12]
+      index: [1.43860, 0.08280, 0.08280]
+      E_0: 3
+    spatial_model:
+      src_map: J2107+5157_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [316.8328, 0.0536, 0.0536]
+      dec: [51.9521, 0.0385, 0.0385]
+      ext: [0.14104, 0.02892, 0.02892]
+    TS: 80.80
+    ts_ext: 9.83
+  J2201+5644:
+    sed_model:
+      sed_type: PL
+      norm: [0.03759, 0.02383, 0.02383, 1.0e-12]
+      index: [1.77297, 0.28407, 0.28407]
+      E_0: 3
+    spatial_model:
+      src_map: J2201+5644_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [330.3822, 0.1431, 0.1431]
+      dec: [56.7335, 0.0799, 0.0799]
+      ext: [0.43014, 0.07173, 0.07173]
+    TS: 74.99
+    ts_ext: 34.29
+  J2134+5703:
+    sed_model:
+      sed_type: PL
+      norm: [1.23954, 0.34224, 0.34224, 1.0e-12]
+      index: [2.67879, 0.16870, 0.16870]
+      E_0: 3
+    spatial_model:
+      src_map: J2134+5703_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [323.5994, 1.1932, 1.1932]
+      dec: [57.0637, 0.7141, 0.7141]
+      ext: [4.37394, 0.70871, 0.70871]
+    TS: 54.67
+    ts_ext: 53.66
+  J2227+6101:
+    sed_model:
+      sed_type: PL
+      norm: [0.23719, 0.01622, 0.01622, 1.0e-12]
+      index: [2.26222, 0.03634, 0.03634]
+      E_0: 3
+    spatial_model:
+      src_map: J2227+6101_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [336.7884, 0.0392, 0.0392]
+      dec: [61.0230, 0.0180, 0.0180]
+      ext: [0.24748, 0.01607, 0.01607]
+    TS: 574.39
+    ts_ext: 111.81
+  J2229+5927:
+    sed_model:
+      sed_type: PL
+      norm: [1.48518, 0.09929, 0.09929, 1.0e-12]
+      index: [2.66530, 0.04762, 0.04762]
+      E_0: 3
+    spatial_model:
+      src_map: J2229+5927_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [337.2631, 0.2895, 0.2895]
+      dec: [59.4551, 0.1301, 0.1301]
+      ext: [1.97760, 0.09631, 0.09631]
+    TS: 228.59
+    ts_ext: 212.84
+  J2323+5854:
+    sed_model:
+      sed_type: PL
+      norm: [0.11050, 0.01683, 0.01683, 1.0e-12]
+      index: [3.17975, 0.15982, 0.15982]
+      E_0: 3
+    spatial_model:
+      src_map: J2323+5854_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [350.7954, 0.1112, 0.1112]
+      dec: [58.9040, 0.0531, 0.0531]
+      ext: [0.15656, 0.05359, 0.05359]
+    TS: 50.25
+    ts_ext: 3.22
+  J2237+5855:
+    sed_model:
+      sed_type: PL
+      norm: [0.19075, 0.02563, 0.02563, 1.0e-12]
+      index: [2.38658, 0.07099, 0.07099]
+      E_0: 3
+    spatial_model:
+      src_map: J2237+5855_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [339.3956, 0.1392, 0.1392]
+      dec: [58.9226, 0.0583, 0.0583]
+      ext: [0.50529, 0.04115, 0.04115]
+    TS: 110.24
+    ts_ext: 75.59
+  J0055+6357:
+    sed_model:
+      sed_type: PL
+      norm: [0.14471, 0.04070, 0.04070, 1.0e-12]
+      index: [2.35243, 0.13342, 0.13342]
+      E_0: 3
+    spatial_model:
+      src_map: J0055+6357_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [13.7814, 0.1361, 0.1361]
+      dec: [63.9613, 0.0600, 0.0600]
+      ext: [0.33284, 0.07026, 0.07026]
+    TS: 105.73
+    ts_ext: 26.25
+  J0005+7308:
+    sed_model:
+      sed_type: PL
+      norm: [0.50128, 0.11091, 0.11091, 1.0e-12]
+      index: [2.73587, 0.10775, 0.10775]
+      E_0: 3
+    spatial_model:
+      src_map: J0005+7308_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [1.4752, 0.1117, 0.1117]
+      dec: [73.1483, 0.0413, 0.0413]
+      ext: [0.13664, 0.05157, 0.05157]
+    TS: 141.41
+    ts_ext: 4.19
+  J1104+3810:
+    sed_model:
+      sed_type: PL
+      norm: [0.36803, 0.00960, 0.00960, 1.0e-12]
+      index: [3.40677, 0.02588, 0.02588]
+      E_0: 3
+    spatial_model:
+      src_map: J1104+3810_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [166.0725, 0.0063, 0.0063]
+      dec: [38.1790, 0.0052, 0.0052]
+      ext: [0.00018, 0.02509, 0.02509]
+    TS: 5339.69
+    ts_ext: -2.97
+  J1219+2915:
+    sed_model:
+      sed_type: PL
+      norm: [0.03441, 0.00571, 0.00571, 1.0e-12]
+      index: [2.67197, 0.16900, 0.16900]
+      E_0: 3
+    spatial_model:
+      src_map: J1219+2915_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [184.9837, 0.0353, 0.0353]
+      dec: [29.2538, 0.0368, 0.0368]
+      ext: [0.00000, 0.05046, 0.05046]
+    TS: 49.74
+    ts_ext: 0
+  J1231+1226:
+    sed_model:
+      sed_type: PL
+      norm: [0.05048, 0.01442, 0.01442, 1.0e-12]
+      index: [2.41725, 0.23082, 0.23082]
+      E_0: 3
+    spatial_model:
+      src_map: J1231+1226_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [187.7528, 0.0932, 0.0932]
+      dec: [12.4334, 0.1024, 0.1024]
+      ext: [0.28877, 0.07469, 0.07469]
+    TS: 32.05
+    ts_ext: 5.35
+  J1653+3943:
+    sed_model:
+      sed_type: PL
+      norm: [0.37683, 0.00752, 0.00752, 1.0e-12]
+      index: [2.93561, 0.02485, 0.02485]
+      E_0: 3
+    spatial_model:
+      src_map: J1653+3943_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [253.4338, 0.0065, 0.0065]
+      dec: [39.7310, 0.0053, 0.0053]
+      ext: [0.00011, 0.02672, 0.02672]
+    TS: 4127.15
+    ts_ext: -1.52
+  J1727+5016:
+    sed_model:
+      sed_type: PL
+      norm: [0.04867, 0.00770, 0.00770, 1.0e-12]
+      index: [3.08589, 0.21037, 0.21037]
+      E_0: 3
+    spatial_model:
+      src_map: J1727+5016_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [261.8865, 0.0622, 0.0622]
+      dec: [50.2775, 0.0394, 0.0394]
+      ext: [0.00000, 0.04888, 0.04888]
+    TS: 43.84
+    ts_ext: 0
+  J2346+5138:
+    sed_model:
+      sed_type: PL
+      norm: [0.05671, 0.00857, 0.00857, 1.0e-12]
+      index: [3.26274, 0.17214, 0.17214]
+      E_0: 3
+    spatial_model:
+      src_map: J2346+5138_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [356.7020, 0.0803, 0.0803]
+      dec: [51.6425, 0.0402, 0.0402]
+      ext: [0.00001, 0.09908, 0.09908]
+    TS: 47.82
+    ts_ext: 0
+  J0246+6029:
+    sed_model:
+      sed_type: PL
+      norm: [0.19560, 0.05103, 0.05103, 1.0e-12]
+      index: [2.51903, 0.15956, 0.15956]
+      E_0: 3
+    spatial_model:
+      src_map: J0246+6029_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [41.5183, 0.3277, 0.3277]
+      dec: [60.4880, 0.1562, 0.1562]
+      ext: [0.70816, 0.10518, 0.10518]
+    TS: 53.04
+    ts_ext: 38.79
+  J0500+4454:
+    sed_model:
+      sed_type: PL
+      norm: [0.06901, 0.01617, 0.01617, 1.0e-12]
+      index: [2.52565, 0.19577, 0.19577]
+      E_0: 3
+    spatial_model:
+      src_map: J0500+4454_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [75.0061, 0.1504, 0.1504]
+      dec: [44.9165, 0.1153, 0.1153]
+      ext: [0.40457, 0.07465, 0.07465]
+    TS: 42.92
+    ts_ext: 14.25
+  J0533+3528:
+    sed_model:
+      sed_type: PL
+      norm: [0.04330, 0.01101, 0.01101, 1.0e-12]
+      index: [2.37212, 0.20894, 0.20894]
+      E_0: 3
+    spatial_model:
+      src_map: J0533+3528_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [83.3805, 0.0777, 0.0777]
+      dec: [35.4796, 0.0734, 0.0734]
+      ext: [0.22402, 0.08025, 0.08025]
+    TS: 50.67
+    ts_ext: 5.64
+  J0622+3756:
+    sed_model:
+      sed_type: PL
+      norm: [0.03929, 0.01725, 0.01725, 1.0e-12]
+      index: [1.81946, 0.21857, 0.21857]
+      E_0: 3
+    spatial_model:
+      src_map: J0622+3756_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [95.6699, 0.1212, 0.1212]
+      dec: [37.9334, 0.1203, 0.1203]
+      ext: [0.50057, 0.08867, 0.08867]
+    TS: 60.06
+    ts_ext: 34.28
+  J0534+2200:
+    sed_model:
+      sed_type: PL
+      norm: [2.11396, 0.01127, 0.01127, 1.0e-12]
+      index: [2.69466, 0.00774, 0.00774]
+      E_0: 3
+    spatial_model:
+      src_map: J0534+2200_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [83.6234, 0.0016, 0.0016]
+      dec: [22.0116, 0.0015, 0.0015]
+      ext: [0.00000, 0.02396, 0.02396]
+    TS: 73596.42
+    ts_ext: 0
+  J0544+2311:
+    sed_model:
+      sed_type: PL
+      norm: [0.20833, 0.05437, 0.05437, 1.0e-12]
+      index: [1.94819, 0.12955, 0.12955]
+      E_0: 3
+    spatial_model:
+      src_map: J0544+2311_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [86.0708, 0.2203, 0.2203]
+      dec: [23.1879, 0.1771, 0.1771]
+      ext: [1.44670, 0.17992, 0.17992]
+    TS: 137.33
+    ts_ext: 119.91
+  J0341+5303:
+    sed_model:
+      sed_type: PL
+      norm: [0.02866, 0.01317, 0.01317, 1.0e-12]
+      index: [1.70443, 0.19425, 0.19425]
+      E_0: 3
+    spatial_model:
+      src_map: J0341+5303_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [55.3402, 0.1251, 0.1251]
+      dec: [53.0504, 0.0532, 0.0532]
+      ext: [0.33275, 0.05347, 0.05347]
+    TS: 93.78
+    ts_ext: 46.13
+  J0428+5531:
+    sed_model:
+      sed_type: PL
+      norm: [0.47349, 0.06517, 0.06517, 1.0e-12]
+      index: [2.66419, 0.09783, 0.09783]
+      E_0: 3
+    spatial_model:
+      src_map: J0428+5531_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [67.2294, 0.2516, 0.2516]
+      dec: [55.5319, 0.1483, 0.1483]
+      ext: [1.17781, 0.11503, 0.11503]
+    TS: 152.89
+    ts_ext: 119.81
+  J0358+5412:
+    sed_model:
+      sed_type: PL
+      norm: [0.01848, 0.01216, 0.01216, 1.0e-12]
+      index: [1.74112, 0.27717, 0.27717]
+      E_0: 3
+    spatial_model:
+      src_map: J0358+5412_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [59.6816, 0.0974, 0.0974]
+      dec: [54.2104, 0.0588, 0.0588]
+      ext: [0.21629, 0.05041, 0.05041]
+    TS: 59.28
+    ts_ext: 19.41
+  J0641+1519:
+    sed_model:
+      sed_type: PL
+      norm: [3.16993, 0.22222, 0.22222, 1.0e-12]
+      index: [2.20641, 0.04486, 0.04486]
+      E_0: 3
+    spatial_model:
+      src_map: J0641+1519_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [100.2770, 0.4336, 0.4336]
+      dec: [15.3280, 0.3226, 0.3226]
+      ext: [5.96239, 0.30171, 0.30171]
+    TS: 760.66
+    ts_ext: 755.02
+  J0617+2234:
+    sed_model:
+      sed_type: PL
+      norm: [0.19515, 0.02712, 0.02712, 1.0e-12]
+      index: [2.91665, 0.14208, 0.14208]
+      E_0: 3
+    spatial_model:
+      src_map: J0617+2234_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [94.3500, 0.0811, 0.0811]
+      dec: [22.5681, 0.0724, 0.0724]
+      ext: [0.58982, 0.07559, 0.07559]
+    TS: 242.99
+    ts_ext: 95.99
+  J0634+1742:
+    sed_model:
+      sed_type: PL
+      norm: [0.15306, 0.06452, 0.06452, 1.0e-12]
+      index: [1.64628, 0.14721, 0.14721]
+      E_0: 3
+    spatial_model:
+      src_map: J0634+1742_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [98.5144, 0.1217, 0.1217]
+      dec: [17.7156, 0.1073, 0.1073]
+      ext: [1.16196, 0.16451, 0.16451]
+    TS: 193.45
+    ts_ext: 145.14
+  J0701+1432:
+    sed_model:
+      sed_type: PL
+      norm: [0.22682, 0.07431, 0.07431, 1.0e-12]
+      index: [1.98307, 0.12108, 0.12108]
+      E_0: 3
+    spatial_model:
+      src_map: J0701+1432_srcmap.root
+      is_fast_calculating: yes
+      spatial_type: gaussian
+      ra: [105.3158, 0.2030, 0.2030]
+      dec: [14.5473, 0.1549, 0.1549]
+      ext: [1.30080, 0.20739, 0.20739]
+    TS: 89.73
+    ts_ext: 65.77

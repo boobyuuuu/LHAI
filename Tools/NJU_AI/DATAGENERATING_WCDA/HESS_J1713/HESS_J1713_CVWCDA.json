@@ -1,0 +1,117 @@
+{
+  "input": "/home/lhaaso/zhliu/LZH/response/Tools/NJU_AI/DATAGENERATING_WCDA/HESS_J1713/HESS_J1713.npy",
+  "output": "/home/lhaaso/zhliu/LZH/response/Tools/NJU_AI/DATAGENERATING_WCDA/HESS_J1713/HESS_J1713_CVWCDA.npy",
+  "start_index": 0,
+  "num": 5,
+  "batchsize": 5,
+  "detector": "km2a",
+  "wcda_nhit_used": null,
+  "km2a_energy_used_log10_TeV": [
+    1.4,
+    3.4
+  ],
+  "workdir": "/home/lhaaso/zhliu/LZH/response",
+  "seed": {
+    "mode": "batch_time",
+    "base": 20260514
+  },
+  "energy": {
+    "emin_log10_TeV": 1.4,
+    "emax_log10_TeV": 3.4,
+    "Epiv_TeV": 3.0,
+    "alpha": 2.6
+  },
+  "flux": {
+    "distribution": "const",
+    "min": 0.1,
+    "max": 10.0,
+    "value": 3.0,
+    "order": "1.e-13",
+    "shuffle": false,
+    "seed": "batch_time"
+  },
+  "roi": {
+    "shape": "rectangle",
+    "fov_deg": 6.4,
+    "pixel_size_deg": 0.1,
+    "ra_center_mode": "random",
+    "dec_center_mode": "fixed"
+  },
+  "samples": [
+    {
+      "index": 0,
+      "batch": 0,
+      "seed": 688306627,
+      "flux_F0": 3.0,
+      "flux_order": "1.e-13",
+      "Epiv_TeV": 3.0,
+      "alpha": 2.6,
+      "ra_center_deg": 83.26770569059101,
+      "dec_center_deg": 22.0
+    },
+    {
+      "index": 1,
+      "batch": 0,
+      "seed": 688306627,
+      "flux_F0": 3.0,
+      "flux_order": "1.e-13",
+      "Epiv_TeV": 3.0,
+      "alpha": 2.6,
+      "ra_center_deg": 241.95279431365967,
+      "dec_center_deg": 22.0
+    },
+    {
+      "index": 2,
+      "batch": 0,
+      "seed": 688306627,
+      "flux_F0": 3.0,
+      "flux_order": "1.e-13",
+      "Epiv_TeV": 3.0,
+      "alpha": 2.6,
+      "ra_center_deg": 268.82968723683587,
+      "dec_center_deg": 22.0
+    },
+    {
+      "index": 3,
+      "batch": 0,
+      "seed": 688306627,
+      "flux_F0": 3.0,
+      "flux_order": "1.e-13",
+      "Epiv_TeV": 3.0,
+      "alpha": 2.6,
+      "ra_center_deg": 286.2429525082681,
+      "dec_center_deg": 22.0
+    },
+    {
+      "index": 4,
+      "batch": 0,
+      "seed": 688306627,
+      "flux_F0": 3.0,
+      "flux_order": "1.e-13",
+      "Epiv_TeV": 3.0,
+      "alpha": 2.6,
+      "ra_center_deg": 239.32754229144564,
+      "dec_center_deg": 22.0
+    }
+  ],
+  "batches": [
+    {
+      "batch": 0,
+      "start": 0,
+      "stop": 5,
+      "dir": "/home/lhaaso/zhliu/LZH/response/Tools/NJU_AI/DATAGENERATING_WCDA/HESS_J1713/HESS_J1713_CVWCDA_work/batch_00000_00005",
+      "seed": 688306627,
+      "poisson_seed": 688306627,
+      "ra_center_deg": 223.92413640816002,
+      "dec_center_deg": 22.0
+    }
+  ],
+  "channels": {
+    "0": "intrinsic/GT",
+    "1": "excess",
+    "2": "bkg",
+    "3": "bkg_on",
+    "4": "poisson",
+    "5": "on_off (poisson_on - bkg)"
+  }
+}

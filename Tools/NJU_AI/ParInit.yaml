@@ -1,0 +1,24 @@
+DGE:
+  Active: 1
+  ConvoPSF: 1
+  Template0:
+    Name: sample_0
+    Tempfile: /home/lhaaso/hushicong/Standard_prog_lib/Source_Analysis/Space_energy_Joint_fitting/Developing/v0.99_beta/Tools/NJU_AI/samples.root
+    TempHist: [sample_0]
+    Epiv: 50
+    SEDModel:
+      type: PL
+      F0: [50, 0, 100, 0, 1.e-15]
+      alpha: [3, 1.0, 5.0, 0]
+  Template1:
+    Name: sample_1
+    Tempfile: /home/lhaaso/hushicong/Standard_prog_lib/Source_Analysis/Space_energy_Joint_fitting/Developing/v0.99_beta/Tools/NJU_AI/samples.root
+    TempHist: [sample_1]
+    Epiv: 50
+    SEDModel:
+      type: PL
+      F0: [50, 0, 100, 0, 1.e-15]
+      alpha: [3, 1.0, 5.0, 0]
+
+SRC:
+  Active: 0

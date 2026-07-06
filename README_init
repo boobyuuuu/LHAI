@@ -1,0 +1,11 @@
+>>> Software environment: 
+    source /cvmfs/lhaaso.ihep.ac.cn/anysw/slc5_ia64_gcc73/external/envf.sh
+
+>>> Online user guide:
+    https://jupyter.ihep.ac.cn/s/X-e1Fjt8b
+
+>>> Tools:
+    0) Src_GetSBP             : Get surface brightness profile of target source
+    2) Tools/ROOT2FITs.py     : convert the sky map output from the program to a fits file
+    3) Tools/ROOT2TXT.py      : convert the sky map output from the program to a txt file: x:y:significance
+    4) Tools/SigMap_Eqm2Gal   : convert the equatorial sky map to galactic sky map

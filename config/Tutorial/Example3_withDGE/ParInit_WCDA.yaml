@@ -1,0 +1,221 @@
+DGE:
+  Active: 1
+  ConvoPSF: 1
+  Template0:
+    Name: dust
+    Tempfile: /home/lhaaso/hushicong/Standard_prog_lib/Source_Analysis/Space_energy_Joint_fitting/DGE_Template/gll_dust_process_Eqm.root
+    TempHist: [hTemp_ana]
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [7.64289, 0.00, 228.09, 0, 1.e-11]
+      alpha: [2.60069, 1.00, 4.00, 0]
+SRC:
+  UseCatalog: 0
+  Active: 1
+  Epiv: 3
+  ParStatus:
+    Position: 0
+    F0: 0
+    Index: 0
+    MorPar: 0
+  Src0:
+    Name: J1908
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [7.74571, 0.00, 50.00, 0, 1.e-13]
+      alpha: [2.32994, 1.00, 4.00, 0]
+    MorModel:
+      type: Ext_gaus
+      ra: [287.08445, 283.09, 291.09, 0]
+      dec: [6.29029, 2.26, 10.26, 0]
+      sigma: [0.41763, 0.00, 5.00, 0]
+  Src1:
+    Name: SExt
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [0.11142, 0.00, 50.00, 0, 1.e-12]
+      alpha: [2.51601, 1.00, 4.00, 0]
+    MorModel:
+      type: Ext_gaus
+      ra: [285.69225, 283.09, 291.09, 0]
+      dec: [5.90769, 2.26, 10.26, 0]
+      sigma: [0.48120, 0.00, 5.00, 0]
+  Src2:
+    Name: Src2
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [0.28895, 0.00, 50.00, 0, 1.e-12]
+      alpha: [2.45770, 1.00, 4.00, 0]
+    MorModel:
+      type: Ext_gaus
+      ra: [284.78999, 280.09, 288.09, 0]
+      dec: [3.60803, -1.26, 7.26, 0]
+      sigma: [0.60242, 0.00, 5.00, 0]
+  Src3:
+    Name: Src3
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [2.99252, 0.00, 50.00, 0, 1.e-13]
+      alpha: [2.58802, 1.00, 4.00, 0]
+    MorModel:
+      type: Ext_gaus
+      ra: [284.18659, 280.09, 288.09, 0]
+      dec: [1.66394, -2.00, 6.26, 0]
+      sigma: [0.45004, 0.00, 5.00, 0]
+  Src4:
+    Name: Src4
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [0.35966, 0.00, 50.00, 0, 1.e-12]
+      alpha: [2.71498, 1.00, 4.00, 0]
+    MorModel:
+      type: Ext_gaus
+      ra: [284.37902, 280.09, 288.09, 0]
+      dec: [2.77898, -2.00, 6.00, 0]
+      sigma: [0.21487, 0.00, 5.00, 0]
+  Src5:
+    Name: Src5
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [0.23027, 0.00, 50.00, 0, 1.e-12]
+      alpha: [2.65484, 1.00, 4.00, 0]
+    MorModel:
+      type: Ext_gaus
+      ra: [288.18839, 284.09, 292.09, 0]
+      dec: [10.15871, 6.26, 14.26, 0]
+      sigma: [0.29575, 0.00, 5.00, 0]
+  Src6:
+    Name: Elobe
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [0.17574, 0.00, 50.00, 0, 1.e-13]
+      alpha: [2.12818, 1.00, 4.00, 0]
+    MorModel:
+      type: Point
+      ra: [288.40073, 284.09, 292.09, 0]
+      dec: [4.96652, 1.26, 9.26, 0]
+  Src7:
+    Name: Src7
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [0.34121, 0.00, 50.00, 0, 1.e-13]
+      alpha: [2.70608, 1.00, 4.00, 0]
+    MorModel:
+      type: Point
+      ra: [286.86943, 283.09, 291.09, 0]
+      dec: [9.25436, 5.26, 13.26, 0]
+  Src8:
+    Name: Wlobe
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [0.32553, 0.00, 50.00, 0, 1.e-13]
+      alpha: [2.54273, 1.00, 4.00, 0]
+    MorModel:
+      type: Point
+      ra: [287.64102, 283.09, 291.09, 0]
+      dec: [5.05599, 1.26, 9.26, 0]
+  Src9:
+    Name: Src9
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [0.33986, 0.00, 50.00, 0, 1.e-13]
+      alpha: [2.02590, 1.00, 4.00, 0]
+    MorModel:
+      type: Ext_gaus
+      ra: [288.79621, 284.09, 292.09, 0]
+      dec: [11.81803, 7.26, 15.26, 0]
+      sigma: [0.14014, 0.00, 5.00, 0]
+  Src10:
+    Name: Src10
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [1.19610, 0.00, 50.00, 0, 1.e-13]
+      alpha: [2.40483, 1.00, 4.00, 0]
+    MorModel:
+      type: Ext_gaus
+      ra: [286.57930, 284.09, 292.09, 0]
+      dec: [7.25614, 3.26, 11.26, 0]
+      sigma: [0.35584, 0.00, 5.00, 0]
+  Src11:
+    Name: Src11
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [1.32921, 0.00, 50.00, 0, 1.e-13]
+      alpha: [2.50698, 1.00, 4.00, 0]
+    MorModel:
+      type: Ext_gaus
+      ra: [284.56140, 280.09, 288.09, 0]
+      dec: [2.08249, -1.70, 6.26, 0]
+      sigma: [0.11594, 0.00, 2.00, 0]
+  Src12:
+    Name: Src12
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [3.70754, 0.00, 50.00, 0, 1.e-13]
+      alpha: [2.39162, 1.00, 4.00, 0]
+    MorModel:
+      type: Ext_gaus
+      ra: [287.96798, 281.09, 289.09, 0]
+      dec: [5.61323, 2.70, 10.26, 0]
+      sigma: [1.08144, 0.00, 2.00, 0]
+  Src13:
+    Name: Src13
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [0.14224, 0.00, 500.00, 0, 1.e-13]
+      alpha: [2.29818, 1.00, 4.00, 0]
+    MorModel:
+      type: Point
+      ra: [284.45713, 280.09, 288.09, 0]
+      dec: [7.67577, 3.90, 11.90, 0]
+  Src14:
+    Name: GRS
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [0.56440, 0.00, 500.00, 0, 1.e-13]
+      alpha: [2.43394, 1.00, 4.00, 0]
+    MorModel:
+      type: Ext_gaus
+      ra: [288.65120, 284.09, 292.09, 0]
+      dec: [10.87660, 6.80, 14.90, 0]
+      sigma: [0.33482, 0.00, 1.00, 0]
+  Src15:
+    Name: Src15
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [0.34392, 0.00, 500.00, 0, 1.e-13]
+      alpha: [2.33658, 1.00, 4.00, 0]
+    MorModel:
+      type: Ext_gaus
+      ra: [286.89406, 283.09, 291.09, 0]
+      dec: [8.36858, 4.20, 12.20, 0]
+      sigma: [0.27213, 0.00, 1.00, 0]
+  Src16:
+    Name: Src16
+    Epiv: 3
+    SEDModel:
+      type: PL
+      F0: [0.23620, 0.00, 500.00, 0, 1.e-13]
+      alpha: [2.31216, 1.00, 4.00, 0]
+    MorModel:
+      type: Ext_gaus
+      ra: [285.54195, 281.09, 289.09, 0]
+      dec: [6.87567, 2.90, 10.90, 0]
+      sigma: [0.07135, 0.00, 1.00, 0]

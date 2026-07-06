@@ -1,0 +1,17 @@
+Version: Cod
+Decrange: [-30, 90]
+Decstep: 1
+DECstep: 0.2
+Nnhit: 7
+Nhit: [30, 60, 100, 200, 300, 500, 800, 2000]
+Zenrange: [0, 50]
+Livetime: 1136.2
+Mapfile: /home/lhaaso/hushicong/DATA/WCDA/Cod/DataMap/Periods_67periods_20240731.root 
+PSFtype: 2Gaus
+Zenstep: 1
+Erange: [0, 7]
+Estep: 0.1
+Responsefile1: /home/lhaaso/hushicong/Standard_prog_lib/Source_Analysis/Space_energy_Joint_fitting/Response/WCDA/Cod/Response_1.07_Cof_20240731.root
+Responsefile2: /home/lhaaso/hushicong/Standard_prog_lib/Source_Analysis/Space_energy_Joint_fitting/Response/WCDA/Cod/Response_1.04_Cof_20240731.root
+Simufile1: /home/lhaaso/hushicong/DATA/WCDA/Cod/Simu/Cof_Periods_1.07_20240731.root
+Simufile2: /home/lhaaso/hushicong/DATA/WCDA/Cod/Simu/Cof_Periods_1.04_20240731.root 

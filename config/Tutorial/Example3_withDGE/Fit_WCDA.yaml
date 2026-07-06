@@ -1,0 +1,45 @@
+WorkDir: /home/lhaaso/hushicong/Standard_prog_lib/Source_Analysis/Space_energy_Joint_fitting/v0.99 
+DataConfig: 
+  WCDA: config/Data/WCDA/Cod/Data_20210305_20240731.yaml 
+  KM2A: config/Data/KM2A/Data_20210720_20240131.yaml
+CorOpt: 0
+DataUsed:
+  SmoothBkg: 1
+  WCDA: 
+    Active: 1
+    NbinUsed: [1, 6]
+    ReBin: 
+      Active: 3
+      Rebin: [2, 2, 1]
+  KM2A:
+    Active: 0
+    12_and_34: 0
+    NbinUsed: [1.4, 3.4]
+ROI:
+  ROIfile: none 
+  Include: [0, 0, 287, 6.4, 6, 8]
+  Exclude:
+    Active: 0
+    Region: [0, 80.63, 22.02, 1, 1] 
+
+FastIteration: 1
+Fit:
+  Fitting: 1
+  FluxPoint: 0
+  TS_Src: 0
+  TS_Bin: 0
+  FluxUL: 0
+  
+TSmap:
+  Active: 0
+  WCDA: [1, 1, 6]
+  KM2A: [0, 1.4, 1.8]
+  SrcID: 1
+  Subtract: 0
+  JOBScript: JOB_TS.sh
+
+Output:
+  DrawOpt: 1
+  Outdir: Results/Tutorial/Example3_withDGE
+  fParResu: ParRes.yaml
+  fConExcess: ConExcess.root

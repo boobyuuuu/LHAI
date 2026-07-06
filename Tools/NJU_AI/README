@@ -1,0 +1,58 @@
+environment:
+    source /cvmfs/lhaaso.ihep.ac.cn/anysw/slc5_ia64_gcc73/external/envf.sh
+
+step1
+    prog:
+        npy2root.py
+    input:
+        samples.npy, N×1×H×W, 其中N为样本数
+    output:
+        samples.root: 输入卷积程序的模板root文件
+        ParInit.yaml: 输入卷积程序的源定义配置文件
+
+step2
+    prog:
+        Src_Convo_Template
+    input:
+        Fit.yaml: 其中可以设置天区中心位置（注意和npy2root.py的中心一致）、KM2A能段等等
+        ParInit.yaml: step1生成
+        Poisson flag: 是否要基于卷积后的事例数做泊松涨落
+        Poisson seed: 随机数种子
+    run example:
+        ./Src_Convo_Template Fit.yaml ParInit.yaml 0 0
+    output:
+        convo_response.root: N个样本卷积后的事例数空间分布
+
+step3
+    prog:
+        root2npy.py
+    input:
+        original npy file
+        convo_response.root
+    output:
+        默认输出显式图层：intrinsic map、excess map、bkg map、bkg-on map
+        即convo_response.npy: N×4×64×64
+
+
+注意：
+    目前的Src_Convo_Template处理格子大小0.1度*0.1度、视场6.4度的天图，即输入samples.npy固定为N×1×64×64。
+    非泊松检查输出固定为N×4×64×64：0=intrinsic, 1=excess, 2=bkg, 3=bkg-on。
+    泊松检查输出固定为1×5×64×64：0=intrinsic, 1=excess, 2=bkg, 3=bkg-on, 4=poisson。
+
+检查数据集：
+    energy_dependent_psf/
+        能量依赖PSF检查。samples.npy为10个中心点源模板；run_response.sh按KM2A log10(E/TeV)=1.4--3.4、步长0.2逐能段运行响应，生成convo_response.npy，shape为10×4×64×64。
+    roi_psf_background/
+        ROI范围PSF/背景检查。samples.npy为两个中心点源模板；Template0使用F0=50输出点源响应+背景，Template1使用F0=0输出背景-only，生成convo_response.npy，shape为2×4×64×64。
+    poisson_fluctuation/
+        泊松涨落效果查看实验。分别用Poisson flag=0和Poisson flag=1运行同一组模板，生成poisson_response.npy，shape为1×5×64×64，以及poisson_fluctuation_check.png、poisson_four_map_summary.png。
+
+运行示例：
+    cd energy_dependent_psf
+    bash run_response.sh
+
+    cd ../roi_psf_background
+    bash run_response.sh
+
+    cd ../poisson_fluctuation
+    bash run_response.sh

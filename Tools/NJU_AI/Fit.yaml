@@ -1,0 +1,45 @@
+WorkDir: /home/lhaaso/zhliu/LZH/response
+DataConfig: 
+  WCDA: config/Data/WCDA/Cod/Data_20210305_20250731.yaml
+  KM2A: config/Data/KM2A/Data_20210720_20250731.yaml
+CorOpt: 0
+DataUsed:
+  SmoothBkg: 1
+  WCDA: 
+    Active: 0
+    NbinUsed: [1, 6]
+    ReBin: 
+      Active: 3
+      Rebin: [2, 2, 1]
+  KM2A:
+    Active: 1
+    12_and_34: 0
+    NbinUsed: [1.4, 3.4]
+ROI:
+  ROIfile: none 
+  Include: [0, 1, 173.6, 186.4, -6.4, 6.4]
+  Exclude:
+    Active: 0
+    Region: [0, 80.63, 22.02, 1, 1] 
+
+FastIteration: 0
+Fit:
+  Fitting: 1
+  FluxPoint: 0
+  TS_Src: 0
+  TS_Bin: 0
+  FluxUL: 0
+  
+TSmap:
+  Active: 0
+  WCDA: [1, 1, 6]
+  KM2A: [0, 1.4, 1.8]
+  SrcID: 1
+  Subtract: 0
+  JOBScript: JOB_TS.sh
+
+Output:
+  DrawOpt: 1
+  Outdir: Tools/NJU_AI
+  fParResu: none
+  fConExcess: convo_response.root

@@ -1,0 +1,24 @@
+DGE:
+  Active: 0
+SRC:
+  UseCatalog: 0
+  Active: 1
+  Epiv: -1
+  ParStatus:
+    Position: 0
+    F0: 0
+    Index: 0
+    MorPar: 0
+  Src0:
+    Name: Mkn421
+    Epiv: 1
+    GGAbs: /home/lhaaso/hushicong/Standard_prog_lib/Source_Analysis/Space_energy_Joint_fitting/EBL_Model/Saldana_lopez2021/TAU_z0.031.txt
+    SEDModel:
+      type: LP
+      F0: [35.76166, 0.00, 500.00, 0, 1.e-12, 0.32497]
+      alpha: [2.55313, 2.00, 4.00, 0, 0.01053]
+      beta: [0.26675, 0.00, 1.00, 0, 0.01229]
+    MorModel:
+      type: Point
+      ra: [166.09309, 162.63, 170.63, 0, 0.00211]
+      dec: [38.17376, 34.02, 42.02, 0, 0.00166]

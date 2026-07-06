@@ -1,0 +1,108 @@
+# 主程序Src_Main所在的目录
+# 将程序拷贝到自己目录下后，要把这里的'WorkDir'改成自己的目录！
+WorkDir: /home/lhaaso/hushicong/Standard_prog_lib/Source_Analysis/Space_energy_Joint_fitting/v0.99
+
+# 数据配置文件在WorkDir/config/Data目录下，其中包括天图文件、响应文件、模拟数据文件。可根据自己需要选择相应时段或坐标系的配置文件
+DataConfig: 
+    WCDA: config/Data/WCDA/Cod/Data_20210305_20240731.yaml
+    KM2A: config/Data/KM2A/Data_20210720_20240731.yaml
+
+# 天图的坐标系选择：0为赤道坐标系下的天图，1为银道坐标系下的。目前已不再提供银道坐标系下的天图，故只能选0
+CorOpt: 0
+
+# 分析所用的探测器及能段
+DataUsed:
+    # 平滑背景，暂不支持，可设为任意值
+    SmoothBkg: 1
+    WCDA: 
+        # 分析中是否用WCDA数据，0为不用，1为用
+        Active: 1
+        # WCDA选用的能段，能段编号从0开始，可根据数据配置文件中的'Nhit'选择所需的能段
+        NbinUsed: [1, 5]
+        # 对数据天图和响应文件重新分bin，暂不支持，可将'Active'设置为0
+        ReBin: 
+            Active: 0
+            Rebin: [2, 2, 1]
+    KM2A:
+        # 分析中是否用KM2A数据，0为不用，1为用
+        Active: 1
+        # KM2A选用的能段，这里输入的数值为log10(energy/TeV)，KM2A最大可用范围为[0.6, 3.4]
+        NbinUsed: [1.4, 3.0]
+
+# ROI设置
+ROI:
+    # 提前产生好的ROI文件
+    ROIfile: none 
+    # ROI 区域，六个参数的含义分别如下
+        # var0：ROI坐标系选择，0为赤道坐标系，即按给定的坐标在赤道坐标系下选择ROI；1为银道坐标系。此处的坐标系选择不必要和上述的'CorOpt'一致
+        # var1：ROI形状：0为圆形，1为矩形
+        # var2 && var3：若var1为0，则var2和var3分别为ROI中心的横纵坐标；若var1为1，则var2和var3分别为ROI X的最小值和最大值
+        # var4 && var5：若var1为0，则var4和var5分别为ROI半径和Model半径；若var1为1，则var4和var5分别为ROI Y的最小值和最大值
+    Include: [0, 0, 83.63, 22.02, 4, 6]
+    # mask ROI内指定区域，可参考下图'ROI示例'
+    Exclude:
+        # 是否mask，0为不做mask，1为mask
+        Active: 0
+        # mask区域，五个参数的含义同上述'Inlcude'的后五个参数。
+        Region: [0, 80.63, 22.02, 1, 1]
+# 注意：ROI'Exclude'中的坐标值对应的坐标系必须和ROI'Inlcude'的相同
+
+# 快速迭代选项，1为使用快速迭代，0为不使用。可省略，默认值为1
+FastIteration: 1
+# 拟合过程设置：以下选项，0为不拟合，1为拟合
+Fit:
+    # 拟合参数最优值
+    Fitting: 1
+    # 拟合每个能段的流强点
+    FluxPoint: 1
+    # 拟合每个源或弥散成分的TS
+    TS_Src: 1
+    # 拟合每个源或弥散成分每个段的TS
+    TS_Bin: 1
+    # 拟合每个源或弥散成分每个段的流强上限
+    FluxUL: 1
+# 注意：若要拟合'FluxUL'，必须同时将'TS_Bin'设置为1
+# Tips：除'FluxUL'依赖于'TS_Bin'之外，其他都是独立的，即可以只把其中任意一个设为1，其他设为0，只做相应的分析，从而可以这样操作：
+    #只把Fitting设为1，其他设为0，拟合得到参数最优值后，将参数最优值作为初始值，把Fitting改为0，FluxPoint设为1，继续算源的能谱点
+    #再例如，逐个加源迭代确定ROI内源的个数时，可以只将Fitting设为1，不去计算其他东西，从而节省时间
+
+# TSmap设置
+TSmap:
+    # 是否拟合TS map
+    Active: 0
+    # 拟合TS map是WCDA的数据选项：
+        # var0: 是否用WCDA
+        # var1 && var2: WCDA选用的能段
+    WCDA: [1, 1, 5]
+    KM2A: [1, 1.4, 3.0]
+    # 做第SrcID个源的TS map，按ParInit.yaml中的源的顺序，SrcID从0开始
+        # 特殊情况：SrcID设为-1，结合Subtract
+    SrcID: 0
+    # 0或1：0是指做TS map时扣除其他所有源，只保留SrcID；1是指仅扣除SrcID
+        # 特殊情况：SrcID设为-1，Subtract为0做残差图（扣除包括弥散在内的所有源），Subtract为1做数据的显著性图（不扣除任何源或弥散）
+    Subtract: 0
+    # 拟合TS map的脚本
+    JOBScript: JOB_TS.sh
+# 关于做TSmap的说明：
+    # 若需要拟合TS map，只需要按上述说明设置并运行主程序即可，主程序会自动提交TS map的作业。
+    # 作业会在本配置文件最后一部分的'Output'的'Outdir'/TSmap下生成多个root文件，只需要用'hadd TSmap_TargetSource.root TSmap_*.root'即可得到完整的目标源的TS map
+    # 如果在第一次做'Fit'中的分析时，想要同时做某个源的TS map，只需按上述说明设置即可；若'Fit'中的分析已完成，'fConExcess'和'fParResu'已生成，此时若想做TS map，可将'Fit'中的选项全部设置成0，以节省时间
+# 注意：
+    # 'TSmap'中的SrcID编号从0开始，顺序和ParInit.yaml中相同，0对应第一个源，弥散伽马始终是最后一个
+    # 若要拟合TS map，必须先生成本配置文件最后的'fParResu'和fConExcess'
+    # 'TS map'设置中所用的能段仅可在'DataUsed'中所用的能段范围内自由选择
+       
+# 输出设置，每个选项会在下一小节“输出”中详述
+Output:
+    # 平滑得到每个源的显著性图并保存到文件，0为不计算显著性天图，1为计算
+    DrawOpt: 1
+    # 输出文件的路径为WorkDir/Outdir
+    Outdir: Results/Crab
+    # 将参数最优值输出到指定文件，若不需要输出，则设置成'none'
+    fParResu: ParRes.yaml
+    # 将上述'Fitting'拟合结果对应的卷积后的超出数天图输出到指定文件，若不需要输出，则设置成'none'
+    fConExcess: ConExcess.root
+
+注意：
+1.ParInit.yaml中某个成分的能谱或形态参数顺序必须和src/Src_MorModel.yaml及src/Src_SEDModel.yaml中保持一致，例如src/Src_SEDModel.yaml中带指数截断的幂律谱’PEC’的参数顺序为’[F0, alpha, Ecut]'，则ParInit.yaml中，'alpha’的设置必须写’F0’和’Ecut’之间，不能写到Ecut之后
+2.将程序拷贝到自己目录下后，需要将Fit.yaml中的WorkDir改成自己的程序所在的目录
