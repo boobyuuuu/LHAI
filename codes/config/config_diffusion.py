@@ -1,0 +1,123 @@
+from dataclasses import dataclass, field
+from pathlib import Path
+from dotenv import load_dotenv
+from loguru import logger
+import os
+
+load_dotenv()
+
+ADDR_CONFIG = Path(__file__).resolve().parents[0]
+ADDR_ROOT = Path(__file__).resolve().parents[2]
+logger.success(f"ADDR_CONFIG is: {ADDR_CONFIG}")
+logger.info(f"ADDR_ROOT is: {ADDR_ROOT}")
+
+# ========== Train Config ==========
+@dataclass
+class TrainConfig:
+    exp_name: str = "EXP01"
+    data_dir: Path = ADDR_ROOT / "data" / "Train"
+    data_name: str = "xingwei_10000_64_train_v1.npy"
+    model_dir: Path = ADDR_ROOT / "codes" / "models"
+    model_name: str = "DIFFUSION"
+    seed: int = 0
+    frac: float = 0.8
+    epochs: int = 2
+    batch_size: int = 32
+    lr_max: float = 5e-4
+    lr_min: float = 5e-6
+    datarange: float = 1.0
+    position_encoding_dim: int = 256
+    noise_steps: int = 2000
+    EVALUATE_METRICS: bool = False
+    log_dir: Path = ADDR_ROOT / "saves" / "TRAIN" / "LOGS"
+# ========== Predict Config ==========
+@dataclass
+class PredictConfig:
+    model_name: str = "CNN"
+    model_path: Path = ADDR_ROOT / "saves" / "MODEL"
+    model_file: str = "CNN_EXP_0_1_400epo_32bth_64lat_poissonsrc+bkg_highresorig_poisson_src_bkg.pkl.npy.pth"
+    data_dir: Path = ADDR_ROOT / "data" / "POISSON"
+    data_name: str = "poisson_src_bkg.pkl.npy"
+    seed: int = 0
+    pred_type: str = "poissonsrc+bkg_highresorig"
+    frac: float = 0.8
+    batch_size: int = 32
+    latent_dim: int = 64
+    position_encoding_dim: int = 256
+    noise_steps: int = 2000
+
+    @property
+    def data_path(self) -> Path:
+        return self.data_dir / self.data_name
+
+    @property
+    def full_model_path(self) -> Path:
+        return self.model_path / self.model_file
+
+# ========== Eval Config ==========
+@dataclass
+class EvalConfig:
+    exp_name: str = "EXP01"
+    model_name: str = "DIFFUSION"
+    model_dir: Path = ADDR_ROOT / "codes" / "models"
+    data_dir: Path = "/root/autodl-fs"
+    data_name: str = "xingwei_10000_64_train_v1.npy"
+    unet_weight_name: str = "unetconfig_DIFFUSION_EXP01_400epo_32bth_xingwei.pth"
+    unet_weight_path: Path = ADDR_ROOT / "saves" / "MODEL" / unet_weight_name
+    diffusion_weight_name: str = "diffusionconfig_DIFFUSION_EXP01_400epo_32bth_xingwei.pth"
+    diffusion_weight_path: Path = ADDR_ROOT / "saves" / "MODEL"/ diffusion_weight_name
+    seed: int = 0
+    frac: float = 0.8
+    epochs: int = 400
+    batch_size: int = 32
+    lr_max: float = 5e-4
+    lr_min: float = 5e-6
+    datarange: float = 1.0
+    position_encoding_dim: int = 256
+    noise_steps: int = 2000
+    logpath: Path = ADDR_ROOT / "logs" / "evaluation_diffusion.log"
+    
+@dataclass
+class ModelConfig:
+    model_params: dict = field(default_factory=lambda: {
+        "AttentionUNet": {
+            "in_channels": 2,
+            "channels": [32, 64, 128],
+            "base_channels": [256, 256],
+            "channel_attention": [False, False, False],
+            "out_channels": 1
+            # position_embedding_dim will be injected at runtime
+        }
+    })
+
+# 实例化默认配置
+train_cfg = TrainConfig()
+predict_cfg = PredictConfig()
+eval_cfg = EvalConfig()
+model_cfg = ModelConfig()
+
+if __name__ == "__main__":
+    try:
+        from tqdm import tqdm
+        logger.remove(0)
+        logger.add(lambda msg: tqdm.write(msg, end=""), colorize=True)
+    except ModuleNotFoundError:
+        pass
+
+    logger.info("========== 当前配置参数 ==========")
+
+    for cfg_name, cfg_obj in zip(["Train", "Predict", "Eval"], [train_cfg, predict_cfg, eval_cfg]):
+        logger.info(f"--- {cfg_name} Config ---")
+        for field in cfg_obj.__dataclass_fields__:
+            logger.info(f"{field} = {getattr(cfg_obj, field)}")
+        # 打印 property 值
+        for attr in dir(cfg_obj):
+            if not attr.startswith('_') and not attr in cfg_obj.__dataclass_fields__:
+                try:
+                    value = getattr(cfg_obj, attr)
+                    if isinstance(value, (Path, str, float, int)):
+                        logger.info(f"{attr} = {value}")
+                except:
+                    pass
+
+    logger.success("========== 配置参数输出完毕 ==========")

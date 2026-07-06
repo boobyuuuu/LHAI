@@ -1,0 +1,24 @@
+{
+  "run_label": "Exp2_TwoPointSource",
+  "data_path": "/root/LHAI_KM2A/data/Evaluation/Exp2_TwoPointSource/EXP2SEP_800_64_poissonexcess.npy",
+  "model_weight_path": "/root/LHAI_KM2A/saves/MODEL/DDPM/Last_DDPM_KM2A_400epo_32bth_SR4poissonexcess_finetuned600epo.pth",
+  "data_range": 2.0,
+  "PSF68_DEG": 0.412311,
+  "PEAK_DIST_THRESHOLD_DEG": 0.2061555,
+  "RESOLVE_THRESHOLDS": {
+    "loose": 0.1,
+    "main": 0.2,
+    "tight": 0.3
+  },
+  "n_total": 799,
+  "n_resolved": 689,
+  "overall_resolved_rate": 0.8623279098873592,
+  "D_min_resolved_at_Q_eq_1": 0.1,
+  "Q_min_resolved_per_D": {
+    "0.1": 0.01,
+    "0.2": 0.01,
+    "0.3": 0.01,
+    "0.4": 0.010234114021054532
+  },
+  "created_at": "2026-05-19T22:56:02"
+}

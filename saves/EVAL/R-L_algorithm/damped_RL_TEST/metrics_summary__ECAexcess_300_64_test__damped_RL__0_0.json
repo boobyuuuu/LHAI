@@ -1,0 +1,184 @@
+{
+  "run_label": "damped_RL_TEST",
+  "data_path": "/root/LHAI_novel/data/Evaluation/ECAexcess_300_64_test.npy",
+  "algorithm": "damped R-L",
+  "rl_n_iter": 1000,
+  "rl_psf_size": 21,
+  "rl_psf_sigma_pix": 1.5,
+  "rl_boundary": "wrap",
+  "energy_range": "1TeV~10TeV",
+  "roi_description": "6.4 deg square centered at random ra in [0,360] deg and dec=22 deg",
+  "data_range": 2.0,
+  "counts_restore_mode_for_metrics": "input_mass_match",
+  "counts_restore_mode_for_visual": "input_mass_match",
+  "normalized_space_scaling": "generated RL counts are minmax-normalized with GT per-image min/max before normalized metrics",
+  "target_counts_scaling": "normalized_to_unit_interval_then_match_raw_target_positive_mass",
+  "indices": [
+    0
+  ],
+  "normalized_summary": {
+    "generated": {
+      "NRMSE": {
+        "mean": 0.06147570163011551,
+        "std": 0.0
+      },
+      "RMSE": {
+        "mean": 0.12295140326023102,
+        "std": 0.0
+      },
+      "MAE": {
+        "mean": 0.0296814925968647,
+        "std": 0.0
+      },
+      "MS-SSIM": {
+        "mean": 0.8538114428520203,
+        "std": 0.0
+      },
+      "SSIM": {
+        "mean": 0.9453399777412415,
+        "std": 0.0
+      },
+      "PSNR": {
+        "mean": 24.225929260253906,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.952610093993786,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 0.0,
+        "std": 0.0
+      }
+    },
+    "input": {
+      "NRMSE": {
+        "mean": 0.0585806742310524,
+        "std": 0.0
+      },
+      "RMSE": {
+        "mean": 0.1171613484621048,
+        "std": 0.0
+      },
+      "MAE": {
+        "mean": 0.04659002274274826,
+        "std": 0.0
+      },
+      "MS-SSIM": {
+        "mean": 0.9293942451477051,
+        "std": 0.0
+      },
+      "SSIM": {
+        "mean": 0.9311119914054871,
+        "std": 0.0
+      },
+      "PSNR": {
+        "mean": 24.64491081237793,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.891284339945959,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 0.0,
+        "std": 0.0
+      }
+    }
+  },
+  "counts_summary": {
+    "generated": {
+      "CountMAE": {
+        "mean": 65.97076966620489,
+        "std": 0.0
+      },
+      "CountRMSE": {
+        "mean": 321.30723089397264,
+        "std": 0.0
+      },
+      "CountNMAE": {
+        "mean": 0.9999999999999629,
+        "std": 0.0
+      },
+      "CountNRMSEMean": {
+        "mean": 4.870448419368155,
+        "std": 0.0
+      },
+      "FluxRelErr": {
+        "mean": -0.9999999999999629,
+        "std": 0.0
+      },
+      "AbsFluxRelErr": {
+        "mean": 0.9999999999999629,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": NaN,
+        "std": NaN
+      },
+      "PeakDistancePx": {
+        "mean": 49.4064773081425,
+        "std": 0.0
+      },
+      "CentroidDistancePx": {
+        "mean": NaN,
+        "std": NaN
+      },
+      "PoissonDeviancePerPixel": {
+        "mean": 3099.180970656321,
+        "std": 0.0
+      },
+      "ReducedChiSquare": {
+        "mean": 65.96889475407144,
+        "std": 0.0
+      }
+    },
+    "input": {
+      "CountMAE": {
+        "mean": 33.441201976198045,
+        "std": 0.0
+      },
+      "CountRMSE": {
+        "mean": 182.4682376954823,
+        "std": 0.0
+      },
+      "CountNMAE": {
+        "mean": 0.5069093804028766,
+        "std": 0.0
+      },
+      "CountNRMSEMean": {
+        "mean": 2.7658952380132242,
+        "std": 0.0
+      },
+      "FluxRelErr": {
+        "mean": -7.986146094635194e-07,
+        "std": 0.0
+      },
+      "AbsFluxRelErr": {
+        "mean": 7.986146094635194e-07,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.8912843406279267,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "CentroidDistancePx": {
+        "mean": 0.9574195571514905,
+        "std": 0.0
+      },
+      "PoissonDeviancePerPixel": {
+        "mean": 27.159871009511868,
+        "std": 0.0
+      },
+      "ReducedChiSquare": {
+        "mean": 37.71995154614437,
+        "std": 0.0
+      }
+    }
+  },
+  "created_at": "2026-05-06T04:22:19"
+}

@@ -1,0 +1,183 @@
+{
+  "run_label": "RL_TEST",
+  "data_path": "/root/LHAI_novel/data/Train/SR4excess_100_64_NewVersion_train.npy",
+  "algorithm": "R-L",
+  "rl_n_iter": 100,
+  "rl_psf_size": 21,
+  "rl_psf_sigma_pix": 1.5,
+  "rl_boundary": "wrap",
+  "energy_range": "1TeV~10TeV",
+  "roi_description": "6.4 deg square centered at random ra in [0,360] deg and dec=22 deg",
+  "data_range": 2.0,
+  "counts_restore_mode_for_metrics": "input_mass_match",
+  "counts_restore_mode_for_visual": "input_mass_match",
+  "target_counts_scaling": "normalized_to_unit_interval_then_match_raw_target_positive_mass",
+  "indices": [
+    0
+  ],
+  "normalized_summary": {
+    "generated": {
+      "NRMSE": {
+        "mean": 0.5018836259841919,
+        "std": 0.0
+      },
+      "RMSE": {
+        "mean": 1.0037672519683838,
+        "std": 0.0
+      },
+      "MAE": {
+        "mean": 0.9966524839401245,
+        "std": 0.0
+      },
+      "MS-SSIM": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "SSIM": {
+        "mean": -0.002305842936038971,
+        "std": 0.0
+      },
+      "PSNR": {
+        "mean": 5.98793888092041,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.5768958885033871,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 0.0,
+        "std": 0.0
+      }
+    },
+    "input": {
+      "NRMSE": {
+        "mean": 0.05636712908744812,
+        "std": 0.0
+      },
+      "RMSE": {
+        "mean": 0.11273425817489624,
+        "std": 0.0
+      },
+      "MAE": {
+        "mean": 0.02518720179796219,
+        "std": 0.0
+      },
+      "MS-SSIM": {
+        "mean": 0.921395480632782,
+        "std": 0.0
+      },
+      "SSIM": {
+        "mean": 0.936566948890686,
+        "std": 0.0
+      },
+      "PSNR": {
+        "mean": 24.979480743408203,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.8134574613618072,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 0.0,
+        "std": 0.0
+      }
+    }
+  },
+  "counts_summary": {
+    "generated": {
+      "CountMAE": {
+        "mean": 5.285736404105714,
+        "std": 0.0
+      },
+      "CountRMSE": {
+        "mean": 28.84263101574288,
+        "std": 0.0
+      },
+      "CountNMAE": {
+        "mean": 1.9408224060190913,
+        "std": 0.0
+      },
+      "CountNRMSEMean": {
+        "mean": 10.590468392430909,
+        "std": 0.0
+      },
+      "FluxRelErr": {
+        "mean": -0.00044774945563765694,
+        "std": 0.0
+      },
+      "AbsFluxRelErr": {
+        "mean": 0.00044774945563765694,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.6338918403313442,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "CentroidDistancePx": {
+        "mean": 8.691239041247398,
+        "std": 0.0
+      },
+      "PoissonDeviancePerPixel": {
+        "mean": 23.291785991256784,
+        "std": 0.0
+      },
+      "ReducedChiSquare": {
+        "mean": 9.756039634908404,
+        "std": 0.0
+      }
+    },
+    "input": {
+      "CountMAE": {
+        "mean": 2.6461416171528938,
+        "std": 0.0
+      },
+      "CountRMSE": {
+        "mean": 19.441916234805944,
+        "std": 0.0
+      },
+      "CountNMAE": {
+        "mean": 0.9716131391040921,
+        "std": 0.0
+      },
+      "CountNRMSEMean": {
+        "mean": 7.138703790948125,
+        "std": 0.0
+      },
+      "FluxRelErr": {
+        "mean": -0.0004477052699908739,
+        "std": 0.0
+      },
+      "AbsFluxRelErr": {
+        "mean": 0.0004477052699908739,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.8134574617228391,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "CentroidDistancePx": {
+        "mean": 0.009630245213212716,
+        "std": 0.0
+      },
+      "PoissonDeviancePerPixel": {
+        "mean": 3.657490808288934,
+        "std": 0.0
+      },
+      "ReducedChiSquare": {
+        "mean": 16.540079714661164,
+        "std": 0.0
+      }
+    }
+  },
+  "created_at": "2026-05-06T04:50:58"
+}

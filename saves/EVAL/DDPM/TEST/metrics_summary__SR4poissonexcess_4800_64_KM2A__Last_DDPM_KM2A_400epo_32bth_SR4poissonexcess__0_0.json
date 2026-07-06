@@ -1,0 +1,178 @@
+{
+  "run_label": "TEST",
+  "data_path": "/root/LHAI_KM2A/data/Train/SR4poissonexcess_4800_64_KM2A.npy",
+  "model_weight_path": "/root/LHAI_KM2A/saves/MODEL/DDPM/Last_DDPM_KM2A_400epo_32bth_SR4poissonexcess.pth",
+  "diffusion_config_key": "DDPM_64",
+  "unet_config_key": "UNET",
+  "data_range": 2.0,
+  "counts_restore_mode_for_metrics": "input_mass_match",
+  "counts_restore_mode_for_visual": "input_mass_match",
+  "indices": [
+    0
+  ],
+  "normalized_summary": {
+    "generated": {
+      "NRMSE": {
+        "mean": 0.024473270401358604,
+        "std": 0.0
+      },
+      "RMSE": {
+        "mean": 0.04894654080271721,
+        "std": 0.0
+      },
+      "MAE": {
+        "mean": 0.010817369446158409,
+        "std": 0.0
+      },
+      "MS-SSIM": {
+        "mean": 0.9904073476791382,
+        "std": 0.0
+      },
+      "SSIM": {
+        "mean": 0.9769891500473022,
+        "std": 0.0
+      },
+      "PSNR": {
+        "mean": 32.226158142089844,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.9803428764803304,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 1.4142135623730951,
+        "std": 0.0
+      }
+    },
+    "input": {
+      "NRMSE": {
+        "mean": 0.14855100214481354,
+        "std": 0.0
+      },
+      "RMSE": {
+        "mean": 0.2971020042896271,
+        "std": 0.0
+      },
+      "MAE": {
+        "mean": 0.26902785897254944,
+        "std": 0.0
+      },
+      "MS-SSIM": {
+        "mean": 0.8143121004104614,
+        "std": 0.0
+      },
+      "SSIM": {
+        "mean": 0.32023248076438904,
+        "std": 0.0
+      },
+      "PSNR": {
+        "mean": 16.562488555908203,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.7931656789489864,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 3.605551275463989,
+        "std": 0.0
+      }
+    }
+  },
+  "counts_summary": {
+    "generated": {
+      "CountMAE": {
+        "mean": 3.1618640105388183,
+        "std": 0.0
+      },
+      "CountRMSE": {
+        "mean": 15.472723243531934,
+        "std": 0.0
+      },
+      "CountNMAE": {
+        "mean": 49.27399631618795,
+        "std": 0.0
+      },
+      "CountNRMSEMean": {
+        "mean": 241.12447176076031,
+        "std": 0.0
+      },
+      "FluxRelErr": {
+        "mean": 49.27116144862618,
+        "std": 0.0
+      },
+      "AbsFluxRelErr": {
+        "mean": 49.27116144862618,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.9803711822222947,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 1.4142135623730951,
+        "std": 0.0
+      },
+      "CentroidDistancePx": {
+        "mean": 0.6871691494309321,
+        "std": 0.0
+      },
+      "PoissonDeviancePerPixel": {
+        "mean": 5.835648956813077,
+        "std": 0.0
+      },
+      "ReducedChiSquare": {
+        "mean": 122.89326126047018,
+        "std": 0.0
+      }
+    },
+    "input": {
+      "CountMAE": {
+        "mean": 4.228267981000721,
+        "std": 0.0
+      },
+      "CountRMSE": {
+        "mean": 7.903145618893399,
+        "std": 0.0
+      },
+      "CountNMAE": {
+        "mean": 65.89266971168087,
+        "std": 0.0
+      },
+      "CountNRMSEMean": {
+        "mean": 123.16137131197341,
+        "std": 0.0
+      },
+      "FluxRelErr": {
+        "mean": 49.2711581478578,
+        "std": 0.0
+      },
+      "AbsFluxRelErr": {
+        "mean": 49.2711581478578,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.7931656757438343,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 3.605551275463989,
+        "std": 0.0
+      },
+      "CentroidDistancePx": {
+        "mean": 5.710284316554921,
+        "std": 0.0
+      },
+      "PoissonDeviancePerPixel": {
+        "mean": 5.935581975430029,
+        "std": 0.0
+      },
+      "ReducedChiSquare": {
+        "mean": 43.476168851146554,
+        "std": 0.0
+      }
+    }
+  },
+  "created_at": "2026-05-22T11:51:47"
+}

@@ -1,0 +1,22 @@
+{
+  "n_samples": 100,
+  "data_path": "/root/LHAI_KM2A/data/Predict/HESSexcess_2_64_predict.npy",
+  "sample_index": 0,
+  "model_weight_path": "/root/LHAI_KM2A/saves/MODEL/DDPM/Last_DDPM_KM2A_400epo_32bth_SR4poissonexcess.pth",
+  "diffusion_config_key": "DDPM_64",
+  "data_range": 2.0,
+  "counts_restore_mode": "input_mass_match",
+  "radial_center_yx": [
+    29,
+    33
+  ],
+  "mean_std_counts_all_pixels": 27.527265548706055,
+  "median_relative_std_all_pixels": 1.7994909286499023,
+  "mean_std_bright_region": 1319.4375,
+  "mean_std_faint_region": 11.349828720092773,
+  "median_relative_std_bright_region": 0.28857213258743286,
+  "median_relative_std_faint_region": 1.8059203624725342,
+  "created_at": "2026-06-28T16:50:53",
+  "mean_counts_mae_to_gt": 42.093162536621094,
+  "mean_counts_rmse_to_gt": 344.83599853515625
+}

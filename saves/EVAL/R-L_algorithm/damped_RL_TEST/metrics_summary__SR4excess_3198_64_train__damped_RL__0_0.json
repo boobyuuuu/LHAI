@@ -1,0 +1,184 @@
+{
+  "run_label": "damped_RL_TEST",
+  "data_path": "/root/LHAI_novel/data/Train/SR4excess_3198_64_train.npy",
+  "algorithm": "damped R-L",
+  "rl_n_iter": 1000,
+  "rl_psf_size": 21,
+  "rl_psf_sigma_pix": 1.5,
+  "rl_boundary": "wrap",
+  "energy_range": "1TeV~10TeV",
+  "roi_description": "6.4 deg square centered at random ra in [0,360] deg and dec=22 deg",
+  "data_range": 2.0,
+  "counts_restore_mode_for_metrics": "input_mass_match",
+  "counts_restore_mode_for_visual": "input_mass_match",
+  "normalized_space_scaling": "generated RL counts are minmax-normalized with GT per-image min/max before normalized metrics",
+  "target_counts_scaling": "normalized_to_unit_interval_then_match_raw_target_positive_mass",
+  "indices": [
+    0
+  ],
+  "normalized_summary": {
+    "generated": {
+      "NRMSE": {
+        "mean": 0.05691180005669594,
+        "std": 0.0
+      },
+      "RMSE": {
+        "mean": 0.11382360011339188,
+        "std": 0.0
+      },
+      "MAE": {
+        "mean": 0.016588058322668076,
+        "std": 0.0
+      },
+      "MS-SSIM": {
+        "mean": 0.8591406345367432,
+        "std": 0.0
+      },
+      "SSIM": {
+        "mean": 0.9497871398925781,
+        "std": 0.0
+      },
+      "PSNR": {
+        "mean": 24.895952224731445,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.9140563135325829,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 1.0,
+        "std": 0.0
+      }
+    },
+    "input": {
+      "NRMSE": {
+        "mean": 0.06277623772621155,
+        "std": 0.0
+      },
+      "RMSE": {
+        "mean": 0.1255524754524231,
+        "std": 0.0
+      },
+      "MAE": {
+        "mean": 0.035704415291547775,
+        "std": 0.0
+      },
+      "MS-SSIM": {
+        "mean": 0.9174251556396484,
+        "std": 0.0
+      },
+      "SSIM": {
+        "mean": 0.9248940348625183,
+        "std": 0.0
+      },
+      "PSNR": {
+        "mean": 24.04409408569336,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.8565597799100841,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 1.0,
+        "std": 0.0
+      }
+    }
+  },
+  "counts_summary": {
+    "generated": {
+      "CountMAE": {
+        "mean": 11.935510660724784,
+        "std": 0.0
+      },
+      "CountRMSE": {
+        "mean": 84.70545291880899,
+        "std": 0.0
+      },
+      "CountNMAE": {
+        "mean": 0.7649343804750627,
+        "std": 0.0
+      },
+      "CountNRMSEMean": {
+        "mean": 5.42868377831589,
+        "std": 0.0
+      },
+      "FluxRelErr": {
+        "mean": 0.016336096333493432,
+        "std": 0.0
+      },
+      "AbsFluxRelErr": {
+        "mean": 0.016336096333493432,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.9140563118579488,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "CentroidDistancePx": {
+        "mean": 2.9382763187324943,
+        "std": 0.0
+      },
+      "PoissonDeviancePerPixel": {
+        "mean": 213.2857954579127,
+        "std": 0.0
+      },
+      "ReducedChiSquare": {
+        "mean": 10.837189037011388,
+        "std": 0.0
+      }
+    },
+    "input": {
+      "CountMAE": {
+        "mean": 11.020798677520649,
+        "std": 0.0
+      },
+      "CountRMSE": {
+        "mean": 62.12264069634904,
+        "std": 0.0
+      },
+      "CountNMAE": {
+        "mean": 0.7063114472739053,
+        "std": 0.0
+      },
+      "CountNRMSEMean": {
+        "mean": 3.981374990553069,
+        "std": 0.0
+      },
+      "FluxRelErr": {
+        "mean": 0.01633597549848242,
+        "std": 0.0
+      },
+      "AbsFluxRelErr": {
+        "mean": 0.01633597549848242,
+        "std": 0.0
+      },
+      "Pearson": {
+        "mean": 0.8565597794217791,
+        "std": 0.0
+      },
+      "PeakDistancePx": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "CentroidDistancePx": {
+        "mean": 0.20481139392231437,
+        "std": 0.0
+      },
+      "PoissonDeviancePerPixel": {
+        "mean": 12.535941165168694,
+        "std": 0.0
+      },
+      "ReducedChiSquare": {
+        "mean": 167.47341727835908,
+        "std": 0.0
+      }
+    }
+  },
+  "created_at": "2026-05-06T04:23:10"
+}

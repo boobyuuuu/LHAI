@@ -1,0 +1,193 @@
+{
+  "run_label": "damped_RL_TEST",
+  "data_path": "/root/LHAI_novel/data/Evaluation/ECAexcess_300_64_test.npy",
+  "algorithm": "damped R-L",
+  "rl_n_iter": 1000,
+  "rl_psf_size": 21,
+  "rl_psf_sigma_pix": 1.5,
+  "rl_boundary": "wrap",
+  "energy_range": "1TeV~10TeV",
+  "roi_description": "6.4 deg square centered at random ra in [0,360] deg and dec=22 deg",
+  "data_range": 2.0,
+  "counts_restore_mode_for_metrics": "input_mass_match",
+  "counts_restore_mode_for_visual": "input_mass_match",
+  "normalized_space_scaling": "generated RL counts are minmax-normalized with GT per-image min/max before normalized metrics",
+  "target_counts_scaling": "normalized_to_unit_interval_then_match_raw_target_positive_mass",
+  "indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "normalized_summary": {
+    "generated": {
+      "NRMSE": {
+        "mean": 0.09300601277500391,
+        "std": 0.0446967566274085
+      },
+      "RMSE": {
+        "mean": 0.18601202555000781,
+        "std": 0.089393513254817
+      },
+      "MAE": {
+        "mean": 0.08636164665222168,
+        "std": 0.05743619065282896
+      },
+      "MS-SSIM": {
+        "mean": 0.7704656243324279,
+        "std": 0.0925914276306411
+      },
+      "SSIM": {
+        "mean": 0.8896659016609192,
+        "std": 0.05647888743871284
+      },
+      "PSNR": {
+        "mean": 21.773447608947755,
+        "std": 4.663915405458068
+      },
+      "Pearson": {
+        "mean": 0.8648102170110755,
+        "std": 0.05232721163738684
+      },
+      "PeakDistancePx": {
+        "mean": 3.3784601540550883,
+        "std": 7.706231698272644
+      }
+    },
+    "input": {
+      "NRMSE": {
+        "mean": 0.08058600276708602,
+        "std": 0.02141221558912456
+      },
+      "RMSE": {
+        "mean": 0.16117200553417205,
+        "std": 0.04282443117824912
+      },
+      "MAE": {
+        "mean": 0.09288199692964554,
+        "std": 0.037783964436498646
+      },
+      "MS-SSIM": {
+        "mean": 0.8973484933376312,
+        "std": 0.04321151803487327
+      },
+      "SSIM": {
+        "mean": 0.8790245354175568,
+        "std": 0.04355600666425976
+      },
+      "PSNR": {
+        "mean": 22.169205093383788,
+        "std": 2.2398813814645435
+      },
+      "Pearson": {
+        "mean": 0.882385173579892,
+        "std": 0.05188538794304663
+      },
+      "PeakDistancePx": {
+        "mean": 3.319224239330448,
+        "std": 7.712506106904629
+      }
+    }
+  },
+  "counts_summary": {
+    "generated": {
+      "CountMAE": {
+        "mean": 74.7453451779588,
+        "std": 52.943917671570986
+      },
+      "CountRMSE": {
+        "mean": 272.30195463208804,
+        "std": 251.08784035518224
+      },
+      "CountNMAE": {
+        "mean": 0.999999999999952,
+        "std": 2.5917918128272094e-14
+      },
+      "CountNRMSEMean": {
+        "mean": 3.2380430113679504,
+        "std": 1.0216730339197742
+      },
+      "FluxRelErr": {
+        "mean": -0.999999999999952,
+        "std": 2.5917918128272094e-14
+      },
+      "AbsFluxRelErr": {
+        "mean": 0.999999999999952,
+        "std": 2.5917918128272094e-14
+      },
+      "Pearson": {
+        "mean": NaN,
+        "std": NaN
+      },
+      "PeakDistancePx": {
+        "mean": 46.4657250212792,
+        "std": 8.020997334924608
+      },
+      "CentroidDistancePx": {
+        "mean": NaN,
+        "std": NaN
+      },
+      "PoissonDeviancePerPixel": {
+        "mean": 3486.7082639905457,
+        "std": 2616.793825986128
+      },
+      "ReducedChiSquare": {
+        "mean": 74.74323659818374,
+        "std": 52.9450651827322
+      }
+    },
+    "input": {
+      "CountMAE": {
+        "mean": 36.96317054587083,
+        "std": 29.822262850199383
+      },
+      "CountRMSE": {
+        "mean": 160.54656590165854,
+        "std": 159.16243045827213
+      },
+      "CountNMAE": {
+        "mean": 0.47992592437373505,
+        "std": 0.09407708754114717
+      },
+      "CountNRMSEMean": {
+        "mean": 1.8523029754066276,
+        "std": 0.7863948211245775
+      },
+      "FluxRelErr": {
+        "mean": -0.021060283291512525,
+        "std": 0.00882003515008941
+      },
+      "AbsFluxRelErr": {
+        "mean": 0.021060283291512525,
+        "std": 0.00882003515008941
+      },
+      "Pearson": {
+        "mean": 0.8823851714785897,
+        "std": 0.051885384508984896
+      },
+      "PeakDistancePx": {
+        "mean": 3.319224239330448,
+        "std": 7.712506106904629
+      },
+      "CentroidDistancePx": {
+        "mean": 0.7691588146613302,
+        "std": 0.560265612993052
+      },
+      "PoissonDeviancePerPixel": {
+        "mean": 32.36272070294347,
+        "std": 31.175326538209514
+      },
+      "ReducedChiSquare": {
+        "mean": 230.8198868018983,
+        "std": 554.9116555482068
+      }
+    }
+  },
+  "created_at": "2026-05-06T04:16:23"
+}
